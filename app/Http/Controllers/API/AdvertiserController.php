@@ -74,7 +74,8 @@ class AdvertiserController extends Controller
 
     public function loginAdvertiser(Request $request)
     {
-        $advertiser = AdvertiserModel::where(['email' => $request->email, 'password' => $request->password])
+        $advertiser = AdvertiserModel::where(['email' => $request->email,
+        'password' =>Hash::make($request->password)])
             ->first();
 
         if ($advertiser == null) {
