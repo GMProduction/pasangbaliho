@@ -63,7 +63,7 @@ class AdvertiserController extends Controller
     public function getAdvertiser(Request $request)
     {
         $advertiser = AdvertiserModel::where(['email' => $request->email, 'password' => $request->password])
-        ->first();
+            ->first();
 
 
         return response()->json([
@@ -75,12 +75,18 @@ class AdvertiserController extends Controller
     public function loginAdvertiser(Request $request)
     {
         $advertiser = AdvertiserModel::where(['email' => $request->email, 'password' => $request->password])
-        ->first();
+            ->first();
 
+        if ($advertiser == null) {
+            return response()->json([
+                'status' => 'user tidak terdaftar'
+            ]);
+        }else{
+            return response()->json([
+                'status' => $request->id,
+                'advertiser' => $advertiser
+            ]);
+        }
 
-        return response()->json([
-            'status' => $request->id,
-            'advertiser' => $advertiser
-        ]);
     }
 }
