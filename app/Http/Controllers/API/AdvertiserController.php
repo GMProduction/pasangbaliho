@@ -87,7 +87,7 @@ class AdvertiserController extends Controller
             ]);
         } else {
             return response()->json([
-                'status' => $request->id,
+                'status' =>'success',
                 'advertiser' => $advertiser
             ]);
         }
