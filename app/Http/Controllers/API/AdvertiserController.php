@@ -83,11 +83,13 @@ class AdvertiserController extends Controller
 
         if ($advertiser == null) {
             return response()->json([
-                'status' => 'user tidak terdaftar'
+                'respon' => 'failure',
+                'message' => 'user tidak terdaftar'
             ]);
         } else {
             return response()->json([
-                'status' =>'success',
+                'respon' =>'success',
+                'message' =>'Login Success',
                 'advertiser' => $advertiser
             ]);
         }
