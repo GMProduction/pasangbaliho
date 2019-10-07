@@ -17,6 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/login', function () {
-    return response()->json(["a" => "su"]);
+Route::post('login', 'API\AdvertiserController@login')->name('login');
+Route::post('register', 'API\AdvertiserController@register');
+
+Route::get('getAdvertiser', 'API\AdvertiserController@getAdvertiser')->name('getAdvertiser');
+Route::post('loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->name('loginAdvertiser');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('details', 'API\AdvertiserController@details');
 });

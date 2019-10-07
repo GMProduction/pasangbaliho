@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'advertiser',
     ],
 
     /*
@@ -38,13 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'advertiser',
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'driver' => 'passport',
+            'provider' => 'advertiser',
         ],
     ],
 
@@ -71,10 +70,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'advertiser' => [
+            'driver' => 'eloquent',
+            'model' => App\models\AdvertiserModel::class,
+        ],
     ],
 
     /*
@@ -95,6 +94,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'advertiser' => [
+            'provider' => 'advertiser',
             'table' => 'password_resets',
             'expire' => 60,
         ],
