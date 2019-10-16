@@ -85,11 +85,11 @@ class AdvertiserController extends Controller
             return response()->json([
                 'respon' => 'failure',
                 'message' => 'user tidak terdaftar'
-            ]);
+            ], 401);
         } else {
             return response()->json([
-                'respon' =>'success',
-                'message' =>'Login Success',
+                'respon' => 'failure',
+                'message' => 'user tidak terdaftar',
                 'advertiser' => $advertiser
             ]);
         }
