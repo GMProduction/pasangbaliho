@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Validator;
 
 class AdvertiserController extends Controller
@@ -40,9 +41,11 @@ class AdvertiserController extends Controller
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
+
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $advertiser = AdvertiserModel::create($input);
@@ -61,16 +64,44 @@ class AdvertiserController extends Controller
         return response()->json(['success' => $user], $this->successStatus);
     }
 
-    public function getAdvertiser(Request $request)
+    public function loginByGoogle(Request $request)
     {
-        $advertiser = AdvertiserModel::where(['email' => $request->email, 'password' => $request->password])
-            ->first();
 
+        $advertiser = AdvertiserModel::where([
+            'email' => $request->email
+        ])->first();
 
-        return response()->json([
-            'status' => $request->id,
-            'advertiser' => $advertiser
-        ]);
+        if ($advertiser == null) {
+
+            try {
+                $input = new AdvertiserModel();
+                $input->email = $request->email;
+                $input->nama = $request->nama;
+                $input->api_token = Hash::make($request->email);
+                $input->save();
+
+                $advertiser = AdvertiserModel::where([
+                    'email' => $request->email
+                ])->first();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'login sukses',
+                    'advertiser' => $advertiser
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'login sukses',
+                'advertiser' => $advertiser
+            ]);
+        }
     }
 
     public function loginAdvertiser(Request $request)

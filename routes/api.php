@@ -22,6 +22,7 @@ Route::post('register', 'API\AdvertiserController@register');
 
 Route::get('getAdvertiser', 'API\AdvertiserController@getAdvertiser')->name('getAdvertiser');
 Route::post('loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->name('loginAdvertiser');
+Route::post('loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'API\AdvertiserController@details');
 });
