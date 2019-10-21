@@ -9,7 +9,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class AdvertiserController extends Controller
+class BalihoController extends Controller
 {
 
     public function dataListAllBaliho()
