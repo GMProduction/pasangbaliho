@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class BalihoModel extends Model
+class FotoBalihoModel extends Model
 {
     use Notifiable;
     use HasApiTokens, Notifiable;
