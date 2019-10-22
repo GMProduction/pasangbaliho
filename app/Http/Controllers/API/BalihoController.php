@@ -17,18 +17,19 @@ class BalihoController extends Controller
 
         try {
             $baliho = BalihoModel::join('foto_baliho','balihos.id_baliho','foto_baliho.id_baliho')
+            ->select('balihos.id_baliho')
             ->groupBy('balihos.id_baliho');
 
             return response()->json([
                 'respon' => 'success',
-                'message' => 'login sukses',
+                'message' => 'success fetch data baliho',
                 'baliho' => $baliho
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'respon' => 'failure',
                 'message' => 'terjadi kesalahan ' . $e
-            ], 401);
+            ], 500);
         }
     }
 
