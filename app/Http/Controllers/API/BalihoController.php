@@ -16,10 +16,12 @@ class BalihoController extends Controller
     {
 
         try {
-            $baliho = BalihoModel::join('foto_baliho','balihos.id_baliho','foto_baliho.id_baliho')
-            ->select('balihos.id_baliho as id_baliho', 'balihos.nama_baliho as nama_baliho',
-            'balihos.alamat as alamat', 'balihos.deskripsi as deskripsi', 'foto_baliho.url_foto as url_foto')
-            ->groupBy('id_baliho')
+            $baliho = BalihoModel::
+            // join('foto_baliho','balihos.id_baliho','foto_baliho.id_baliho')
+            // ->select('balihos.id_baliho as id_baliho', 'balihos.nama_baliho as nama_baliho',
+            // 'balihos.alamat as alamat', 'balihos.deskripsi as deskripsi', 'foto_baliho.url_foto as url_foto')
+            // ->
+            groupBy('id_baliho')
             ->get();
 
             return response()->json([
