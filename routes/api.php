@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', 'API\AdvertiserController@login')->name('login');
 Route::post('register', 'API\AdvertiserController@register');
-\
+
 
 //Login and Register Advertiser
 Route::get('getAdvertiser', 'API\AdvertiserController@getAdvertiser')->name('getAdvertiser');
