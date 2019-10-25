@@ -41,9 +41,9 @@ class BalihoController extends Controller
         }
     }
 
-    public function dataListAllBalihoByKategori(Request $request)
+    public function dataListBalihoSearchSpesifik(Request $request)
     {
-
+        $tambahan = $request->tambahan;
         try {
             $baliho = BalihoModel::join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->select(
@@ -54,7 +54,14 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where('kategori', $request->kategori)
+                ->where($request->jenis, $request->isi)
+                ->where(function ($q) use ($tambahan) {
+                    $q->where('kategori', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('alamat', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('kota', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
+                })
                 ->groupBy('id_baliho')
                 ->get();
 
