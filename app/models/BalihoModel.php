@@ -7,8 +7,6 @@ use Illuminate\Notifications\Notifiable;
 
 class BalihoModel extends Model
 {
-    use Notifiable;
-    use HasApiTokens, Notifiable;
     protected $table = "balihos";
     protected $primary = 'id_baliho';
 

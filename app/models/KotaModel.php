@@ -3,12 +3,9 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 class KotaModel extends Model
 {
-    use Notifiable;
-    use HasApiTokens, Notifiable;
     protected $table = "kotas";
     protected $primary = 'id_kota';
 
