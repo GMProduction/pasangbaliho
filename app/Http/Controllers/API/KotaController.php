@@ -14,7 +14,7 @@ class KotaController extends Controller
     {
 
         try {
-            $kota = KotaModel::orderBy('namaKota', 'ASC')
+            $kota = KotaModel::orderBy('nama_kota', 'ASC')
                 ->get();
 
             return response()->json([
