@@ -6,9 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\BalihoModel;
 use App\models\FotoBalihoModel;
-use Auth;
-use Illuminate\Support\Facades\Hash;
-use Validator;
 
 class BalihoController extends Controller
 {

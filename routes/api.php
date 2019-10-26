@@ -32,6 +32,8 @@ Route::get('dataListAllBaliho', 'API\BalihoController@dataListAllBaliho')->name(
 Route::get('dataListBalihoSearchSpesifik', 'API\BalihoController@dataListBalihoSearchSpesifik')->name('dataListBalihoSearchSpesifik');
 Route::get('showDetailBaliho/{id}', 'API\BalihoController@showDetailBaliho')->name('showDetailBaliho');
 
+//Fetch data kota
+Route::get('dataAllKota', 'API\KotaController@dataAllKota')->name('dataAllKota');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
