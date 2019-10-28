@@ -88,15 +88,15 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("kota", $request->kota)
-                ->orwhere("kategori", $request->kategori)
+                ->where("kota","LIKE", $request->kota)
+                ->orwhere("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('alamat', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
                 })
                 ->groupBy('id_baliho')
-                ->sortBy($request->sortby)
+                ->sortBy($request->sortby, "ASC")
                 ->get();
 
             return response()->json([
