@@ -35,6 +35,9 @@ Route::get('showDetailBaliho/{id}', 'API\BalihoController@showDetailBaliho')->na
 //Fetch data kota
 Route::get('dataAllKota', 'API\KotaController@dataAllKota')->name('dataAllKota');
 
+//Fetch data kategori
+Route::get('dataAllKategori', 'API\KategoriController@dataAllKategori')->name('dataAllKategori');
+
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'API\AdvertiserController@details');
