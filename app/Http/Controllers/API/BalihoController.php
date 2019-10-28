@@ -96,7 +96,7 @@ class BalihoController extends Controller
                         ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
                 })
                 ->groupBy('id_baliho')
-                ->sortBy($request->sortby, "ASC")
+                ->orderBy($request->sortby, "ASC")
                 ->get();
 
             return response()->json([
