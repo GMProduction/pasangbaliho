@@ -29,7 +29,6 @@ Route::post('loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('lo
 
 //Fetch data baliho
 Route::get('dataListAllBaliho', 'API\BalihoController@dataListAllBaliho')->name('dataListAllBaliho');
-Route::get('dataListBalihoSearchSpesifik', 'API\BalihoController@dataListBalihoSearchSpesifik')->name('dataListBalihoSearchSpesifik');
 Route::get('dataListBalihoSearchGlobal', 'API\BalihoController@dataListBalihoSearchGlobal')->name('dataListBalihoSearchGlobal');
 Route::get('showDetailBaliho/{id}', 'API\BalihoController@showDetailBaliho')->name('showDetailBaliho');
 
