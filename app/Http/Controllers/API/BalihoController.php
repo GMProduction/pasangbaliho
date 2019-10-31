@@ -26,9 +26,8 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->paginate(5)
                 ->groupBy('id_baliho')
-                ->get();
+                ->paginate(5);
 
             return response()->json([
                 'respon' => 'success',
