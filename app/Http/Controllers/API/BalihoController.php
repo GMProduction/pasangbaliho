@@ -68,6 +68,7 @@ class BalihoController extends Controller
                 })
                 ->groupBy('id_baliho')
                 ->orderBy($request->sortby, "ASC")
+                ->paginate(20)
                 ->get();
 
             return response()->json([
