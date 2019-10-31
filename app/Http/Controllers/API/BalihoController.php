@@ -26,6 +26,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
+                ->paginate(5)
                 ->groupBy('id_baliho')
                 ->get();
 
@@ -46,8 +47,7 @@ class BalihoController extends Controller
     {
         $tambahan = $request->tambahan;
         try {
-            $baliho = BalihoModel::paginate(4)
-                ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            $baliho = BalihoModel::join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
@@ -60,7 +60,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("kota", "LIKE", $request->kota)
+                ->where("kota","LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
@@ -68,6 +68,7 @@ class BalihoController extends Controller
                         ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
                 })
                 ->groupBy('id_baliho')
+                ->orderBy($request->sortby, "ASC")
                 ->get();
 
             return response()->json([
