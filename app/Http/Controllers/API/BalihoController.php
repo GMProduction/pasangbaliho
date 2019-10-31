@@ -59,7 +59,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("kota", "LIKE", $request->kota)
+                ->where("kota","LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
