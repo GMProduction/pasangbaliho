@@ -38,6 +38,9 @@ Route::get('dataAllKota', 'API\KotaController@dataAllKota')->name('dataAllKota')
 //Fetch data kategori
 Route::get('dataAllKategori', 'API\KategoriController@dataAllKategori')->name('dataAllKategori');
 
+//Transaksi
+Route::post('ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->name('ajukanPenawaran');
+
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'API\AdvertiserController@details');
