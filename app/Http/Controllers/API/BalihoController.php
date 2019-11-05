@@ -27,7 +27,7 @@ class BalihoController extends Controller
                     'foto_baliho.url_foto as url_foto'
                 )
                 ->groupBy('balihos.id_baliho')
-                ->paginate(5);
+                ->paginate(20);
 
             return response()->json([
                 'respon' => 'success',
@@ -68,7 +68,7 @@ class BalihoController extends Controller
                 })
                 ->groupBy('balihos.id_baliho')
                 ->orderBy($request->sortby, "ASC")
-                ->paginate(5);
+                ->paginate(20);
 
             return response()->json([
                 'respon' => 'success',
