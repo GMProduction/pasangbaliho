@@ -16,6 +16,25 @@ class TransaksiController extends Controller
     {
         try {
             $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'balihos.kota as kota',
+                    'balihos.provinsi as provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_ditawarkan as harga_ditawarkan',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.status_pembayaran as status_pembayaran',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
                 ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
                 ->orderBy("created_at", "DESC")
