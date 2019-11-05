@@ -15,17 +15,17 @@ class TransaksiController extends Controller
     public function dataTransaksi(Request $request)
     {
         try {
-            $transaksi = TransaksiModel::where("id_advertiser", $request->id_advertiser)
+            $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
 
             return response()->json([
                 'respon' => 'success',
-                'message' => 'pengajuan permintaan berhasil',
+                'message' => 'fetch data transaksi berhasil',
                 'transaksi' => $transaksi
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'respon' => 'failure',
