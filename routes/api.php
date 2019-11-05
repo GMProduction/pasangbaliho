@@ -40,6 +40,7 @@ Route::get('dataAllKategori', 'API\KategoriController@dataAllKategori')->name('d
 
 //Transaksi
 Route::post('ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->name('ajukanPenawaran');
+Route::get('dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 
 
 Route::group(['middleware' => 'auth:api'], function () {
