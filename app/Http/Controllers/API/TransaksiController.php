@@ -37,7 +37,7 @@ class TransaksiController extends Controller
                 )
                 ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
-                ->groupBy('balihos.id_baliho')
+                ->groupBy('transaksi.id_transaksi','balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
 
