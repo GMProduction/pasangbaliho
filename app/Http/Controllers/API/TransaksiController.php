@@ -54,6 +54,46 @@ class TransaksiController extends Controller
         }
     }
 
+    public function detailTransaksi($idTransaksi)
+    {
+        try {
+            $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'balihos.kota as kota',
+                    'balihos.provinsi as provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_ditawarkan as harga_ditawarkan',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.status_pembayaran as status_pembayaran',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("id_transaksi", $idTransaksi)
+                ->groupBy('transaksi.id_transaksi','balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->first();
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch detail transaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
 
     public function ajukanPenawaran(Request $request)
     {
