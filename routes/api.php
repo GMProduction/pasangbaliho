@@ -43,6 +43,8 @@ Route::post('ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->name(
 Route::get('dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
 
+//Slider
+Route::get('getSlider', 'API\SliderController@getSlider')->name('getSlider');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'API\AdvertiserController@details');
