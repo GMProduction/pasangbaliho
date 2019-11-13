@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/sendMessage', 'Fcm\SendingeMessage@sendMessage')->name('sendMessage');
