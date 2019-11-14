@@ -31,7 +31,7 @@ return [
     ],
 
     'fcm' => [
-        'key' => env('AIzaSyB1ac5npeQVCldf9_MV2NS6_9vN6oCBgm0')
+        'key' => env('AAAAAkPEgO0:APA91bHHWjxxeA6d66UHQezAKGc7IiQ-DTt64daEsYx6PLHPuB0cUQSDke3lrQ2GzTojdViVqIViFbJGsJcGiWZVb-Lgj51HWTe91Zq1rP21Taw2SpwrTY9D8M3EWCg-6QGcPYtTk_0B')
     ],
 
 ];
