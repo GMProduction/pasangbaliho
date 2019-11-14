@@ -11,6 +11,16 @@ class SenderMessage extends Controller
 
     public function sendNotificaton($to = '', $data = array())
     {
+
+    }
+
+    public function toFcm()
+    {
+        $to = "fc_bIrit9ew:APA91bHYHs-rbHxnL1z-rjAU7EzecZ8ygdpK6rQ82CGefb4xGHFUbWjFTnU_C0SD4FmPYzSL4CU3jcpGxpIUbfVI8TFt7QeA6KYTY1nuzp3SWeONz7kfrxqEFHe4NSxDFBfi5QCVoirG";
+        $data = array(
+            'body' => 'New Message'
+        );
+
         $apikey = 'AAAAAkPEgO0:APA91bHHWjxxeA6d66UHQezAKGc7IiQ-DTt64daEsYx6PLHPuB0cUQSDke3lrQ2GzTojdViVqIViFbJGsJcGiWZVb-Lgj51HWTe91Zq1rP21Taw2SpwrTY9D8M3EWCg-6QGcPYtTk_0B';
         $fields = array('to' => $to, 'notification' => $data);
         $header = array('Authorization: key=' . $apikey, 'Content-Type: application/json');
@@ -26,15 +36,7 @@ class SenderMessage extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         $result = curl_exec($ch);
         return json_encode($result, true);
-    }
 
-    public function toFcm()
-    {
-        $to = "fc_bIrit9ew:APA91bHYHs-rbHxnL1z-rjAU7EzecZ8ygdpK6rQ82CGefb4xGHFUbWjFTnU_C0SD4FmPYzSL4CU3jcpGxpIUbfVI8TFt7QeA6KYTY1nuzp3SWeONz7kfrxqEFHe4NSxDFBfi5QCVoirG";
-        $data = array(
-            'body' => 'New Message'
-        );
-        print_r(sendNotificaton($to, $data));
     }
 
 
