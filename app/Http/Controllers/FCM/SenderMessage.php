@@ -15,7 +15,7 @@ class SenderMessage extends Controller
 
     public function toFcm()
     {
-        $advertiser = AdvertiserModel::all();
+        $advertiser = AdvertiserModel::last();
         $to = $advertiser->fcm_token_android;
 
         $data = array(
