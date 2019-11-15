@@ -17,8 +17,8 @@ class SenderMessage extends Controller
         $to = "fc_bIrit9ew:APA91bHYHs-rbHxnL1z-rjAU7EzecZ8ygdpK6rQ82CGefb4xGHFUbWjFTnU_C0SD4FmPYzSL4CU3jcpGxpIUbfVI8TFt7QeA6KYTY1nuzp3SWeONz7kfrxqEFHe4NSxDFBfi5QCVoirG";
         $data = array(
             'title' => 'Pesan',
-            'body' => 'Pesanan anda sudah dalam proses'
-            'icon' => 'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiqp-bwruvlAhUKto8KHSLdACwQjRx6BAgBEAQ&url=https%3A%2F%2Fthenounproject.com%2Fterm%2Ftest%2F&psig=AOvVaw0bYw5OCCOgcqEVjQmjMQdJ&ust=1573878079052673'
+            'body' => 'Pesanan anda sudah dalam proses',
+            'icon' => 'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiqp-bwruvlAhUKto8KHSLdACwQjRx6BAgBEAQ&url=https%3A%2F%2Fthenounproject.com%2Fterm%2Ftest%2F&psig=AOvVaw0bYw5OCCOgcqEVjQmjMQdJ&ust=1573878079052673',
             'notification_priority' => 'high'
         );
 
