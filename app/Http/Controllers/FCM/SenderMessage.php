@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FCM;
 
 
 use App\Http\Controllers\Controller;
+use App\models\AdvertiserModel;
 
 class SenderMessage extends Controller
 {
@@ -14,11 +15,12 @@ class SenderMessage extends Controller
 
     public function toFcm()
     {
-        $to = "fc_bIrit9ew:APA91bHYHs-rbHxnL1z-rjAU7EzecZ8ygdpK6rQ82CGefb4xGHFUbWjFTnU_C0SD4FmPYzSL4CU3jcpGxpIUbfVI8TFt7QeA6KYTY1nuzp3SWeONz7kfrxqEFHe4NSxDFBfi5QCVoirG";
+        $advertiser = AdvertiserModel::all();
+        $to = $advertiser->fcm_token_android;
+
         $data = array(
             'title' => 'Pesan',
             'body' => 'Pesanan anda sudah dalam proses',
-            'icon' => 'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiqp-bwruvlAhUKto8KHSLdACwQjRx6BAgBEAQ&url=https%3A%2F%2Fthenounproject.com%2Fterm%2Ftest%2F&psig=AOvVaw0bYw5OCCOgcqEVjQmjMQdJ&ust=1573878079052673',
             'notification_priority' => 'high'
         );
 
@@ -37,6 +39,4 @@ class SenderMessage extends Controller
         $result = curl_exec($ch);
         return json_encode($result, true);
     }
-
-
 }
