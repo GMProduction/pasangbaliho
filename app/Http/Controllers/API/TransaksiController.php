@@ -123,7 +123,7 @@ class TransaksiController extends Controller
     public function setujuiHarga(Request $request)
     {
         $cekAdvertiser = AdvertiserModel::where('id', $request->idAdvertiser)
-            ->where('api_token', $request->apiRequest)
+            ->where('api_token', $request->apiToken)
             ->first();
 
         if ($cekAdvertiser != null) {
@@ -147,7 +147,7 @@ class TransaksiController extends Controller
         } else {
             return response()->json([
                 'respon' => 'authError',
-                'message' => 'terjadi kesalahan ' . $e
+                'message' => 'terjadi kesalahan '
             ], 500);
         }
     }
