@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
-use App\models\BalihoModel;
-use App\models\FotoBalihoModel;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
 
@@ -129,10 +127,10 @@ class TransaksiController extends Controller
         if ($cekAdvertiser != null) {
             try {
                 $data = TransaksiModel::where('id_transaksi', $request->idTransaksi)->first();
-                // $transaksi = TransaksiModel::find($request->idTransaksi);
-                // $data->status = 'negomateri';
-                // $data->harga_deal = $data->harga_ditawarkan;
-                // $data->save();
+                $transaksi = TransaksiModel::find($request->idTransaksi);
+                $transaksi->status = 'negomateri';
+                $transaksi->harga_deal = $data->harga_ditawarkan;
+                $transaksi->save();
 
                 return response()->json([
                     'respon' => 'success',
