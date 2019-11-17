@@ -12,7 +12,7 @@ class AdvertiserModel extends Authenticatable
     use Notifiable;
     use HasApiTokens, Notifiable;
     protected $table = "advertisers";
-    protected $primary = 'id';
+    protected $primaryKey  = 'id';
 
     protected $fillable = [
         'id', 'email', 'nama', 'password', 'telp', 'alamat', 'fcm_token_android'
