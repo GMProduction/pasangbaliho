@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 class BalihoModel extends Model
 {
     protected $table = "balihos";
-    protected $primary = 'id_baliho';
+    protected $primaryKey  = 'id_baliho';
 
     protected $fillable = [
         'id_client', 'kategori', 'nama_baliho', 'ukuran_baliho', 'provinsi', 'kota', 'alamat', 'latitude', 'logitude',
