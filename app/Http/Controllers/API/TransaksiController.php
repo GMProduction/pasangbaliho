@@ -129,10 +129,10 @@ class TransaksiController extends Controller
         if ($cekAdvertiser != null) {
             try {
                 $data = TransaksiModel::where('id_transaksi', $request->idTransaksi)->first();
-                $transaksi = TransaksiModel::find($request->idTransaksi);
-                $transaksi->status = 'negomateri';
-                $transaksi->harga_deal = $data->harga_ditawarkan;
-                $transaksi->save();
+                // $transaksi = TransaksiModel::find($request->idTransaksi);
+                $data->status = 'negomateri';
+                $data->harga_deal = $data->harga_ditawarkan;
+                $data->save();
 
                 return response()->json([
                     'respon' => 'success',
