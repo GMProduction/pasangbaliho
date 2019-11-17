@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\models\AdvertiserModel;
 use App\models\BalihoModel;
 use App\models\FotoBalihoModel;
 use App\models\TransaksiModel;
@@ -37,7 +38,7 @@ class TransaksiController extends Controller
                 )
                 ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
-                ->groupBy('transaksi.id_transaksi','balihos.id_baliho')
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
 
@@ -78,7 +79,7 @@ class TransaksiController extends Controller
                     'foto_baliho.url_foto as url_foto'
                 )
                 ->where("id_transaksi", $idTransaksi)
-                ->groupBy('transaksi.id_transaksi','balihos.id_baliho')
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->first();
 
@@ -114,6 +115,38 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function setujuiHarga(Request $request)
+    {
+        $cekAdvertiser = AdvertiserModel::where('id', $request->idAdvertiser)
+            ->where('api_token', $request->apiRequest)
+            ->first();
+
+        if ($cekAdvertiser != null) {
+            try {
+                $data = TransaksiModel::where('id_transaksi', $request->idTransaksi)->first();
+                $transaksi = TransaksiModel::find($request->idTransaksi);
+                $transaksi->status = 'negomateri';
+                $transaksi->harga_deal = $data->harga_ditawarkan;
+                $transaksi->save();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'harga di setujui berhasil'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'respon' => 'authError',
                 'message' => 'terjadi kesalahan ' . $e
             ], 500);
         }
