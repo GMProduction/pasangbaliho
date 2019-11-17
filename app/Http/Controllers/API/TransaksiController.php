@@ -126,7 +126,7 @@ class TransaksiController extends Controller
 
         if ($cekAdvertiser != null) {
             try {
-                $data = TransaksiModel::where('id_transaksi', $request->idTransaksi)->first();
+                $data = TransaksiModel::where('idTransaksi', $request->idTransaksi)->first();
                 $transaksi = TransaksiModel::find($request->idTransaksi);
                 $transaksi->status = 'negomateri';
                 $transaksi->harga_deal = $data->harga_ditawarkan;
