@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class TransaksiModel extends Model
 {
     protected $table = "transaksi";
-    protected $primary = 'idTransaksi';
+    protected $primary = 'id_transaksi';
 
     protected $fillable = [
-        'idTransaksi',
+        'id_transaksi',
         'id_baliho',
         'id_advertiser',
         'harga_ditawarkan',
