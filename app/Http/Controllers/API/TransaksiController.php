@@ -154,24 +154,23 @@ class TransaksiController extends Controller
 
     public function countNewTransaksi(Request $request)
     {
-        if($request->idAdv != null){
-        try {
-            $newTransaksi = TransaksiModel::where("terbaca_advertiser","0")
-            ->where("id_advertiser", $request->idAdv)
-            ->count();
+        if ($request->idAdv != null) {
+            try {
+                $newTransaksi = TransaksiModel::where("terbaca_advertiser", "0")
+                    ->where("id_advertiser", $request->idAdv)
+                    ->count();
 
-            return response()->json([
-                'respon' => 'success',
-                'message' => 'count transaksi berhasil',
-                'transaksi' => $newTransaksi
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'respon' => 'failure',
-                'message' => 'terjadi kesalahan ' . $e
-            ], 500);
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'count transaksi berhasil',
+                    'transaksi' => $newTransaksi
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
         }
     }
-
 }
