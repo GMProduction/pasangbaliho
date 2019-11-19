@@ -46,6 +46,21 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ],
+
+        'advertiser' => [
+            'driver' => 'session',
+            'provider' => 'advertisers',
+        ],
+
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
     ],
 
     /*
@@ -70,6 +85,21 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+
+        'members' => [  
+            'driver' => 'eloquent',
+            'model' => App\Master\memberModel::class,
+        ],
+
+        'advertisers' => [  
+            'driver' => 'eloquent',
+            'model' => App\Master\advertiserModel::class,
+        ],
+
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Master\clientModel::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
