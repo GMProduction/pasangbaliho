@@ -44,6 +44,9 @@ Route::post('v1/setujuiHarga', 'API\TransaksiController@setujuiHarga')->name('se
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
 
+Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')->name('countNewTransaksi');
+
+
 //Slider
 Route::get('v1/getSlider', 'API\SliderController@getSlider')->name('getSlider');
 
