@@ -9,8 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "benwilkins/laravel-fcm-notification": "^4.0",
         "fideloper/proxy": "^4.0",
+        "kawankoding/laravel-fcm": "^0.1.9",
+        "kreait/laravel-firebase": "^1.2",
         "laravel/framework": "^6.0",
+        "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0"
     },
     "require-dev": {

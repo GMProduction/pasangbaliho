@@ -54,3 +54,5 @@ Route::get('dashboard/addProduk', function(){
 Route::get('showStreetView',function(){
     return view('item.streetview');
 });
+
+Route::get('/toFcm', 'FCM\SenderMessage@toFcm')->name('toFcm');
