@@ -17,9 +17,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function(){
-    echo "tes cuk";
-});
+Route::get('/', 'Member\indexController@index');
 Route::get('detail', 'Member\productController@detailProduct');
 
 Route::get('product', 'Member\productController@showProduct');
@@ -56,3 +54,5 @@ Route::get('dashboard/addProduk', function(){
 Route::get('showStreetView',function(){
     return view('item.streetview');
 });
+
+Route::get('/toFcm', 'FCM\SenderMessage@toFcm')->name('toFcm');
