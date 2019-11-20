@@ -180,7 +180,7 @@ class TransaksiController extends Controller
             try {
                 $newTransaksi = TransaksiModel::where("terbaca_advertiser", "0")
                     ->where("id_advertiser", $request->idAdv)
-                    ->update("terbaca_advertiser", "1");
+                    ->update(["terbaca_advertiser" => "1"]);
 
                 return response()->json([
                     'respon' => 'success',
