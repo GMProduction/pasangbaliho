@@ -45,6 +45,21 @@ return [
             'driver' => 'passport',
             'provider' => 'advertiser',
         ],
+
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ],
+
+        'advertiser' => [
+            'driver' => 'session',
+            'provider' => 'advertisers',
+        ],
+
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
     ],
 
     /*
@@ -70,10 +85,25 @@ return [
             'model' => App\User::class,
         ],
 
-        'advertiser' => [
+        'members' => [  
             'driver' => 'eloquent',
-            'model' => App\models\AdvertiserModel::class,
+            'model' => App\Master\memberModel::class,
         ],
+
+        'advertisers' => [  
+            'driver' => 'eloquent',
+            'model' => App\Master\advertiserModel::class,
+        ],
+
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Master\clientModel::class,
+        ]
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*
