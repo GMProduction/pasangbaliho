@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-<<<<<<< HEAD
-=======
 
 Route::post('v1/login', 'API\AdvertiserController@login')->name('login');
 Route::post('v1/register', 'API\AdvertiserController@register');
@@ -55,4 +53,3 @@ Route::get('v1/getSlider', 'API\SliderController@getSlider')->name('getSlider');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
 });
->>>>>>> parent of bc77177... hh

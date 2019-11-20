@@ -173,9 +173,5 @@ class TransaksiController extends Controller
             }
         }
     }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> parent of bc77177... hh
 }
