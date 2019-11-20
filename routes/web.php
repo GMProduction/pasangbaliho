@@ -32,6 +32,7 @@ Route::post('addTransaksi', 'Member\transaksiController@addTransaksi');
 //Register
 Route::post('addAdvertiser', 'Auth\Member\RegisterController@registerAdvertiser');
 Route::post('addClient', 'Auth\Member\RegisterController@registerClient');
+Route::post('addClient', 'Auth\Member\RegisterController@registerClient');
 
 //
 
