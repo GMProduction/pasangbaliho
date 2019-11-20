@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'advertiser',
+        'passwords' => 'users',
     ],
 
     /*
@@ -38,12 +38,13 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'advertiser',
+            'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'passport',
-            'provider' => 'advertiser',
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
         ],
 
         'member' => [
@@ -124,12 +125,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
-
-        'advertiser' => [
-            'provider' => 'advertiser',
             'table' => 'password_resets',
             'expire' => 60,
         ],
