@@ -17,7 +17,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'Member\indexController@index');
+Route::get('/', function(){
+    echo "tes cuk";
+});
 Route::get('detail', 'Member\productController@detailProduct');
 
 Route::get('product', 'Member\productController@showProduct');
