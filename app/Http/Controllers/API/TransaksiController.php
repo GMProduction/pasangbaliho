@@ -163,7 +163,7 @@ class TransaksiController extends Controller
                 return response()->json([
                     'respon' => 'success',
                     'message' => 'count transaksi berhasil',
-                    'transaksi' => $newTransaksi
+                    'count' => $newTransaksi
                 ], 200);
             } catch (\Exception $e) {
                 return response()->json([
@@ -173,5 +173,4 @@ class TransaksiController extends Controller
             }
         }
     }
-
 }
