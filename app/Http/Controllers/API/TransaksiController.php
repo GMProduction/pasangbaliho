@@ -173,4 +173,26 @@ class TransaksiController extends Controller
             }
         }
     }
+
+    public function setReadTransaksi(Request $request)
+    {
+        if ($request->idAdv != null) {
+            try {
+                $newTransaksi = TransaksiModel::where("terbaca_advertiser", "0")
+                    ->where("id_advertiser", $request->idAdv)
+                    ->update("terbaca_advertiser", "1");
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'count transaksi berhasil',
+                    'count' => $newTransaksi
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }
+    }
 }

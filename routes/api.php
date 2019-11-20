@@ -41,6 +41,7 @@ Route::get('v1/dataAllKategori', 'API\KategoriController@dataAllKategori')->name
 //Transaksi
 Route::post('v1/ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->name('ajukanPenawaran');
 Route::post('v1/setujuiHarga', 'API\TransaksiController@setujuiHarga')->name('setujuiHarga');
+Route::post('v1/setReadTransaksi', 'API\TransaksiController@setReadTransaksi')->name('setReadTransaksi');
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
 
