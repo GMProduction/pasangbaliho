@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
-use App\models\BalihoModel;
-use App\models\FotoBalihoModel;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
 
@@ -181,7 +179,7 @@ class TransaksiController extends Controller
                 $transaksi = TransaksiModel::where("terbaca_advertiser", "0")
                     ->where("id_advertiser", $request->idAdv)
                     -> get();
-                $transaksi->update(['terbaca_advertiser' => '1']);
+                $transaksi()->update(['terbaca_advertiser' => '1']);
 
                 return response()->json([
                     'respon' => 'success',
