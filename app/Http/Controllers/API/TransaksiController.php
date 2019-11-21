@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
