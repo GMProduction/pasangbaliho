@@ -78,7 +78,7 @@ class TransaksiController extends Controller
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.terbaca_advertiser as tanggal_akhir',
+                    'transaksi.terbaca_advertiser as terbaca',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
