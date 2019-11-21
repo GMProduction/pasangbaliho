@@ -58,7 +58,7 @@ class TransaksiController extends Controller
     {
         try {
 
-            $transTable = TransaksiModel::find($request->idTransaksi);
+            $transTable = TransaksiModel::find($idTransaksi);
                 $transTable -> terbaca_advertiser = '1';
                 $transTable -> save();
 
