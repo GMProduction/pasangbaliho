@@ -176,10 +176,10 @@ class TransaksiController extends Controller
     {
         if ($request->idAdv != null) {
             try {
-                $transaksi = TransaksiModel::where("terbaca_advertiser", "0")
-                    ->where("id_advertiser", $request->idAdv)
-                    -> get();
-                $transaksi()->update(['terbaca_advertiser' => '1']);
+                $transTable = (new TransaksiModel())->getTable();
+
+                DB::table($transTable)->where("terbaca_advertiser", "0")
+                ->where("id_advertiser", $request->idAdv)->update(['terbaca_advertiser' => '1']);
 
                 return response()->json([
                     'respon' => 'success',
