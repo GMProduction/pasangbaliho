@@ -57,6 +57,11 @@ class TransaksiController extends Controller
     public function detailTransaksi($idTransaksi)
     {
         try {
+
+            $transTable = TransaksiModel::find($request->idTransaksi);
+                $transTable -> terbaca_advertiser = '1';
+                $transTable -> save();
+
             $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->select(
