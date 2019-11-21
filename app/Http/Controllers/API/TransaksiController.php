@@ -198,10 +198,12 @@ class TransaksiController extends Controller
 
     public function setReadPerTransaksi(Request $request)
     {
-        if ($request->idAdv != null) {
+        if ($request->idTransaksi != null) {
             try {
-                $transTable = TransaksiModel::find($request->idAdv);
-                $transTable -> update(['terbaca_advertiser' => '1']);
+                $transTable = TransaksiModel::find($request->idTransaksi);
+                $transTable -> terbaca_advertiser = '1';
+                $transTable -> save();
+
                 return response()->json([
                     'respon' => 'success',
                     'message' => 'read berhasil'
