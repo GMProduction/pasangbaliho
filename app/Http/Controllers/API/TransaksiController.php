@@ -56,12 +56,7 @@ class TransaksiController extends Controller
 
     public function detailTransaksi($idTransaksi)
     {
-
-
         try {
-            $transTable = TransaksiModel::find($idTransaksi);
-            $transTable -> update(['terbaca_advertiser' => '1']);
-
             $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->select(
@@ -78,7 +73,6 @@ class TransaksiController extends Controller
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.terbaca_advertiser as terbaca',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
@@ -188,6 +182,26 @@ class TransaksiController extends Controller
                 DB::table($transTable)->where("terbaca_advertiser", "0")
                 ->where("id_advertiser", $request->idAdv)->update(['terbaca_advertiser' => '1']);
 
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'read berhasil'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }
+    }
+
+
+    public function setReadPerTransaksi(Request $request)
+    {
+        if ($request->idAdv != null) {
+            try {
+                $transTable = TransaksiModel::find($request->idAdv);
+                $transTable -> update(['terbaca_advertiser' => '1']);
                 return response()->json([
                     'respon' => 'success',
                     'message' => 'read berhasil'
