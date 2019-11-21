@@ -43,7 +43,7 @@ Route::post('v1/ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->na
 Route::post('v1/setujuiHarga', 'API\TransaksiController@setujuiHarga')->name('setujuiHarga');
 Route::post('v1/setReadAdvertiser', 'API\TransaksiController@setReadAdvertiser')->name('setReadAdvertiser');
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
-Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
+Route::post('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
 
 Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')->name('countNewTransaksi');
 
