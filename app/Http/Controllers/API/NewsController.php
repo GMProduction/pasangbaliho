@@ -14,7 +14,7 @@ class NewsController extends Controller
 
         try {
             $news = NewsModel::orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate(20);
 
             return response()->json([
                 'respon' => 'success',

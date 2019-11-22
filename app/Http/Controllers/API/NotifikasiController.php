@@ -16,7 +16,7 @@ class NotifikasiController extends Controller
         try {
             $notif = NotifikasiAdvertiserModel::where('id_advertiser', $request->idAdv)
                 ->orderBy('created_at', 'DESC')
-                ->get();
+                ->paginate(20);
 
             return response()->json([
                 'respon' => 'success',

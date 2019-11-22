@@ -14,7 +14,7 @@ class NotifikasiAdvertiserModel extends Model
         'id_advertiser',
         'judul',
         'isi',
-        'terbaca',
+        'terlihat',
         'id_transaksi'
     ];
 
