@@ -21,7 +21,7 @@ class NotifikasiController extends Controller
             return response()->json([
                 'respon' => 'success',
                 'message' => 'success fetch data Notif',
-                'slider' => $notif
+                'data' => $notif
             ], 200);
         } catch (\Exception $e) {
             return response()->json([

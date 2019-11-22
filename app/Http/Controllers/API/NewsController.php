@@ -19,7 +19,7 @@ class NewsController extends Controller
             return response()->json([
                 'respon' => 'success',
                 'message' => 'success fetch data News',
-                'slider' => $news
+                'data' => $news
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
