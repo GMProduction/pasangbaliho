@@ -52,6 +52,12 @@ Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')-
 //Slider
 Route::get('v1/getSlider', 'API\SliderController@getSlider')->name('getSlider');
 
+//News
+Route::get('v1/getDataNews', 'API\SliderController@getDataNews')->name('getDataNews');
+
+//Notifikasi
+Route::get('v1/getDataNotifikasi', 'API\SliderController@getDataNotifikasi')->name('getDataNotifikasi');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
 });
