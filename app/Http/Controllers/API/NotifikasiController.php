@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\models\NotifikasiAdvertiserModel;
 use Symfony\Component\HttpFoundation\Request;
 
-class NotifController extends Controller
+class NotifikasiController extends Controller
 {
 
     public function getDataNotifikasi(Request $request)

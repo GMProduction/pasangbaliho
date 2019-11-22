@@ -56,7 +56,7 @@ Route::get('v1/getSlider', 'API\SliderController@getSlider')->name('getSlider');
 Route::get('v1/getDataNews', 'API\NewsController@getDataNews')->name('getDataNews');
 
 //Notifikasi
-Route::get('v1/getDataNotifikasi', 'API\NotifController@getDataNotifikasi')->name('getDataNotifikasi');
+Route::get('v1/getDataNotifikasi', 'API\NotifikasiController@getDataNotifikasi')->name('getDataNotifikasi');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
