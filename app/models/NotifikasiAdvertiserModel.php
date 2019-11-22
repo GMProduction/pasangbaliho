@@ -15,8 +15,7 @@ class NotifikasiAdvertiserModel extends Model
         'judul',
         'isi',
         'terbaca',
-        'id_transaksi',
-        'link'
+        'id_transaksi'
     ];
 
 }
