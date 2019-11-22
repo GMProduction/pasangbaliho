@@ -36,6 +36,7 @@ class TransaksiController extends Controller
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
                 )
+
                 ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
                 ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
