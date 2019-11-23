@@ -94,6 +94,7 @@ class BalihoController extends Controller
                 ->get();
 
             $transaksi = TransaksiModel::where("status", "selesai")
+                ->where("id_baliho", $id)
                 ->get();
 
             return response()->json([
@@ -103,7 +104,6 @@ class BalihoController extends Controller
                 'foto' => $fotos,
                 'transaksi' => $transaksi
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'respon' => 'failure',
