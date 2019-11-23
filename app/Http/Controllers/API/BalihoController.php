@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\models\BalihoModel;
 use App\models\FotoBalihoModel;
 use App\models\TransaksiModel;
+use Carbon\Carbon;
 
 class BalihoController extends Controller
 {
@@ -95,6 +96,7 @@ class BalihoController extends Controller
 
             $transaksi = TransaksiModel::where("status", "selesai")
                 ->where("id_baliho", $id)
+                ->where("tanggal_akhir",">",Carbon::now())
                 ->get();
 
             return response()->json([
