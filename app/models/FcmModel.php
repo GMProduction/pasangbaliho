@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FcmModel extends Model
 {
-    protected $table = "fcm";
+    protected $table = "fcm_advertiser";
     protected $primaryKey  = 'id_fcm';
 
     protected $fillable = [

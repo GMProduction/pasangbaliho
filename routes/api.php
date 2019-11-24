@@ -58,6 +58,9 @@ Route::get('v1/getDataNews', 'API\NewsController@getDataNews')->name('getDataNew
 //Notifikasi
 Route::get('v1/getDataNotifikasi', 'API\NotifikasiController@getDataNotifikasi')->name('getDataNotifikasi');
 
+//FCM
+Route::post('v1/insertFcmAdvertiser', 'API\FcmController@insertFcmAdvertiser')->name('insertFcmAdvertiser');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
 });
