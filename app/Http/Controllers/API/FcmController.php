@@ -19,16 +19,17 @@ class FcmController extends Controller
             $getToken = FcmModel::where("fcm_token", $request->fcmToken)
                 ->first();
 
-            if ($getToken == null) {
-                $insToken = new FcmModel();
-                $insToken->id_advertiser = $request->idAdv;
-                $insToken->fcm_token = $request->fcmToken;
-                $insToken->save();
-            } else {
-                $fcmTable = (new FcmModel())->getTable();
-                DB::table($fcmTable)->where("fcm_token", $request->fcmToken)->update(['id_advertiser' => $request->idAdv]);
+            if ($request->idAdv != "0") {
+                if ($getToken == null) {
+                    $insToken = new FcmModel();
+                    $insToken->id_advertiser = $request->idAdv;
+                    $insToken->fcm_token = $request->fcmToken;
+                    $insToken->save();
+                } else {
+                    $fcmTable = (new FcmModel())->getTable();
+                    DB::table($fcmTable)->where("fcm_token", $request->fcmToken)->update(['id_advertiser' => $request->idAdv]);
+                }
             }
-
             return response()->json([
                 'respon' => 'success',
                 'message' => 'success insert fcm'
