@@ -16,7 +16,7 @@ class FcmController extends Controller
 
         try {
 
-            $getToken = FcmModel::where("fcm_token", $request)
+            $getToken = FcmModel::where("fcm_token", $request->fcmToken)
                 ->first();
 
             if ($getToken == null) {
