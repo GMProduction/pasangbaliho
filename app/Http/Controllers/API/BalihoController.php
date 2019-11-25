@@ -27,7 +27,6 @@ class BalihoController extends Controller
                     'provinsis.nama_provinsi as provinsi',
                     'balihos.harga_client as harga_client',
                     'balihos.harga_market as harga_market',
-                    'balihos.provinsi as provinsi',
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
