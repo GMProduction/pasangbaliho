@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{asset('css/product.css')}}">
 <section id="about-page-section-3">
 
-    @foreach ($produkDetail as $p)
+
 
 
     <div class="container">
@@ -14,10 +14,68 @@
                 <div class="row" style="">
 
                     <div class="col-md-12">
+
+                        <div id="myCarousel" class="carousel slide">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                @php
+                                $i = 0;
+                                @endphp
+
+                                @foreach ($foto as $g)
+
+                                @if ($loop->first)
+                                <li data-target="#myCarousel" data-slide-to="{{$i}}" class="active"></li>
+                                @else
+                                <li data-target="#myCarousel" data-slide-to="{{$i}}" class=""></li>
+                                @endif
+                                @php
+                                $i ++;
+                                @endphp
+
+                                @endforeach
+
+                                {{-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                                        <li data-target="#myCarousel" data-slide-to="2"></li> --}}
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                @foreach ($foto as $f)
+                               
+                                @if ($loop->first)
+                                <div class="item active">
+                                    @else
+                                    <div class="item ">
+                                        @endif
+                                        <div class="fill"
+                                            style="background-image:url('{{asset('assets/'.$f->url_foto)}}');">
+                                        </div>
+
+                                    </div>
+                                @endforeach
+                            </div>
+                                <!-- Left and right controls -->
+
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <i
+                                        class="fa fa-angle-left" aria-hidden="true"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <i
+                                        class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+
+                            </div>
+
+
+                            {{--                         
                         <div class="pro-img-details">
                             <img src="{{asset('assets/img/iphone62.png')}}" alt="">
                         </div>
                         <div class="pro-img-list">
+
                             <a href="#">
                                 <img src="{{asset('assets/img/iphone62.png')}}" alt="">
                             </a>
@@ -30,11 +88,12 @@
                             <a href="#">
                                 <img src="{{asset('assets/img/iphone62.png')}}" alt="">
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
             </div>
+            @foreach ($produkDetail as $p)
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-align ">
                 <div class="section-heading">
                     <h2>{{$p->nama_baliho}}</h2>
@@ -65,13 +124,13 @@
                         <td>No</td>
                     </tr>
                 </table>
-                <label style="font-size: 12pt" class="pb-1">{{$p->min_harga}} s/d {{$p->max_harga}}</label><br>
+                <label style="font-size: 12pt" class="pb-1">Kisaran Harga Rp. {{formatuang($p->max_harga)}} / Bulan</label><br>
                 <label style="font-size: 12pt">Dipesan : </label>
                 @forelse ($dipesan as $d)
                 {{-- <p>Tanggal {{$d->tanggal_awal}} s/d {{$d->tanggal_akhir}}</p> --}}
-            <p>{{formatDateToSurat($d->tanggal_awal)}}</p>
+                <p>{{formatDateToSurat($d->tanggal_awal)}}</p>
                 @empty
-                <p>-</p>
+                <p>Belum Ada</p>
                 @endforelse
 
 
@@ -136,12 +195,11 @@
             </div>
 
         </div>
-        <div class="" id="about">
-            <button type="button" onclick="test()">klik</button>
+        <div class="mt-5" id="about">
             <div class="  ">
                 <div class="text-block p-4">
                     <p style="font-size: 14pt">Deskripsi</p>
-                    <p class="">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut.</p>
+                    <p class="">{{$p->deskripsi}}</p>
                 </div>
             </div>
         </div>
@@ -190,11 +248,20 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 <p style="font-size: 14pt">Street View</p>
-                @include('item.streetview')
+                <div id="street"></div>
+                {{-- @include('item.streetview') --}}
             </div>
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function () {
+        $('#street').load('showStreetView/{{$p->id_baliho}}');
+    })
+
+    </script>
+
     @endforeach
 </section>
 <script>

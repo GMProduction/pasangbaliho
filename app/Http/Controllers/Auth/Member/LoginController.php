@@ -16,12 +16,12 @@ class LoginController extends Controller
 
     protected $redirectTo = '/';
 
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
 
-    public function showLoginForm()
+    public function showLoginForm() 
     {
 
         return view('auth.member.login');

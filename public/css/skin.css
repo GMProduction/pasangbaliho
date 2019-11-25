@@ -1783,11 +1783,23 @@ body.red #login-reg .form-box .btn {
 	background-color: #e54e53;
 }
 /******************* GREEN THEME *******************/
+.warnaNetral{
+	color: #DDDDDD;
+}
+.backgroundGreen{
+	background-color: #26A69A !important;
+}
+.backgroundGray{
+	background: #EEF0F4 !important;
+}
+.warnaGreen{
+	color: #26A69A !important;
+}
 body.green span {
 	color: #1abc9c;
 }
 body.green .slide:hover, body.green .slide:focus {
-	box-shadow: inset 15.5em 0 0 0 #1abc9c;
+	/* box-shadow: inset 15.5em 0 0 0 #26A69A; */
 }
 body.green .btn-primary:focus, body.green .btn-primary.focus {
 	color: #fff;

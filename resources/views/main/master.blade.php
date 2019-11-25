@@ -11,17 +11,21 @@
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
     <link rel="stylesheet" href="{{asset('css/padding.css')}}">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dropdown.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/index.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/dropdown.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 
     <style>
+        .menu li:hover {
+            /* background-color: darkgray; */
 
-
+        }
     </style>
 </head>
 
@@ -52,7 +56,7 @@
     </section>
 
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse" style="">
             <div class="container">
                 <div class="row">
                     <div class="navbar-header">
@@ -65,35 +69,78 @@
                         </button>
                         <a class="navbar-brand" href="/">
                             {{-- <h1>Baliho</h1><span>Baliho Solutions</span> --}}
-                            <img src="{{asset('assets/img/pasangbaliho.png')}}" class="imgLogo" alt="" height="60">
+                            <img src="{{asset('assets/img/pasangbaliho.png')}}" class="imgLogo" alt="" height="40">
                         </a>
-                    </div>  
+                    </div>
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
                             <li id="navhome" class=""><a href="/">Home</a></li>
-                            <li id="navproduct" class=""><a href="product">Product</a></li>
+                            <li id="navproduct" class=""><a href="/product?d=all">Product</a></li>
+                            <li id="navnews" class=""><a href="/news">News</a></li>
                             @if (auth()->guard('member')->check())
-                            <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{auth()->guard('member')->user()->nama}} <i class="fas fa-chevron-down    "></i></a>
+                            <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">{{auth()->guard('member')->user()->nama}} <i
+                                        class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
-                                        <li id="dashboard" class=""><a href="dashboard" class="drop">Dashboard</a></li>
-                                        <li id="navlogout"><a href="logout" class="drop">Sign Out</a></li>
+                                    <li id="dashboard" class=""><a href="/dashboard" class="drop">Dashboard</a></li>
+                                    <li id="navlogout"><a href="/logout" class="drop">Sign Out</a></li>
                                 </ul>
                             </li>
                             @elseif (auth()->guard('advertiser')->check())
-                            <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{auth()->guard('advertiser')->user()->nama}} <i class="fas fa-chevron-down    "></i></a>
+                            <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">{{auth()->guard('advertiser')->user()->nama}} <i
+                                        class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
-                                        <li id="dashboard" class=""><a href="dashboard" class="drop">Dashboard</a></li>
-                                        <li id="navlogout"><a href="logout" class="drop">Sign Out</a></li>
+                                    <li id="dashboard" class=""><a href="/dashboard" class="drop">Dashboard</a></li>
+                                    <li id="navlogout"><a href="/logout" class="drop">Sign Out</a></li>
                                 </ul>
                             </li>
+                            {{-- Notifikasi  --}}
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                    role="button">
+                                    <i class="fas fa-bell " style="font-size: 15pt"></i>
+                                   @foreach ($jumNotif as $j)
+                            <span class="label-count"> {{$j->count}}</span>
+                                   @endforeach
+                                      
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">NOTIFICATIONS</li>
+                                    <li class="body">
+                                        <ul class="menu">
+                                            @foreach ($notif as $n)
+                                            <li style="">
+                                                <a href="javascript:void(0);" style="" class="btn btn-block">
+                                                    <div class="icon-circle bg-light-green">
+                                                        <i class="fas fa-user-alt    "></i>
+                                                    </div>
+                                                    <div class="menu-info">
+                                                        <h4>{{$n->isi}}</h4>
+                                                        <p>
+                                                            <i class="fas fa-clock    "></i>
+                                                            {{berapaMenitSekarang($n->created_at)}}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a href="javascript:void(0);">View All Notifications</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="login">Sign In</a></li>
                             <li id="navregistration"><a href="registration">Sign Up</a></li>
                             @endif
+
 
                         </ul>
                     </div>
@@ -104,9 +151,9 @@
     </header>
     <!--/.nav-ends -->
 
-<div id="content">
-    @yield('content')
-</div>
+    <div id="content">
+        @yield('content')
+    </div>
 
 
 
@@ -120,17 +167,17 @@
                         <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
                             saperet inimicu ut qui dolor oratio mnesarchum.
                         </p>
-                        <a href="#" class="learnmore">Learn More <i class="fa fa-caret-right"></i></a>
+                        {{-- <a href="#" class="learnmore">Learn More <i class="fa fa-caret-right"></i></a> --}}
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-3 col-xs-12 block">
                     <div class="footer-block">
-                        <h4>Useful Links</h4>
+                        <h4>About us</h4>
                         <hr />
                         <ul class="footer-links">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Features</a></li>
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fas fa-phone    "></i></a></li>
                             <li><a href="#">Portfolio</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">Sign In</a></li>
@@ -156,7 +203,7 @@
                         <h4>Recent Posts</h4>
                         <hr />
                         <ul class="footer-links">
-                            <li>
+                            {{-- <li>
                                 <a href="#" class="post">Lorem ipsum dolor sit amet</a>
                                 <p class="post-date">May 25, 2017</p>
                             </li>
@@ -167,7 +214,7 @@
                             <li>
                                 <a href="#" class="post">Lorem ipsum dolor sit amet</a>
                                 <p class="post-date">May 25, 2017</p>
-                            </li>
+                            </li> --}}
 
                         </ul>
                     </div>
@@ -186,7 +233,7 @@
                     <a href="#">Terms of Use</a>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 copyright">
-                    Developed by <a href="#">Aspire Software Solutions</a> designed by <a href="#">Designing Team</a>
+                    Developed by <a href="#">Gennosys</a>
                 </div>
             </div>
         </div>
@@ -209,7 +256,7 @@
         <a class="open" href="#!"><span><i class="fas fa-cog fa-spin    "></i></span></a>
     </div> --}}
 
-   
-    
+
+
 
 </html>

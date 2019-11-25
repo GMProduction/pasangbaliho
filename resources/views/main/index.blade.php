@@ -1,183 +1,166 @@
-<!DOCTYPE html>
-<html>
+@extends('main.master')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{asset('css/main.css')}}">
-    <link rel="stylesheet" href="{{asset('css/skin.css')}}">
+@section('content')
+<style>
+    .borderNyala {
+        border: 1px solid #c0c0c0;
+        border-radius: 1rem;
+        text-decoration: none;
+    }
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="{{asset('js/index.js')}}"></script>
-</head>
+    .borderNyala:hover {
+        border: 1px solid #26A69A;
+        box-shadow: 0px 0px 12px #ddd;
+    }
 
-<body id="wrapper">
+    .fa-45x {
+        font-size: 45pt;
+    }
 
-    <section id="top-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
-                    <ul class="contact_links">
-                        <li><i class="fa fa-phone"></i><a href="#">+91 848 594 5080</a></li>
-                        <li><i class="fa fa-envelope"></i><a href="#">sales@aspiresoftware.in</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-5 col-sm-5 col-xs-5 social">
-                    <ul class="social_links">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
-                    </ul>
-                </div>
+    .coruselKecil {}
+</style>
+
+<script>
+    function landmark(a){
+            $('#'+a).hover(function(){
+                $('#icon'+a).attr('src', '{{asset("assets/img/landmark")}}/'+a+'-0.png')
+                }, function(){
+                $('#icon'+a).attr('src', '{{asset("assets/img/landmark")}}/'+a+'.png')
+            })
+        }
+    
+</script>
+
+<div id="myCarousel" class="carousel slide coruselKecil">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+            @php
+            $i = 0;
+            @endphp
+
+            @foreach ($slider as $g)
+
+            @if ($loop->first)
+            <li data-target="#myCarousel" data-slide-to="{{$i}}" class="active"></li>
+            @else
+            <li data-target="#myCarousel" data-slide-to="{{$i}}" class=""></li>
+            @endif
+            @php
+            $i ++;
+            @endphp
+
+            @endforeach
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner ">
+        @foreach ($slider as $s)
+        @if ($loop->first)
+        {{-- This is the first iteration --}}
+        <div class="item active">
+        @else
+        <div class="item">
+        @endif
+            <div class="fill" style="background-image:url('{{asset('assets/'.$s->url_foto)}}');"></div>
+            <div class="carousel-caption slide-up">
+                <h1 class="banner_heading"> <span>{{$s->title}} </span></h1>
+                <p class="banner_txt">{{$s->deskripsi}}</p>
+                {{-- <div class="slider_btn">
+                    <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
+                    <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
+                </div> --}}
             </div>
         </div>
-        </div>
+        @endforeach
 
-    </section>
-
-    <header>
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="row">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </button>
-                        <a class="navbar-brand" href="#">
-                            <h1>Aspire</h1><span>Software Solutions</span></a>
-                    </div>
-                    <div id="navbar" class="collapse navbar-collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="features.html">Features</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="portfolio.html">Portfolio</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="login.html">Sign In</a></li>
-                            <li><a href="registration.html">Sign Up</a></li>
-                        </ul>
-                    </div>
-                    <!--/.nav-collapse -->
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!--/.nav-ends -->
-
-    <div id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="fill" style="background-image:url('img/banner-slide-1.jpg');"></div>
-                <div class="carousel-caption slide-up">
-                    <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                    <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
-                    <div class="slider_btn">
-                        <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
-                        <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="fill" style="background-image:url('img/banner-slide-2.jpg');"></div>
-                <div class="carousel-caption slide-up">
-                    <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                    <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
-                    <div class="slider_btn">
-                        <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
-                        <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="fill" style="background-image:url('img/banner-slide-3.jpg');"></div>
-                <div class="carousel-caption slide-up">
-                    <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                    <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
-                    <div class="slider_btn">
-                        <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
-                        <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Left and right controls -->
-
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Next</span>
-        </a>
-
+      
     </div>
 
-    <section id="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xs-12 block">
-                    <div class="col-md-2 col-xs-2"><i class="fa fa-laptop feature_icon"></i></div>
-                    <div class="col-md-10 col-xs-10">
-                        <h4>100% Responsive</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                        <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                    </div>
+    <!-- Left and right controls -->
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <i class="fa fa-angle-left"
+            aria-hidden="true"></i>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <i class="fa fa-angle-right"
+            aria-hidden="true"></i>
+        <span class="sr-only">Next</span>
+    </a>
+
+</div>
+<br>
+<div class="container" style="margin-top: -45px; z-index: 100 ">
+
+    <div class="" id="" style="">
+        <div class="borderCari p-4" style="">
+            <div class="row  align-items-center" style="">
+                <div class="col col-md-3">
+                    <h4 class="text-center alighText " style=""><span>Mau Pasang di Kota Mana ?</span></h4>
                 </div>
-                <div class="col-md-4 col-xs-12 block">
-                    <div class="col-md-2 col-xs-2"><i class="fa fa-bullhorn feature_icon"></i></div>
-                    <div class="col-md-10 col-xs-10">
-                        <h4>Powerful Features</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                        <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12 block">
-                    <div class="col-md-2 col-xs-2"><i class="fa fa-support feature_icon"></i></div>
-                    <div class="col-md-10 col-xs-10">
-                        <h4>Customer Support</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</p>
-                        <a href="#" class="readmore">Read More <i class="fa fa-caret-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="col-md-9 ">
+                    <div class="row  " style="">
 
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/surakarta.png')}}" alt="" height="60">
+                                <h5><span>Surakarta</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/klaten.png')}}" alt="" height="60">
+                                <h5><span>Klaten</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/boyolali.png')}}" alt="" height="60">
+                                <h5><span>Boyolali</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/karanganyar.png')}}" alt="" height="60">
+                                <h5><span>Karanganyar</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/sragen.png')}}" alt="" height="60">
+                                <h5><span>Sragen</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/sukoharjo.png')}}" alt="" height="60">
+                                <h5><span>Sukoharjo</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/wonogiri.png')}}" alt="" height="60">
+                                <h5><span>Wonogiri</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/semarang.png')}}" alt="" height="60">
+                                <h5><span>Semarang</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/salatiga.png')}}" alt="" height="60">
+                                <h5><span>Salatiga</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-6 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><i
+                                    class="fas fa-forward  fa-45x  "></i>
+                                <h5><span>Show More</span></h5>
+                            </a>
+                        </div>
 
-    <section id="about">
-        <div class="image-holder col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-left">
-            <div class="background-imgholder">
-                <img src="img/1.jpg" alt="about" class="img-responsive" style="display:none;" />
-            </div>
-        </div>
-
-        <div class="container-fluid">
-
-            <div class="col-md-7 col-md-offset-5 col-sm-8 col-sm-offset-2 col-xs-12 text-inner ">
-                <div class="text-block">
-                    <div class="section-heading">
-                        <h1>ABOUT <span>US</span></h1>
-                        <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut.</p>
                     </div>
 
                     <ul class="aboutul">
@@ -194,49 +177,28 @@
 
                 </div>
             </div>
-        </div>
-    </section>
 
 
-    <section id="process">
-        <div class="container">
-            <div class="section-heading text-center">
-                <div class="col-md-12 col-xs-12">
-                    <h1>What <span>We Do</span></h1>
-                    <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud euismod volumus ne mei.</p>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-lightbulb-o feature_icon"></i></a></span></div>
-                        <div class="clearfix"></div>
+            <div class="" id="">
+                <div class="row">
+                    <div class="col-lg-offset-2 col-lg-4 col-md-offset-1 col-md-5 col-sm-12 block">
+                        <select name="" id="kategori" class="form-control" style="height: 45px">
+                            <option value="">Semua Kategori</option>
+                            <option value="Videotron">Videotron</option>
+                            <option value="Baliho">Baliho</option>
+                            <option value="Billboard">Billboard</option>
+                            <option value="Neon Box">Neon Box</option>
+                            <option value="Banner">Banner</option>
+                        </select>
                     </div>
-
-                    <div class="process-text-block">
-                        <h4><a href="#">Idea</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-cloud-download feature_icon"></i></a></span></div>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div class="process-text-block">
-                        <h4><a href="#">Concept</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 block process-block">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-magic feature_icon"></i></a></span></div>
-                        <div class="clearfix"></div>
+                    <div class="col-lg-4 col-md-5 col-sm-12">
+                        <select name="" id="kota" class="form-control" style="height: 45px">
+                            <option value="">Semua Kota</option>
+                            @foreach ($kota as $k)
+                            <option value="{{$k->nama_kota}}">{{$k->nama_kota}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="process-text-block">
@@ -244,150 +206,134 @@
                         <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 block process-block lastchild">
-                    <div class="process-icon-holder">
-                        <div class="process-border">
-                            <span class="process-icon"><a href="#"><i class="fa fa-cog feature_icon"></i></a></span></div>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div class="process-text-block">
-                        <h4><a href="#">Develop</a></h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                <div class="row pt-3">
+                    <div class="col-lg-offset-5 col-lg-2 col-lg-offset-2">
+                        <a href="#!" class="btn btn-primary btn-block btn-sm btn-rounded" style=""
+                            onclick="cariProdukIndex()"><i class="fas fa-search    "></i> Cari</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="padding-top: 50px">
+    <div class=" row ">
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Our <span>Product</span></h1>
+                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
+                    fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
+                    nostrud euismod volumus ne mei.</p>
+            </div>
+        </div>
+    </div>
+
+    @include('item.productIndex')
+</div>
 
         </div>
     </section>
 
 
-    <section id="testimonial">
-        <div class="container">
-            <div class="section-heading text-center">
-                <div class="col-md-12 col-xs-12">
-                    <h1>What Our <span>Client Says</span></h1>
-                    <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud euismod volumus ne mei.</p>
-                </div>
+<section id="testimonial">
+    <div class="container">
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Contoh <span>Media Iklan</span> Yang Kita Miliki</h1>
+                <p class="subheading">Pilih media iklan yang kalian inginkan.</p>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 col-sm-12 block ">
-                    <div class="testimonial_box">
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
-                    </div>
-                    <div class="arrow-down"></div>
-                    <div class="testimonial_user">
-                        <div class="user-image"><img src="img/user1.png" alt="user" class="img-responsive" /></div>
-                        <div class="user-info">
-                            <h5>Lorem Ipsum</h5>
-                            <p>Manager</p>
-                        </div>
-                    </div>
+        <div class="row">
+
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=billboard" onclick="" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/billboard.png')}}" alt="" height="150">
+                    <h5><span>Billboard</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=videotron" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/videotron.png')}}" alt="" height="150">
+                    <h5><span>Videotron</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/digital.png')}}" alt="" height="150">
+                    <h5><span>Digital Display</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/neon.png')}}" alt="" height="150">
+                    <h5><span>Neox Box</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/web.png')}}" alt="" height="150">
+                    <h5><span>Wensite & Blog</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/parking.png')}}" alt="" height="150">
+                    <h5><span>Parking Spot</span></h5>
+                </a>
+            </div>
+          
+            {{-- <div class="col-md-4 col-sm-12 block ">
+                <div class="testimonial_box">
+                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
+                        saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
                 </div>
+                <div class="arrow-down"></div>
+                <div class="testimonial_user">
+                    <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user"
+            class="img-responsive" />
+        </div>
+        <div class="user-info">
+            <h5>Lorem Ipsum</h5>
+            <p>Manager</p>
+        </div>
+    </div>
+    </div>
 
 
-                <div class="col-md-4 col-sm-12 block">
-                    <div class="testimonial_box">
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
-                    </div>
-                    <div class="arrow-down"></div>
-                    <div class="testimonial_user">
-                        <div class="user-image"><img src="img/user1.png" alt="user" class="img-responsive" /></div>
-                        <div class="user-info">
-                            <h5>Lorem Ipsum</h5>
-                            <p>Manager</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12 block">
-                    <div class="testimonial_box">
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
-                    </div>
-                    <div class="arrow-down"></div>
-                    <div class="testimonial_user">
-                        <div class="user-image"><img src="img/user1.png" alt="user" class="img-responsive" /></div>
-                        <div class="user-info">
-                            <h5>Lorem Ipsum</h5>
-                            <p>Manager</p>
-                        </div>
-                    </div>
-                </div>
-
-
+    <div class="col-md-4 col-sm-12 block">
+        <div class="testimonial_box">
+            <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
+                saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
+        </div>
+        <div class="arrow-down"></div>
+        <div class="testimonial_user">
+            <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user" class="img-responsive" />
+            </div>
+            <div class="user-info">
+                <h5>Lorem Ipsum</h5>
+                <p>Manager</p>
             </div>
         </div>
+    </div>
 
-    </section>
-
-
-
-
-
-    <section id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12 block">
-                    <div class="footer-block">
-                        <h4>Address</h4>
-                        <hr/>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.
-                        </p>
-                        <a href="#" class="learnmore">Learn More <i class="fa fa-caret-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-3 col-xs-12 block">
-                    <div class="footer-block">
-                        <h4>Useful Links</h4>
-                        <hr/>
-                        <ul class="footer-links">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Features</a></li>
-                            <li><a href="#">Portfolio</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-3 col-xs-12 block">
-                    <div class="footer-block">
-                        <h4>Community</h4>
-                        <hr/>
-                        <ul class="footer-links">
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Free Goods</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-3 col-xs-12 <block></block>">
-                    <div class="footer-block">
-                        <h4>Recent Posts</h4>
-                        <hr/>
-                        <ul class="footer-links">
-                            <li>
-                                <a href="#" class="post">Lorem ipsum dolor sit amet</a>
-                                <p class="post-date">May 25, 2017</p>
-                            </li>
-                            <li>
-                                <a href="#" class="post">Lorem ipsum dolor sit amet</a>
-                                <p class="post-date">May 25, 2017</p>
-                            </li>
-                            <li>
-                                <a href="#" class="post">Lorem ipsum dolor sit amet</a>
-                                <p class="post-date">May 25, 2017</p>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
+    <div class="col-md-4 col-sm-12 block">
+        <div class="testimonial_box">
+            <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
+                saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
+        </div>
+        <div class="arrow-down"></div>
+        <div class="testimonial_user">
+            <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user" class="img-responsive" />
+            </div>
+            <div class="user-info">
+                <h5>Lorem Ipsum</h5>
+                <p>Manager</p>
             </div>
         </div>
+    </div>
+    </div> --}}
+    </div>
 
 
     </section>

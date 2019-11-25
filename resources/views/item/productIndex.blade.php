@@ -15,10 +15,16 @@
                 
            <input type="hidden" name="id" value="{{$p->id_baliho}}">
             {{-- @for ($i = 0; $i < 8; $i++)  --}}
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 portfolio-item">
-                <div class="portfolio-one">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 portfolio-item"  style="">
+                <div class="portfolio-one" >
                     <div class="portfolio-head">
-                        <div class="portfolio-img"><img alt="" src="{{asset('assets/img/portfolio-1.jpg')}}"></div>
+                        <div class="portfolio-img" style="min-height: 180px;">
+                                @if ($p->url_foto == null)
+                                <img alt="" src="{{asset('assets/noimage.jpg')}}">
+                                @else
+                                <img alt="" src="{{asset('assets/'.$p->url_foto)}}">
+                                @endif
+                        </div>
                         {{-- <div class="portfolio-hover">
                             <a class="portfolio-link" href="#"><i class="fa fa-link"></i></a>
                             <a class="portfolio-zoom" href="#"><i class="fa fa-search"></i></a>
@@ -26,11 +32,12 @@
                     </div>
                     <!-- End portfolio-head -->
                     <div class="portfolio-content">
-                        <h5 class="title">{{$p->alamat}}</h5>
-                        <p><span>{{$p->kota}}</span>
-                            <br>{{$p->min_harga}} s/d {{$p->max_harga}}
-                            <br>tersedia</p>
-                            <a href="detail?id={{$p->id_baliho}}&n={{$p->nama_baliho}}&l={{$p->alamat}},{{$p->kota}},{{$p->provinsi}}" class="btn btn-block btn-primary btn-sm">Detail</a>
+                        <h5 class="title">{{$p->kategori}}</h5>
+                        <p class="pb-1"><span>{{$p->alamat}}, {{$p->kota}}</span>
+                            <br><b>Kisaran Harga :
+                                    <br>Rp. {{formatuang($p->max_harga)}} / Bulan</b>
+                        </p>
+                            <a href="/product/detail?id={{$p->id_baliho}}&n={{$p->nama_baliho}}&l={{$p->alamat}},{{$p->kota}},{{$p->provinsi}}" class="btn btn-block btn-primary btn-sm">Detail</a>
 
                     </div>
                     <!-- End portfolio-content -->
