@@ -69,3 +69,10 @@ Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
 Route::get('showStreetView/{id}','Member\productController@showStreetView');
 
 Route::get('/toFcm', 'FCM\SenderMessage@toFcm')->name('toFcm');
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/', 'DashboardControll@index')->name('dashboard');
+    Route::get('{any}', function () {
+        return view('admin.layout');
+    })->where('any','.*');
+});
