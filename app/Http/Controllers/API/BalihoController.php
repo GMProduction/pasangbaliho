@@ -16,14 +16,15 @@ class BalihoController extends Controller
     {
 
         try {
-            $baliho = BalihoModel::join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            ->leftjoin('id_kota','balihos.id_kota','kotas.id_kota')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.min_harga as min_harga',
-                    'balihos.max_harga as max_harga',
+                    'kotas.nama_kota as kota',
+                    'balihos.harga_client as harga_client',
+                    'balihos.harga_market as harga_market',
                     'balihos.provinsi as provinsi',
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
