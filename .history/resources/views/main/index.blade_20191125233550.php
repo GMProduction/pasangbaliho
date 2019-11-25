@@ -146,7 +146,7 @@
                             </a>
                         </div>
                         <div class="col col-md-6 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?d=all" class="text-center borderNyala pt-3" id="" style=""><i
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><i
                                     class="fas fa-forward  fa-45x  "></i>
                                 <h5><span>Show More</span></h5>
                             </a>

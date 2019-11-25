@@ -76,7 +76,7 @@
                         <ul class="nav navbar-nav">
                             <li id="navhome" class=""><a href="/">Home</a></li>
                             <li id="navproduct" class=""><a href="/product?d=all">Product</a></li>
-                            <li id="navnews" class=""><a href="/news">Article</a></li>
+                            <li id="navnews" class=""><a href="/news">Articel</a></li>
                             @if (auth()->guard('member')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
