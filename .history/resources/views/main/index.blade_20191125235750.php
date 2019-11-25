@@ -199,7 +199,7 @@
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
                 <h1><span>Product</span></h1>
-                <p class="subheading">Produk Baliho.</p>
+                <p class="subheading">Produk Balho.</p>
             </div>
         </div>
     </div>

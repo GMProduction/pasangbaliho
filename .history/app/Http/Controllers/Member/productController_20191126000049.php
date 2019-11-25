@@ -121,7 +121,7 @@ class productController extends Controller
     public function cariProduk(Request $r)
     {
         $kategori = $r->kategori;
-        $id = "";
+
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }

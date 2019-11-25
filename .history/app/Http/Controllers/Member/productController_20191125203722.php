@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class productController extends Controller
 {
     //
-   
+
     public function notif($n)
     {
         $c = Carbon::now();
@@ -53,7 +53,6 @@ class productController extends Controller
             ->where('id_baliho', '=', $req->id)
             ->get();
 
-            $id = "";
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }
@@ -99,7 +98,7 @@ class productController extends Controller
     public function cariProduk1(Request $r)
     {
         $kategori = $r->kategori;
-
+        
 
         $produk = productModel::query()
             ->where('kategori', '=', $kategori)
@@ -121,7 +120,7 @@ class productController extends Controller
     public function cariProduk(Request $r)
     {
         $kategori = $r->kategori;
-        $id = "";
+        
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }
@@ -146,7 +145,7 @@ class productController extends Controller
             // })
             ->paginate(12);
         // ->get();
-
+                
         if ($r->d == 'all') {
             $produk = productModel::query()
                 ->select('balihos.*', 'url_foto')
@@ -162,13 +161,13 @@ class productController extends Controller
             ];
             $produk->appends($r->all('d'));
             // return view('main/product')->with($data);
-
-            return view('main/product', compact(['produk', 'kota', 'jumNotif', 'notif']));
+           
+            return view('main/product', compact(['produk', 'kota','jumNotif','notif']));
         } else {
-            $produk->appends($r->all('k', 'c', 'p', 't', 'd'));
+            $produk->appends($r->all('k', 'c', 'p', 't','d'));
 
 
-            return view('main/product', compact(['produk', 'kota', 'jumNotif', 'notif']));
+            return view('main/product', compact(['produk', 'kota','jumNotif','notif']));
         }
     }
 }

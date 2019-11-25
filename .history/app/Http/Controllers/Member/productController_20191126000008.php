@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class productController extends Controller
 {
     //
-   
+
     public function notif($n)
     {
         $c = Carbon::now();
@@ -53,7 +53,7 @@ class productController extends Controller
             ->where('id_baliho', '=', $req->id)
             ->get();
 
-            $id = "";
+        $id = "";
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }
@@ -121,7 +121,7 @@ class productController extends Controller
     public function cariProduk(Request $r)
     {
         $kategori = $r->kategori;
-        $id = "";
+
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }
