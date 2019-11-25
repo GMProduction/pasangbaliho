@@ -17,7 +17,10 @@
         font-size: 45pt;
     }
 
-  
+    .borderCari {
+        box-shadow: 0px 0px 12px #ddd;
+        border-radius: 1rem;
+    }
 
     .coruselKecil {}
 </style>

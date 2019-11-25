@@ -257,7 +257,7 @@
 
     <script>
         $(document).ready(function () {
-        $('#street').load('/showStreetView/{{$p->id_baliho}}');
+        $('#street').load('showStreetView/{{$p->id_baliho}}');
     })
 
     </script>

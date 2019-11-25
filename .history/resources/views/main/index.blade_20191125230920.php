@@ -17,12 +17,24 @@
         font-size: 45pt;
     }
 
-  
+    .borderCari {
+        box-shadow: 0px 0px 12px #ddd;
+        border-radius: 1rem;
+    }
 
     .coruselKecil {}
 </style>
 
-
+<script>
+    function landmark(a){
+            $('#'+a).hover(function(){
+                $('#icon'+a).attr('src', '{{asset("assets/img/landmark")}}/'+a+'-0.png')
+                }, function(){
+                $('#icon'+a).attr('src', '{{asset("assets/img/landmark")}}/'+a+'.png')
+            })
+        }
+    
+</script>
 
 <div id="myCarousel" class="carousel slide">
     <!-- Indicators -->
@@ -273,5 +285,5 @@
 
 
 {{--  --}}
-    
-@endsection
+
+</html>

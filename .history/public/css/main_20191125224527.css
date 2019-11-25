@@ -10,47 +10,6 @@ html {
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
-
-.warnaDasar{
-	color: #26A69A;
-	background-color: #26A69A;
-}
-
-.topHeader{
-	padding-top: 100px;
-}
-
-.drop{
-	height: 40px !important;
-	line-height: 30px !important;
-	margin-left: 10px !important;
-	margin-bottom: 5px !important;
-	padding-top: 0px !important; 
-}
-
-.noBorder{
-	border-color: transparent !important;
-}
-
-.table-noborder tr td{
-	border : 0 !important;
-}
-
-.eye{
-	background-color: transparent !important; 
-	cursor: pointer
-}
-
-.borderCari{
-	background: #fff;
-	padding: 40px;
-	position: relative;
-	top: 50%;
-	box-shadow: 0px 0px 12px #ddd;
-	border-radius: 5px;
-}
-
-
 body {
 	margin: 0;
 }
@@ -6155,7 +6114,7 @@ body #myCarousel .slider_btn .btn {
 	margin: 5px 10px;
 }
 body #myCarousel .carousel-inner {
-	height: 300px;
+	height: 600px;
 }
 body #myCarousel .item {
 	background-position: 50% 50%;
@@ -6166,7 +6125,7 @@ body #myCarousel .item {
 	-o-background-size: cover;
 	background-size: cover;
 	height: 100%;
-	/* z-index: 1; */
+	z-index: 1;
 }
 body #myCarousel .item:before {
 	opacity: .7;
@@ -6192,7 +6151,7 @@ body #myCarousel .fill {
 body #myCarousel .carousel-caption {
 	padding-bottom: 30px;
 	margin-bottom: 65px;
-	top: 1%;
+	top: 22%;
 }
 body #myCarousel .carousel-caption .slider_btn {
 	margin: 30px 0px;
@@ -6328,7 +6287,7 @@ body #about .section-block, body #about #features, body #about #process, body #a
 	display: inline-block;
 }
 body #about .background-imgholder {
-	background: url(../../assets/img/1.jpg);
+	background: url(../img/1.jpg);
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -7639,7 +7598,7 @@ body #login-reg .datablock {
 body #login-reg .btn-link-1 {
 	display: inline-block;
 	height: 50px;
-	/* margin: 5px; */
+	margin: 5px;
 	padding: 16px 20px 0 20px;
 	background: #19b9e7;
 	font-size: 16px;

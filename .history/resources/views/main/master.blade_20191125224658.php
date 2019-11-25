@@ -31,7 +31,7 @@
 
 <body id="wrapper">
 
-    <section id="top-header">
+    {{-- <section id="top-header">
         <div class="container">
             <div class="row">
                 <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
@@ -53,7 +53,7 @@
         </div>
         </div>
 
-    </section>
+    </section> --}}
 
     <header>
         <nav class="navbar navbar-inverse" style="">

@@ -2693,4 +2693,6 @@
 
 .portlet.box.grey-cararra>.portlet-title>.actions .btn-default.active,
 .portlet.box.grey-cararra>.portlet-title>.actions .btn-default:active,
-.portlet.box.grey-cararra>.portlet-title>.actions .btn-defau
+.portlet.box.grey-cararra>.portlet-title>.actions .btn-default{
+
+}
