@@ -92,61 +92,61 @@
                     <div class="row  " style="">
 
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=surakarta" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/surakarta.png')}}" alt="" height="60">
                                 <h5><span>Surakarta</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=klaten" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/klaten.png')}}" alt="" height="60">
                                 <h5><span>Klaten</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=boyolali" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/boyolali.png')}}" alt="" height="60">
                                 <h5><span>Boyolali</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=karanganyar" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/karanganyar.png')}}" alt="" height="60">
                                 <h5><span>Karanganyar</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=sragen" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/sragen.png')}}" alt="" height="60">
                                 <h5><span>Sragen</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=sukoharjo" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/sukoharjo.png')}}" alt="" height="60">
                                 <h5><span>Sukoharjo</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=wonogiri" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/wonogiri.png')}}" alt="" height="60">
                                 <h5><span>Wonogiri</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=semarang" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/semarang.png')}}" alt="" height="60">
                                 <h5><span>Semarang</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?c=salatiga" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
                                     src="{{asset('assets/img/landmark/salatiga.png')}}" alt="" height="60">
                                 <h5><span>Salatiga</span></h5>
                             </a>
                         </div>
                         <div class="col col-md-6 col-xs-6 pb-3 pr-2 pl-2">
-                            <a href="/product/search?d=all" class="text-center borderNyala pt-3" id="" style=""><i
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><i
                                     class="fas fa-forward  fa-45x  "></i>
                                 <h5><span>Show More</span></h5>
                             </a>
@@ -198,8 +198,10 @@
     <div class=" row ">
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h1><span>Product</span></h1>
-                <p class="subheading">Produk Baliho.</p>
+                <h1>Our <span>Product</span></h1>
+                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
+                    fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
+                    nostrud euismod volumus ne mei.</p>
             </div>
         </div>
     </div>

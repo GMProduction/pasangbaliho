@@ -128,7 +128,7 @@
                 <label style="font-size: 12pt">Dipesan : </label>
                 @forelse ($dipesan as $d)
                 {{-- <p>Tanggal {{$d->tanggal_awal}} s/d {{$d->tanggal_akhir}}</p> --}}
-                <p>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</p>
+                <p>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_aakhir)}}</p>
                 @empty
                 <p>Belum Ada</p>
                 @endforelse

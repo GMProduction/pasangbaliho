@@ -103,7 +103,10 @@ class BalihoController extends Controller
     public function showDetailBaliho($id)
     {
         try {
-            $baliho = BalihoModel::where('id_baliho', $id)
+            $baliho = BalihoModel::leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+            ->where('id_baliho', $id)
                 ->first();
 
             $fotos = FotoBalihoModel::Where('id_baliho', $id)
