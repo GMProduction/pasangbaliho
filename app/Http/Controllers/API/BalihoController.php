@@ -16,15 +16,22 @@ class BalihoController extends Controller
     {
 
         try {
-            $baliho = BalihoModel::join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.min_harga as min_harga',
-                    'balihos.max_harga as max_harga',
-                    'balihos.provinsi as provinsi',
+                    'kotas.nama_kota as kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as provinsi',
+                    'balihos.harga_client as harga_client',
+                    'balihos.lebar as lebar',
+                    'balihos.tinggi as tinggi',
+                    'balihos.orientasi as orientasi',
+                    'balihos.harga_market as harga_market',
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
@@ -48,28 +55,36 @@ class BalihoController extends Controller
     {
         $tambahan = $request->tambahan;
         try {
-            $baliho = BalihoModel::join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.provinsi as provinsi',
-                    'balihos.min_harga as min_harga',
-                    'balihos.max_harga as max_harga',
-                    'balihos.kategori as kategori',
+                    'kotas.nama_kota as kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as provinsi',
+                    'balihos.harga_client as harga_client',
+                    'balihos.lebar as lebar',
+                    'balihos.tinggi as tinggi',
+                    'balihos.venue as venue',
+                    'balihos.orientasi as orientasi',
+                    'balihos.harga_market as harga_market',
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("kota", "LIKE", $request->kota)
+                ->where("nama_kota", "LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
-                    $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
-                        ->orwhere('alamat', 'LIKE', '%' . $tambahan . '%')
-                        ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
+                    $q->where('alamat', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('venue', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('deskripsi', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('nama_provinsi', 'LIKE', '%' . $tambahan . '%');
                 })
                 ->groupBy('balihos.id_baliho')
-                ->orderBy($request->sortby, "ASC")
+                ->orderBy($request->sortby, $request->urutan)
                 ->paginate(20);
 
             return response()->json([
@@ -96,7 +111,7 @@ class BalihoController extends Controller
 
             $transaksi = TransaksiModel::where("status", "selesai")
                 ->where("id_baliho", $id)
-                ->where("tanggal_akhir",">",Carbon::now())
+                ->where("tanggal_akhir", ">", Carbon::now())
                 ->get();
 
             return response()->json([
