@@ -18,11 +18,13 @@ class BalihoController extends Controller
         try {
             $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('kotas','balihos.id_kota','kotas.id_kota')
+            ->leftjoin('provinsis','balihos.id_provinsi','provinsis.id_provinsi')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
                     'kotas.nama_kota as kota',
+                    'provinsis.nama_provinsi as provinsi',
                     'balihos.harga_client as harga_client',
                     'balihos.harga_market as harga_market',
                     'balihos.provinsi as provinsi',
