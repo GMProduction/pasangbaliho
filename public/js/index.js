@@ -18,7 +18,6 @@ $(document).ready(function() {
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
 
-   
 });
 
 
@@ -26,12 +25,8 @@ $(window).scroll(function() {
 
     if ($(this).scrollTop() > 37) {
         $('header').addClass("sticky");
-        $('#content').addClass("topHeader");
-
     } else {
         $('header').removeClass("sticky");
-        $('#content').removeClass("topHeader");
-
     }
 });
 
@@ -64,7 +59,7 @@ function mytheme(index) {
             changeColor('blue');
             break;
         default:
-            changeColor('green');
+            changeColor('blue');
     }
     var selectedClass = document.getElementById('wrapper').className;
     localStorage.setItem("selectedColor", selectedClass);

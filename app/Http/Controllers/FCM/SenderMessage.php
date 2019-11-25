@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FCM;
 
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
+use App\models\FcmModel;
 
 class SenderMessage extends Controller
 {
@@ -15,9 +16,9 @@ class SenderMessage extends Controller
 
     public function toFcm()
     {
-        $advertiser = AdvertiserModel::where('id', '6')
+        $fcm = FcmModel::where('id_advertiser', '6')
             ->first();
-        $to = $advertiser->fcm_token_android;
+        $to = $fcm->fcm_token;
 
         $data = array(
             'title' => 'Pesan',

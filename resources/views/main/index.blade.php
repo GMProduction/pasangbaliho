@@ -162,6 +162,19 @@
                         </div>
 
                     </div>
+
+                    <ul class="aboutul">
+                        <li> <i class="fa fa-check"></i>Vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.</li>
+                        <li> <i class="fa fa-check"></i>legimus copiosae instructior ei ut vix denique fierentis atqui mucius consequat ad pro.</li>
+                        <li> <i class="fa fa-check"></i>Ea saperet inimicu ut qui dolor oratio maiestatis ubique mnesarchum.</li>
+                        <li> <i class="fa fa-check"></i>Sanctus voluptatibus et per illum noluisse facilisis quo atqui mucius ad pro.</li>
+                        <li> <i class="fa fa-check"></i>At illum noluisse facilisis quo te dictas epicurei suavitate qui his ad.</li>
+                        <li> <i class="fa fa-check"></i>Tantas propriae mediocritatem id vix qui everti efficiantur an ocurreret consetetur.</li>
+                    </ul>
+
+                    <button type="button" class="btn btn-primary slide">Learn More  <i class="fa fa-caret-right"></i> </button>
+
+
                 </div>
             </div>
 
@@ -188,6 +201,10 @@
                         </select>
                     </div>
 
+                    <div class="process-text-block">
+                        <h4><a href="#">Design</a></h4>
+                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea saperet inimicu ut qui dolor oratio mnesarchum</p>
+                    </div>
                 </div>
                 <div class="row pt-3">
                     <div class="col-lg-offset-5 col-lg-2 col-lg-offset-2">
@@ -215,6 +232,8 @@
     @include('item.productIndex')
 </div>
 
+        </div>
+    </section>
 
 
 <section id="testimonial">
@@ -224,7 +243,6 @@
                 <h1>Contoh <span>Media Iklan</span> Yang Kita Miliki</h1>
                 <p class="subheading">Pilih media iklan yang kalian inginkan.</p>
             </div>
-        </div>
 
         <div class="row">
 
@@ -317,7 +335,38 @@
     </div> --}}
     </div>
 
-</section>
 
+    </section>
 
-@endsection
+    <section id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 copyright">
+                    Developed by <a href="#">Aspire Software Solutions</a> designed by <a href="#">Designing Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="panel">
+        <div id="panel-admin">
+            <div class="panel-admin-box">
+                <div id="tootlbar_colors">
+                    <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
+                    <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
+                    <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
+                    <button class="color" style="background-color:#e54e53;" onclick="mytheme(3)"> </button>
+                    <button class="color" style="background-color:#1abc9c;" onclick="mytheme(4)"> </button>
+                    <button class="color" style="background-color:#159eee;" onclick="mytheme(5)"> </button>
+                </div>
+            </div>
+
+        </div>
+        <a class="open" href="#!"><span><i class="fa fa-gear fa-spin"></i></span></a>
+    </div>
+
+</html>

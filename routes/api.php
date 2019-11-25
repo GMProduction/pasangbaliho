@@ -25,6 +25,7 @@ Route::post('v1/register', 'API\AdvertiserController@register');
 Route::get('v1/getAdvertiser', 'API\AdvertiserController@getAdvertiser')->name('getAdvertiser');
 Route::post('v1/loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->name('loginAdvertiser');
 Route::post('v1/loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
+Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertiser')->name('registerAdvertiser');
 
 
 //Fetch data baliho
@@ -41,6 +42,8 @@ Route::get('v1/dataAllKategori', 'API\KategoriController@dataAllKategori')->name
 //Transaksi
 Route::post('v1/ajukanPenawaran', 'API\TransaksiController@ajukanPenawaran')->name('ajukanPenawaran');
 Route::post('v1/setujuiHarga', 'API\TransaksiController@setujuiHarga')->name('setujuiHarga');
+Route::post('v1/setReadAdvertiser', 'API\TransaksiController@setReadAdvertiser')->name('setReadAdvertiser');
+Route::post('v1/setReadPerTransaksi', 'API\TransaksiController@setReadPerTransaksi')->name('setReadPerTransaksi');
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
 
@@ -49,6 +52,15 @@ Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')-
 
 //Slider
 Route::get('v1/getSlider', 'API\SliderController@getSlider')->name('getSlider');
+
+//News
+Route::get('v1/getDataNews', 'API\NewsController@getDataNews')->name('getDataNews');
+
+//Notifikasi
+Route::get('v1/getDataNotifikasi', 'API\NotifikasiController@getDataNotifikasi')->name('getDataNotifikasi');
+
+//FCM
+Route::post('v1/insertFcmAdvertiser', 'API\FcmController@insertFcmAdvertiser')->name('insertFcmAdvertiser');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');

@@ -104,6 +104,51 @@ class AdvertiserController extends Controller
         }
     }
 
+
+    public function registerAdvertiser(Request $request)
+    {
+
+        $advertiser = AdvertiserModel::where([
+            'email' => $request->email
+        ])->first();
+
+        if ($advertiser == null) {
+
+            try {
+                $input = new AdvertiserModel();
+                $input->email = $request->email;
+                $input->nama = $request->nama;
+                $input->telp = $request->telp;
+                $input->password = $request->password;
+                $input->alamat = $request->alamat;
+                $input->api_token = Hash::make($request->email);
+                $input->save();
+
+                $advertiser = AdvertiserModel::where([
+                    'email' => $request->email
+                ])->first();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'login sukses',
+                    'advertiser' => $advertiser
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'Email sudah di pakai',
+                'advertiser' => $advertiser
+            ]);
+        }
+    }
+
+
     public function loginAdvertiser(Request $request)
     {
         $advertiser = AdvertiserModel::where([

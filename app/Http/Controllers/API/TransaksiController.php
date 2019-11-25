@@ -5,10 +5,9 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
-use App\models\BalihoModel;
-use App\models\FotoBalihoModel;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -30,12 +29,14 @@ class TransaksiController extends Controller
                     'transaksi.status as status',
                     'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
                 )
+
                 ->where("id_advertiser", $request->id_advertiser)
                 ->where("status", $request->status)
                 ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
@@ -58,6 +59,11 @@ class TransaksiController extends Controller
     public function detailTransaksi($idTransaksi)
     {
         try {
+
+            $transTable = TransaksiModel::find($idTransaksi);
+                $transTable -> terbaca_advertiser = '1';
+                $transTable -> save();
+
             $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->select(
@@ -72,6 +78,7 @@ class TransaksiController extends Controller
                     'transaksi.status as status',
                     'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.created_at as created_at',
@@ -164,6 +171,50 @@ class TransaksiController extends Controller
                     'respon' => 'success',
                     'message' => 'count transaksi berhasil',
                     'count' => $newTransaksi
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }
+    }
+
+    public function setReadAdvertiser(Request $request)
+    {
+        if ($request->idAdv != null) {
+            try {
+                $transTable = (new TransaksiModel())->getTable();
+
+                DB::table($transTable)->where("terbaca_advertiser", "0")
+                ->where("id_advertiser", $request->idAdv)->update(['terbaca_advertiser' => '1']);
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'read berhasil'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }
+    }
+
+
+    public function setReadPerTransaksi(Request $request)
+    {
+        if ($request->idTransaksi != null) {
+            try {
+                $transTable = TransaksiModel::find($request->idTransaksi);
+                $transTable -> terbaca_advertiser = '1';
+                $transTable -> save();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'read berhasil'
                 ], 200);
             } catch (\Exception $e) {
                 return response()->json([

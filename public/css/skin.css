@@ -1796,43 +1796,43 @@ body.red #login-reg .form-box .btn {
 	color: #26A69A !important;
 }
 body.green span {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green .slide:hover, body.green .slide:focus {
 	/* box-shadow: inset 15.5em 0 0 0 #26A69A; */
 }
 body.green .btn-primary:focus, body.green .btn-primary.focus {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-primary {
 	padding: 15px 50px;
 	border-radius: 0px;
 	font-weight: bold;
 	text-transform: uppercase;
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
-	border-color: #26A69A;
+	border-color: #1abc9c;
 	background: none;
 }
 body.green .btn-primary:focus, body.green .btn-primary.focus {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #e6e6e6;
 	border-color: #0b4c3f;
 }
 body.green .btn-primary:hover {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #e6e6e6;
 	border-color: #13866f;
 }
 body.green .btn-primary:active, body.green .btn-primary.active, .open > body.green .btn-primary.dropdown-toggle {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #e6e6e6;
 	border-color: #13866f;
 }
 body.green .btn-primary:active:hover, body.green .btn-primary:active:focus, body.green .btn-primary:active.focus, body.green .btn-primary.active:hover, body.green .btn-primary.active:focus, body.green .btn-primary.active.focus, .open > body.green .btn-primary.dropdown-toggle:hover, .open > body.green .btn-primary.dropdown-toggle:focus, .open > body.green .btn-primary.dropdown-toggle.focus {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #d4d4d4;
 	border-color: #0b4c3f;
 }
@@ -1841,16 +1841,16 @@ body.green .btn-primary:active, body.green .btn-primary.active, .open > body.gre
 }
 body.green .btn-primary.disabled:hover, body.green .btn-primary.disabled:focus, body.green .btn-primary.disabled.focus, body.green .btn-primary[disabled]:hover, body.green .btn-primary[disabled]:focus, body.green .btn-primary[disabled].focus, fieldset[disabled] body.green .btn-primary:hover, fieldset[disabled] body.green .btn-primary:focus, fieldset[disabled] body.green .btn-primary.focus {
 	background-color: #fff;
-	border-color: #26A69A;
+	border-color: #1abc9c;
 }
 body.green .btn-primary .badge {
 	color: #fff;
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green .btn-primary:hover, body.green .btn-primary:focus, body.green .btn-primary:active {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 	transition: 0.25s;
 }
 body.green .btn-primary:hover:focus, body.green .btn-primary:hover.focus, body.green .btn-primary:focus:focus, body.green .btn-primary:focus.focus, body.green .btn-primary:active:focus, body.green .btn-primary:active.focus {
@@ -1877,11 +1877,11 @@ body.green .btn-primary:hover:active, body.green .btn-primary:hover.active, .ope
 	background-image: none;
 }
 body.green .btn-primary:hover.disabled:hover, body.green .btn-primary:hover.disabled:focus, body.green .btn-primary:hover.disabled.focus, body.green .btn-primary:hover[disabled]:hover, body.green .btn-primary:hover[disabled]:focus, body.green .btn-primary:hover[disabled].focus, fieldset[disabled] body.green .btn-primary:hover:hover, fieldset[disabled] body.green .btn-primary:hover:focus, fieldset[disabled] body.green .btn-primary:hover.focus, body.green .btn-primary:focus.disabled:hover, body.green .btn-primary:focus.disabled:focus, body.green .btn-primary:focus.disabled.focus, body.green .btn-primary:focus[disabled]:hover, body.green .btn-primary:focus[disabled]:focus, body.green .btn-primary:focus[disabled].focus, fieldset[disabled] body.green .btn-primary:focus:hover, fieldset[disabled] body.green .btn-primary:focus:focus, fieldset[disabled] body.green .btn-primary:focus.focus, body.green .btn-primary:active.disabled:hover, body.green .btn-primary:active.disabled:focus, body.green .btn-primary:active.disabled.focus, body.green .btn-primary:active[disabled]:hover, body.green .btn-primary:active[disabled]:focus, body.green .btn-primary:active[disabled].focus, fieldset[disabled] body.green .btn-primary:active:hover, fieldset[disabled] body.green .btn-primary:active:focus, fieldset[disabled] body.green .btn-primary:active.focus {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-primary:hover .badge, body.green .btn-primary:focus .badge, body.green .btn-primary:active .badge {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
 }
 body.green .btn-primary:hover:hover, body.green .btn-primary:hover:focus, body.green .btn-primary:hover.focus, body.green .btn-primary:focus:hover, body.green .btn-primary:focus:focus, body.green .btn-primary:focus.focus, body.green .btn-primary:active:hover, body.green .btn-primary:active:focus, body.green .btn-primary:active.focus {
@@ -1897,8 +1897,8 @@ body.green .btn-default {
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-default:focus, body.green .btn-default.focus {
 	color: #fff;
@@ -1924,11 +1924,11 @@ body.green .btn-default:active, body.green .btn-default.active, .open > body.gre
 	background-image: none;
 }
 body.green .btn-default.disabled:hover, body.green .btn-default.disabled:focus, body.green .btn-default.disabled.focus, body.green .btn-default[disabled]:hover, body.green .btn-default[disabled]:focus, body.green .btn-default[disabled].focus, fieldset[disabled] body.green .btn-default:hover, fieldset[disabled] body.green .btn-default:focus, fieldset[disabled] body.green .btn-default.focus {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-default .badge {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
 }
 body.green .btn-default i {
@@ -1936,8 +1936,8 @@ body.green .btn-default i {
 }
 body.green .btn-default:hover {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 	transition: 0.25s;
 }
 body.green .btn-default:hover:focus, body.green .btn-default:hover.focus {
@@ -1964,11 +1964,11 @@ body.green .btn-default:hover:active, body.green .btn-default:hover.active, .ope
 	background-image: none;
 }
 body.green .btn-default:hover.disabled:hover, body.green .btn-default:hover.disabled:focus, body.green .btn-default:hover.disabled.focus, body.green .btn-default:hover[disabled]:hover, body.green .btn-default:hover[disabled]:focus, body.green .btn-default:hover[disabled].focus, fieldset[disabled] body.green .btn-default:hover:hover, fieldset[disabled] body.green .btn-default:hover:focus, fieldset[disabled] body.green .btn-default:hover.focus {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-default:hover .badge {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
 }
 body.green .btn-default:hover:hover, body.green .btn-default:hover:focus, body.green .btn-default:hover.focus {
@@ -1979,13 +1979,13 @@ body.green .btn-default:hover i {
 	color: #777777;
 }
 body.green #top-header ul.contact_links a:hover {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #top-header ul.social_links i:hover {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green .navbar-brand h1 {
-	color: #26A69A !important;
+	color: #1abc9c !important;
 }
 body.green .navbar-brand span {
 	color: #333333 !important;
@@ -1994,18 +1994,18 @@ body.green .navbar-inverse .navbar-toggle:hover, body.green .navbar-inverse .nav
 	background-color: #fff;
 }
 body.green .navbar-inverse .navbar-toggle {
-	border-color: #26A69A;
+	border-color: #1abc9c;
 }
 body.green .navbar-inverse .navbar-toggle .icon-bar {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green i {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green .btn-default:hover {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-default:hover:focus, body.green .btn-default:hover.focus {
 	color: #fff;
@@ -2031,22 +2031,22 @@ body.green .btn-default:hover:active, body.green .btn-default:hover.active, .ope
 	background-image: none;
 }
 body.green .btn-default:hover.disabled:hover, body.green .btn-default:hover.disabled:focus, body.green .btn-default:hover.disabled.focus, body.green .btn-default:hover[disabled]:hover, body.green .btn-default:hover[disabled]:focus, body.green .btn-default:hover[disabled].focus, fieldset[disabled] body.green .btn-default:hover:hover, fieldset[disabled] body.green .btn-default:hover:focus, fieldset[disabled] body.green .btn-default:hover.focus {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-default:hover .badge {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
 }
 body.green .btn-default:hover:hover, body.green .btn-default:hover:focus, body.green .btn-default:hover.focus {
 	color: #777777;
-	background-color: #26A69A;
+	background-color: #1abc9c;
 	text-decoration: none;
 }
 body.green .btn-primary:hover, body.green .btn-primary:focus, body.green .btn-primary:active {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-primary:hover:focus, body.green .btn-primary:hover.focus, body.green .btn-primary:focus:focus, body.green .btn-primary:focus.focus, body.green .btn-primary:active:focus, body.green .btn-primary:active.focus {
 	color: #fff;
@@ -2072,59 +2072,50 @@ body.green .btn-primary:hover:active, body.green .btn-primary:hover.active, .ope
 	background-image: none;
 }
 body.green .btn-primary:hover.disabled:hover, body.green .btn-primary:hover.disabled:focus, body.green .btn-primary:hover.disabled.focus, body.green .btn-primary:hover[disabled]:hover, body.green .btn-primary:hover[disabled]:focus, body.green .btn-primary:hover[disabled].focus, fieldset[disabled] body.green .btn-primary:hover:hover, fieldset[disabled] body.green .btn-primary:hover:focus, fieldset[disabled] body.green .btn-primary:hover.focus, body.green .btn-primary:focus.disabled:hover, body.green .btn-primary:focus.disabled:focus, body.green .btn-primary:focus.disabled.focus, body.green .btn-primary:focus[disabled]:hover, body.green .btn-primary:focus[disabled]:focus, body.green .btn-primary:focus[disabled].focus, fieldset[disabled] body.green .btn-primary:focus:hover, fieldset[disabled] body.green .btn-primary:focus:focus, fieldset[disabled] body.green .btn-primary:focus.focus, body.green .btn-primary:active.disabled:hover, body.green .btn-primary:active.disabled:focus, body.green .btn-primary:active.disabled.focus, body.green .btn-primary:active[disabled]:hover, body.green .btn-primary:active[disabled]:focus, body.green .btn-primary:active[disabled].focus, fieldset[disabled] body.green .btn-primary:active:hover, fieldset[disabled] body.green .btn-primary:active:focus, fieldset[disabled] body.green .btn-primary:active.focus {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green .btn-primary:hover .badge, body.green .btn-primary:focus .badge, body.green .btn-primary:active .badge {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: #fff;
 }
 body.green .btn-primary:hover:hover, body.green .btn-primary:hover:focus, body.green .btn-primary:hover.focus, body.green .btn-primary:focus:hover, body.green .btn-primary:focus:focus, body.green .btn-primary:focus.focus, body.green .btn-primary:active:hover, body.green .btn-primary:active:focus, body.green .btn-primary:active.focus {
 	color: #fff;
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 	text-decoration: none;
 }
 body.green .section-heading span {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green .navbar-inverse .navbar-nav > li > a:hover, body.green .navbar-inverse .navbar-nav > li > a:focus {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: transparent;
 	border-bottom-width: 5px;
 	border-bottom-style: solid;
-	border-bottom-color: #26A69A;
+	border-bottom-color: #1abc9c;
 }
-
-body.green .navbar-nav .dropdown-menu > li > a:hover, body.green .navbar-nav .dropdown-menu > li > a:focus {
-	color: #26A69A;
-	background-color: transparent;
-	border-bottom-width: 5px;
-	border-bottom-style: solid;
-	border-bottom-color: #26A69A;
-}
-
 body.green .navbar-inverse .navbar-nav > .active > a, body.green .navbar-inverse .navbar-nav > .active > a:hover, body.green .navbar-inverse .navbar-nav > .active > a:focus {
-	color: #26A69A;
+	color: #1abc9c;
 	background-color: transparent;
 	border-bottom-width: 5px;
 	border-bottom-style: solid;
-	border-bottom-color: #26A69A;
+	border-bottom-color: #1abc9c;
 }
 body.green #myCarousel .carousel-indicators .active {
-	background-color: #26A69A;
-	border-color: #26A69A;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
 }
 body.green #features a.readmore {
-	color: #26A69A;
+	color: #1abc9c;
 	font-weight: bold;
 	text-transform: uppercase;
 }
 body.green #process .process-block:hover .process-icon {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #process .process-block:hover .process-icon-holder {
-	border-color: #26A69A;
+	border-color: #1abc9c;
 }
 body.green #process .process-block:hover .process-border {
 	border: 20px solid rgba(26, 188, 156, 0.2);
@@ -2133,16 +2124,16 @@ body.green #testimonial .user-info {
 	display: inline-block;
 }
 body.green #testimonial .user-info p {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #footer a:hover {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #footer a:hover i {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #footer .footer-block hr {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 	width: 50px;
 	height: 3px;
 	border-top: 1px solid #34363e;
@@ -2150,16 +2141,16 @@ body.green #footer .footer-block hr {
 	display: inline-block;
 }
 body.green #bottom-footer .copyright a {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #bottom-footer .copyright a:hover {
 	text-decoration: underline;
 }
 body.green #bottom-footer a:hover {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #panel .open {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 	display: block;
 	width: 42px;
 	border-radius: 0 3px 3px 0;
@@ -2172,11 +2163,11 @@ body.green #panel .open {
 	position: absolute;
 }
 body.green #skills .progress.color .progress-bar {
-	border-color: #26A69A;
+	border-color: #1abc9c;
 }
 body.green #skills .progress.color .progress-value {
 	color: #fff;
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #skills .progress.progress-bar-1 .progress-left .progress-bar {
 	animation: loading-2 1.5s linear forwards 1.8s;
@@ -2191,26 +2182,26 @@ body.green #skills .progress.progress-bar-4 .progress-left .progress-bar {
 	animation: loading-5 1.2s linear forwards 1.8s;
 }
 body.green #team-member .qodef-circle-animate {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #portfolio .portfolio-hover {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #contact-page .submit-button {
-	background: #26A69A;
+	background: #1abc9c;
 }
 body.green #faq .icon-circle {
-	background: #26A69A;
+	background: #1abc9c;
 }
 body.green #faq .panel-title a:hover, body.green #faq .panel-title a:active {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #features-page .right-background {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #features-page .right-background:before {
 	right: -999em;
-	background: #26A69A;
+	background: #1abc9c;
 	content: '';
 	display: block;
 	position: absolute;
@@ -2219,34 +2210,34 @@ body.green #features-page .right-background:before {
 	bottom: 0;
 }
 body.green #features-page .iconbox-style.icon-color i.boxicon {
-	color: #26A69A !important;
+	color: #1abc9c !important;
 }
 body.green #features-page .flip .icon-color.card .back {
-	background: #26A69A;
+	background: #1abc9c;
 }
 body.green #features-page .divider5 {
-	border-bottom-color: #26A69A;
+	border-bottom-color: #1abc9c;
 }
 body.green #features-page .feature-section-3-left {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #features-page .feature-section-3-left h1 {
-	color: #26A69A;
+	color: #1abc9c;
 }
 body.green #features-page .feature-section-3-right {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #features-page .pricing-plan-2 {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #features-page hr {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #features-page .right-section {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 body.green #login-reg .form-box .btn {
-	background-color: #26A69A;
+	background-color: #1abc9c;
 }
 /******************* LIGHT GREEN THEME *******************/
 body.lightgreen span {

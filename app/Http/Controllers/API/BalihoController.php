@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\BalihoModel;
 use App\models\FotoBalihoModel;
+use App\models\TransaksiModel;
+use Carbon\Carbon;
 
 class BalihoController extends Controller
 {
@@ -59,7 +61,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("kota","LIKE", $request->kota)
+                ->where("kota", "LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
@@ -92,11 +94,17 @@ class BalihoController extends Controller
             $fotos = FotoBalihoModel::Where('id_baliho', $id)
                 ->get();
 
+            $transaksi = TransaksiModel::where("status", "selesai")
+                ->where("id_baliho", $id)
+                ->where("tanggal_akhir",">",Carbon::now())
+                ->get();
+
             return response()->json([
                 'respon' => 'success',
                 'message' => 'success fetch data baliho',
                 'baliho' => $baliho,
-                'foto' => $fotos
+                'foto' => $fotos,
+                'transaksi' => $transaksi
             ]);
         } catch (\Exception $e) {
             return response()->json([
