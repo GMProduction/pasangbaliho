@@ -39,7 +39,7 @@
             "App\\": "app/"
         },
          "files": [
-            "app/helper/genoshelper.php"
+            "app/Helper/genoshelper.php"
         ],
         "classmap": [
             "database/seeds",

@@ -39,7 +39,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
         'e82eb7f657451ddca8d351a3ae8f2eb8' => __DIR__ . '/..' . '/kawankoding/laravel-fcm/src/helpers.php',
-        '48c267551274a550f0dff35308f70a47' => __DIR__ . '/../..' . '/app/helper/genoshelper.php',
+        '85c95c933c94a18eb6c6970cfc3e2fbf' => __DIR__ . '/../..' . '/app/Helper/genoshelper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
