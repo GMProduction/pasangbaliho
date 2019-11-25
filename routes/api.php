@@ -25,6 +25,7 @@ Route::post('v1/register', 'API\AdvertiserController@register');
 Route::get('v1/getAdvertiser', 'API\AdvertiserController@getAdvertiser')->name('getAdvertiser');
 Route::post('v1/loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->name('loginAdvertiser');
 Route::post('v1/loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
+Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertiser')->name('registerAdvertiser');
 
 
 //Fetch data baliho
