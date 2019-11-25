@@ -78,8 +78,7 @@ class BalihoController extends Controller
                 ->where("nama_kota", "LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
-                    $q->where('ukuran_baliho', 'LIKE', '%' . $tambahan . '%')
-                        ->orwhere('alamat', 'LIKE', '%' . $tambahan . '%')
+                    $q->where('alamat', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('venue', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('deskripsi', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('provinsi', 'LIKE', '%' . $tambahan . '%');
