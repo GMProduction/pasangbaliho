@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
 use Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Validator;
 
 class AdvertiserController extends Controller
