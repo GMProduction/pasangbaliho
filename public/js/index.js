@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 $(window).scroll(function() {
 
-    if ($(this).scrollTop() > 50) {
+    if ($(this).scrollTop() > 37) {
         $('header').addClass("sticky");
         $('#content').addClass("topHeader");
 

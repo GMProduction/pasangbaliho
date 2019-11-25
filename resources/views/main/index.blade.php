@@ -2,7 +2,22 @@
 
 @section('content')
 <style>
-   
+    .borderNyala {
+        border: 1px solid #c0c0c0;
+        border-radius: 1rem;
+        text-decoration: none;
+    }
+
+    .borderNyala:hover {
+        border: 1px solid #26A69A;
+        box-shadow: 0px 0px 12px #ddd;
+    }
+
+    .fa-45x {
+        font-size: 45pt;
+    }
+
+    .coruselKecil {}
 </style>
 
 <script>
@@ -16,54 +31,49 @@
     
 </script>
 
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide coruselKecil">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
+            @php
+            $i = 0;
+            @endphp
+
+            @foreach ($slider as $g)
+
+            @if ($loop->first)
+            <li data-target="#myCarousel" data-slide-to="{{$i}}" class="active"></li>
+            @else
+            <li data-target="#myCarousel" data-slide-to="{{$i}}" class=""></li>
+            @endif
+            @php
+            $i ++;
+            @endphp
+
+            @endforeach
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
+    <div class="carousel-inner ">
+        @foreach ($slider as $s)
+        @if ($loop->first)
+        {{-- This is the first iteration --}}
         <div class="item active">
-            <div class="fill" style="background-image:url('{{asset('assets/img/banner-slide-1.jpg')}}');"></div>
-            <div class="carousel-caption slide-up">
-                <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique
-                    fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
-                {{-- <div class="slider_btn">
-                    <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
-                    <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
-                </div> --}}
-            </div>
-        </div>
-
+        @else
         <div class="item">
-            <div class="fill" style="background-image:url('{{asset('assets/img/banner-slide-2.jpg')}}');"></div>
+        @endif
+            <div class="fill" style="background-image:url('{{asset('assets/'.$s->url_foto)}}');"></div>
             <div class="carousel-caption slide-up">
-                <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique
-                    fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
+                <h1 class="banner_heading"> <span>{{$s->title}} </span></h1>
+                <p class="banner_txt">{{$s->deskripsi}}</p>
                 {{-- <div class="slider_btn">
                     <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
                     <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
                 </div> --}}
             </div>
         </div>
+        @endforeach
 
-        <div class="item">
-            <div class="fill" style="background-image:url('{{asset('assets/img/banner-slide-3.jpg')}}');"></div>
-            <div class="carousel-caption slide-up">
-                <h1 class="banner_heading">Providing The <span>Highest </span>Lorem</h1>
-                <p class="banner_txt">Lorem ipsum dolor sit amet sit legimus copiosae instructior eiut vix denique
-                    fierentis ea saperet inimicu utqui dolor oratio mnesarchum.</p>
-                {{-- <div class="slider_btn">
-                    <button type="button" class="btn btn-default slide">Learn More <i class="fa fa-caret-right"></i></button>
-                    <button type="button" class="btn btn-primary slide">Learn More <i class="fa fa-caret-right"></i></button>
-                </div> --}}
-            </div>
-        </div>
+      
     </div>
 
     <!-- Left and right controls -->
@@ -82,105 +92,107 @@
 <div class="container" style="margin-top: -45px; z-index: 100 ">
 
     <div class="" id="" style="">
-        <div class="borderCari p-4">
-            <div class="row batas align-items-center">
+        <div class="borderCari p-4" style="">
+            <div class="row  align-items-center" style="">
                 <div class="col col-md-3">
                     <h4 class="text-center alighText " style=""><span>Mau Pasang di Kota Mana ?</span></h4>
                 </div>
-                <div class="col-md-9">
-                    <div class="row batas">
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="semarang"
-                                onmouseover="landmark('semarang')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsemarang' src="{{asset('assets/img/landmark/semarang.png')}}" alt="">
-                                <h6>Semarang</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="salatiga"
-                                onmouseover="landmark('salatiga')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsalatiga' src="{{asset('assets/img/landmark/salatiga.png')}}" alt="">
-                                <h6>Salatiga</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="solo"
-                                onmouseover="landmark('solo')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsolo' src="{{asset('assets/img/landmark/solo.png')}}" alt="">
-                                <h6>Solo</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="sragen"
-                                onmouseover="landmark('sragen')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsragen' src="{{asset('assets/img/landmark/sragen.png')}}" alt="">
-                                <h6>Sragen</h6>
-                            </a>
-                        </div>
-                    </div>
+                <div class="col-md-9 ">
+                    <div class="row  " style="">
 
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/surakarta.png')}}" alt="" height="60">
+                                <h5><span>Surakarta</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/klaten.png')}}" alt="" height="60">
+                                <h5><span>Klaten</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/boyolali.png')}}" alt="" height="60">
+                                <h5><span>Boyolali</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/karanganyar.png')}}" alt="" height="60">
+                                <h5><span>Karanganyar</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/sragen.png')}}" alt="" height="60">
+                                <h5><span>Sragen</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/sukoharjo.png')}}" alt="" height="60">
+                                <h5><span>Sukoharjo</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/wonogiri.png')}}" alt="" height="60">
+                                <h5><span>Wonogiri</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/semarang.png')}}" alt="" height="60">
+                                <h5><span>Semarang</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><img id=''
+                                    src="{{asset('assets/img/landmark/salatiga.png')}}" alt="" height="60">
+                                <h5><span>Salatiga</span></h5>
+                            </a>
+                        </div>
+                        <div class="col col-md-6 col-xs-6 pb-3 pr-2 pl-2">
+                            <a href="#!" class="text-center borderNyala pt-3" id="" style=""><i
+                                    class="fas fa-forward  fa-45x  "></i>
+                                <h5><span>Show More</span></h5>
+                            </a>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="wonogiri"
-                                onmouseover="landmark('wonogiri')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconwonogiri' src="{{asset('assets/img/landmark/wonogiri.png')}}" alt="">
-                                <h6>Wonogiri</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="sragen"
-                                onmouseover="landmark('sragen')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsragen' src="{{asset('assets/img/landmark/sragen.png')}}" alt="">
-                                <h6>Sragen</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="sragen"
-                                onmouseover="landmark('sragen')" style="padding: unset; padding-top: 10px"><img
-                                    id='iconsragen' src="{{asset('assets/img/landmark/sragen.png')}}" alt="">
-                                <h6>Sragen</h6>
-                            </a>
-                        </div>
-                        <div class="col-md-3 iconKategori col-xs-6">
-                            <a href="#!" class="btn btn-primary btn-rounded btn-block" id="sragen"
-                                onmouseover="landmark('sragen')" style="padding: unset; padding-top: 10px"><i
-                                    class="fa fa-forward fa-5x" aria-hidden="true"></i>
-                                <h6>Show All</h6>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="row batas">
-                <div class="col-md-1 iconKategori col-xs-6">
-                    <a href="#!" class="btn btn-primary btn-rounded btn-block" id="semarang"
-                        onmouseover="landmark('semarang')" style="padding: unset; padding-top: 10px"><img
-                            id='iconsemarang' src="{{asset('assets/img/landmark/semarang.png')}}" alt="">
-                        <h6>Semarang</h6>
-                    </a>
-                </div>
-            </div> --}}
+
+
+
             <div class="" id="">
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-4 col-md-offset-1 col-md-5 col-sm-12 block">
-                        <select name="" id="" class="form-control" style="height: 45px">
-                            <option value="jenis">Jenis</option>
-                            <option value="jenis">Jenis</option>
+                        <select name="" id="kategori" class="form-control" style="height: 45px">
+                            <option value="">Semua Kategori</option>
+                            <option value="Videotron">Videotron</option>
+                            <option value="Baliho">Baliho</option>
+                            <option value="Billboard">Billboard</option>
+                            <option value="Neon Box">Neon Box</option>
+                            <option value="Banner">Banner</option>
                         </select>
                     </div>
                     <div class="col-lg-4 col-md-5 col-sm-12">
-                        <select name="" id="" class="form-control" style="height: 45px">
-                            <option value="jenis">Kota</option>
-                            <option value="jenis">Kota</option>
+                        <select name="" id="kota" class="form-control" style="height: 45px">
+                            <option value="">Semua Kota</option>
+                            @foreach ($kota as $k)
+                            <option value="{{$k->nama_kota}}">{{$k->nama_kota}}</option>
+                            @endforeach
                         </select>
                     </div>
 
                 </div>
                 <div class="row pt-3">
                     <div class="col-lg-offset-5 col-lg-2 col-lg-offset-2">
-                        <a href="#!" class="btn btn-primary btn-block btn-sm btn-rounded" style=""><i
-                                class="fas fa-search    "></i> Cari</a>
+                        <a href="#!" class="btn btn-primary btn-block btn-sm btn-rounded" style=""
+                            onclick="cariProdukIndex()"><i class="fas fa-search    "></i> Cari</a>
                     </div>
                 </div>
             </div>
@@ -189,17 +201,18 @@
 </div>
 
 <div class="container" style="padding-top: 50px">
-<div class=" row ">
-    <div class="section-heading text-center">
-        <div class="col-md-12 col-xs-12">
-            <h1>Our <span>Product</span></h1>
-            <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
-                nostrud euismod volumus ne mei.</p>
+    <div class=" row ">
+        <div class="section-heading text-center">
+            <div class="col-md-12 col-xs-12">
+                <h1>Our <span>Product</span></h1>
+                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
+                    fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
+                    nostrud euismod volumus ne mei.</p>
+            </div>
         </div>
     </div>
-</div>
-@include('item.productIndex')
+
+    @include('item.productIndex')
 </div>
 
 
@@ -208,48 +221,51 @@
     <div class="container">
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h1>What Our <span>Client Says</span></h1>
-                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                    fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud
-                    euismod volumus ne mei.</p>
+                <h1>Contoh <span>Media Iklan</span> Yang Kita Miliki</h1>
+                <p class="subheading">Pilih media iklan yang kalian inginkan.</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4 col-sm-12 block ">
-                <div class="testimonial_box">
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                        saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
-                </div>
-                <div class="arrow-down"></div>
-                <div class="testimonial_user">
-                    <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user"
-                            class="img-responsive" /></div>
-                    <div class="user-info">
-                        <h5>Lorem Ipsum</h5>
-                        <p>Manager</p>
-                    </div>
-                </div>
+
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=billboard" onclick="" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/billboard.png')}}" alt="" height="150">
+                    <h5><span>Billboard</span></h5>
+                </a>
             </div>
-
-
-            <div class="col-md-4 col-sm-12 block">
-                <div class="testimonial_box">
-                    <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                        saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
-                </div>
-                <div class="arrow-down"></div>
-                <div class="testimonial_user">
-                    <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user"
-                            class="img-responsive" /></div>
-                    <div class="user-info">
-                        <h5>Lorem Ipsum</h5>
-                        <p>Manager</p>
-                    </div>
-                </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=videotron" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/videotron.png')}}" alt="" height="150">
+                    <h5><span>Videotron</span></h5>
+                </a>
             </div>
-
-            <div class="col-md-4 col-sm-12 block">
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/digital.png')}}" alt="" height="150">
+                    <h5><span>Digital Display</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/neon.png')}}" alt="" height="150">
+                    <h5><span>Neox Box</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/web.png')}}" alt="" height="150">
+                    <h5><span>Wensite & Blog</span></h5>
+                </a>
+            </div>
+            <div class="col col-md-2 col-xs-6 pb-3 pr-2 pl-2">
+                <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3" id="" style="background-color: white"><img id=''
+                        src="{{asset('assets/img/media/parking.png')}}" alt="" height="150">
+                    <h5><span>Parking Spot</span></h5>
+                </a>
+            </div>
+          
+            {{-- <div class="col-md-4 col-sm-12 block ">
                 <div class="testimonial_box">
                     <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
                         saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
@@ -257,14 +273,48 @@
                 <div class="arrow-down"></div>
                 <div class="testimonial_user">
                     <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user"
-                            class="img-responsive" /></div>
-                    <div class="user-info">
-                        <h5>Lorem Ipsum</h5>
-                        <p>Manager</p>
-                    </div>
-                </div>
+            class="img-responsive" />
+        </div>
+        <div class="user-info">
+            <h5>Lorem Ipsum</h5>
+            <p>Manager</p>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="col-md-4 col-sm-12 block">
+        <div class="testimonial_box">
+            <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
+                saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
+        </div>
+        <div class="arrow-down"></div>
+        <div class="testimonial_user">
+            <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user" class="img-responsive" />
+            </div>
+            <div class="user-info">
+                <h5>Lorem Ipsum</h5>
+                <p>Manager</p>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12 block">
+        <div class="testimonial_box">
+            <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
+                saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset. </p>
+        </div>
+        <div class="arrow-down"></div>
+        <div class="testimonial_user">
+            <div class="user-image"><img src="{{asset('assets/img/user1.png')}}" alt="user" class="img-responsive" />
+            </div>
+            <div class="user-info">
+                <h5>Lorem Ipsum</h5>
+                <p>Manager</p>
+            </div>
+        </div>
+    </div>
+    </div> --}}
     </div>
 
 </section>

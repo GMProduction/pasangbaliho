@@ -8,17 +8,47 @@ use App\Master\transaksiModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Environment\Console;
+use App\models\NotificationModel;
+
 
 class transaksiController extends Controller
 {
     
+    public function notif($n)
+    {
+        $c = Carbon::now();
+        # code...
+        $notif = NotificationModel::query()
+            ->where('id_advertiser', '=', $n)
+            ->orderBy('created_at', 'DESC')
+            ->take(5)
+            ->get();
+
+        return $notif;
+    }
+
+    public function getJumlahNotif($id)
+    {
+        $query = DB::table('notifikasi_advertiser')
+            ->select(DB::raw('count(*) as count'))
+            ->where('id_advertiser', '=', $id)
+            ->get();
+        return $query;
+    }
+
     //
     public function showBerlangsung(){
         $id = auth()->guard('advertiser')->user()->id;
-        $data = transaksiModel::query()
-        ->select('transaksi.*','nama_baliho', 'provinsi', 'kota', 'alamat', 
-        DB::raw('(select url_foto from foto_baliho, transaksi where foto_baliho.id_baliho = transaksi.id_baliho limit 1) as url_foto'))
+
+
+        $jumNotif = $this->getJumlahNotif($id);
+
+        $query = transaksiModel::query()
+        ->select('transaksi.*','nama_baliho', 'provinsi', 'kota', 'alamat', 'url_foto')
+        // DB::raw('(select url_foto from foto_baliho, transaksi where foto_baliho.id_baliho = transaksi.id_baliho limit 1) as url_foto'))
         ->leftJoin('balihos','transaksi.id_baliho','balihos.id_baliho')
+        ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
+        ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
         // ->leftJoin('foto_baliho', function($join){
         //     $join->on('transaksi.id_baliho','=','foto_baliho.id_baliho')
         //         ->limit(1);
@@ -27,21 +57,38 @@ class transaksiController extends Controller
         ->where('id_advertiser','=',$id)
         ->get();
         
+        $data = [
+            'trans' => $query,
+            'jumNotif' => $jumNotif
+        ];
 
-        return view('advertiser/data/transaksiBerlangsung')->with('data',$data);
+        return view('advertiser/data/transaksiBerlangsung')->with($data);
         // echo $data;
     }
 
     public function showDetailTransaksi(Request $r){
+
+        if (auth()->guard('advertiser')->check()) {
+            $id = auth()->guard('advertiser')->user()->id;
+        }
+
+        $getNotif = $this->getJumlahNotif($id);
+
+
         $data = transaksiModel::query()
-        ->select('transaksi.*','balihos.nama_baliho', 'balihos.provinsi', 'balihos.kota', 'balihos.alamat','foto_baliho.url_foto')
+        ->select('transaksi.*','balihos.nama_baliho', 'balihos.provinsi', 'balihos.kota', 'balihos.alamat','foto_baliho.url_foto as url_foto')
         ->leftJoin('balihos','transaksi.id_baliho','balihos.id_baliho')
         ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
         ->where('id_transaksi','=',$r->q)
         ->limit(1)
         ->get();
 
-        return view('advertiser/data/detailtransaksi')->with('data',$data);
+        $trans = [
+            'data' => $data,
+            'jumNotif' => $getNotif
+        ];
+
+        return view('advertiser/data/detailtransaksi')->with($trans);
         // echo $data; 
     }
 

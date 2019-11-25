@@ -18,12 +18,17 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Member\indexController@index');
-Route::get('detail', 'Member\productController@detailProduct');
 
-Route::get('product', 'Member\productController@showProduct');
-Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
-Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
-Route::post('addTransaksi', 'Member\transaksiController@addTransaksi');
+Route::get('product', 'Member\productController@cariProduk');
+Route::get('product/search', 'Member\productController@cariProduk');
+Route::get('product/detail', 'Member\productController@detailProduct');
+Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
+Route::get('news', 'Member\indexController@showNews');
+// Route::get('product/search',function(){
+//     echo 'asd';
+// });
+
+
 
 // Route::get('/detail', function () {
 //     return view('main.detailproduct');
@@ -41,18 +46,26 @@ Route::get('registration-advertiser', 'Auth\Member\RegisterController@showRegist
 
 
 Route::get('login', 'Auth\Member\loginController@showLoginForm');
+// Route::get('login', function(){
+//     return view('auth.member.login');
+// });
 Route::post('login', 'Auth\Member\loginController@postlogin');
 Route::get('logout', 'Auth\Member\loginController@logout');
-Route::get('dashboard', function(){
-    return view('advertiser.index');
-});
+
 Route::get('dashboard/addProduk', function(){
     return view('advertiser.data.input');
 });
 
 
-Route::get('showStreetView',function(){
-    return view('item.streetview');
-});
+Route::get('dashboard', 'Member\advertiserController@showDashboard');
+Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
+Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
+Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
+Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
+
+
+
+
+Route::get('showStreetView/{id}','Member\productController@showStreetView');
 
 Route::get('/toFcm', 'FCM\SenderMessage@toFcm')->name('toFcm');

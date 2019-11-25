@@ -3559,8 +3559,9 @@ pointer-events: none;
 }
 .navbar {
 	position: relative;
-	min-height: 50px;
-	margin-bottom: 20px;
+	/* min-height: 50px; */
+	max-height: 60px;
+	/* margin-bottom: 20px; */
 	border: 1px solid transparent;
 }
 .navbar:before, .navbar:after {
@@ -3594,6 +3595,7 @@ pointer-events: none;
 	border-top: 1px solid transparent;
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 	-webkit-overflow-scrolling: touch;
+	background-color: white;
 }
 .navbar-collapse:before, .navbar-collapse:after {
 	content: " ";
@@ -3674,10 +3676,10 @@ pointer-events: none;
 }
 .navbar-brand {
 	float: left;
-	padding: 19px 15px;
-	font-size: 18px;
-	line-height: 20px;
-	height: 50px;
+	padding: 10px 2px;
+	/* font-size: 18px; */
+	/* line-height: 20px; */
+	/* height: 50px; */
 }
 .navbar-brand:hover, .navbar-brand:focus {
 	text-decoration: none;
@@ -3695,8 +3697,8 @@ pointer-events: none;
 	float: right;
 	margin-right: 15px;
 	padding: 9px 10px;
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	background-color: transparent;
 	background-image: none;
 	border: 1px solid transparent;
@@ -5863,8 +5865,8 @@ body ul {
 	padding: 0px;
 }
 body .navbar-toggle {
-	margin-top: 33px;
-	margin-bottom: 33px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 @media screen and (max-width: 768px) {
 body .block {
@@ -5873,7 +5875,7 @@ body .block {
 }
 @media screen and (max-width: 767px) {
 body .navbar-brand {
-	padding: 15px 15px;
+	padding: 2px 10px;
 }
 }
 body .heading, body .section-heading h1, body #features h1, body #about h1, body #process h1, body #testimonial h1, body #about-page-section-3 h1, body #skills h1, body #team-member h1, body #top_banner h1, body #portfolio h1, body #faq h1, body #contact h1, body #contact-page h1, body #features-page .subsection1 h1, body #features-page .subsection2 h1, body #features-page .subsection3 .right-section h1, body #features-page .subsection3 .left-section h1, body #features-page .subsection4 h1, body #login-reg h1, body .section-heading .h1, body #features .h1, body #about .h1, body #process .h1, body #testimonial .h1, body #about-page-section-3 .h1, body #skills .h1, body #team-member .h1, body #top_banner .h1, body #portfolio .h1, body #faq .h1, body #contact .h1, body #contact-page .h1, body #features-page .subsection1 .h1, body #features-page .subsection2 .h1, body #features-page .subsection3 .right-section .h1, body #features-page .subsection3 .left-section .h1, body #features-page .subsection4 .h1, body #login-reg .h1, body .section-heading h2, body #features h2, body #about h2, body #process h2, body #testimonial h2, body #about-page-section-3 h2, body #skills h2, body #team-member h2, body #top_banner h2, body #portfolio h2, body #faq h2, body #contact h2, body #contact-page h2, body #features-page .subsection1 h2, body #features-page .subsection2 h2, body #features-page .subsection3 .right-section h2, body #features-page .subsection3 .left-section h2, body #features-page .subsection4 h2, body #login-reg h2, body .section-heading .h2, body #features .h2, body #about .h2, body #process .h2, body #testimonial .h2, body #about-page-section-3 .h2, body #skills .h2, body #team-member .h2, body #top_banner .h2, body #portfolio .h2, body #faq .h2, body #contact .h2, body #contact-page .h2, body #features-page .subsection1 .h2, body #features-page .subsection2 .h2, body #features-page .subsection3 .right-section .h2, body #features-page .subsection3 .left-section .h2, body #features-page .subsection4 .h2, body #login-reg .h2, body .section-heading h3, body #features h3, body #about h3, body #process h3, body #testimonial h3, body #about-page-section-3 h3, body #skills h3, body #team-member h3, body #top_banner h3, body #portfolio h3, body #faq h3, body #contact h3, body #contact-page h3, body #features-page .subsection1 h3, body #features-page .subsection2 h3, body #features-page .subsection3 .right-section h3, body #features-page .subsection3 .left-section h3, body #features-page .subsection4 h3, body #login-reg h3, body .section-heading .h3, body #features .h3, body #about .h3, body #process .h3, body #testimonial .h3, body #about-page-section-3 .h3, body #skills .h3, body #team-member .h3, body #top_banner .h3, body #portfolio .h3, body #faq .h3, body #contact .h3, body #contact-page .h3, body #features-page .subsection1 .h3, body #features-page .subsection2 .h3, body #features-page .subsection3 .right-section .h3, body #features-page .subsection3 .left-section .h3, body #features-page .subsection4 .h3, body #login-reg .h3, body .section-heading h4, body #features h4, body #about h4, body #process h4, body #testimonial h4, body #about-page-section-3 h4, body #skills h4, body #team-member h4, body #top_banner h4, body #portfolio h4, body #faq h4, body #contact h4, body #contact-page h4, body #features-page .subsection1 h4, body #features-page .subsection2 h4, body #features-page .subsection3 .right-section h4, body #features-page .subsection3 .left-section h4, body #features-page .subsection4 h4, body #login-reg h4, body .section-heading .h4, body #features .h4, body #about .h4, body #process .h4, body #testimonial .h4, body #about-page-section-3 .h4, body #skills .h4, body #team-member .h4, body #top_banner .h4, body #portfolio .h4, body #faq .h4, body #contact .h4, body #contact-page .h4, body #features-page .subsection1 .h4, body #features-page .subsection2 .h4, body #features-page .subsection3 .right-section .h4, body #features-page .subsection3 .left-section .h4, body #features-page .subsection4 .h4, body #login-reg .h4, body .section-heading h5, body #features h5, body #about h5, body #process h5, body #testimonial h5, body #about-page-section-3 h5, body #skills h5, body #team-member h5, body #top_banner h5, body #portfolio h5, body #faq h5, body #contact h5, body #contact-page h5, body #features-page .subsection1 h5, body #features-page .subsection2 h5, body #features-page .subsection3 .right-section h5, body #features-page .subsection3 .left-section h5, body #features-page .subsection4 h5, body #login-reg h5, body .section-heading .h5, body #features .h5, body #about .h5, body #process .h5, body #testimonial .h5, body #about-page-section-3 .h5, body #skills .h5, body #team-member .h5, body #top_banner .h5, body #portfolio .h5, body #faq .h5, body #contact .h5, body #contact-page .h5, body #features-page .subsection1 .h5, body #features-page .subsection2 .h5, body #features-page .subsection3 .right-section .h5, body #features-page .subsection3 .left-section .h5, body #features-page .subsection4 .h5, body #login-reg .h5, body .section-heading h6, body #features h6, body #about h6, body #process h6, body #testimonial h6, body #about-page-section-3 h6, body #skills h6, body #team-member h6, body #top_banner h6, body #portfolio h6, body #faq h6, body #contact h6, body #contact-page h6, body #features-page .subsection1 h6, body #features-page .subsection2 h6, body #features-page .subsection3 .right-section h6, body #features-page .subsection3 .left-section h6, body #features-page .subsection4 h6, body #login-reg h6, body .section-heading .h6, body #features .h6, body #about .h6, body #process .h6, body #testimonial .h6, body #about-page-section-3 .h6, body #skills .h6, body #team-member .h6, body #top_banner .h6, body #portfolio .h6, body #faq .h6, body #contact .h6, body #contact-page .h6, body #features-page .subsection1 .h6, body #features-page .subsection2 .h6, body #features-page .subsection3 .right-section .h6, body #features-page .subsection3 .left-section .h6, body #features-page .subsection4 .h6, body #login-reg .h6, body #about .about-list h3, body #about .about-list .h3 {
@@ -6002,8 +6004,8 @@ body #top-header .social {
 }
 body header {
 	text-align: center;
-	line-height: 100px;
-	height: 100px;
+	line-height: 50px;
+	height: 50px;
 	background: #fff;
 	-webkit-transition: 0.8s;
 	transition: 0.8s;
@@ -6012,8 +6014,8 @@ body header {
 body header.sticky {
 	position: fixed;
 	font-size: 13px;
-	line-height: 70px;
-	height: 70px;
+	line-height: 60px;
+	height: 60px;
 	width: 100%;
 	background: #fff;
 	text-align: left;
@@ -6023,15 +6025,15 @@ body header.sticky {
 	box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
 }
 body header.sticky .navbar-nav > li > a {
-	padding-top: 25px;
-	padding-bottom: 20px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	transition: 0.8s;
 	z-index: 999;
 }
 body header.sticky .navbar-brand {
-	height: 70px;
-	padding: 5px 15px;
-	line-height: 15px;
+	/* height: 60px; */
+	padding: 10px 15px;
+	line-height: 10px;
 	transition: 0.8s;
 	z-index: 999;
 }
@@ -6052,7 +6054,7 @@ body .navbar-brand {
 	float: left;
 	font-size: 18px;
 	line-height: 20px;
-	height: 100px;
+	height: 60px;
 }
 body .navbar-brand h1 {
 	font-family: Verdana, Georgia, Serif;
@@ -6075,8 +6077,8 @@ body .navbar-inverse .navbar-nav > li > a {
 	text-transform: uppercase;
 }
 body .navbar-nav > li > a {
-	padding-top: 40px;
-	padding-bottom: 35px;
+	/* padding-top: 40px;
+	padding-bottom: 35px; */
 }
 body .navbar-inverse .navbar-nav > li > a:hover, body .navbar-inverse .navbar-nav > li > a:focus {
 	background-color: transparent;
@@ -6142,7 +6144,7 @@ body .navbar-nav > li > a {
 @media screen and (max-width: 375px) {
 body .navbar-inverse .navbar-brand {
 	width: 70%;
-	padding: 15px 10px;
+	padding: 5px 5px;
 }
 }
 body #myCarousel .carousel {
@@ -6173,8 +6175,8 @@ body #myCarousel .item:before {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: url(../../assets/img/banner-pattern.png) repeat;
-	background-color: rgba(25, 25, 25, 0.8);
+	/* background: url(../../assets/img/banner-pattern.png) repeat; */
+	/* background-color: rgba(25, 25, 25, 0.8); */
 	z-index: 2;
 }
 body #myCarousel .fill {
@@ -6477,7 +6479,8 @@ body #process .process-border {
 }
 }
 body #testimonial {
-	background: url(../../assets/img/bg2.jpg);
+	/* background: url(../../assets/img/bg2.jpg); */
+	background-color: #272930;
 	width: 100%;
 	height: 100%;
 	background-size: cover !important;
@@ -7053,6 +7056,7 @@ body #portfolio .title {
 }
 body #portfolio .portfolio-one {
 	margin-bottom: 30px;
+	min-height: 350px;
 	-moz-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
@@ -7060,11 +7064,12 @@ body #portfolio .portfolio-one {
 body #portfolio .portfolio-head {
 	position: relative;
 	overflow: hidden;
-	height: 100%;
+	/* height: 100%; */
+	min-height: 180px;
 }
 body #portfolio .portfolio-img img {
 	width: 100%;
-	height: auto;
+	height: 180px;
 }
 body #portfolio .portfolio-hover {
 	opacity: 0.5;

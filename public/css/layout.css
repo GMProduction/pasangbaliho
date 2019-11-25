@@ -18,13 +18,13 @@
     }
     .imgLogo{
         max-width: 300px !important;
-        max-height: auto !important;
+        max-height: 60 !important;
         padding-top: 10px !important;
         transition: 0.8s;
     }
     body header.sticky .navbar-brand {
-        height: 70px;
-        padding: 10px 15px;
+        height: 60px;
+        padding: 5px 15px;
         line-height: 15px;
         transition: 0.8s;
         z-index: 999;
