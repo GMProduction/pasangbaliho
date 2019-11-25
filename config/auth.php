@@ -38,13 +38,24 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'advertisers',
+            'provider' => 'users',
         ],
 
         'api' => [
             'driver' => 'passport',
             'provider' => 'advertisers',
         ],
+
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
+
+        'advertiser' => [
+            'driver' => 'session',
+            'provider' => 'advertiserM',
+        ]
+
     ],
 
     /*
@@ -65,14 +76,19 @@ return [
     */
 
     'providers' => [
-        // 'users' => [
-        //     'driver' => 'eloquent',
-        //     'model' => App\User::class,
-        // ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
 
-        'advertiser' => [
+        'advertisers' => [
             'driver' => 'eloquent',
             'model' => App\models\AdvertiserModel::class,
+        ],
+
+        'advertiserM' => [
+            'driver' => 'eloquent',
+            'model' => App\Master\advertiserModel::class,
         ],
 
         'clients' => [
