@@ -75,4 +75,14 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('{any}', function () {
         return view('admin.layout');
     })->where('any','.*');
+
+    Route::get('/api/negosiasi/request', 'Admin\TransaksiControll@getPermintaanharga');
+});
+
+Route::group(['prefix' => 'adminapi'], function(){
+    Route::group(['prefix' => 'negosiasi'], function(){
+        Route::get('/request', 'Admin\TransaksiControll@getPermintaanharga');
+        Route::get('/requestById', 'Admin\TransaksiControll@getPermintaanHargaById');
+        Route::post('/postPrice', 'Admin\TransaksiControll@setPemberianHarga');
+    });
 });

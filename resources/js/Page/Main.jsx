@@ -4,7 +4,7 @@ import Navigasi from '../components/Material-UI/Navigasi/Navigasi';
 import Footer from '../components/Material-UI/Navigasi/Footer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
-// import PageRouter from './PageRouter';
+import PageRouter from './PageRouter';
 
 
 export default class Main extends Component {
@@ -16,7 +16,7 @@ export default class Main extends Component {
                     <BrowserRouter>
                         <Navigasi/>
                         <main style={{backgroundColor: '#EEEEEE'}}>
-                            {/* <PageRouter/> */}
+                            <PageRouter/>
                         </main>
                         <Footer/>
                     </BrowserRouter>
