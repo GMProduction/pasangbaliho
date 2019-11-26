@@ -60,8 +60,8 @@ class TransaksiController extends Controller
         try {
 
             $transTable = TransaksiModel::find($idTransaksi);
-                $transTable -> terbaca_advertiser = '1';
-                $transTable -> save();
+            $transTable->terbaca_advertiser = '1';
+            $transTable->save();
 
             $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
@@ -103,24 +103,35 @@ class TransaksiController extends Controller
 
     public function ajukanPenawaran(Request $request)
     {
-        try {
-            $transaksi = new TransaksiModel();
-            $transaksi->id_baliho = $request->id_baliho;
-            $transaksi->id_advertiser = $request->id_advertiser;
-            $transaksi->status = "permintaan";
-            $transaksi->tanggal_transaksi = Carbon::now()->format('Y-m-d');
-            $transaksi->tanggal_awal = $request->tanggal_awal;
-            $transaksi->tanggal_akhir = $request->tanggal_akhir;
-            $transaksi->save();
+        $cekAdvertiser = AdvertiserModel::where('id', $request->idAdvertiser)
+            ->where('api_token', $request->apiToken)
+            ->first();
 
+        if ($cekAdvertiser != null) {
+            try {
+                $transaksi = new TransaksiModel();
+                $transaksi->id_baliho = $request->id_baliho;
+                $transaksi->id_advertiser = $request->id_advertiser;
+                $transaksi->status = "permintaan";
+                $transaksi->tanggal_transaksi = Carbon::now()->format('Y-m-d');
+                $transaksi->tanggal_awal = $request->tanggal_awal;
+                $transaksi->tanggal_akhir = $request->tanggal_akhir;
+                $transaksi->save();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'pengajuan permintaan berhasil'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }else{
             return response()->json([
-                'respon' => 'success',
-                'message' => 'pengajuan permintaan berhasil'
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'respon' => 'failure',
-                'message' => 'terjadi kesalahan ' . $e
+                'respon' => 'authError',
+                'message' => 'terjadi kesalahan, mohon login kembali...'
             ], 500);
         }
     }
@@ -152,7 +163,7 @@ class TransaksiController extends Controller
         } else {
             return response()->json([
                 'respon' => 'authError',
-                'message' => 'terjadi kesalahan ' . $e
+                'message' => 'terjadi kesalahan, mohon login kembali...'
             ], 500);
         }
     }
@@ -186,7 +197,7 @@ class TransaksiController extends Controller
                 $transTable = (new TransaksiModel())->getTable();
 
                 DB::table($transTable)->where("terbaca_advertiser", "0")
-                ->where("id_advertiser", $request->idAdv)->update(['terbaca_advertiser' => '1']);
+                    ->where("id_advertiser", $request->idAdv)->update(['terbaca_advertiser' => '1']);
 
                 return response()->json([
                     'respon' => 'success',
@@ -207,8 +218,8 @@ class TransaksiController extends Controller
         if ($request->idTransaksi != null) {
             try {
                 $transTable = TransaksiModel::find($request->idTransaksi);
-                $transTable -> terbaca_advertiser = '1';
-                $transTable -> save();
+                $transTable->terbaca_advertiser = '1';
+                $transTable->save();
 
                 return response()->json([
                     'respon' => 'success',
