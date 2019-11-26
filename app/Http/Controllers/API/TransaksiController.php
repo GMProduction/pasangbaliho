@@ -68,8 +68,6 @@ class TransaksiController extends Controller
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.provinsi as provinsi',
                     'transaksi.id_transaksi as id_transaksi',
                     'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
