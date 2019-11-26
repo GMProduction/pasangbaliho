@@ -33,7 +33,7 @@
     </style>
 </head>
 <body bgcolor="#EEEEEE">
-    <div id="example"></div>
+    <div id="root"></div>
     <script src="{{asset ('/js/aplikasi.js')}}"></script>
     
     
