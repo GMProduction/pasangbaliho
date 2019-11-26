@@ -17,7 +17,8 @@ class SenderMessage extends Controller
     public function toFcm()
     {
         $fcm = FcmModel::where('id_advertiser', '6')
-            ->last();
+        ->latest()->first();
+
         $to = $fcm->fcm_token;
 
         $data = array(
