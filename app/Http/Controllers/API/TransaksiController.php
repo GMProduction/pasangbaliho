@@ -63,7 +63,7 @@ class TransaksiController extends Controller
             $transTable->terbaca_advertiser = '1';
             $transTable->save();
 
-            $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
                 ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
