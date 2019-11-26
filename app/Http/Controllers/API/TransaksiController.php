@@ -15,12 +15,18 @@ class TransaksiController extends Controller
     public function dataTransaksi(Request $request)
     {
         try {
-            $transaksi = TransaksiModel::join('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
-                ->join('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+            ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+            ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
                     'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
