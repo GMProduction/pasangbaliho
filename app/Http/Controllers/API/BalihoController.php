@@ -35,6 +35,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
+                ->where('status', 'publish')
                 ->groupBy('balihos.id_baliho')
                 ->paginate(20);
 
@@ -75,6 +76,7 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
+                ->where('status', 'publish')
                 ->where("nama_kota", "LIKE", $request->kota)
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
@@ -104,9 +106,9 @@ class BalihoController extends Controller
     {
         try {
             $baliho = BalihoModel::leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
-            ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
-            ->where('id_baliho', $id)
+                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->where('id_baliho', $id)
                 ->first();
 
             $fotos = FotoBalihoModel::Where('id_baliho', $id)
