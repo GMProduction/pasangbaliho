@@ -103,7 +103,7 @@ class TransaksiController extends Controller
 
     public function ajukanPenawaran(Request $request)
     {
-        $cekAdvertiser = AdvertiserModel::where('id', $request->idAdvertiser)
+        $cekAdvertiser = AdvertiserModel::where('id', $request->id_advertiser)
             ->where('api_token', $request->apiToken)
             ->first();
 
