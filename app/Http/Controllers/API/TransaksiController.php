@@ -21,8 +21,6 @@ class TransaksiController extends Controller
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.provinsi as provinsi',
                     'transaksi.id_transaksi as id_transaksi',
                     'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
@@ -32,13 +30,14 @@ class TransaksiController extends Controller
                     'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan_batal as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
                 )
 
                 ->where("id_advertiser", $request->id_advertiser)
-                ->where("status", $request->status)
+                ->where("transaksi.status", $request->status)
                 ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
@@ -70,8 +69,6 @@ class TransaksiController extends Controller
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
-                    'balihos.kota as kota',
-                    'balihos.provinsi as provinsi',
                     'transaksi.id_transaksi as id_transaksi',
                     'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
@@ -81,6 +78,7 @@ class TransaksiController extends Controller
                     'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan_batal as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
