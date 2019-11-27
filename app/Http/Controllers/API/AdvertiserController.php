@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
+
 class AdvertiserController extends Controller
 {
     public $successStatus = 200;
@@ -168,5 +169,9 @@ class AdvertiserController extends Controller
                 'advertiser' => $advertiser
             ]);
         }
+    }
+
+    public function testMessage(){
+        sendNotifAdvertiser(6,"tes", "testes");
     }
 }

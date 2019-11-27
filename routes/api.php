@@ -58,6 +58,7 @@ Route::get('v1/getDataNews', 'API\NewsController@getDataNews')->name('getDataNew
 
 //Notifikasi
 Route::get('v1/getDataNotifikasi', 'API\NotifikasiController@getDataNotifikasi')->name('getDataNotifikasi');
+Route::get('v1/testMessage', 'API\AdvertiserController@testMessage')->name('testMessage');
 
 //FCM
 Route::post('v1/insertFcmAdvertiser', 'API\FcmController@insertFcmAdvertiser')->name('insertFcmAdvertiser');
