@@ -1,5 +1,4 @@
-const offurl = 'http://localhost:8000';
-const onurl = 'http://genossys.site'
+const onurl = 'https://pasangbaliho.com';
 
 export async function loadKategori () {
     let data = 0;
