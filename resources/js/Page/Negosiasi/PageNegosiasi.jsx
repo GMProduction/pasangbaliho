@@ -12,26 +12,6 @@ import Icon from '@material-ui/core/Icon';
 import { NavLink } from 'react-router-dom';
 
 
-const style = {
-    paper:{
-        backgroundColor: 'inherit',
-        color: 'white',
-        marginBottom: '25px',
-        
-    },
-    link :{
-        color: '#78909C',
-        textDecoration: 'none',
-        display: 'flex',
-        fontFamily: 'Roboto Light',
-        '&:hover' : {
-            color: '#555555',
-            textDecoration: 'underline',
-        }
-    }
-}
-
-
 export class PageNegosiasi extends Component {
 
     constructor(props) {
@@ -86,7 +66,7 @@ export class PageNegosiasi extends Component {
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <PanelMenu
-                                    link='/admin/mediaiklan/form'
+                                    link='/admin/negosiasi/negoharga'
                                     color='#FC9007'
                                     icon='monetization_on'
                                     title={`Negosiasi Harga (${0})`}
@@ -97,11 +77,11 @@ export class PageNegosiasi extends Component {
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '15px'}}>
                         <PanelMenu
-                            link='/admin/mediaiklan/negoharga'
+                            link='/admin/negosiasi/negomateri'
                             color='#9129AC'
                             icon='forum'
                             title={`Negosiasi Materi (${0})`}
-                            subTitle='Proses Negosiasi Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
+                            subTitle='Proses Negosiasi Materi Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
                         />
                     </Grid>
                 </Grid>

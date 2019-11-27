@@ -1,0 +1,86 @@
+const offurl = 'http://localhost:8000';
+const onurl = 'http://genossys.site'
+
+export async function loadPermintaan () {
+    let data = 0;
+    try {
+        let res = await axios.get(offurl+'/adminapi/mediaiklan/request');
+        data = res.data;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+
+export async function loadMediaPublish () {
+    let data = 0;
+    try {
+        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestpublish');
+        data = res.data;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+export async function loadMediaBlock () {
+    let data = 0;
+    try {
+        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestblock');
+        data = res.data;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+export async function loadAllMedia () {
+    let data = 0;
+    try {
+        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestAllMedia');
+        data = res.data;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+
+export async function loadPermintaanMediaById (id) {
+    let data = 0;
+    try {
+        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestById?id='+id);
+        data = res.data;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+
+export async function KonfirmasiMedia (dataUpdate) {
+    let data = 0;
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+      }
+    try {
+        let res = await axios.post(offurl+'/adminapi/mediaiklan/konfirmmedia', dataUpdate, config);
+        data = res;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
+export async function addMedia (dataUpdate) {
+    let data = 0;
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+      }
+    try {
+        let res = await axios.post(offurl+'/adminapi/mediaiklan/addmedia', dataUpdate, config);
+        data = res;
+    } catch (error) {
+        alert(error)
+    }
+    return data;
+}
