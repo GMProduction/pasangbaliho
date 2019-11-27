@@ -169,4 +169,8 @@ class AdvertiserController extends Controller
             ]);
         }
     }
+
+    public function testMessage(){
+        sendNotifAdvertiser(1,"tes", "testes");
+    }
 }
