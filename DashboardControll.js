@@ -1,5 +1,5 @@
 const offurl = 'http://localhost:8000';
-const onurl = 'https://pasangbaliho.com'
+const onurl = 'http://genossys.site'
 
 export async function loadPermintaan () {
     let data = 0;
