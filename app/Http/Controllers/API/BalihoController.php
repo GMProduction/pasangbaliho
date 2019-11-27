@@ -37,6 +37,7 @@ class BalihoController extends Controller
                 )
                 ->where('status', 'publish')
                 ->groupBy('balihos.id_baliho')
+                ->orderBy('balihos.created_at', 'DESC')
                 ->paginate(20);
 
             return response()->json([
