@@ -11,6 +11,7 @@
         "php": "^7.2",
         "benwilkins/laravel-fcm-notification": "^4.0",
         "fideloper/proxy": "^4.0",
+        "intervention/image": "^2.5",
         "kawankoding/laravel-fcm": "^0.1.9",
         "kreait/laravel-firebase": "^1.2",
         "laravel/framework": "^6.0",

@@ -87,9 +87,42 @@ Route::group(['prefix' => 'admin'], function(){
 });
 
 Route::group(['prefix' => 'adminapi'], function(){
+
+
+    Route::group(['prefix' => 'mitra'], function(){
+        Route::get('/request', 'Admin\MitraControll@getMitra');
+        Route::get('/requestAdvertiser', 'Admin\AdvertiserControll@getAdvertiser');
+    });
+
+    Route::group(['prefix' => 'kategori'], function(){
+        Route::get('/request', 'Admin\KategoriControll@getKategori');
+    });
+
+    Route::group(['prefix' => 'lokasi'], function(){
+        Route::get('/requestProvinsi', 'Admin\LokasiControll@getProvinsi');
+        Route::get('/requestKota', 'Admin\LokasiControll@getKota');
+    });
+
     Route::group(['prefix' => 'negosiasi'], function(){
         Route::get('/request', 'Admin\TransaksiControll@getPermintaanharga');
         Route::get('/requestById', 'Admin\TransaksiControll@getPermintaanHargaById');
         Route::post('/postPrice', 'Admin\TransaksiControll@setPemberianHarga');
+        Route::get('/nego', 'Admin\TransaksiControll@getNegosiasiHarga');
+        Route::get('/negoById', 'Admin\TransaksiControll@getNegosiasiHargaById');
+        Route::post('/postPriceDeal', 'Admin\TransaksiControll@setHargaDeal');
+        Route::get('/negomateri', 'Admin\TransaksiControll@getNegosiasiMateri');
+        Route::get('/negomateriById', 'Admin\TransaksiControll@getNegosiasiMateriById');
+        Route::post('/finishnego', 'Admin\TransaksiControll@setFinisNego');
+        Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
+    });
+
+    Route::group(['prefix' => 'mediaiklan'], function(){
+        Route::get('/request', 'Admin\MediaControll@getPermintaanMedia');
+        Route::get('/requestAllMedia', 'Admin\MediaControll@getAllMedia');
+        Route::get('/requestpublish', 'Admin\MediaControll@getMediaPublish');
+        Route::get('/requestblock', 'Admin\MediaControll@getMediaBlock');
+        Route::get('/requestById', 'Admin\MediaControll@getPermintaanMediaById');
+        Route::post('/konfirmmedia','Admin\MediaControll@konfirmasiMedia');
+        Route::post('/addmedia','Admin\MediaControll@addMedia');
     });
 });

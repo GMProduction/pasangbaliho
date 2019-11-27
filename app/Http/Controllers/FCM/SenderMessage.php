@@ -4,7 +4,6 @@ namespace App\Http\Controllers\FCM;
 
 
 use App\Http\Controllers\Controller;
-use App\models\AdvertiserModel;
 use App\models\FcmModel;
 
 class SenderMessage extends Controller
