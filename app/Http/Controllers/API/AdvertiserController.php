@@ -8,7 +8,7 @@ use App\models\AdvertiserModel;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
-use App\models\FcmModel;
+
 
 class AdvertiserController extends Controller
 {
