@@ -148,5 +148,5 @@ function sendNotifAdvertiser($idAdvertiser, $tittle, $body)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
     $result = curl_exec($ch);
-    return json_encode($result, true);
+    // return json_encode($result, true);
 }

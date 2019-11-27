@@ -15,6 +15,8 @@ import PageNegoHarga from './Negosiasi/PageNegoHarga';
 import PageHargaDeal from './Negosiasi/PageHargaDeal';
 import PageNegoMateri from './Negosiasi/PageNegoMateri';
 import PageNegoSelesai from './Negosiasi/PageNegoSelesai';
+import PageMitra from './Mitra/PageMitra';
+import PageAdvertiser from './Advertiser/PageAdvertiser';
 
 export class PageRouter extends Component {
     render() {
@@ -30,6 +32,9 @@ export class PageRouter extends Component {
                     <Route exact path='/admin/mediaiklan/block' component={PageMediaBlock}/>
                     <Route exact path='/admin/mediaiklan/daftar' component={PageAllMedia}/>
                     <Route exact path='/admin/mediaiklan/form' component={PageAddMedia}/>
+                    
+                    <Route exact path='/admin/mitra' component={PageMitra}/>
+                    <Route exact path='/admin/advertiser' component={PageAdvertiser}/>
                     {/* <Route exact path='/admin/mediaiklan/permintaan/:id' component={FormPermintaan}/> */}
                     {/* <Route exact path='/admin/mediaiklan/detail/:id' component={PageDetail}/> */}
                     {/* <Route path='/admin/mediaiklan/publik' component={PagePublishMedia}/> */}
