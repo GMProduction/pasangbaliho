@@ -41,6 +41,7 @@ export class PageBeriHarga extends Component {
             loadingBarProgress: 0,
             isLoading: true,
             namaadvertiser: '',
+            idAdvertiser: '',
             tanggalAwal: '',
             tanggalAkhir: '',
             namaBaliho: '',
@@ -62,7 +63,8 @@ export class PageBeriHarga extends Component {
         let id = this.props.match.params.id;
         let dataUpdate = {
             hargaPenawaran: this.state.hargaPenawaran,
-            idtransaksi: id
+            idtransaksi: id,
+            idAdvertiser: this.state.idAdvertiser
         }
         let res = await setHarga(dataUpdate);
         if (res.status === 'ok') {
@@ -81,6 +83,8 @@ export class PageBeriHarga extends Component {
         })
         let id = this.props.match.params.id;
         let data = await loadPermintaanHargaById(id);
+        console.log(data);
+        
         let idbaliho = data.idBaliho;
         let dataused = await loadMediaOnUsed(idbaliho);
         this.setState({
@@ -90,8 +94,10 @@ export class PageBeriHarga extends Component {
             namaBaliho: data.namaBaliho,
             kategori: data.kategori,
             usedon: dataused,
+            idAdvertiser: data.idAdvertiser,
             loadingBarProgress: 100,
             isLoading: false,
+
         })
     }
 

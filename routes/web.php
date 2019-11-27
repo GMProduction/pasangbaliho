@@ -86,8 +86,10 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::group(['prefix' => 'adminapi'], function(){
 
+
     Route::group(['prefix' => 'mitra'], function(){
         Route::get('/request', 'Admin\MitraControll@getMitra');
+        Route::get('/requestAdvertiser', 'Admin\AdvertiserControll@getAdvertiser');
     });
 
     Route::group(['prefix' => 'kategori'], function(){

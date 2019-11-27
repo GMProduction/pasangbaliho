@@ -61,7 +61,7 @@ export class PermintaanHarga extends Component {
                                                 <TableCell align='left'>{row.namaAdvertiser}</TableCell>
                                                 <TableCell align='left'>{row.namaBaliho}</TableCell>
                                                 <TableCell align='center'>
-                                                    <Button variant="outlined" size='small' color="primary" component={NavLink} to={`/dashboard/permintaan/detail/${row.id_transaksi}`}>
+                                                    <Button variant="outlined" size='small' color="primary" component={NavLink} to={`/admin/negosiasi/permintaan/${row.id_transaksi}`}>
                                                          Detail
                                                     </Button>
                                                 </TableCell>
@@ -75,7 +75,7 @@ export class PermintaanHarga extends Component {
                                 </TableBody>
                             </Table>
                             <Box fontSize={14} fontFamily="Lato" display="flex" justifyContent="flex-end" alignItems="center">
-                                <Button component={NavLink} to='/dashboard/permintaan/detail'>
+                                <Button component={NavLink} to='/admin/negosiasi/permintaan'>
                                     Lihat Semua Permintaan
                                 </Button>
                             </Box>

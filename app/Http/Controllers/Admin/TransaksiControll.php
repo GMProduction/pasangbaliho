@@ -76,6 +76,10 @@ class TransaksiControll extends Controller
             TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idtransaksi)
             ->update($data);
+            // if ($update) {
+            //     # code...
+            //     // sendNotifAdvertiser('1', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
+            // }
             return response()->json([
                 'status' => 'ok',
                 'data' => $data,

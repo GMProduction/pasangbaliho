@@ -76,21 +76,14 @@ export class Sidebar extends Component {
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/admin'
-                        >
-                            <Icon>supervisor_account</Icon>Admin
-                        </ListItem>
-                    </li>
-                    <li>
-                        <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/dashboard/client' exact
+                        component={NavLink} to='/admin/mitra' exact
                         >
                             <Icon>assignment_ind</Icon>Client
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/dashboard/advertiser' exact
+                        component={NavLink} to='/admin/advertiser' exact
                         // isActive={() => this.sendTitle('Advertiser')}
                         >
                             <Icon>face</Icon>Advertiser
