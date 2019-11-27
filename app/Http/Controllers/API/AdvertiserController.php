@@ -140,7 +140,7 @@ class AdvertiserController extends Controller
             }
         } else {
             return response()->json([
-                'respon' => 'success',
+                'respon' => 'failure',
                 'message' => 'Email sudah di pakai',
                 'advertiser' => $advertiser
             ]);

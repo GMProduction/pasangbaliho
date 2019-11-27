@@ -50,7 +50,9 @@ Route::get('login', 'Auth\Member\loginController@showLoginForm');
 //     return view('auth.member.login');
 // });
 Route::post('login', 'Auth\Member\loginController@postlogin');
+Route::post('loginClient', 'Auth\Member\loginController@postloginClient');
 Route::get('logout', 'Auth\Member\loginController@logout');
+Route::get('logoutClient', 'Auth\Member\loginController@logoutClient');
 
 Route::get('dashboard/addProduk', function(){
     return view('advertiser.data.input');
@@ -62,6 +64,9 @@ Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung'
 Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
 Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
 Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
+
+// Client Dashboar
+Route::get('dashboardClient', 'Member\advertiserController@showDashboard');
 
 
 
