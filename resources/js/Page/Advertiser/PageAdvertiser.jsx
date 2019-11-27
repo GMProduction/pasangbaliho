@@ -32,10 +32,8 @@ export class PageAdvertiser extends Component {
             loadingBarProgress: 50,
         })
         let advertiser = await loadAdvertiser();
-        console.log(advertiser);
-        
         this.setState({
-            // data : advertiser,
+            data : advertiser,
             dataLoading: false,
             loadingBarProgress: 100,
             isLoading: false
