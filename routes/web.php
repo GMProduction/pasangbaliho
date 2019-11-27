@@ -49,10 +49,10 @@ Route::get('login', 'Auth\Member\loginController@showLoginForm');
 // Route::get('login', function(){
 //     return view('auth.member.login');
 // });
-Route::post('login', 'Auth\Member\loginController@postlogin');
-Route::post('loginClient', 'Auth\Member\loginController@postloginClient');
+Route::post('loginAdvertiser', 'Auth\Member\loginController@postlogin');
+Route::post('loginClient', 'Auth\Member\loginClientController@postloginClient');
 Route::get('logout', 'Auth\Member\loginController@logout');
-Route::get('logoutClient', 'Auth\Member\loginController@logoutClient');
+Route::get('logoutClient', 'Auth\Member\loginClientController@logoutClient');
 
 Route::get('dashboard/addProduk', function(){
     return view('advertiser.data.input');
@@ -66,7 +66,9 @@ Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailPro
 Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
 
 // Client Dashboar
-Route::get('dashboardClient', 'Member\advertiserController@showDashboard');
+Route::get('dashboardClient', 'Member\clientController@showDashboard');
+Route::get('dashboardClient/profile', 'Member\clientController@showProfile');
+Route::get('dashboardClient/asset', 'Member\clientController@showAsset');
 
 
 
