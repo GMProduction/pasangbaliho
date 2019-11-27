@@ -4,7 +4,7 @@ const onurl = 'http://genossys.site'
 export async function loadPermintaan () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mediaiklan/request');
+        let res = await axios.get(onurl+'/adminapi/mediaiklan/request');
         data = res.data;
     } catch (error) {
         alert(error)
@@ -15,7 +15,7 @@ export async function loadPermintaan () {
 export async function loadMediaPublish () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestpublish');
+        let res = await axios.get(onurl+'/adminapi/mediaiklan/requestpublish');
         data = res.data;
     } catch (error) {
         alert(error)
@@ -25,7 +25,7 @@ export async function loadMediaPublish () {
 export async function loadMediaBlock () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestblock');
+        let res = await axios.get(onurl+'/adminapi/mediaiklan/requestblock');
         data = res.data;
     } catch (error) {
         alert(error)
@@ -35,7 +35,7 @@ export async function loadMediaBlock () {
 export async function loadAllMedia () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestAllMedia');
+        let res = await axios.get(onurl+'/adminapi/mediaiklan/requestAllMedia');
         data = res.data;
     } catch (error) {
         alert(error)
@@ -46,7 +46,7 @@ export async function loadAllMedia () {
 export async function loadPermintaanMediaById (id) {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mediaiklan/requestById?id='+id);
+        let res = await axios.get(onurl+'/adminapi/mediaiklan/requestById?id='+id);
         data = res.data;
     } catch (error) {
         alert(error)
@@ -62,7 +62,7 @@ export async function KonfirmasiMedia (dataUpdate) {
         }
       }
     try {
-        let res = await axios.post(offurl+'/adminapi/mediaiklan/konfirmmedia', dataUpdate, config);
+        let res = await axios.post(onurl+'/adminapi/mediaiklan/konfirmmedia', dataUpdate, config);
         data = res;
     } catch (error) {
         alert(error)
@@ -77,7 +77,7 @@ export async function addMedia (dataUpdate) {
         }
       }
     try {
-        let res = await axios.post(offurl+'/adminapi/mediaiklan/addmedia', dataUpdate, config);
+        let res = await axios.post(onurl+'/adminapi/mediaiklan/addmedia', dataUpdate, config);
         data = res;
     } catch (error) {
         alert(error)

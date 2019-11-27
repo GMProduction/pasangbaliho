@@ -4,7 +4,7 @@ const onurl = 'http://genossys.site'
 export async function loadProvinsi () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/lokasi/requestProvinsi');
+        let res = await axios.get(onurl+'/adminapi/lokasi/requestProvinsi');
         data = res.data;
     } catch (error) {
         alert(error)
@@ -14,7 +14,7 @@ export async function loadProvinsi () {
 export async function loadKota (idprovinsi) {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/lokasi/requestKota?id='+idprovinsi);
+        let res = await axios.get(onurl+'/adminapi/lokasi/requestKota?id='+idprovinsi);
         data = res.data;
     } catch (error) {
         alert(error)

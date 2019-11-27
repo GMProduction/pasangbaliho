@@ -4,7 +4,7 @@ const onurl = 'http://genossys.site'
 export async function loadMitra () {
     let data = 0;
     try {
-        let res = await axios.get(offurl+'/adminapi/mitra/request');
+        let res = await axios.get(onurl+'/adminapi/mitra/request');
         data = res.data;
     } catch (error) {
         alert(error)
