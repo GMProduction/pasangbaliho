@@ -1,4 +1,3 @@
-const offurl = 'http://localhost:8000';
 const onurl = 'https://pasangbaliho.com'
 
 export async function loadPermintaan () {
