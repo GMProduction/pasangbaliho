@@ -27,6 +27,9 @@ Route::post('v1/loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->n
 Route::post('v1/loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
 Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertiser')->name('registerAdvertiser');
 
+//CLient
+Route::get('v1/cekLoginClient', 'API\ClientController@cekLoginClient')->name('cekLoginClient');
+
 
 //Fetch data baliho
 Route::get('v1/dataListAllBaliho', 'API\BalihoController@dataListAllBaliho')->name('dataListAllBaliho');
