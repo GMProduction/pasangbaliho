@@ -18,9 +18,9 @@ class ClientController extends Controller
             $client = ClientModel::where([
                 'id_client' => $request->idClient
             ])->first();
-            $token = $client->api_token;
 
             if ($client != null) {
+                $token = $client->api_token;
                 if ($token == $request->apiToken) {
                     return response()->json([
                         'respon' => 'success',
