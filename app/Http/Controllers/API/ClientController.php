@@ -51,7 +51,7 @@ class ClientController extends Controller
     {
         $client = ClientModel::where([
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => bcrypt($request->password)
         ])
             ->first();
 
