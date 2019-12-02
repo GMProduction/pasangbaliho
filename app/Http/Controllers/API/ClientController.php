@@ -5,8 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\ClientModel;
-
-
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
