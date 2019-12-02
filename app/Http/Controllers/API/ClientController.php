@@ -49,24 +49,33 @@ class ClientController extends Controller
     public function loginClient(Request $request)
     {
 
-        $client = ClientModel::where([
-            'email' => $request->email,
-            'password' => Hash::check('secret', $request->password)
-
-        ])
-            ->first();
+        $client = ClientModel::where(
+            'email',
+            $request->email
+        )->first();
 
         if ($client == null) {
+
             return response()->json([
                 'respon' => 'failure',
                 'message' => 'user tidak terdaftar'
             ], 401);
         } else {
-            return response()->json([
-                'respon' => 'success',
-                'message' => 'login sukses',
-                'client' => $client
-            ]);
+            $password = $client->password;
+
+            if (Hash::check($password, $request->password)) {
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'login sukses',
+                    'client' => $client
+                ]);
+            } else {
+
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'user tidak terdaftar'
+                ], 401);
+            }
         }
     }
 
