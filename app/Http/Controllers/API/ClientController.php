@@ -46,4 +46,26 @@ class ClientController extends Controller
             ], 401);
         }
     }
+
+    public function loginClient(Request $request)
+    {
+        $client = ClientModel::where([
+            'email' => $request->email,
+            'password' => $request->password
+        ])
+            ->first();
+
+        if ($client == null) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'user tidak terdaftar'
+            ], 401);
+        } else {
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'login sukses',
+                'client' => $client
+            ]);
+        }
+    }
 }
