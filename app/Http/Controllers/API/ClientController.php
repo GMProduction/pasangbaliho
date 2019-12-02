@@ -73,7 +73,7 @@ class ClientController extends Controller
 
                 return response()->json([
                     'respon' => 'failure',
-                    'message' => 'user tidak terdaftar'
+                    'message' => $password
                 ], 401);
             }
         }
