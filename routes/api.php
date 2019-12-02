@@ -29,6 +29,7 @@ Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertise
 
 //CLient
 Route::get('v1/cekLoginClient', 'API\ClientController@cekLoginClient')->name('cekLoginClient');
+Route::post('v1/loginClient', 'API\ClientController@loginClient')->name('loginClient');
 
 
 //Fetch data baliho
