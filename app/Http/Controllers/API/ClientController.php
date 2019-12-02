@@ -68,4 +68,44 @@ class ClientController extends Controller
             ]);
         }
     }
+
+    public function registerClient(Request $request)
+    {
+
+        $client = ClientModel::where([
+            'email' => $request->email
+        ])->first();
+
+        if ($client == null) {
+
+            try {
+                $input = new ClientModel();
+                $input->email = $request->email;
+                $input->nama = $request->nama;
+                $input->telp = $request->telp;
+                $input->password = $request->password;
+                $input->alamat = $request->alamat;
+                $input->mib = $request->mib;
+                $input->npwp = $request->npwp;
+                $input->no_ktp = $request->no_ktp;
+                $input->api_token = Hash::make($request->email);
+                $input->save();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'Pendaftaran berhasil'
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'Email sudah di pakai',
+            ]);
+        }
+    }
 }
