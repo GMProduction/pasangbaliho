@@ -51,7 +51,7 @@ class ClientController extends Controller
     {
         $client = ClientModel::where([
             'email' => $request->email,
-            'password' => $request->password
+            'password' => Hash::make($request->password)
         ])
             ->first();
 
