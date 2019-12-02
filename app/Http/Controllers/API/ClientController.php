@@ -49,7 +49,7 @@ class ClientController extends Controller
 
     public function loginClient(Request $request)
     {
-        if (Hash::check('secret', $hashedPassword)) { }
+
         $client = ClientModel::where([
             'email' => $request->email,
             'password' => Hash::check('secret', $request->password)
