@@ -63,7 +63,7 @@ class ClientController extends Controller
         } else {
             $password = $client->password;
 
-            if (Hash::check($password, $request->password)) {
+            if (Hash::check($request->password, $password)) {
                 return response()->json([
                     'respon' => 'success',
                     'message' => 'login sukses',
