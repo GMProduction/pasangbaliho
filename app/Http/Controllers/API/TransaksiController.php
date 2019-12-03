@@ -111,7 +111,7 @@ class TransaksiController extends Controller
         }
     }
 
-    public function AlldataTransaksiClient(Request $request)
+    public function allDataTransaksiClient(Request $request)
     {
         try {
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
