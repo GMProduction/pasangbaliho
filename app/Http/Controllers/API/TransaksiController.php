@@ -357,7 +357,7 @@ class TransaksiController extends Controller
                         'transaksi.terbaca_client as terbaca_client'
                     )
                     ->where("terbaca_client", "0")
-                    ->where("terbaca_client", $request->idClient)
+                    ->where("id_client", $request->idClient)
                     ->count();
 
                 return response()->json([
