@@ -51,8 +51,9 @@ Route::post('v1/setReadAdvertiser', 'API\TransaksiController@setReadAdvertiser')
 Route::post('v1/setReadPerTransaksi', 'API\TransaksiController@setReadPerTransaksi')->name('setReadPerTransaksi');
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
-
 Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')->name('countNewTransaksi');
+
+Route::get('v1/dataTransaksiClient', 'API\TransaksiController@dataTransaksiClient')->name('dataTransaksiClient');
 
 
 //Slider
