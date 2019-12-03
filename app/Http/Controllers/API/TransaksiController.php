@@ -351,7 +351,6 @@ class TransaksiController extends Controller
         if ($request->idClient != null) {
             try {
                 $newTransaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
-                    ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                     ->select(
                         'balihos.id_baliho as id_baliho',
                         'balihos.id_client as id_client',
