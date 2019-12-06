@@ -5,9 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
-use Auth;
 use Illuminate\Support\Facades\Hash;
-use Validator;
 
 
 class AdvertiserController extends Controller
@@ -18,51 +16,6 @@ class AdvertiserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login()
-    {
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
-        }
-    }
-    /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $advertiser = AdvertiserModel::create($input);
-        $success['token'] =  $advertiser->createToken('MyApp')->accessToken;
-        $success['nama'] =  $advertiser->nama;
-        return response()->json(['success' => $success], $this->successStatus);
-    }
-    /**
-     * details api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function details()
-    {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
-    }
 
     public function loginByGoogle(Request $request)
     {
@@ -161,7 +114,6 @@ class AdvertiserController extends Controller
             return response()->json([
                 'respon' => 'failure',
                 'message' => 'user tidak terdaftar',
-                'advertiser' => ""
             ], 401);
         } else {
             return response()->json([
@@ -172,40 +124,8 @@ class AdvertiserController extends Controller
         }
     }
 
-    public function loginClient(Request $request)
+    public function testMessage()
     {
-
-        $client = ClientModel::where(
-            'email',
-            $request->email
-        )->first();
-
-        if ($client == null) {
-
-            return response()->json([
-                'respon' => 'failure',
-                'message' => 'user tidak terdaftar'
-            ], 401);
-        } else {
-            $password = $client->password;
-
-            if (Hash::check($request->password, $password)) {
-                return response()->json([
-                    'respon' => 'success',
-                    'message' => 'login sukses',
-                    'client' => $client
-                ]);
-            } else {
-
-                return response()->json([
-                    'respon' => 'failure',
-                    'message' => 'user tidak terdaftar'
-                ], 401);
-            }
-        }
-    }
-
-    public function testMessage(){
-        sendNotifAdvertiser(6,"tes", "testes");
+        sendNotifAdvertiser(6, "tes", "testes");
     }
 }
