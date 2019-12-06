@@ -134,4 +134,51 @@ class BalihoController extends Controller
             ], 500);
         }
     }
+
+
+    //CLIENT
+    public function balihoClient(Request $request)
+    {
+        $tambahan = $request->tambahan;
+        try {
+            $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.id_client as id_client',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'balihos.harga_client as harga_client',
+                    'balihos.lebar as lebar',
+                    'balihos.tinggi as tinggi',
+                    'balihos.venue as venue',
+                    'balihos.orientasi as orientasi',
+                    'balihos.harga_market as harga_market',
+                    'balihos.deskripsi as deskripsi',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("id_client", "LIKE", $request->idClient)
+                ->groupBy('balihos.id_baliho')
+                ->orderBy("updated_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'success fetch data baliho',
+                'baliho' => $baliho
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+
 }

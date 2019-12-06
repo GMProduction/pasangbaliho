@@ -160,7 +160,8 @@ class AdvertiserController extends Controller
         if ($advertiser == null) {
             return response()->json([
                 'respon' => 'failure',
-                'message' => 'user tidak terdaftar'
+                'message' => 'user tidak terdaftar',
+                'advertiser' => ""
             ], 401);
         } else {
             return response()->json([
@@ -168,6 +169,39 @@ class AdvertiserController extends Controller
                 'message' => 'login sukses',
                 'advertiser' => $advertiser
             ]);
+        }
+    }
+
+    public function loginClient(Request $request)
+    {
+
+        $client = ClientModel::where(
+            'email',
+            $request->email
+        )->first();
+
+        if ($client == null) {
+
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'user tidak terdaftar'
+            ], 401);
+        } else {
+            $password = $client->password;
+
+            if (Hash::check($request->password, $password)) {
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'login sukses',
+                    'client' => $client
+                ]);
+            } else {
+
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'user tidak terdaftar'
+                ], 401);
+            }
         }
     }
 
