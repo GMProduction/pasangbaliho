@@ -41,10 +41,6 @@
             display: inline;
         }
 
-        .kotaMediaKecil h5{
-            font-size: 10pt !important;
-        }
-
         
 
 
@@ -54,10 +50,6 @@
         .mediaImg img {
             height: 50px;
             transition: 0.5s;
-        }
-
-        .mediaImg h5 {
-            font-size: 10pt !important;
         }
     }
 
@@ -471,7 +463,7 @@
                     <a href="/product/search?k=videotron" class="text-center borderNyala pt-3 mediaImg" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/videotron.png')}}"
                             alt="" height="100">
-                        <h5><span>Videotron</span></h5>
+                        <h6><span>Videotron</span></h6>
                     </a>
                 </div>
             </div>
@@ -551,8 +543,8 @@
                 {
                     breakpoint: 1024,
                     settings: {
-                        slidesToShow: 6,
-                        slidesToScroll: 6,
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
                         infinite: true,
                         dots: true,
                         arrows : false
@@ -561,16 +553,16 @@
                 {
                     breakpoint: 600,
                     settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
                         arrows : false
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
                         arrows : false
                     }
                 }

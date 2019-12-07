@@ -41,10 +41,6 @@
             display: inline;
         }
 
-        .kotaMediaKecil h5{
-            font-size: 10pt !important;
-        }
-
         
 
 
@@ -569,8 +565,8 @@
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
                         arrows : false
                     }
                 }

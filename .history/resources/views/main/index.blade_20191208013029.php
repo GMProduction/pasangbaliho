@@ -41,10 +41,6 @@
             display: inline;
         }
 
-        .kotaMediaKecil h5{
-            font-size: 10pt !important;
-        }
-
         
 
 

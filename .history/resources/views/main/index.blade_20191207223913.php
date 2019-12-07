@@ -41,24 +41,7 @@
             display: inline;
         }
 
-        .kotaMediaKecil h5{
-            font-size: 10pt !important;
-        }
 
-        
-
-
-    }
-    
-    @media (max-width: 1024px) {
-        .mediaImg img {
-            height: 50px;
-            transition: 0.5s;
-        }
-
-        .mediaImg h5 {
-            font-size: 10pt !important;
-        }
     }
 
     .fa-45x {
@@ -247,7 +230,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-md-9 pr-0 pl-0 kotaMediaKecil" style="">
+                        <div class="col col-md-9 pr-0 pl-0 kotaMediaKecil">
                             <div class="slider multiple-items">
                                 <div>
                                     <div class="p-2">
@@ -454,12 +437,12 @@
         </div>
 
     </div> --}}
-    <div class="row container">
+    <div class="row">
 
-        <div class="slider  multiple-items-media " id="">
+        <div class="slider  multiple-items-media" id="">
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=billboard" onclick="" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=billboard" onclick="" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/billboard.png')}}"
                             alt="" height="100">
                         <h5><span>Billboard</span></h5>
@@ -468,16 +451,16 @@
             </div>
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=videotron" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=videotron" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/videotron.png')}}"
                             alt="" height="100">
-                        <h5><span>Videotron</span></h5>
+                        <h6><span>Videotron</span></h6>
                     </a>
                 </div>
             </div>
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/digital.png')}}"
                             alt="" height="100">
                         <h5><span>Digital Display</span></h5>
@@ -486,7 +469,7 @@
             </div>
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/neon.png')}}" alt=""
                             height="100">
                         <h5><span>Neox Box</span></h5>
@@ -495,7 +478,7 @@
             </div>
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/web.png')}}" alt=""
                             height="100">
                         <h5><span>Website & Blog</span></h5>
@@ -504,7 +487,7 @@
             </div>
             <div>
                 <div class="p-2">
-                    <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3 mediaImg" id=""
+                    <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3" id=""
                         style="background-color: white"><img id='' src="{{asset('assets/img/media/parking.png')}}"
                             alt="" height="100">
                         <h5><span>Parking Spot</span></h5>
@@ -539,8 +522,7 @@
     $('.multiple-items').slick({
       infinite: true,
       slidesToShow: 3,
-      slidesToScroll: 3,
-      arrows : false
+      slidesToScroll: 3
     });
 
         $('.multiple-items-media').slick({
@@ -551,27 +533,24 @@
                 {
                     breakpoint: 1024,
                     settings: {
-                        slidesToShow: 6,
-                        slidesToScroll: 6,
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
                         infinite: true,
-                        dots: true,
-                        arrows : false
+                        dots: true
                         }
                  },
                 {
                     breakpoint: 600,
                     settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                        arrows : false
+                        slidesToShow: 2,
+                        slidesToScroll: 2
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        arrows : false
+                        slidesToShow: 1,
+                        slidesToScroll: 1
                     }
                 }
             ]
