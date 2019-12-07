@@ -555,7 +555,7 @@
                         slidesToScroll: 6,
                         infinite: true,
                         dots: true,
-                        arrows : false 
+                        arrows : false
                         }
                  },
                 {
@@ -563,7 +563,7 @@
                     settings: {
                         slidesToShow: 4,
                         slidesToScroll: 4,
-                        arrows : false 
+                        arrows : false
                     }
                 },
                 {
@@ -571,7 +571,7 @@
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 3,
-                        arrows : false 
+                        arrows : false
                     }
                 }
             ]

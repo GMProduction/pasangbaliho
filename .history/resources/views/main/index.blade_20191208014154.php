@@ -526,7 +526,7 @@
 
         </div>
         <div class="col-lg-10 colProduk">
-            <h3 class="text-left judulProdukCenter mt-0 pb-2 "><span>Rekomendasi Produk Untuk Anda</span></h3>
+            <h3 class="text-left judulProdukCenter mt-0 pb-2"><span>Rekomendasi Produk Untuk Anda</span></h3>
             <p class="subheading"></p>
             @include('item.productIndex')
         </div>
@@ -540,7 +540,7 @@
       infinite: true,
       slidesToShow: 3,
       slidesToScroll: 3,
-      arrows : false 
+      arrows : false
     });
 
         $('.multiple-items-media').slick({
@@ -555,7 +555,7 @@
                         slidesToScroll: 6,
                         infinite: true,
                         dots: true,
-                        arrows : false 
+                        arrows : false
                         }
                  },
                 {
@@ -563,7 +563,7 @@
                     settings: {
                         slidesToShow: 4,
                         slidesToScroll: 4,
-                        arrows : false 
+                        arrows : false
                     }
                 },
                 {
@@ -571,7 +571,7 @@
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 3,
-                        arrows : false 
+                        arrows : false
                     }
                 }
             ]
