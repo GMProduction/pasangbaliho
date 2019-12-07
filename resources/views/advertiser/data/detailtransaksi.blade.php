@@ -113,7 +113,7 @@ body #process .process-border {
 
     <div class="row ">
         <div class="col-lg-4" style="height: 300px">
-            <img src="{{asset('assets/'.$d->url_foto)}}" alt="" width="100%">
+            <img src="{{asset('assets/original/'.$d->url_foto)}}" alt="" width="100%">
         </div>
         <div class="col-lg-8">
             <h4>{{$d->nama_baliho}}</h4>

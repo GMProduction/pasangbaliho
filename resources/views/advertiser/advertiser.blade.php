@@ -18,158 +18,11 @@
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
 
-    {{-- <style>
-        .sticky {
-            position: fixed;
-            font-size: 13px;
-            line-height: 30px;
-            height: 30px;
-            width: 100%;
-            background: #fff;
-            text-align: left;
-            top: 0px;
-            -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-            -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-            box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-        }
-
-        body #faq {}
-    </style> --}}
+  
 </head>
 
 <body id="">
-    {{-- 
-   <header>
-        <nav class="navbar navbar-inverse" style="height: 70px !important; ">
-            <div class="container">
-                <div class="row">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/" style="padding-top: 0px; padding-bottom: 0px">
-                            <h1>Baliho</h1><span>Baliho Solutions</span>
-                        </a>
-                    </div>
-                    {{-- <div id="navbar" class="">
-                        <ul class="nav navbar-nav">
-
-                            @if (auth()->guard('member')->check())
-                            <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{auth()->guard('member')->user()->nama}} <i
-        class="fas fa-chevron-down    "></i></a>
-    <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
-        <li id="navlogout"><a href="logout" class="drop">Sign Out</a></li>
-    </ul>
-    </li>
-
-    @else
-    <li id="navlogin"><a href="login">Sign In</a></li>
-    <li id="navregistration"><a href="registration">Sign Up</a></li>
-    @endif
-
-    </ul>
-    </div>
-    <!--/.nav-collapse -->
-    </div>
-    </div>
-    </nav>
-    </header>
-    <!--/.nav-ends -->
-
-    <div class="container-fluid" style="">
-        <div id="faq" style="" class="">
-            <div class="row" style="">
-                <div class="col-md-2 " style="">
-                    <div id="" class="">
-                        <ul class="nav flex-column " style="position: fixed; z-index: 9999; width: 200px; top: 100px">
-                            <li>
-
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link "
-                                    href="/dashboard/profil/{{auth()->guard('advertiser')->user()->id}}">
-                                    <i class="fas fa-user" style="width: 20px"></i>
-                                    <span data-feather="home" style="padding-left: 2%">
-                                        Profil</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="/dashboard/berlangsung">
-                                    <i class="fas fa-user" style="width: 20px"></i>
-                                    <span data-feather="home" style="padding-left: 2%">
-                                        Transaksi</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="/dashboard/berlangsung">
-                                    <i class="fas fa-user" style="width: 20px"></i>
-                                    <span data-feather="home" style="padding-left: 2%">
-                                        History</span>
-                                </a>
-                            </li>
-                            <li class="nav-item active" role="tab" id="headingfour">
-                                <a role="button" data-toggle="collapse" class="" data-parent="#accordion"
-                                    href="#transcolap" aria-expanded="true" aria-controls="transcolap">
-                                    <i class="fas fa-boxes    "></i>
-                                    <span style="padding-left: 2%">Transaksi</span>
-                                </a>
-                                <ul id="transcolap" class="nav flex-column collapse" role="tabpanel"
-                                    aria-labelledby="headingfour">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/dashboard/berlangsung" style="padding-left: 20%">
-                                            Sedang Berlangsung
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/dashboard/addProduk" style="padding-left: 20%">
-                                            Riwayat Transaksi
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-9 col-sm-10">
-                    <div id="content">
-                        @yield('content')
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
+   
     <!-- Bootstrap NavBar -->
     <nav class="navbar navbar-expand-md navbar-dark backgroundGreen fixed-top">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -183,35 +36,7 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                 {{--
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-bell  fa-fw mr-3  "></i></a>
-                </li>
-               
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li> --}}
-
-                <!-- This menu is hidden in bigger devices with d-sm-none. 
-                 The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-                {{-- <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-                        <a class="dropdown-item" href="#">Dashboard</a>
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Tasks</a>
-                        <a class="dropdown-item" href="#">Etc ...</a>
-                    </div>
-                </li><!-- Smaller devices menu END --> --}}
+             
                 <li class="nav-item dropdown d-sm-block d-md-none">
                     <a href="#" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
@@ -237,7 +62,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link">
+                    <a href="/dashboard/history" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-history fa-fw mr-3"></span>
                             <span class="menu-collapsed">History</span>
@@ -299,7 +124,13 @@
                         <span class="menu-collapsed">Transaksi</span>
                     </div>
                 </a>
-                <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard/berjalan" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-ad fa-fw mr-3"></span>
+                        <span class="menu-collapsed">Berjalan</span>
+                    </div>
+                </a>
+                <a href="/dashboard/history" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-history fa-fw mr-3"></span>
                         <span class="menu-collapsed">History</span>

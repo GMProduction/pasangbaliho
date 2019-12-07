@@ -276,8 +276,8 @@
     function test() {
            
             Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
+  title: 'Peringatan !',
+  text: "Silahkan Login / Register untuk meminta penawaran harga",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -286,19 +286,11 @@
   confirmButtonText: 'Login'
 }).then((result) => {
   if (result.value) {
-    Swal.fire(
-      'Login!',
-      'Your file has been deleted.',
-      'success'
-    )
+    window.location = '/login'
   }else if(
     result.dismiss === Swal.DismissReason.cancel
   ){
-    Swal.fire(
-      'Register!',
-      'cencel.',
-      'info'
-    )
+    window.location = '/registration'
   }
 })
         }

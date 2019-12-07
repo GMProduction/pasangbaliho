@@ -31,7 +31,13 @@ abstract class Facade
      */
     public static function resolved(Closure $callback)
     {
-        static::$app->afterResolving(static::getFacadeAccessor(), function ($service) use ($callback) {
+        $accessor = static::getFacadeAccessor();
+
+        if (static::$app->resolved($accessor) === true) {
+            $callback(static::getFacadeRoot());
+        }
+
+        static::$app->afterResolving($accessor, function ($service) use ($callback) {
             $callback($service);
         });
     }
@@ -71,7 +77,7 @@ abstract class Facade
     /**
      * Create a fresh mock instance for the given class.
      *
-     * @return \Mockery\Expectation
+     * @return \Mockery\MockInterface
      */
     protected static function createFreshMockInstance()
     {

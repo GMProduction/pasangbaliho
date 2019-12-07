@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\models\NotificationModel;
 use Carbon\Carbon;
 
+use Artesaos\SEOTools\Facades\SEOTools;
+
 class productController extends Controller
 {
     //
@@ -40,6 +42,7 @@ class productController extends Controller
 
     public function detailProduct(Request $req)
     {
+        
         $c = Carbon::now();
         $day = $c->isoFormat('Y-MM-DD');
 
@@ -92,6 +95,14 @@ class productController extends Controller
             'notif' => $notif,
             'jumNotif' => $getNotif
         ];
+
+        SEOTools::setTitle($data['produkDetail']);
+        SEOTools::setDescription('This is my page description');
+        SEOTools::opengraph()->setUrl('http://current.url.com');
+        SEOTools::setCanonical('https://codecasts.com.br/lesson');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
         return view('main/detailproduct')->with($data);
         //   echo $product;

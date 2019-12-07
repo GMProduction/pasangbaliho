@@ -74,6 +74,7 @@ class transaksiController extends Controller
             // })
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
+            ->where('transaksi.status','!=','selesai')
             ->get();
 
         $data = [

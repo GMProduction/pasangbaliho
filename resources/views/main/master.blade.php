@@ -4,8 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pasang Baliho</title>
+    {{-- <title>Pasang Baliho</title> --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+    <!-- OR -->
+    {!! SEO::generate() !!}
+
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
@@ -13,11 +17,13 @@
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropdown.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}"/>
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/index.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
-
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <style>
         .menu li:hover {
             /* background-color: darkgray; */
@@ -72,7 +78,8 @@
                             <li id="navhome" class=""><a href="/">Home</a></li>
                             <li id="navproduct" class=""><a href="/product?d=all">Product</a></li>
                             <li id="navnews" class=""><a href="/news">Article</a></li>
-                            @if (auth()->guard('clients')->check())
+                          
+                            @if (auth()->guard('client')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">{{auth()->guard('clients')->user()->nama}} <i
@@ -82,7 +89,8 @@
                                     <li id="navlogout"><a href="/logout" class="drop">Sign Out</a></li>
                                 </ul>
                             </li>
-                            @elseif (auth()->guard('advertiser')->check())
+                            @endif
+                            @if (auth()->guard('advertiser')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">{{auth()->guard('advertiser')->user()->nama}} <i
@@ -144,7 +152,6 @@
         </nav>
     </header>
     <!--/.nav-ends -->
-
 
     <div id="content">
         @yield('content')

@@ -13,8 +13,12 @@ use Kreait\Firebase\Auth\ApiClient;
 use Kreait\Firebase\Auth\IdTokenVerifier;
 use Kreait\Firebase\Auth\LinkedProviderData;
 use Kreait\Firebase\Auth\UserRecord;
+use Kreait\Firebase\Exception\Auth\ExpiredOobCode;
+use Kreait\Firebase\Exception\Auth\InvalidOobCode;
 use Kreait\Firebase\Exception\Auth\InvalidPassword;
+use Kreait\Firebase\Exception\Auth\OperationNotAllowed;
 use Kreait\Firebase\Exception\Auth\RevokedIdToken;
+use Kreait\Firebase\Exception\Auth\UserDisabled;
 use Kreait\Firebase\Exception\Auth\UserNotFound;
 use Kreait\Firebase\Util\DT;
 use Kreait\Firebase\Util\JSON;
@@ -435,6 +439,55 @@ class Auth
         $response = $this->client->verifyPassword((string) $email, (string) $password);
 
         return $this->getUserRecordFromResponse($response);
+    }
+
+    /**
+     * Verifies the given password reset code.
+     *
+     * @see https://firebase.google.com/docs/reference/rest/auth#section-verify-password-reset-code
+     *
+     * @throws ExpiredOobCode
+     * @throws InvalidOobCode
+     * @throws OperationNotAllowed
+     * @throws Exception\AuthException
+     * @throws Exception\FirebaseException
+     *
+     * @return void
+     */
+    public function verifyPasswordResetCode(string $oobCode)
+    {
+        $this->client->verifyPasswordResetCode($oobCode);
+    }
+
+    /**
+     * Applies the password reset requested via the given OOB code.
+     *
+     * @see https://firebase.google.com/docs/reference/rest/auth#section-confirm-reset-password
+     *
+     * @param string $oobCode the email action code sent to the user's email for resetting the password
+     * @param ClearTextPassword|string $newPassword
+     * @param bool $invalidatePreviousSessions Invalidate sessions initialized with the previous credentials
+     *
+     * @throws ExpiredOobCode
+     * @throws InvalidOobCode
+     * @throws OperationNotAllowed
+     * @throws UserDisabled
+     * @throws Exception\AuthException
+     * @throws Exception\FirebaseException
+     *
+     * @return void
+     */
+    public function confirmPasswordReset(string $oobCode, $newPassword, bool $invalidatePreviousSessions = true)
+    {
+        $newPassword = $newPassword instanceof ClearTextPassword ? $newPassword : new ClearTextPassword($newPassword);
+
+        $response = $this->client->confirmPasswordReset($oobCode, (string) $newPassword);
+
+        $email = JSON::decode((string) $response->getBody(), true)['email'] ?? null;
+
+        if ($invalidatePreviousSessions && $email) {
+            $this->revokeRefreshTokens($this->getUserByEmail($email)->uid);
+        }
     }
 
     /**

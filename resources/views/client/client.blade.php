@@ -8,6 +8,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap4/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/datatable/css/datatable.bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/collapse.css')}}">
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -16,7 +17,7 @@
     {{-- <link rel="stylesheet" href="{{asset('css/padding.css')}}"> --}}
 
 
-    <script src="{{asset('js/jquery.min.js')}}"></script>
+    
 
    
 </head>
@@ -179,12 +180,25 @@
 
     </div><!-- body-row END -->
 
-    
+    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
+    
     <script src="{{asset('js/collapse.js')}}"></script>
-    <script src="{{asset('js/dataTables.bootstrap.js')}}"></script>
-    <script src="{{asset('js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('js/jquery.dataTables.js')}}"></script>
+
+    <script src="{{asset('css/datatable/js/bootstrap-select.js')}}"></script>
+
+    <script src="{{asset('css/datatable/js/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('css/datatable/js/dataTables.bootstrap.js')}}"></script>
+    <script src="{{asset('css/datatable/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('css/datatable/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('css/datatable/js/jszip.min.js')}}"></script>
+    <script src="{{asset('css/datatable/js/pdfmake.min.js')}}"></script>
+    <script src="{{asset('css/datatable/js/vfs_fonts.js')}}"></script>
+    <script src="{{asset('css/datatable/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('css/datatable/js/buttons.print.min.js')}}"></script>
+
+
+ 
     <script src="{{asset('js/jquery.countTo.js')}}"></script>
 
 </html>

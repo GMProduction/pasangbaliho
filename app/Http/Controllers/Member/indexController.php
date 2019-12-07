@@ -12,6 +12,9 @@ use App\models\SliderModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+
+use Artesaos\SEOTools\Facades\SEOTools;
+
 class indexController extends Controller
 {
     //
@@ -52,6 +55,15 @@ class indexController extends Controller
 
     public function index()
     {
+
+        SEOTools::setTitle('Pasang Baliho');
+        SEOTools::setDescription('Melayani Pemesanan Baliho');
+        SEOTools::opengraph()->setUrl('http://pasangbaliho.com');
+        SEOTools::setCanonical('https://pasangbaliho.com');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
+
         $c = Carbon::now();
         $id = "";
         if (auth()->guard('advertiser')->check()) {
@@ -90,6 +102,7 @@ class indexController extends Controller
             ->get();
 
 
+           
 
         $data = [
             'produk' => $product,
@@ -98,6 +111,8 @@ class indexController extends Controller
             'jumNotif' => $getNotif,
             'slider' => $slider
         ];
+
+       
 
         return view('main/index')->with($data);
 

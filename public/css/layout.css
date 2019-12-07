@@ -1,11 +1,14 @@
+.alighText{
+    padding-top: 90px !important;
+}
 @media(min-width : 991px) {
     .batas {
         padding-bottom: 2rem !important;
     }
    
-    .alighText{
+    /* .alighText{
         padding-top: 110px !important;
-    }
+    } */
    
 }
 
@@ -14,7 +17,7 @@
         padding-bottom: 0.3rem !important;
     }
     .alighText{
-        padding-top: 5px !important;
+        padding-top: 1px !important;
     }
     .imgLogo{
         max-width: 300px !important;

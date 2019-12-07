@@ -46,7 +46,7 @@ return [
             'provider' => 'advertisers',
         ],
 
-        'clients' => [
+        'client' => [
             'driver' => 'session',
             'provider' => 'clients',
         ],
@@ -93,7 +93,7 @@ return [
 
         'clients' => [
             'driver' => 'eloquent',
-            'model' => App\Master\ClientModel::class,
+            'model' => App\Master\clientModel::class,
         ],
 
         // 'users' => [

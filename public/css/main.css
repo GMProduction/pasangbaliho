@@ -6163,7 +6163,7 @@ body #myCarousel .slider_btn .btn {
 	margin: 5px 10px;
 }
 body #myCarousel .carousel-inner {
-	height: 300px;
+	height: 290px;
 }
 body #myCarousel .item {
 	background-position: 50% 50%;
@@ -7081,6 +7081,50 @@ body #portfolio .portfolio-img img {
 	width: 100%;
 	height: 130px;
 }
+
+@media (max-width: 1200px){
+	body #portfolio .portfolio-img img {
+		width: 100%;
+		height: 200px;
+		transition: 0.5s;
+	}
+
+	.iklan{
+		display: none;
+	}
+
+	.colProduk{
+		width: 100% !important;
+	}
+
+	.judulProdukCenter{
+		text-align: center !important;
+	}
+
+	.coruselKecil{
+		height: 230px !important;
+		transition: 0.5s;
+	}
+
+}
+
+@media (max-width: 600px){
+	body #portfolio .portfolio-img img {
+		width: 100%;
+		height: 200px;
+		transition: 0.5s;
+	}
+
+	.coruselKecil{
+		height: 90px !important;
+		transition: 0.5s;
+	}
+
+	.pencarian{
+		margin-top: 0px !important;
+	}
+}
+
 body #portfolio .portfolio-hover {
 	opacity: 0.5;
 	position: absolute;
