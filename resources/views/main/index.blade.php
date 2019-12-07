@@ -504,7 +504,7 @@
 <div class="container" style="">
 
     <div class="row">
-        <div class="col-lg-2 iklan" style=">
+        <div class="col-lg-2 iklan" style="">
          
 
         </div>
