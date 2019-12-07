@@ -1,7 +1,6 @@
 @extends('main.master')
 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/icon.css')}}">
 <style>
    
 

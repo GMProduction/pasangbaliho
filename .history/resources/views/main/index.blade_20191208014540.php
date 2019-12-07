@@ -1,9 +1,73 @@
 @extends('main.master')
 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/icon.css')}}">
 <style>
-   
+    .borderNyala {
+        border: 1px solid #c0c0c0;
+        border-radius: 1rem;
+        text-decoration: none;
+    }
+
+    .borderNyala:hover {
+        border: 1px solid #26A69A;
+        box-shadow: 0px 0px 12px #ddd;
+    }
+
+    .borderSUrakarta {
+        /* height: 223; */
+    }
+
+    .kotaMediaKecil {
+        display: none;
+    }
+
+    @media (max-width: 950px) {
+        /* .borderSUrakarta {
+            height: unset !important;
+            transition: 0.5s;
+        }
+
+        .borderSUrakarta>img {
+            height: 44pt !important;
+            padding-top: 4px !important;
+            transition: 0.5s;
+        } */
+
+        .kotaMediaBesar {
+            display: none;
+        }
+
+        .kotaMediaKecil {
+            display: inline;
+        }
+
+        .kotaMediaKecil h5{
+            font-size: 10pt !important;
+        }
+
+        
+
+
+    }
+    
+    @media (max-width: 1024px) {
+        .mediaImg img {
+            height: 50px;
+            transition: 0.5s;
+        }
+
+        .mediaImg h5 {
+            font-size: 10pt !important;
+        }
+    }
+
+    .fa-45x {
+        font-size: 45pt;
+    }
+
+    .slider img {
+        display: unset;
+    }
 
     .coruselKecil {}
 </style>
