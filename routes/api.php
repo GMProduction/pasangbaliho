@@ -27,6 +27,11 @@ Route::post('v1/loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->n
 Route::post('v1/loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
 Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertiser')->name('registerAdvertiser');
 
+//CLient
+Route::get('v1/cekLoginClient', 'API\ClientController@cekLoginClient')->name('cekLoginClient');
+Route::post('v1/loginClient', 'API\ClientController@loginClient')->name('loginClient');
+Route::post('v1/registerClient', 'API\ClientController@registerClient')->name('registerClient');
+
 
 //Fetch data baliho
 Route::get('v1/dataListAllBaliho', 'API\BalihoController@dataListAllBaliho')->name('dataListAllBaliho');
@@ -46,8 +51,11 @@ Route::post('v1/setReadAdvertiser', 'API\TransaksiController@setReadAdvertiser')
 Route::post('v1/setReadPerTransaksi', 'API\TransaksiController@setReadPerTransaksi')->name('setReadPerTransaksi');
 Route::get('v1/dataTransaksi', 'API\TransaksiController@dataTransaksi')->name('dataTransaksi');
 Route::get('v1/detailTransaksi/{idTransaksi}', 'API\TransaksiController@detailTransaksi')->name('detailTransaksi');
-
 Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')->name('countNewTransaksi');
+
+Route::get('v1/dataTransaksiClient', 'API\TransaksiController@dataTransaksiClient')->name('dataTransaksiClient');
+Route::get('v1/allDataTransaksiClient', 'API\TransaksiController@allDataTransaksiClient')->name('allDataTransaksiClient');
+Route::get('v1/countNewTransaksiClient', 'API\TransaksiController@countNewTransaksiClient')->name('countNewTransaksiClient');
 
 
 //Slider

@@ -10,6 +10,7 @@ class ClientModel extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey  = 'id_client';
     protected $table = 'clients';
 
     protected $guard = 'clients';
