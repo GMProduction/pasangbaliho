@@ -6,10 +6,8 @@
     <div class="container">
         <div class="section-heading text-center">
             <div class="col-md-12 col-xs-12">
-                <h1>What <span>We Do</span></h1>
-                <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                    fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam nostrud
-                    euismod volumus ne mei.</p>
+                <h1>Anda Ingin <span>Mendaftar</span> Sebagai Apa?</h1>
+                <p class="subheading">Anda mempunyai Perusahaan dibidang periklanan? atau anda ingin memasang iklan intuk produk anda? Silahkan mendaftar jangan ragu !</p>
             </div>
         </div>
 
@@ -25,7 +23,7 @@
 
                 <div class="process-text-block">
                     <h4><a href="#">Client</a></h4>
-                    <p>Member dapat mengajukan penawaran untuk pemasangan baliho</p>
+                    <p>Ditujukan untuk perusahaan yang bergerak dibidang jasa pemasangan iklan</p>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 block process-block">
@@ -40,9 +38,7 @@
 
                 <div class="process-text-block">
                     <h4><a href="#">Advertiser</a></h4>
-                    <p>Member dapat men-display produk yang ditawarkan</p>
-                    <p>Member dapat men-display produk yang ditawarkan</p>
-                    <p>Member dapat men-display produk yang ditawarkan</p>
+                    <p>Ditujukan untuk perusahaan / orang yang ingin memasang iklan</p>
                 </div>
             </div>
 

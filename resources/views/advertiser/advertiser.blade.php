@@ -154,7 +154,7 @@
                 <!-- Separator without title -->
                 <li class="list-group-item sidebar-separator menu-collapsed"></li>
                 <!-- /END Separator -->
-                <a href="logout" class="bg-dark list-group-item list-group-item-action">
+                <a href="/logout" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
                         <span class="menu-collapsed">Logout</span>

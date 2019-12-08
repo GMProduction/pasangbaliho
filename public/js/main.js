@@ -14,6 +14,17 @@ $(document).ready(function() {
 }
 );
 
+$('.slideHeader').slick({   
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows : false ,
+    adaptiveHeight: true
+  });
+          
+
 $('.multiple-items').slick({
     infinite: true,
     slidesToShow: 3,

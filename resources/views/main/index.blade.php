@@ -3,14 +3,12 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('css/icon.css')}}">
 <style>
-   
-
     .coruselKecil {}
 </style>
 
+{{-- 
 
-
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" style="height: 400px; background-color: red">
     <!-- Indicators -->
     {{-- <ol class="carousel-indicators">
         @php
@@ -21,76 +19,77 @@
 
         @if ($loop->first)
         <li data-target="#myCarousel" data-slide-to="{{$i}}" class="active"></li>
-    @else
-    <li data-target="#myCarousel" data-slide-to="{{$i}}" class=""></li>
-    @endif
-    @php
-    $i ++;
-    @endphp
+@else
+<li data-target="#myCarousel" data-slide-to="{{$i}}" class=""></li>
+@endif
+@php
+$i ++;
+@endphp
 
-    @endforeach
-    </ol> --}}
+@endforeach
+</ol> --}}
 
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+{{-- <ol class="carousel-indicators"> --}}
+{{-- <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="2" class=""></li>
         <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="4" class=""></li> --}}
 
-    </ol>
+{{-- </ol> --}}
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner coruselKecil">
-        {{-- @foreach ($slider as $s)
+<!-- Wrapper for slides -->
+{{-- <div class="carousel-inner coruselKecil" style=""> --}}
+{{-- @foreach ($slider as $s)
         @if ($loop->first)
         <div class="item active">
             @else
             <div class="item">
                 @endif
                 <div class="fill" style="background-image:url('{{asset('assets/'.$s->url_foto)}}');"></div>
-    <div class="carousel-caption slide-up">
-        <h1 class="banner_heading"> <span>{{$s->title}} </span></h1>
-        <p class="banner_txt">{{$s->deskripsi}}</p>
+<div class="carousel-caption slide-up">
+    <h1 class="banner_heading"> <span>{{$s->title}} </span></h1>
+    <p class="banner_txt">{{$s->deskripsi}}</p>
 
-    </div>
+</div>
 </div>
 @endforeach
 </div> --}}
-<div class="item active">
+{{-- <div class="item active" style="">
     <div class="fill" style="background-image:url('{{asset('assets/img/slider/BillboardWebsite.png')}}');"></div>
-    <div class="carousel-caption slide-up">
-        {{-- <h1 class="banner_heading"> <span>sdfsdf </span></h1>
-        <p class="banner_txt">asasdasdasdas asd asd as das das das ddad</p> --}}
-
-    </div>
+<div class="carousel-caption slide-up">
+    <h1 class="banner_heading"> <span>sdfsdf </span></h1>
+    <p class="banner_txt">asasdasd sjaj</p>
 </div>
-<div class="item">
+<h6 style="z-index: 9999">Test</h6>
+</div> --}}
+{{-- <div class="item">
     <div class="fill" style="background-image:url('{{asset('assets/img/slider/Digital Website.png')}}');"></div>
-    <div class="carousel-caption slide-up">
-        {{-- <h1 class="banner_heading"> <span>sdfsdf </span></h1>
-            <p class="banner_txt">asdad</p> --}}
+<div class="carousel-caption slide-up">
+    <h1 class="banner_heading"> <span>sdfsdf1 </span></h1>
+    <p class="banner_txt">asasdasdasdas</p>
 
-    </div>
 </div>
-<div class="item">
+</div> --}}
+{{-- <div class="item">
     <div class="fill" style="background-image:url('{{asset('assets/img/slider/Videotron Website.png')}}');"></div>
-    <div class="carousel-caption slide-up">
-        {{-- <h1 class="banner_heading"> <span>sdfsdf </span></h1>
-                <p class="banner_txt">asdad</p> --}}
+<div class="carousel-caption slide-up">
+    <h1 class="banner_heading"> <span>sdfsdf </span></h1>
+    <p class="banner_txt">asdad</p>
 
-    </div>
+</div>
 </div>
 <div class="item">
     <div class="fill" style="background-image:url('{{asset('assets/img/slider/Website & Blog Website.png')}}');"></div>
     <div class="carousel-caption slide-up">
-        {{-- <h1 class="banner_heading"> <span>sdfsdf </span></h1>
-                    <p class="banner_txt">asdad</p> --}}
+        <h1 class="banner_heading"> <span>sdfsdf </span></h1>
+        <p class="banner_txt">asdad</p>
 
     </div>
-</div>
+</div> --}}
 <!-- Left and right controls -->
 
-<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <i class="fa fa-angle-left"
+
+{{-- <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <i class="fa fa-angle-left"
         aria-hidden="true"></i>
     <span class="sr-only">Previous</span>
 </a>
@@ -100,7 +99,94 @@
 </a>
 
 </div>
+</div>  --}}
+<style>
+    .captionSLider {
+        position: absolute;
+        /* left: 15%;                            */
+        /* right: 70%; */
+        padding-left: 20px;
+        bottom: 20px;
+        z-index: 10;
+        /* padding-top: 20px; */
+        padding-bottom: 10px;
+        /* color: #fff; */
+        text-align: left;
+        /* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); */
+    }
+
+    .captionSLider .judul {
+        font-size: 24px;
+        font-weight: bolder;
+        padding-left: 0px;
+        /* margin-top: 60px; */
+        text-transform: uppercase;
+    }
+
+    .captionSLider .des {
+        font-size: 14px;
+        font-weight: bolder;
+        padding-left: 0px;
+        /* margin-top: 60px; */
+        line-height: 5px
+    }
+
+    @media (max-width : 900px) {
+        .captionSLider {
+            position: unset !important;
+           
+        }
+        #portfolio{
+            padding-left: 2% !important;
+            padding-right: 2% !important;
+        }
+
+        .captionSLider .judul {
+            font-size: 90% !important;
+        }
+
+        .captionSLider .des {
+            font-size: 80% !important;
+            line-height: 1px
+        }
+    }
+</style>
+
+<div id="portfolio" class=" mt-0 pt-3 mb-2 pb-2" style="max-height: 1% !important">
+
+    <div class="slider slideHeader border" style="width: 100%">
+        <div>
+            <img src="{{asset('assets/img/slider/BillboardWebsite.png')}}" style="width: 100%" alt="">
+            <div style="" class="captionSLider">
+                <p class="judul"><span>BillboardWebsite</span></p>
+                <p class="des " style=""> isinya adalah</p>
+            </div>
+        </div>
+        <div>
+            <img src="{{asset('assets/img/slider/Digital Website.png')}}" style="width: 100%" alt="">
+            <div style="" class="captionSLider">
+                <p class="judul"><span>Digital Website</span></p>
+                <p class="des " style=""> isinya adalah</p>
+            </div>
+        </div>
+        <div>
+            <img src="{{asset('assets/img/slider/Videotron Website.png')}}" style="width: 100%" alt="">
+            <div style="" class="captionSLider">
+                <p class="judul"><span>Videotron Website</span></p>
+                <p class="des " style=""> isinya adalah</p>
+            </div>
+        </div>
+        <div>
+            <img src="{{asset('assets/img/slider/Website & Blog Website.png')}}" style="width: 100%" alt="">
+            <div style="" class="captionSLider">
+                <p class="judul"><span>Website & Blog Website</span></p>
+                <p class="des " style=""> isinya adalah</p>
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <br>
 <div class="container pencarian" style="margin-top: -45px;  ">
 
@@ -458,7 +544,7 @@
 
     <div class="row">
         <div class="col-lg-2 iklan" style=" ">
-         
+
 
         </div>
         <div class="col-lg-10 colProduk">
@@ -472,9 +558,9 @@
 </div>
 
 <script>
-   
-   
-   
+
+
+
 </script>
 
 
