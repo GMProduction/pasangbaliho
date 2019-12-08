@@ -44,32 +44,33 @@ Route::get('registration', 'Auth\Member\RegisterController@showOptionRegister');
 Route::get('registration-client', 'Auth\Member\RegisterController@showRegisterClient');
 Route::get('registration-advertiser', 'Auth\Member\RegisterController@showRegisterAdvertiser');
 
-
-Route::get('login', 'Auth\Member\loginController@showLoginForm');
+Route::get('login', 'Auth\Member\LoginClientController@showLoginForm');
 // Route::get('login', function(){
 //     return view('auth.member.login');
 // });
-Route::post('loginAdvertiser', 'Auth\Member\loginController@postlogin');
-Route::post('loginClient', 'Auth\Member\loginClientController@postloginClient');
-Route::get('logout', 'Auth\Member\loginController@logout');
-Route::get('logoutClient', 'Auth\Member\loginClientController@logoutClient');
-
+Route::post('loginAdvertiser', 'Auth\Member\LoginController@postlogin');
+Route::post('loginClient', 'Auth\Member\LoginClientController@postloginClient');
+Route::get('logout', 'Auth\Member\LoginController@logout');
+Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
 Route::get('dashboard/addProduk', function(){
     return view('advertiser.data.input');
 });
 
-
-Route::get('dashboard', 'Member\advertiserController@showDashboard');
-Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
-Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
-Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
-Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
-
+Route::group(['middleware' => 'advertiser'], function () {
+    Route::get('dashboard', 'Member\advertiserController@showDashboard');
+    Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
+    Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
+    Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
+    Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
+    Route::get('/dashboard/history', 'Member\historyController@dataHistory');
+    Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');
+});
 // Client Dashboar
-Route::get('dashboardClient', 'Member\clientController@showDashboard');
-Route::get('dashboardClient/profile', 'Member\clientController@showProfile');
-Route::get('dashboardClient/asset', 'Member\clientController@showAsset');
-
+// Route::group(['middleware' => 'client'], function () {
+    Route::get('dashboardClient', 'Member\clientController@showDashboard');
+    Route::get('dashboardClient/profile', 'Member\clientController@showProfile');
+    Route::get('dashboardClient/asset', 'Member\clientController@showAsset');
+// });
 
 
 

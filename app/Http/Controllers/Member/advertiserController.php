@@ -16,7 +16,6 @@ class advertiserController extends Controller
 
 
 
-
     public function notif($n)
     {
         $c = Carbon::now();
@@ -75,6 +74,7 @@ class advertiserController extends Controller
             // })
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
+            ->where('transaksi.status','!=','selesai')
             ->get();
 
         $jumTrans = DB::table('transaksi')

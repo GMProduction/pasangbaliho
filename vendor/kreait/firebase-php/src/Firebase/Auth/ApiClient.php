@@ -7,7 +7,11 @@ namespace Kreait\Firebase\Auth;
 use GuzzleHttp\ClientInterface;
 use Kreait\Firebase\Exception\Auth\CredentialsMismatch;
 use Kreait\Firebase\Exception\Auth\EmailNotFound;
+use Kreait\Firebase\Exception\Auth\ExpiredOobCode;
 use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
+use Kreait\Firebase\Exception\Auth\InvalidOobCode;
+use Kreait\Firebase\Exception\Auth\OperationNotAllowed;
+use Kreait\Firebase\Exception\Auth\UserDisabled;
 use Kreait\Firebase\Exception\AuthApiExceptionConverter;
 use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -86,11 +90,17 @@ class ApiClient implements ClientInterface
     {
         \trigger_error(__METHOD__.' is deprecated.', \E_USER_DEPRECATED);
 
-        return $this->createUser(
-            Request\CreateUser::new()
-                ->withUnverifiedEmail($email)
-                ->withClearTextPassword($password)
-        );
+        $request = Request\CreateUser::new();
+
+        if ($email) {
+            $request = $request->withUnverifiedEmail($email);
+        }
+
+        if ($password) {
+            $request = $request->withClearTextPassword($password);
+        }
+
+        return $this->createUser($request);
     }
 
     /**
@@ -282,6 +292,32 @@ class ApiClient implements ClientInterface
         ]);
 
         return $this->requestApi('getOobConfirmationCode', $data, $headers);
+    }
+
+    /**
+     * @throws ExpiredOobCode
+     * @throws InvalidOobCode
+     * @throws OperationNotAllowed
+     */
+    public function verifyPasswordResetCode(string $oobCode): ResponseInterface
+    {
+        return $this->requestApi('resetPassword', [
+            'oobCode' => $oobCode,
+        ]);
+    }
+
+    /**
+     * @throws ExpiredOobCode
+     * @throws InvalidOobCode
+     * @throws OperationNotAllowed
+     * @throws UserDisabled
+     */
+    public function confirmPasswordReset(string $oobCode, string $newPassword): ResponseInterface
+    {
+        return $this->requestApi('resetPassword', [
+            'oobCode' => $oobCode,
+            'newPassword' => $newPassword,
+        ]);
     }
 
     /**

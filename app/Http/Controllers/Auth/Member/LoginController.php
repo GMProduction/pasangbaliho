@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers\Auth\Member;
 
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Master\advertiserModel;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class LoginController extends Controller
 {
     //
 
+    
     use AuthenticatesUsers;
 
     protected $redirectTo = '/';
 
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    // }
+    public function __construct()
+    {
+        
+        $this->middleware('guest:advertiser')->except('logout');
+        $this->middleware('guest:client')->except('logout');
+    }
 
     public function showLoginForm()
     {
@@ -29,10 +32,10 @@ class LoginController extends Controller
 
     public function postlogin(Request $request)
     {
-        if (Auth::guard('advertiser')->attempt($request->only('email', 'password'))) {
+        if (FacadesAuth::guard('advertiser')->attempt($request->only('email', 'password'))) {
             return redirect()->intended('/')
                 ->with('status', 'You are Logged in as advertiser!');
-        } else {
+        } else {    
             // Alert::error('Periksa username atau password anda', 'Gagal');
             return redirect()->back()->withInput()
                 ->with('status', 'Cek email / password');
@@ -46,7 +49,7 @@ class LoginController extends Controller
 
     function logout()
     {
-        Auth::guard('advertiser')->logout();
+        FacadesAuth::guard('advertiser')->logout();
         return redirect('/')->with('status', 'advertiser has been logged out!');;
     }
 }

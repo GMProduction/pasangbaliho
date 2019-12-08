@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers\Auth\Member;
 
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Log;
 
 class LoginClientController extends Controller
 {
     //
     use AuthenticatesUsers;
     protected $redirectTo = '/';
+    public function __construct()
+    {
+        $this->middleware('guest:client')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+
+        return view('auth.member.login');
+    }
 
     public function postloginClient(Request $request)
     {
-        if (Auth::guard('clients')->attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/dashboardClient')
-                ->with('status', 'You are Logged in as ' . auth()->guard('clients')->user()->nama);
-            //    echo auth()->guard('clients')->user();
+        
+        if (FacadesAuth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->intended('/')
+                ->with('status', 'You are Logged in as '. FacadesAuth::guard('client')->user()->nama);
+            //    echo auth()->guard('client')->user();
             // echo Auth::guard('client')->user()->nama;
         } else {
             // Alert::error('Periksa username atau password anda', 'Gagal');
@@ -31,7 +43,7 @@ class LoginClientController extends Controller
 
     function logoutClient()
     {
-        Auth::guard('clients')->logout();
+        FacadesAuth::guard('client')->logout();
         return redirect('/')->with('status', 'You are Logged Out');;
     }
 }

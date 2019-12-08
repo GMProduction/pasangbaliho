@@ -197,7 +197,7 @@ trait EnumeratesValues
     }
 
     /**
-     * Determine if all items pass the given test.
+     * Determine if all items pass the given truth test.
      *
      * @param  string|callable  $key
      * @param  mixed  $operator
@@ -402,7 +402,7 @@ trait EnumeratesValues
     /**
      * Apply the callback if the value is truthy.
      *
-     * @param  bool  $value
+     * @param  bool|mixed  $value
      * @param  callable  $callback
      * @param  callable  $default
      * @return static|mixed

@@ -74,7 +74,7 @@ class Factory
     protected $claims = [];
 
     /**
-     * @var CacheInterface
+     * @var CacheInterface|null
      */
     protected $verifierCache;
 
@@ -298,7 +298,7 @@ class Factory
 
     public function createMessaging(): Messaging
     {
-        $projectId = $this->getServiceAccount()->getSanitizedProjectId();
+        $projectId = $this->getServiceAccount()->getProjectId();
 
         $messagingApiClient = new Messaging\ApiClient(
             $this->createApiClient([
@@ -315,7 +315,7 @@ class Factory
             ])
         );
 
-        return new Messaging($messagingApiClient, $appInstanceApiClient);
+        return new Messaging($messagingApiClient, $appInstanceApiClient, $projectId);
     }
 
     /**

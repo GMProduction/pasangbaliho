@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\models\NotificationModel;
 use Carbon\Carbon;
 
+use Artesaos\SEOTools\Facades\SEOTools;
+
 class productController extends Controller
 {
     //
@@ -40,6 +42,7 @@ class productController extends Controller
 
     public function detailProduct(Request $req)
     {
+        
         $c = Carbon::now();
         $day = $c->isoFormat('Y-MM-DD');
 
@@ -64,7 +67,7 @@ class productController extends Controller
             ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->where('balihos.id_baliho', '=', $req->id)
-            ->orderBy('created_at','DESC')
+            ->orderBy('balihos.created_at','DESC')
             ->groupBy('balihos.id_baliho')
             ->get();
 
@@ -92,6 +95,14 @@ class productController extends Controller
             'notif' => $notif,
             'jumNotif' => $getNotif
         ];
+
+        SEOTools::setTitle($data['produkDetail']);
+        SEOTools::setDescription('This is my page description');
+        SEOTools::opengraph()->setUrl('http://current.url.com');
+        SEOTools::setCanonical('https://codecasts.com.br/lesson');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
         return view('main/detailproduct')->with($data);
         //   echo $product;
@@ -158,7 +169,7 @@ class productController extends Controller
             ->where('kategoris.kategori', '=', $r->k)
             ->orwhere('kotas.nama_kota', '=', $r->c)
             ->groupBy('balihos.id_baliho')
-            ->orderBy('created_at','DESC')
+            ->orderBy('balihos.created_at','DESC')
             // ->orwhere('kota','like','%'.$r->t.'%')
             // ->orwhere(function ($txt) use ($r) {
             //     $txt->orwhere('kategori','like','%'.$r->t.'%')
@@ -190,7 +201,7 @@ class productController extends Controller
                 ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->groupBy('balihos.id_baliho')
-                ->orderBy('created_at','DESC')
+                ->orderBy('balihos.created_at','DESC')
                 ->paginate(12);
 
             $data = [

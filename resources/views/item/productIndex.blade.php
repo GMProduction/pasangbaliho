@@ -15,7 +15,7 @@
                 
            <input type="hidden" name="id" value="{{$p->id_baliho}}">
             {{-- @for ($i = 0; $i < 8; $i++)  --}}
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 portfolio-item"  style="">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 portfolio-item"  style="">
                 <div class="portfolio-one" >
                     <div class="portfolio-head"  >
                         <div class="portfolio-img" style="">

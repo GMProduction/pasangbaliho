@@ -21,6 +21,13 @@ class RegisterController extends Controller
     use RegistersUsers;
     protected $redirectTo = '/';
 
+    public function __construct()
+        {
+            $this->middleware('guest');
+            $this->middleware('guest:advertiser');
+            $this->middleware('guest:clients');
+        }
+
     public function showOptionRegister()
     {
         return view('auth.member.optionRegister');
