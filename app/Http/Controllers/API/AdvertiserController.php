@@ -39,7 +39,7 @@ class AdvertiserController extends Controller
 
                 return response()->json([
                     'respon' => 'belum',
-                    'message' => 'login sukses'
+                    'message' => 'belum ada akun'
                 ]);
             } catch (\Exception $e) {
                 return response()->json([
