@@ -5,9 +5,17 @@ import Footer from '../components/Material-UI/Navigasi/Footer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 import PageRouter from './PageRouter';
+import { Provider } from 'react-redux';
+import appStore from '../Store/appStore';
+
 
 
 export default class Main extends Component {
+    constructor(props) {
+        super(props);
+        axios.defaults.baseURL = 'http://localhost:8000';
+    }
+    
     render() {
         return (
             <React.Fragment>
@@ -26,8 +34,13 @@ export default class Main extends Component {
     }
 }
 
+const MainConnect = () => (
+    <Provider store={appStore}>
+        <Main/>
+    </Provider>
+);
 if (document.getElementById('root')) {
-    ReactDOM.render(<Main/>,document.getElementById('root'));
+    ReactDOM.render(<MainConnect/>,document.getElementById('root'));
 }
 
 

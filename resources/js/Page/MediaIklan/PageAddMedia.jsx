@@ -24,6 +24,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Axios from 'axios';
 
 const style = {
     resize: {
@@ -79,10 +80,10 @@ export class PageAddMedia extends Component {
     }
 
     handleChangeGambar = (e) => {
-        this.setState({
-            [e.target.name]: e.target.files[0],
-        })
-        console.log(e.target.files[0]);
+        // this.setState({
+        //     [e.target.name]: e.target.files[0],
+        // })
+        console.log(e.target);
         
     }
 
@@ -127,13 +128,22 @@ export class PageAddMedia extends Component {
         data.append('gambar4', this.state.gambar4);
         data.append('gambar5', this.state.gambar5);
         data.append('gambar6', this.state.gambar6);
-        let res = await addMedia(data);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            },
+             onUploadProgress: (ProgressEvent) => {
+                 var percent = Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total);
+                 console.log(percent);
+             }
+          }
+        let res = await axios.post('http://localhost:8000/adminapi/mediaiklan/addmedia', data, config);
         console.log(res);
-        if (res.data.status === 'ok') {
-            this.setState({
-                toMedia: true
-            })
-        }
+        // if (res.data.status === 'ok') {
+        //     this.setState({
+        //         toMedia: true
+        //     })
+        // }
     }
 
     initData = async () => {

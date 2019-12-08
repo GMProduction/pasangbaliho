@@ -29,7 +29,7 @@ const useStyles = theme => ({
     },
     '@global':{
         '.mainWrap':{
-            fontFamily: 'Roboto Light'
+            fontFamily: 'Roboto'
         },
         '.mysidenav':{
             color: '#34352F'
@@ -78,7 +78,7 @@ export class Sidebar extends Component {
                         <ListItem button classes={{button: classes.item}}
                         component={NavLink} to='/admin/mitra' exact
                         >
-                            <Icon>assignment_ind</Icon>Client
+                            <Icon>assignment_ind</Icon>Mitra
                         </ListItem>
                     </li>
                     <li>

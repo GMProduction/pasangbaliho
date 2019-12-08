@@ -1,0 +1,23 @@
+.tescss {
+    background-color: aqua;
+    position: relative;
+}
+
+.header-box {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.header-icon{
+    height: 80px;
+    width: 80px;
+    background-color: black;
+}
+
+.header-content {
+    padding: 15px 15px 10px 15px;
+    background-color: brown;
+    margin-top: -65px;
+    min-height: 100px;
+}

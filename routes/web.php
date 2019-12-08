@@ -88,10 +88,14 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::group(['prefix' => 'adminapi'], function(){
 
+    Route::group(['prefix' => 'advertiser'] , function(){
+        Route::get('/countAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
+        Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
+    });
 
     Route::group(['prefix' => 'mitra'], function(){
+        Route::get('/countMitra', 'Admin\MitraControll@getCountMitra');
         Route::get('/request', 'Admin\MitraControll@getMitra');
-        Route::get('/requestAdvertiser', 'Admin\AdvertiserControll@getAdvertiser');
     });
 
     Route::group(['prefix' => 'kategori'], function(){
@@ -101,6 +105,14 @@ Route::group(['prefix' => 'adminapi'], function(){
     Route::group(['prefix' => 'lokasi'], function(){
         Route::get('/requestProvinsi', 'Admin\LokasiControll@getProvinsi');
         Route::get('/requestKota', 'Admin\LokasiControll@getKota');
+    });
+
+    Route::group(['prefix' => 'mediaiklan'], function(){
+        Route::get('/countMedia', 'Admin\MediaControll@getCountMedia');
+        Route::get('/request', 'Admin\MediaControll@getMedia');
+        Route::get('/requestById', 'Admin\MediaControll@getPermintaanMediaById');
+        Route::post('/konfirmmedia','Admin\MediaControll@konfirmasiMedia');
+        Route::post('/addmedia','Admin\MediaControll@addMedia');
     });
 
     Route::group(['prefix' => 'negosiasi'], function(){
@@ -116,13 +128,5 @@ Route::group(['prefix' => 'adminapi'], function(){
         Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
     });
 
-    Route::group(['prefix' => 'mediaiklan'], function(){
-        Route::get('/request', 'Admin\MediaControll@getPermintaanMedia');
-        Route::get('/requestAllMedia', 'Admin\MediaControll@getAllMedia');
-        Route::get('/requestpublish', 'Admin\MediaControll@getMediaPublish');
-        Route::get('/requestblock', 'Admin\MediaControll@getMediaBlock');
-        Route::get('/requestById', 'Admin\MediaControll@getPermintaanMediaById');
-        Route::post('/konfirmmedia','Admin\MediaControll@konfirmasiMedia');
-        Route::post('/addmedia','Admin\MediaControll@addMedia');
-    });
+    
 });

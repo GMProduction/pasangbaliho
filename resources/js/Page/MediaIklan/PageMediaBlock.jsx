@@ -12,43 +12,54 @@ import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import { breadcumbStyle } from '../../Style/Breadcumb'
 import { columnsPermintaan } from './Properties/Properties';
-import { loadMediaBlock } from '../../Controller/MediaIklanControll';
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
+import {fetchMedia, searchMedia, onUnMount} from '../../Actions/MediaIklanActions';
 
 export class PageMediaBlock extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loadingBarProgress: 0,
-            isLoading: true,
-            data: [],
-            key: '',
-            dataLoading: true
+            searchKey: '',
         }
     }
 
-    initData = async () => {
+    handleSearch = async (e) => {
+        this.props.searchMedia('block',e.target.value)
+    }
+    onSearch = async (e) => {
+        if (e.keyCode === 13) {
+            this.handleSearch(e);
+        }    
+    }
+
+    handleChange = async (e) => {
+        let v = e.target.value;
+        if (v === '') {
+            this.handleSearch(e);
+        }
         this.setState({
-            loadingBarProgress: 50,
-        })
-        let mediablock = await loadMediaBlock();
-        this.setState({
-            data : mediablock,
-            dataLoading: false,
-            loadingBarProgress: 100,
-            isLoading: false
+            searchKey: e.target.value
         })
     }
 
     componentDidMount () {
-        this.initData()
+        this.props.fetchMedia('block', '')
     }
+
+    componentWillUnmount () {
+        this.props.onUnMount();
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <div>
                 <LoadingBar
-                    progress={this.state.loadingBarProgress}
+                    progress={this.props.reducer.loadingBarProgress}
                     height={3}
                     color='#f11946'
                    />
@@ -68,19 +79,21 @@ export class PageMediaBlock extends Component {
                             <Icon className={classes.icon}>desktop_mac</Icon>
                                 Media Iklan
                             </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto Light', fontSize: '14px'}}>
+                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto', fontSize: '14px'}}>
                             <Icon className={classes.icon}>block</Icon>
                                 Media Iklan Terblokir
                             </Box>
                     </Breadcrumbs>
                 </Paper>
+                {
+                    !this.props.reducer.pageLoading ?
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>Daftar Harga Media Terpublikasi</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center'>
+                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
                                 <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto Regular'>Tabel Permintaan</Box>
                                 <Box>
                                     <TextField
@@ -88,23 +101,43 @@ export class PageMediaBlock extends Component {
                                         label="Cari"
                                         margin="dense"
                                         variant="outlined"
-                                        value={this.state.key}
+                                        value={this.state.searchKey}
                                         onChange={this.handleChange}
-                                        onKeyUp={this.search}
+                                        onKeyUp={this.onSearch}
                                     />
                                 </Box>
                             </Box>
                             <BasicTable
                                 columns={columnsPermintaan}
-                                data={this.state.data}
-                                loading={this.state.dataLoading}
+                                data={this.props.reducer.data}
+                                loading={this.props.reducer.dataLoading}
                             />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
+                :
+                <Preloading textloading={this.props.reducer.loadingStatus}/>
+            }
             </div>
         );
     }
 }
 
-export default withStyles(breadcumbStyle)(PageMediaBlock);
+function mapStateToProps(state) {
+    return{
+        reducer: state.MediaIklanReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        fetchMedia: bindActionCreators(fetchMedia, dispatch),
+        searchMedia: bindActionCreators(searchMedia, dispatch),
+        onUnMount: bindActionCreators(onUnMount, dispatch),
+    }
+}
+
+export default compose(
+    withStyles(breadcumbStyle),
+    connect(mapStateToProps, mapDispatcToProps)    
+    )(PageMediaBlock);

@@ -1,4 +1,4 @@
-const onurl = 'https://pasangbaliho.com';
+const onurl = 'http://localhost:8000';
 
 export async function loadKategori () {
     let data = 0;

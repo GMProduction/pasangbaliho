@@ -59,7 +59,7 @@ export class PageMedia extends Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <PanelMenu
-                                    link='/admin/mediaiklan/permintaan'
+                                    link='/admin/mediaiklan/list/pending'
                                     color='#20C1D5'
                                     icon='local_offer'
                                     title={`Permintaan Penambahan Media Iklan (${this.state.dataPermintaan.length})`}
@@ -81,7 +81,7 @@ export class PageMedia extends Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                             <PanelMenu
-                                link='/admin/mediaiklan/publik'
+                                link='/admin/mediaiklan/list/publish'
                                 color='#56AE5A'
                                 icon='filter_list'
                                 title={`Daftar Media Iklan Terpublikasi (${this.state.dataPublikasi.length})`}
@@ -90,7 +90,7 @@ export class PageMedia extends Component {
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                             <PanelMenu
-                                link='/admin/mediaiklan/block'
+                                link='/admin/mediaiklan/list/block'
                                 color='#EB4A47'
                                 icon='block'
                                 title={`Daftar Media Iklan Terblokir (${this.state.dataBlokir.length})`}
@@ -102,7 +102,7 @@ export class PageMedia extends Component {
                     
                     <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '15px'}}>
                         <PanelMenu
-                                link='/admin/mediaiklan/daftar'
+                                link='/admin/mediaiklan/list/all'
                                 color='#9128AC'
                                 icon='list'
                                 title={`Daftar Semua Media iklan (${this.state.dataSemua.length})`}

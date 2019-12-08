@@ -52,8 +52,8 @@ export class Statusbox extends Component {
                 <Card >
                     <CardContent style={styles.cardContent}>
                         <Typography component="div">
-                            <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">{this.props.title}</Box>
-                            <Box fontSize={24} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">{this.props.subTitle}</Box>
+                            <Box fontSize={14} fontFamily="Lato" display="flex" justifyContent="flex-end" alignItems="center">{this.props.title}</Box>
+                            <Box fontSize={24} fontFamily="Roboto" display="flex" justifyContent="flex-end" alignItems="center">{this.props.subTitle}</Box>
                         </Typography>
                     </CardContent>
                     <Divider variant='middle'/>

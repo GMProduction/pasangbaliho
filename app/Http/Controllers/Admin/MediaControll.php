@@ -6,12 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\BalihoModel;
 use App\models\FotoBalihoModel;
-use Image;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image as Image;
 
 class MediaControll extends Controller
 {
     //
-    public function getPermintaanMedia(){
+    public function getCountMedia(){
+        $qtyMedia = DB::table('balihos')->count();
+        return response()->json($qtyMedia);
+    }
+    public function getMedia(Request $r){
+        $id = [['id_baliho', 'LIKE', '%' .$r->index . '%']];
+        $nama = [['clients.nama', 'LIKE', '%' .$r->index . '%']];
+        $nama_baliho = [['nama_baliho', 'LIKE', '%' .$r->index . '%']];
+        $kategori = [['kategoris.kategori', 'LIKE', '%' .$r->index . '%']];
         $permintaan = BalihoModel::query()
             ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
             ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
@@ -32,7 +41,13 @@ class MediaControll extends Controller
                 'balihos.alamat', 'latitude', 'longitude',
         'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
             )
-            ->where('status', '=', 'pending')
+            ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
+                $query->where($id)
+                    ->orWhere($nama)
+                    ->orWhere($nama_baliho)
+                    ->orWhere($kategori);
+            })
+            ->where('status', 'LIKE', '%'.$r->status.'%')
             ->orderBy('id_baliho', 'ASC')
             ->get();
         return response()->json($permintaan);
@@ -64,85 +79,6 @@ class MediaControll extends Controller
                 ->first();
         return response()->json($permintaan);
     }
-
-    public function getMediaPublish(){
-        $permintaan = BalihoModel::query()
-            ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
-            ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
-            ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
-            ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
-            ->select(
-                'id_baliho',
-                'balihos.id_client',
-                'clients.nama',
-                'balihos.id_kategori', 
-                'kategoris.kategori',
-                'nama_baliho', 
-                'lebar', 'tinggi' , 'luas',
-                'balihos.id_provinsi',
-                'provinsis.nama_provinsi',
-                'balihos.id_kota',
-                'kotas.nama_kota',
-                'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
-            )
-            ->where('status', '=', 'publish')
-            ->orderBy('id_baliho', 'ASC')
-            ->get();
-        return response()->json($permintaan);
-    }
-    public function getMediaBlock(){
-        $permintaan = BalihoModel::query()
-            ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
-            ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
-            ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
-            ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
-            ->select(
-                'id_baliho',
-                'balihos.id_client',
-                'clients.nama',
-                'balihos.id_kategori', 
-                'kategoris.kategori',
-                'nama_baliho', 
-                'lebar', 'tinggi' , 'luas',
-                'balihos.id_provinsi',
-                'provinsis.nama_provinsi',
-                'balihos.id_kota',
-                'kotas.nama_kota',
-                'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
-            )
-            ->where('status', '=', 'block')
-            ->orderBy('id_baliho', 'ASC')
-            ->get();
-        return response()->json($permintaan);
-    }
-    public function getAllMedia(){
-        $permintaan = BalihoModel::query()
-            ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
-            ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
-            ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
-            ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
-            ->select(
-                'id_baliho',
-                'balihos.id_client',
-                'clients.nama',
-                'balihos.id_kategori', 
-                'kategoris.kategori',
-                'nama_baliho', 
-                'lebar', 'tinggi' , 'luas',
-                'balihos.id_provinsi',
-                'provinsis.nama_provinsi',
-                'balihos.id_kota',
-                'kotas.nama_kota',
-                'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
-            )
-            ->orderBy('id_baliho', 'ASC')
-            ->get();
-        return response()->json($permintaan);
-    }
-
 
     private function upload (Request $r, $idbaliho) {
         try {

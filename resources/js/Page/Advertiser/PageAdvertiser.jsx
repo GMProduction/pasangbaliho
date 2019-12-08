@@ -10,46 +10,57 @@ import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
-import { loadAdvertiser } from '../../Controller/AdvertiserControll';
 import { breadcumbStyle } from '../../Style/Breadcumb'
 import { columns } from './Properties/Properties';
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {onMount, onSearch, onUnMount} from '../../Actions/AdvertiserActions';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
 
 export class PageAdvertiser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loadingBarProgress: 0,
-            isLoading: true,
-            data: [],
-            key: '',
-            dataLoading: true
+            searchKey: '',
         }
     }
 
-    initData = async () => {
+    handleSearch = async (e) => {
+        this.props.onSearch(e.target.value)
+    }
+    onSearch = async (e) => {
+        if (e.keyCode === 13) {
+            this.handleSearch(e);
+        }        
+    }
+
+    handleChange = async (e) => {
+        let v = e.target.value;
+        if (v === '') {
+            this.handleSearch(e);
+        }
         this.setState({
-            loadingBarProgress: 50,
-        })
-        let advertiser = await loadAdvertiser();
-        this.setState({
-            data : advertiser,
-            dataLoading: false,
-            loadingBarProgress: 100,
-            isLoading: false
+            searchKey: e.target.value
         })
     }
 
     componentDidMount () {
-        this.initData()
+        this.props.onMount()
     }
 
+    componentWillUnmount() {
+        this.props.onUnMount()
+    }
     render() {
         const { classes } = this.props;
+        console.log(this.props);
+        
         return (
             <div>
                 <LoadingBar
-                    progress={this.state.loadingBarProgress}
+                    progress={this.props.reducer.loadingBarProgress}
                     height={3}
                     color='#f11946'
                    />
@@ -69,12 +80,15 @@ export class PageAdvertiser extends Component {
                             <Icon className={classes.icon}>face</Icon>
                                 Advertiser
                             </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto Light', fontSize: '14px'}}>
+                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto', fontSize: '14px'}}>
                             <Icon className={classes.icon}>list</Icon>
                                 Daftar Advertiser
                             </Box>
                     </Breadcrumbs>
                 </Paper>
+                {
+                    !this.props.reducer.pageLoading ?
+                
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
@@ -89,23 +103,43 @@ export class PageAdvertiser extends Component {
                                         label="Cari"
                                         margin="dense"
                                         variant="outlined"
-                                        value={this.state.key}
+                                        value={this.state.searchKey}
                                         onChange={this.handleChange}
-                                        onKeyUp={this.search}
+                                        onKeyUp={this.onSearch}
                                     />
                                 </Box>
                             </Box>
                             <BasicTable
                                 columns={columns}
-                                data={this.state.data}
-                                loading={this.state.dataLoading}
+                                data={this.props.reducer.dataAdvertiser}
+                                loading={this.props.reducer.dataLoading}
                             />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
+                :
+                <Preloading textloading={this.props.reducer.loadingStatus}/>
+            }
             </div>
         );
     }
 }
 
-export default withStyles(breadcumbStyle)(PageAdvertiser);
+function mapStateToProps(state) {
+    return{
+        reducer: state.AdvertiserReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        onMount: bindActionCreators(onMount, dispatch),
+        onSearch: bindActionCreators(onSearch, dispatch),
+        onUnMount: bindActionCreators(onUnMount, dispatch),
+    }
+} 
+
+export default compose(
+    withStyles(breadcumbStyle),
+    connect(mapStateToProps, mapDispatcToProps)
+    )(PageAdvertiser);
