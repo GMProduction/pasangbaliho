@@ -46,7 +46,7 @@ class FcmController extends Controller
     {
         try {
 
-            $fcmAdvertiser = FcmModel::where($request->fcmToken)
+            $fcmAdvertiser = FcmModel::where("fcm_token",$request->fcmToken)
                 ->delete();
             return response()->json([
                 'respon' => 'success',
