@@ -35,7 +35,7 @@ class AdvertiserController extends Controller
 
                 // $advertiser = AdvertiserModel::where([
                 //     'email' => $request->email
-                // ])->first();
+                // ])->first(   );
 
                 return response()->json([
                     'respon' => 'belum',

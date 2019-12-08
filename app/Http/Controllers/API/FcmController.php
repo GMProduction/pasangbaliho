@@ -41,4 +41,22 @@ class FcmController extends Controller
             ], 500);
         }
     }
+
+    public function deleteFcmAdvertiser(Request $request)
+    {
+        try {
+
+            $fcmAdvertiser = FcmModel::where($request->fcmToken)
+                ->delete();
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'success delete fcm'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
 }
