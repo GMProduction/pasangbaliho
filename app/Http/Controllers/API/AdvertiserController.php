@@ -27,20 +27,19 @@ class AdvertiserController extends Controller
         if ($advertiser == null) {
 
             try {
-                $input = new AdvertiserModel();
-                $input->email = $request->email;
-                $input->nama = $request->nama;
-                $input->api_token = Hash::make($request->email);
-                $input->save();
+                // $input = new AdvertiserModel();
+                // $input->email = $request->email;
+                // $input->nama = $request->nama;
+                // $input->api_token = Hash::make($request->email);
+                // $input->save();
 
-                $advertiser = AdvertiserModel::where([
-                    'email' => $request->email
-                ])->first();
+                // $advertiser = AdvertiserModel::where([
+                //     'email' => $request->email
+                // ])->first(   );
 
                 return response()->json([
-                    'respon' => 'success',
-                    'message' => 'login sukses',
-                    'advertiser' => $advertiser
+                    'respon' => 'belum',
+                    'message' => 'belum ada akun'
                 ]);
             } catch (\Exception $e) {
                 return response()->json([
@@ -95,8 +94,7 @@ class AdvertiserController extends Controller
         } else {
             return response()->json([
                 'respon' => 'failure',
-                'message' => 'Email sudah di pakai',
-                'advertiser' => $advertiser
+                'message' => 'Email sudah di pakai'
             ]);
         }
     }
