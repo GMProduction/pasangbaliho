@@ -38,6 +38,8 @@ Route::get('v1/dataListAllBaliho', 'API\BalihoController@dataListAllBaliho')->na
 Route::get('v1/dataListBalihoSearchGlobal', 'API\BalihoController@dataListBalihoSearchGlobal')->name('dataListBalihoSearchGlobal');
 Route::get('v1/showDetailBaliho/{id}', 'API\BalihoController@showDetailBaliho')->name('showDetailBaliho');
 
+Route::get('v1/balihoClient', 'API\BalihoController@balihoClient')->name('balihoClient');
+
 //Fetch data kota
 Route::get('v1/dataAllKota', 'API\KotaController@dataAllKota')->name('dataAllKota');
 
