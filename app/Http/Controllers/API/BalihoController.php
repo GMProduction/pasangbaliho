@@ -164,7 +164,7 @@ class BalihoController extends Controller
                 )
                 ->where("id_client", "LIKE", $request->idClient)
                 ->groupBy('balihos.id_baliho')
-                ->orderBy("updated_at", "DESC")
+                ->orderBy("balihos.updated_at", "DESC")
                 ->paginate(20);
 
             return response()->json([
