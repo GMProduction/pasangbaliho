@@ -135,7 +135,7 @@ class BalihoController extends Controller
 
 
     //CLIENT
-    public function balihoClient(Request $request)
+    public function getBalihoClient(Request $request)
     {
         $tambahan = $request->tambahan;
         try {
