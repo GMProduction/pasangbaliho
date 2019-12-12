@@ -1,4 +1,4 @@
-const onurl = 'https://pasangbaliho.com'
+const onurl = 'https://www.pasangbaliho.com'
 
 export async function loadMitra () {
     let data = 0;
