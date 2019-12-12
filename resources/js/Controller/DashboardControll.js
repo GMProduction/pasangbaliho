@@ -1,4 +1,4 @@
-const onurl = 'https://pasangbaliho.com'
+const onurl = 'https://www.pasangbaliho.com'
 
 export async function loadPermintaan () {
     let data = 0;
