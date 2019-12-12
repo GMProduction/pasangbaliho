@@ -57,7 +57,7 @@ class indexController extends Controller
     {
 
         SEOTools::setTitle('Pasang Baliho');
-        SEOTools::setDescription('Melayani Pemesanan Baliho');
+        SEOTools::setDescription('website untuk menyewakan iklan dengan media iklan Billboard, Videotron, Website dan Blog, Parking Spot, Digital Display, Neon Box ');
         SEOTools::opengraph()->setUrl('http://pasangbaliho.com');
         SEOTools::setCanonical('https://pasangbaliho.com');
         SEOTools::opengraph()->addProperty('type', 'articles');

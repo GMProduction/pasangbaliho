@@ -25,6 +25,10 @@
                                 <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}">
                                 @endif
                         </div>
+                        @php
+                         $uri = $p->nama_baliho.'-'.$p->alamat.'-'.$p->kota.'-'.$p->provinsi;
+                         $urlweb = $uri;
+                        @endphp
                         {{-- <div class="portfolio-hover">
                             <a class="portfolio-link" href="#"><i class="fa fa-link"></i></a>
                             <a class="portfolio-zoom" href="#"><i class="fa fa-search"></i></a>
@@ -39,10 +43,10 @@
                             <br><b>Kisaran Harga :
                                     <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
                         </p>
-                            <a href="/product/detail?id={{$p->id_baliho}}&n={{$p->nama_baliho}}&l={{$p->alamat}},{{$p->kota}},{{$p->provinsi}}" class="btn btn-block btn-primary btn-sm">Detail</a>
+                    <a href="/product/detail?id={{$p->id_baliho}}/{{$urlweb}}" class="btn btn-block btn-primary btn-sm">Detail</a>
 
                     </div>
-                    <!-- End portfolio-content -->
+                    <!-- End portfolio-content -->      
                 </div>
                 <!-- End portfolio-item -->
         </div>

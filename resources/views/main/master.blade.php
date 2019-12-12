@@ -9,6 +9,7 @@
   
     <!-- OR -->
     {!! SEO::generate() !!}
+     <!-- OG -->
 
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">

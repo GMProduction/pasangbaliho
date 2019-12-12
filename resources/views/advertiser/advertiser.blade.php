@@ -18,11 +18,19 @@
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
 
-  
+    <style>
+        @media (max-width : 767px) {
+            .iconHome {
+                visibility: hidden;
+            }
+        }
+    </style>
+
+
 </head>
 
 <body id="">
-   
+
     <!-- Bootstrap NavBar -->
     <nav class="navbar navbar-expand-md navbar-dark backgroundGreen fixed-top">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -30,15 +38,22 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
 
             <span class="menu-collapsed">Advertiser</span>
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-             
+                    <li class="nav-item dropdown d-sm-block d-md-none">
+                            <a href="#" class="nav-link">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="fa fa-home fa-fw mr-3"></span>
+                                    <span class="menu-collapsed">Home</span>
+                                </div>
+                            </a>
+                        </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link">
+                    <a href="/dashboard" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-tachometer-alt fa-fw mr-3"></span>
                             <span class="menu-collapsed">Dashboard</span>
@@ -62,6 +77,14 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
+                    <a href="/dashboard/berjalan" class="nav-link">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-file-invoice-dollar fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Berjalan</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item dropdown d-sm-block d-md-none">
                     <a href="/dashboard/history" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-history fa-fw mr-3"></span>
@@ -69,14 +92,32 @@
                         </div>
                     </a>
                 </li>
-
+                <li class="nav-item dropdown d-sm-block d-md-none">
+                    <a href="/dashboard/notifikasi" class="nav-link">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-envelope-o fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
+                                        class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
+                                @endforeach
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item dropdown d-sm-block d-md-none">
+                        <a href="/dashboard/notifikasi" class="nav-link">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
+                                    <span class="menu-collapsed">Logout</span>
+                            </div>
+                        </a>
+                    </li>
             </ul>
 
         </div>
-        <form class="form-inline">
+        <form class="form-inline iconHome">
             <ul class="navbar-nav">
                 <li class="nav-item " style="">
-                    <a class="nav-link" href="/" style="padding: 0; margin: 0"><i class="fa fa-home  fa-fw mr-3 fa-2x "></i></a>
+                    <a class="nav-link" href="/" style="padding: 0; margin: 0"><i
+                            class="fa fa-home  fa-fw mr-3 fa-2x "></i></a>
                 </li>
                 {{-- <li class="nav-item ">
                     <a class="nav-link" href="#"><i class="fa fa-bell "></i>
@@ -145,10 +186,9 @@
                 <a href="/dashboard/notifikasi" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                        <span class="menu-collapsed">Notifikasi <span
-                            @foreach ($jumNotif as $j)
+                        <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
                                 class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
-                                @endforeach
+                        @endforeach
                     </div>
                 </a>
                 <!-- Separator without title -->
@@ -181,14 +221,14 @@
             <div id="content">
                 @yield('content')
             </div>
-           
+
 
 
         </div><!-- Main Col END -->
 
     </div><!-- body-row END -->
 
-    
+
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>
 

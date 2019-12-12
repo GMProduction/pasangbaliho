@@ -67,10 +67,18 @@ Route::group(['middleware' => 'advertiser'], function () {
 });
 // Client Dashboar
 // Route::group(['middleware' => 'client'], function () {
-    Route::get('dashboardClient', 'Member\clientController@showDashboard');
-    Route::get('dashboardClient/profile', 'Member\clientController@showProfile');
-    Route::get('dashboardClient/asset', 'Member\clientController@showAsset');
+    Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
+    Route::get('dashboardClient/profile', 'Member\Client\clientController@showProfile');
+    Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset');
 // });
+
+Route::group(['prefix' => 'dashboardClient'], function(){
+    Route::group(['prefix' => 'asset'], function(){
+        Route::get('add','Member\Client\assetClientController@showAddAsset' );
+       
+    });
+});
+
 
 
 

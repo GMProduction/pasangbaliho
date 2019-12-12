@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99a41aacccae3ceffd1431e0ca658b26",
+    "content-hash": "37b5b83c4228926829303c4a2395948c",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -3321,6 +3321,54 @@
                 "uri"
             ],
             "time": "2017-06-14T03:57:53+00:00"
+        },
+        {
+            "name": "spatie/laravel-sluggable",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-sluggable.git",
+                "reference": "a51839b77a9f0fc8246b690b92b9339de464dc8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/a51839b77a9f0fc8246b690b92b9339de464dc8a",
+                "reference": "a51839b77a9f0fc8246b690b92b9339de464dc8a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0",
+                "illuminate/support": "~5.6.0|~5.7.0|~5.8.0|^6.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Sluggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate slugs when saving Eloquent models",
+            "homepage": "https://github.com/spatie/laravel-sluggable",
+            "keywords": [
+                "laravel-sluggable",
+                "spatie"
+            ],
+            "time": "2019-09-16T09:37:47+00:00"
         },
         {
             "name": "superbalist/flysystem-google-storage",

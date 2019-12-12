@@ -13,6 +13,7 @@ use App\models\NotificationModel;
 use Carbon\Carbon;
 
 use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\OpenGraph;
 
 class productController extends Controller
 {
@@ -96,8 +97,8 @@ class productController extends Controller
             'jumNotif' => $getNotif
         ];
 
-        SEOTools::setTitle($data['produkDetail']);
-        SEOTools::setDescription('This is my page description');
+        SEOTools::setTitle($product[0]->nama_baliho);
+        SEOTools::setDescription($product[0]->deskripsi.' '.$product[0]->orientasi.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi);
         SEOTools::opengraph()->setUrl('http://current.url.com');
         SEOTools::setCanonical('https://codecasts.com.br/lesson');
         SEOTools::opengraph()->addProperty('type', 'articles');
@@ -105,7 +106,7 @@ class productController extends Controller
         SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
         return view('main/detailproduct')->with($data);
-        //   echo $product;
+        //   echo $product; 
     }
 
     public function showStreetView($id)

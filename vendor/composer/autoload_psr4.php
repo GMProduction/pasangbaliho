@@ -39,6 +39,7 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Bridge\\PsrHttpMessage\\' => array($vendorDir . '/symfony/psr-http-message-bridge'),
     'Superbalist\\Flysystem\\GoogleStorage\\' => array($vendorDir . '/superbalist/flysystem-google-storage/src'),
+    'Spatie\\Sluggable\\' => array($vendorDir . '/spatie/laravel-sluggable/src'),
     'Riverline\\MultiPartParser\\' => array($vendorDir . '/riverline/multipart-parser/src/Riverline/MultiPartParser'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),

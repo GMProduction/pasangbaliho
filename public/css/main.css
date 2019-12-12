@@ -6107,7 +6107,7 @@ body .navbar-inverse .navbar-nav > .active > a, body .navbar-inverse .navbar-nav
 }
 @media screen and (max-width: 1024px) {
 body .navbar-nav > li > a {
-	padding: 40px 12px 35px;
+	/* padding: 40px 12px 35px; */
 }
 }
 @media screen and (max-width: 1000px) {
