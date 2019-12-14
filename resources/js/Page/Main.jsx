@@ -8,12 +8,10 @@ import PageRouter from './PageRouter';
 import { Provider } from 'react-redux';
 import appStore from '../Store/appStore';
 
-
-
 export default class Main extends Component {
     constructor(props) {
         super(props);
-        axios.defaults.baseURL = 'http://localhost:8000';
+        axios.defaults.baseURL = 'http://localhost:8000/adminapi';
     }
     
     render() {
@@ -21,7 +19,7 @@ export default class Main extends Component {
             <React.Fragment>
                 <CssBaseline/>
                 <div className='mainWrap'>
-                    <BrowserRouter>
+                    <BrowserRouter basename='/admin'>
                         <Navigasi/>
                         <main style={{backgroundColor: '#EEEEEE'}}>
                             <PageRouter/>

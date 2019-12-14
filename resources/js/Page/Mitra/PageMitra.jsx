@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import { NavLink } from 'react-router-dom';
-import Icon from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import {withStyles} from '@material-ui/core';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
+import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
-import { breadcumbStyle } from '../../Style/Breadcumb'
 import { columns } from './Properties/Properties';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {onMount, onSearch, onUnMount} from '../../Actions/MitraActions';
+import { prepareMount, onMounted, fetchData, prepareSearch, onSearched} from '../../Actions/MitraActions';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 
 export class PageMitra extends Component {
@@ -27,74 +22,61 @@ export class PageMitra extends Component {
         }
     }
 
-    handleSearch = async (e) => {
-        this.props.onSearch(e.target.value)
+    handleSearch = async (key) => {
+        await this.props.prepareSearch()
+        await this.props.fetchData(key)
+        await this.props.onSearched()
     }
+    
     onSearch = async (e) => {
+        let key = e.target.value;
         if (e.keyCode === 13) {
-            this.handleSearch(e);
+            this.handleSearch(key);
         }        
     }
 
     handleChange = async (e) => {
         let v = e.target.value;
         if (v === '') {
-            this.handleSearch(e);
+            this.handleSearch(v);
         }
         this.setState({
             searchKey: e.target.value
         })
     }
-    componentDidMount () {
-        this.props.onMount()
+   async componentDidMount () {
+        await this.props.prepareMount()
+        await this.props.fetchData('')
+        await this.props.onMounted()
     }
 
-    componentWillUnmount () {
-        this.props.onUnMount();
-    }
 
     render() {
-        const { classes } = this.props;
         
+        const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
+        const {dataMitra} = this.props.mitra;
+
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
+
         return (
             <div>
-                <LoadingBar
-                    progress={this.props.reducer.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                <Paper elevation={0} style={breadcumbStyle.paper}>
-                    <Breadcrumbs separator="›" aria-label="breadcrumb">
-                            <NavLink
-                            color="inherit" to="/admin"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>dashboard</Icon>
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                            color="inherit" to="/admin/negosiasi"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>assignment_ind</Icon>
-                                Mitra
-                            </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto Light', fontSize: '14px'}}>
-                            <Icon className={classes.icon}>list</Icon>
-                                Daftar Mitra
-                            </Box>
-                    </Breadcrumbs>
-                </Paper>
-                {
-                    !this.props.reducer.pageLoading ?
+                <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <BCPageMitra/>
                     <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                            <Box flexGrow={1}>Daftar Mitra Media Iklan </Box>
+                            <Box flexGrow={1}>Daftar Mitra</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
                             <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Tabel Daftar Mitra Media Iklan</Box>
+                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar Mitra</Box>
                                 <Box>
                                     <TextField
                                         id="outlined-basic"
@@ -107,18 +89,10 @@ export class PageMitra extends Component {
                                     />
                                 </Box>
                             </Box>
-                            <BasicTable
-                                columns={columns}
-                                data={this.props.reducer.dataMitra}
-                                loading={this.props.reducer.dataLoading}
-                            />
+                            <BasicTable columns={columns} data={dataMitra} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
-                    :
-                    <Preloading textloading={this.props.reducer.loadingStatus}/>
-                }
-                
             </div>
         );
     }
@@ -126,19 +100,21 @@ export class PageMitra extends Component {
 
 function mapStateToProps(state) {
     return{
-        reducer: state.MitraReducer
+        mitra: state.MitraReducer,
+        page: state.PageReducer
     }
 }
 
 function mapDispatcToProps (dispatch) {
     return {
-        onMount: bindActionCreators(onMount, dispatch),
-        onSearch: bindActionCreators(onSearch, dispatch),
-        onUnMount: bindActionCreators(onUnMount, dispatch),
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        fetchData: bindActionCreators(fetchData, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch),
+        prepareSearch: bindActionCreators(prepareSearch, dispatch),
+        onSearched: bindActionCreators(onSearched, dispatch),
     }
 }
 
 export default compose(
-    withStyles(breadcumbStyle),
     connect(mapStateToProps, mapDispatcToProps)
     )(PageMitra);

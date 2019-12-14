@@ -89,7 +89,7 @@ export class StatusBox extends Component {
                     <Grid item xs={12} sm={12} md={6} lg={3}>
                         <Iconpanel>
                             <IconPanelHeader color='#1FC1D5'>
-                                <Icon fontSize='inherit'>shopping_cart</Icon>m                                                        
+                                <Icon fontSize='inherit'>shopping_cart</Icon>                                                        
                             </IconPanelHeader>
                             <IconPanelSubHeader>
                                 <Typography component="div">

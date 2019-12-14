@@ -8,7 +8,7 @@ import PermintaanPenambahanAsset from './Component/PermintaanPenambahanAsset';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {initData, resetData} from '../../Actions/DashboardActions';
+import {prepareMount, onMounted, fetchData} from '../../Actions/DashboardActions';
 
 export class Dashboard extends Component {
 
@@ -16,51 +16,48 @@ export class Dashboard extends Component {
         super(props);
     }
 
-    componentDidMount () {
-        this.props.initData()
-    }
-
-    componentWillUnmount () {
-        this.props.resetData()
-        
+    async componentDidMount () {
+        await this.props.prepareMount()
+        await this.props.fetchData()
+        await this.props.onMounted()
     }
 
     render() {
-        console.log(this.props.reducer.pageLoading);
+        const {pageProgress, pageLoadingStatus, pageLoading} = this.props.page;
+        const {qtyMedia, qtyAdvertiser, qtyMitra, dataPermintaanHarga, dataPermintaanAssets} = this.props.dashboard;
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946'
+                    />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
         return (
             <div>
-                <LoadingBar
-                    progress={this.props.reducer.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                   
-                {
-                    this.props.reducer.pageLoading === false ? 
+                <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <React.Fragment>
+                    <Fade right>
+                        <StatusBox qtyMedia={qtyMedia} qtyAdvertiser={qtyAdvertiser} qtyMitra={qtyMitra}/>
+                    </Fade>
+                    <Fade bottom>
                     <React.Fragment>
-                        <Fade right>
-                            <StatusBox qtyMedia={this.props.reducer.qtyMedia} qtyAdvertiser={this.props.reducer.qtyAdvertiser} qtyMitra={this.props.reducer.qtyMitra}/>
-                        </Fade>
-                        <Fade bottom>
-                        <React.Fragment>
-                            <Grid container spacing={3} style={{marginTop: '10px'}}>
-                                <Grid item xs={12} sm={12} md={7} lg={7}>
-                                    <PermintaanHarga data={this.props.reducer.dataPermintaanHarga}/>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={5} lg={5}>
-                                    <PermintaanPenambahanAsset data={this.props.reducer.dataPermintaanAssets}/>
-                                </Grid>
+                        <Grid container spacing={3} style={{marginTop: '10px'}}>
+                            <Grid item xs={12} sm={12} md={7} lg={7}>
+                                <PermintaanHarga data={dataPermintaanHarga}/>
                             </Grid>
-                            <Grid container spacing={3} style={{marginTop: '10px'}}>
-                                <Grid item xs={12} sm={12} md={12} lg={12}>
-                                </Grid>
+                            <Grid item xs={12} sm={12} md={5} lg={5}>
+                                <PermintaanPenambahanAsset data={dataPermintaanAssets}/>
                             </Grid>
-                        </React.Fragment>
-                        </Fade>
-                    </React.Fragment> 
-                    : 
-                    <Preloading textloading={this.props.reducer.loadingStatus}/>
-                }
+                        </Grid>
+                        <Grid container spacing={3} style={{marginTop: '10px'}}>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                            </Grid>
+                        </Grid>
+                    </React.Fragment>
+                    </Fade>
+                </React.Fragment> 
             </div>
         );
     }
@@ -68,14 +65,16 @@ export class Dashboard extends Component {
 
 function mapStateToProps(state) {
     return{
-        reducer: state.DashboardReducer
+        dashboard: state.DashboardReducer,
+        page: state.PageReducer
     }
 }
 
 function mapDispatcToProps (dispatch) {
     return {
-        initData: bindActionCreators(initData, dispatch),
-        resetData: bindActionCreators(resetData, dispatch)
+        fetchData: bindActionCreators(fetchData, dispatch),
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch)
     }
 }
 

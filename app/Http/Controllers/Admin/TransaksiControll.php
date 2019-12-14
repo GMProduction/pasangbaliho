@@ -10,7 +10,11 @@ use Carbon\Carbon;
 class TransaksiControll extends Controller
 {
     //
-    public function getPermintaanharga () {
+    public function getNegosiasi (Request $r) {
+        $id = [['id_transaksi', 'LIKE', '%' .$r->index . '%']];
+        $namaAdvertiser = [['advertisers.nama', 'LIKE', '%' .$r->index . '%']];
+        $namaMedia = [['balihos.nama_baliho', 'LIKE', '%' .$r->index . '%']];
+        $kategori = [['kategoris.kategori', 'LIKE', '%' .$r->index . '%']];
         $permintaan = TransaksiModel::query()
             ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
             ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
@@ -20,7 +24,7 @@ class TransaksiControll extends Controller
                 'advertisers.id as idAdvertiser', 
                 'advertisers.nama as namaAdvertiser', 
                 'transaksi.id_baliho as idBaliho',
-                'balihos.nama_baliho as namaBaliho', 
+                'balihos.nama_baliho as namaMedia', 
                 'balihos.id_kategori as idKategori', 
                 'kategoris.kategori as kategori', 
                 'harga_ditawarkan',
@@ -31,13 +35,19 @@ class TransaksiControll extends Controller
                 'tanggal_awal',
                 'tanggal_akhir'
             )
-            ->where('transaksi.status', '=', 'permintaan')
+            ->where(function ($query) use ($id, $namaAdvertiser, $namaMedia, $kategori) {
+                $query->where($id)
+                    ->orWhere($namaAdvertiser)
+                    ->orWhere($namaMedia)
+                    ->orWhere($kategori);
+            })
+            ->where('transaksi.status', 'LIKE', '%'.$r->status.'%')
             ->orderBy('id_transaksi', 'ASC')
             ->get();
         return response()->json($permintaan);
     }
 
-    public function getPermintaanHargaById(Request $r){
+    public function getNegosiasiById (Request $r){
         $permintaan = TransaksiModel::query()
                 ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
                 ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
@@ -58,23 +68,25 @@ class TransaksiControll extends Controller
                     'tanggal_awal',
                     'tanggal_akhir'
                     )
-                ->where('transaksi.status', '=', 'permintaan')
+                ->where('transaksi.status', 'LIKE', '%'.$r->status.'%' )
                 ->where('id_transaksi', '=', $r->id)
                 ->first();
-        return response()->json($permintaan);
+        if ($permintaan != null) {
+            return response()->json($permintaan);
+        }
+        return null;
     }
 
-    public function setPemberianHarga (Request $r) {
+    public function postPrice (Request $r) {
         try {
             $data = [
-                'harga_ditawarkan' => $r->hargaPenawaran,
                 'status' => 'negoharga',
                 'terbaca_client' => 0,
                 'terbaca_advertiser' => 0
             ];
 
             TransaksiModel::query()
-            ->where('id_transaksi', '=', $r->idtransaksi)
+            ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
             // if ($update) {
             //     # code...

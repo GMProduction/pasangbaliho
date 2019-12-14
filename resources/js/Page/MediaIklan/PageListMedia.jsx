@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
-import Icon from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import {withStyles} from '@material-ui/core';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
+import BCPageListMedia from '../../components/Material-UI/Breadcumbs/BCPageListMedia';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
-import { breadcumbStyle } from '../../Style/Breadcumb'
-import { columnsPermintaan } from './Properties/Properties';
+import { columns } from './Properties/Properties';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchMedia, searchMedia, onUnMount} from '../../Actions/MediaIklanActions';
+import {prepareMount, onMounted, prepareSearch, onSearched, fetchMedia} from '../../Actions/MediaIklanActions';
+
 
 export class PageListMedia extends Component {
 
@@ -27,77 +25,101 @@ export class PageListMedia extends Component {
         }
     }
 
-    handleSearch = async (e) => {
-        this.props.searchMedia(this.props.match.params.filter, e.target.value)
+    handleSearch = async (key) => {
+        let filter = this.props.filter;
+        await this.props.prepareSearch()
+        await this.props.fetchMedia(filter, key)
+        await this.props.onSearched()
     }
+
     onSearch = async (e) => {
+        let key = e.target.value;
         if (e.keyCode === 13) {
-            this.handleSearch(e);
-        }    
+            this.handleSearch(key);
+        }        
     }
 
     handleChange = async (e) => {
         let v = e.target.value;
         if (v === '') {
-            this.handleSearch(e);
+            this.handleSearch(v);
         }
         this.setState({
             searchKey: e.target.value
         })
     }
 
-    componentDidMount () {
-        this.props.fetchMedia(this.props.match.params.filter, '')
+    async componentDidMount () {
+        let link = 'detail'
+        if (this.props.filter === 'pending') {
+            link = 'permintaan'
+        }
+        const aksi = {title: 'Aksi',headerStyle:{textAlign: 'center',width: '15%'},cellStyle:{textAlign: 'center',width: '15%'},sorting: false,
+                render: rowData => 
+                <div>
+                    <Button variant="outlined" size='small' color="primary" 
+                        component={NavLink} 
+                        to={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                    >
+                        Kelola
+                    </Button>
+                </div>
+            }
+        columns.push(aksi)
+        let filter = this.props.filter;
+        await this.props.prepareMount()
+        await this.props.fetchMedia(filter, '')
+        await this.props.onMounted()
     }
 
     componentWillUnmount () {
-        this.props.onUnMount();
+        columns.pop()
     }
 
     render() {
-        const { classes } = this.props;
-        console.log(this.props.match.params.filter);
-        
+
+        const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
+        const {dataMedia} = this.props.mediaiklan;
+        const {filter} = this.props;
+        let title = 'Semua Media Iklan';
+
+        switch (filter) {
+            case 'pending':
+                title = 'Permintaan Penambahan Media Iklan'
+                break;
+            case 'publish':
+                title = 'Media Iklan Terpublikasi'
+                break;
+            case 'block':
+                title = 'Media Iklan Terblokir'
+                break;
+            default:
+                break;
+        }
+
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
+
         return (
             <div>
-                <LoadingBar
-                    progress={this.props.reducer.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                <Paper elevation={0} style={breadcumbStyle.paper}>
-                    <Breadcrumbs separator="›" aria-label="breadcrumb">
-                            <NavLink
-                            color="inherit" to="/admin"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>dashboard</Icon>
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                            color="inherit" to="/admin/mediaiklan"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>desktop_mac</Icon>
-                                Media Iklan
-                            </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto', fontSize: '14px'}}>
-                            <Icon className={classes.icon}>list</Icon>
-                                Semua Media Iklan
-                            </Box>
-                    </Breadcrumbs>
-                </Paper>
-                {
-                    !this.props.reducer.pageLoading ?
-                
+                <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <BCPageListMedia/>
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                            <Box flexGrow={1}>Daftar Harga Media Terpublikasi</Box>
+                            <Box flexGrow={1}>
+                                Daftar {title}
+                            </Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center'>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Tabel Permintaan</Box>
+                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
+                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar {title}</Box>
                                 <Box>
                                     <TextField
                                         id="outlined-basic"
@@ -110,17 +132,10 @@ export class PageListMedia extends Component {
                                     />
                                 </Box>
                             </Box>
-                            <BasicTable
-                                columns={columnsPermintaan}
-                                data={this.props.reducer.data}
-                                loading={this.props.reducer.dataLoading}
-                            />
+                            <BasicTable columns={columns} data={dataMedia} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
-                :
-                <Preloading textloading={this.props.reducer.loadingStatus}/>
-            }
             </div>
         );
     }
@@ -128,19 +143,21 @@ export class PageListMedia extends Component {
 
 function mapStateToProps(state) {
     return{
-        reducer: state.MediaIklanReducer
+        mediaiklan: state.MediaIklanReducer,
+        page: state.PageReducer
     }
 }
 
 function mapDispatcToProps (dispatch) {
     return {
+        prepareMount: bindActionCreators(prepareMount, dispatch),
         fetchMedia: bindActionCreators(fetchMedia, dispatch),
-        searchMedia: bindActionCreators(searchMedia, dispatch),
-        onUnMount: bindActionCreators(onUnMount, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch),
+        prepareSearch: bindActionCreators(prepareSearch, dispatch),
+        onSearched: bindActionCreators(onSearched, dispatch),
     }
 }
 
 export default compose(
-    withStyles(breadcumbStyle),
-    connect(mapStateToProps, mapDispatcToProps)    
+    connect(mapStateToProps, mapDispatcToProps) 
     )(PageListMedia);

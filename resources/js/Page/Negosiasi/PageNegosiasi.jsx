@@ -57,7 +57,7 @@ export class PageNegosiasi extends Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <PanelMenu
-                                    link='/admin/negosiasi/permintaan'
+                                    link='/negosiasi/permintaan'
                                     color='#20C1D5'
                                     icon='local_offer'
                                     title={`Permintaan Harga (${0})`}
@@ -66,7 +66,7 @@ export class PageNegosiasi extends Component {
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <PanelMenu
-                                    link='/admin/negosiasi/negoharga'
+                                    link='/negosiasi/negoharga'
                                     color='#FC9007'
                                     icon='monetization_on'
                                     title={`Negosiasi Harga (${0})`}
@@ -77,7 +77,7 @@ export class PageNegosiasi extends Component {
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '15px'}}>
                         <PanelMenu
-                            link='/admin/negosiasi/negomateri'
+                            link='/negosiasi/negomateri'
                             color='#9129AC'
                             icon='forum'
                             title={`Negosiasi Materi (${0})`}

@@ -47,7 +47,7 @@ export class PermintaanPenambahanAsset extends Component {
                                     this.props.data.slice(0, 5).map( (row, i) => {
                                         return (
                                             <React.Fragment key={i}>
-                                                <ListItem button alignItems="flex-start" component={NavLink} to={`/dashboard/baliho/detail/${row.id_baliho}`}>
+                                                <ListItem button alignItems="flex-start" component={NavLink} to={`/mediaiklan/permintaan/${row.id_baliho}`}>
                                                 <ListItemText
                                                     primary={row.nama}
                                                     secondary={
@@ -67,7 +67,7 @@ export class PermintaanPenambahanAsset extends Component {
                                 }
                             </List>
                             <Box fontSize={14} fontFamily="Lato" display="flex" justifyContent="flex-end" alignItems="center">
-                            <Button component={NavLink} to='/dashboard/baliho/detail'>
+                            <Button component={NavLink} to='/mediaiklan/permintaan'>
                                 Lihat Semua Baliho
                             </Button>
                         </Box>

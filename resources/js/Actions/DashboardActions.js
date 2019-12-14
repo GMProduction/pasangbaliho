@@ -1,53 +1,55 @@
 import {
     PREPARE_MOUNT,
     ON_MOUNTED,
+    PAGE_PROGRESS,
+    FETCH_QTY_MEDIA,
     FETCH_PERMINTAAN_HARGA,
-    FETCH_QTY_BALIHO,
     FETCH_QTY_MITRA,
     FETCH_QTY_ADVERTISER,
-    FETCH_MEDIA_IKLAN
+    FETCH_MEDIA_IKLAN,
 } from './type';
-import {dashboardAPI} from '../Controller/DashboardControll';
 
+import {fetchAPI} from '../Controller/APIControll';
 
-export const initData = () => {
+export const prepareMount = () => {
+    return (dispatch) => {
+        dispatch({type: PREPARE_MOUNT, status: 'Mohon Tunggu Sebentar'})
+    }
+}
+
+export const onMounted = () => {
+    return (dispatch) => {
+        dispatch({type: ON_MOUNTED, title: 'Dashboard'})
+    }
+}
+
+export const fetchData = () => {
     return async (dispatch) => {
-        await dispatch({type: PREPARE_MOUNT});
-        let resQtyBaliho = await dashboardAPI('/adminapi/mediaiklan/countMedia')   
-        if (resQtyBaliho.statusdata === 'success') {
-            await dispatch({type: FETCH_QTY_BALIHO, data: resQtyBaliho.data.data, progress: 30, status: 'Fetching Jumlah Baliho Berhasil...'})
+        await dispatch({type: PAGE_PROGRESS, progress: 30, status: 'Fetching Data...'})
+        let resCountMedia = await fetchAPI('/mediaiklan/countMedia')   
+        if (resCountMedia.status === 'success') {
+            await dispatch({type: FETCH_QTY_MEDIA, data: resCountMedia.data.data});
         }
 
-        let resQtyMitra = await dashboardAPI('/adminapi/mitra/countMitra')   
-        if (resQtyMitra.statusdata === 'success') {
-            await dispatch({type: FETCH_QTY_MITRA, data: resQtyMitra.data.data, progress: 40, status: 'Fetching Jumlah Mitra Berhasil...'})
-        }
-        let resQtyAdvertiser = await dashboardAPI('/adminapi/advertiser/countAdvertiser')
-        if (resQtyAdvertiser.statusdata === 'success') {
-            await dispatch({type: FETCH_QTY_ADVERTISER, data: resQtyAdvertiser.data.data, progress: 50, status: 'Fetching Jumlah Advertiser Berhasil...'})
+        let resCountMitra = await fetchAPI('/mitra/countMitra')   
+        if (resCountMitra.status === 'success') {
+            await dispatch({type: FETCH_QTY_MITRA, data: resCountMitra.data.data})
         }
 
-        let resPermintaanAsset = await dashboardAPI('/adminapi/mediaiklan/request?status=pending&index=')
-        if (resPermintaanAsset.statusdata === 'success') {
-           await dispatch({type: FETCH_MEDIA_IKLAN, data: resPermintaanAsset.data.data, progress: 70, status: 'Fetching Permintaan Penambahan Assets Berhasil...', isLoading: true})
+        let resCountAdvertiser = await fetchAPI('/advertiser/countAdvertiser')
+        if (resCountAdvertiser.status === 'success') {
+            await dispatch({type: FETCH_QTY_ADVERTISER, data: resCountAdvertiser.data.data})
+        }
+
+        let resPermintaanAsset = await fetchAPI('/mediaiklan/request?status=pending&index=')
+        if (resPermintaanAsset.status === 'success') {
+           await dispatch({type: FETCH_MEDIA_IKLAN, data: resPermintaanAsset.data.data})
         }
         
 
-        let resPermintaanHarga = await dashboardAPI('/adminapi/negosiasi/request')
-        if (resPermintaanHarga.statusdata === 'success') {
-            await dispatch({
-                type: FETCH_PERMINTAAN_HARGA, 
-                data: resPermintaanHarga.data.data, 
-                progress: 90, 
-                status: 'Fetching Permintaan Harga Berhasil...', 
-            })
+        let resPermintaanHarga = await fetchAPI('/negosiasi/request')
+        if (resPermintaanHarga.status === 'success') {
+            await dispatch({type: FETCH_PERMINTAAN_HARGA, data: resPermintaanHarga.data.data})
         }   
-        await dispatch({type: ON_MOUNTED});
     }   
-}
-
-export const resetData = () => {
-    return (dispatch) => {
-        dispatch({type: 'RESET'})
-    }
 }

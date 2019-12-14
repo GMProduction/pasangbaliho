@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router'
 import Icon from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import {withStyles} from '@material-ui/core';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import TextField from '@material-ui/core/TextField';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
-import { breadcumbStyle } from '../../Style/Breadcumb';
 import Grid from '@material-ui/core/Grid';
 import { loadPermintaanHargaById, setHarga, loadMediaOnUsed } from '../../Controller/NegosiasiControll';
 import { Divider } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
+import {prepareMount, onMounted, prepareSearch, onSearched, fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
 
 const style = {
     resize2: {
         fontSize: 14, 
-        fontFamily: 'Roboto Light',
+        fontFamily: 'Roboto',
         height: 0
     },
     resize: {
@@ -28,9 +29,12 @@ const style = {
     },
     resize3: {
         fontSize: 14, 
-        fontFamily: 'Roboto Light',
+        fontFamily: 'Roboto',
         height: 45
-    }
+    },
+    adornment:{
+        marginRight: '-12px'
+    },
 }
 
 export class PageBeriHarga extends Component {
@@ -38,116 +42,65 @@ export class PageBeriHarga extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loadingBarProgress: 0,
-            isLoading: true,
-            namaadvertiser: '',
-            idAdvertiser: '',
-            tanggalAwal: '',
-            tanggalAkhir: '',
-            namaBaliho: '',
-            kategori: '',
-            usedon: [],
-            hargaPenawaran: 0,
-            toPermintaan: false
+            lampiran: null
         }
     }
     
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    update = async () => {
-        let id = this.props.match.params.id;
-        let dataUpdate = {
-            hargaPenawaran: this.state.hargaPenawaran,
-            idtransaksi: id,
-            idAdvertiser: this.state.idAdvertiser
-        }
-        let res = await setHarga(dataUpdate);
-        if (res.status === 'ok') {
+    handleChangeLampiran = (e) => {
+        if (e.target.files[0] !== undefined) {
             this.setState({
-                toPermintaan: true
+                [e.target.name]: e.target.files[0],
             })
-        }else{
-            alert(res.data);
+        }else {
+            this.setState({
+                [e.target.name]: null
+            })
         }
-        console.log(res);
     }
 
-    initData = async () => {
-        this.setState({
-            loadingBarProgress: 50,
-        })
-        let id = this.props.match.params.id;
-        let data = await loadPermintaanHargaById(id);
-        console.log(data);
+     handleSave = async () =>{
+        let data = new FormData();
+        let data2 = new FormData();
+        data.append('idTransaksi', this.props.negosiasi.dataNegosiasiById.id_transaksi)
+        data2.append('lampiran', this.state.lampiran)
         
-        let idbaliho = data.idBaliho;
-        let dataused = await loadMediaOnUsed(idbaliho);
-        this.setState({
-            namaadvertiser: data.namaAdvertiser,
-            tanggalAwal: data.tanggal_awal,
-            tanggalAkhir: data.tanggal_akhir,
-            namaBaliho: data.namaBaliho,
-            kategori: data.kategori,
-            usedon: dataused,
-            idAdvertiser: data.idAdvertiser,
-            loadingBarProgress: 100,
-            isLoading: false,
-
-        })
+        await this.props.postNegosiasi(data, data2)
     }
 
-
-
-    componentDidMount () {
-        this.initData();
+    async componentDidMount () {
+        let id = this.props.match.params.id;
+        await this.props.prepareMount()
+        await this.props.fetchNegosiasiById('permintaan', id)
+        await this.props.onMounted()
+        console.log(this.props)
     }
+
     render() {
-        const { classes } = this.props;
-        if (this.state.toPermintaan === true) {
-            return <Redirect to='/admin/negosiasi/permintaan' />
+        const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
+        const {dataNegosiasiByIdFound, dataNegosiasiById} = this.props.negosiasi;
+
+
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
         }
+
+        if (dataNegosiasiByIdFound !== true) {
+            return(
+                <div>
+                    <h1>NOT FOUND</h1>
+                </div>
+            )
+        }
+        
         return (
             <div>
-                 <LoadingBar
-                    progress={this.state.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                <Paper elevation={0} style={breadcumbStyle.paper}>
-                    <Breadcrumbs separator="›" aria-label="breadcrumb">
-                            <NavLink
-                            color="inherit" to="/admin"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>dashboard</Icon>
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                            color="inherit" to="/admin/negosiasi"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>question_answer</Icon>
-                                Negosiasi
-                            </NavLink>
-                            <NavLink
-                            color="inherit" to="/admin/negosiasi/permintaan"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>local_offer</Icon>
-                                Permintaan
-                            </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto Light', fontSize: '14px'}}>
-                            <Icon className={classes.icon}>attach_money</Icon>
-                                Pemberian harga
-                            </Box>
-                    </Breadcrumbs>
-                </Paper>
-                { this.state.isLoading === false ? 
+                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                
                 <Fade bottom>
                 <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={12} lg={6}>
@@ -156,23 +109,34 @@ export class PageBeriHarga extends Component {
                         <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Permintaan Harga</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                        <TextField name='namaadvertiser' id="namaadvertiser" label="Nama Advertiser" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.namaadvertiser} />
-                        <TextField name='tanggalsewa' id="tanggalsewa" label="Tanggal Penyewaan" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={`${this.state.tanggalAwal} - ${this.state.tanggalAkhir}`} />
-                        <TextField name='kategori' id="kategori" label="Jenis Media" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.kategori} />
-                        <TextField name='namaBaliho' id="namaBaliho" label="Nama Media" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.namaBaliho} />
+                        <TextField disabled label="Nama Advertiser" margin="dense" variant="outlined" fullWidth 
+                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={dataNegosiasiById.namaAdvertiser} />
+                        <TextField disabled label="Tanggal Penyewaan" margin="dense" variant="outlined" fullWidth 
+                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={`${dataNegosiasiById.tanggal_awal} - ${dataNegosiasiById.tanggal_akhir}`} />
+                        <TextField disabled label="Jenis Media" margin="dense" variant="outlined" fullWidth 
+                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={dataNegosiasiById.kategori} />
+                        <TextField disabled label="Nama Media" margin="dense" variant="outlined" fullWidth 
+                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={dataNegosiasiById.namaBaliho} />
+                        
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                        <TextField type='number' name='hargaPenawaran' id="hargaPenawaran" label="Harga yang Di Tawarkan" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.hargaPenawaran} onChange={this.handleChange.bind(this)}/>
+                        <input accept=".doc, .docx, .pdf, .xls, .xlsx" style={{display: 'none'}} id="lampiran" type="file" name='lampiran'
+                        onChange={this.handleChangeLampiran}
+                        />
+                        <label htmlFor="lampiran">
+                            <TextField disabled label="Lampiran" variant="outlined" margin="dense" fullWidth
+                                InputProps={{style: style.resize,
+                                    endAdornment: <InputAdornment position="end" style={style.adornment}>
+                                        <Button style={style.resize} component="span">Browse</Button>
+                                    </InputAdornment>
+                                }} InputLabelProps={{style: style.resize}}
+                                value={this.state.lampiran !== null ? this.state.lampiran.name : ''}/>
+                        </label>
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
-                            <Button variant="contained" color="secondary" startIcon={<Icon>close</Icon>} onClick={() => this.update('tolak')}>
+                            <Button variant="contained" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleSave}>
                                 Tolak
                             </Button>
-                            <Button variant="outlined" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={() => this.update('terima')}>
+                            <Button variant="outlined" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={this.handleSave}>
                                 Kirim Harga
                             </Button>
                         </Box>
@@ -188,7 +152,7 @@ export class PageBeriHarga extends Component {
                         
                         <Box fontSize={18} display='flex' justifyContent='center'>Baliho Ini Tersewa Pada Tanggal</Box>
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                        {
+                        {/* {
                             this.state.usedon.length > 0 ?
                         this.state.usedon.map((row, id) => {
                             return (
@@ -196,17 +160,36 @@ export class PageBeriHarga extends Component {
                             )
                         }) : 
                             <Box display='flex' fontSize={14} justifyContent='center' fontWeight='bold'>Tidak Ada Penyewa</Box>
-                        }
+                        } */}
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Grid>
                 </Grid>
                 </Fade>
-                : ''}
             </div>
         );
     }
 }
 
-export default withStyles(breadcumbStyle)(PageBeriHarga);
+function mapStateToProps(state) {
+    return{
+        page: state.PageReducer,
+        negosiasi: state.NegosiasiReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        fetchNegosiasiById: bindActionCreators(fetchNegosiasiById, dispatch),
+        postNegosiasi: bindActionCreators(postNegosiasi, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch),
+        prepareSearch: bindActionCreators(prepareSearch, dispatch),
+        onSearched: bindActionCreators(onSearched, dispatch),
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, mapDispatcToProps) 
+    )(PageBeriHarga);

@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
 
 
 const drawerWidth = 250;
@@ -84,7 +86,7 @@ export class Navigasi extends Component {
                           onClick={this.handleSidebar}>
                               <MenuIcon/>
                           </IconButton>
-                          <Box p={1} flexGrow={1} fontSize={18}>Dashboard</Box>
+                          <Box p={1} flexGrow={1} fontSize={18}>{this.props.page.pageTitle}</Box>
                           <Box p={1}>
                             <Tooltip TransitionComponent={Zoom} title="Permintaan Harga Advertiser">
                             <Icon>question_answer</Icon>
@@ -135,4 +137,14 @@ export class Navigasi extends Component {
     }
 }
 
-export default withStyles(useStyles)(Navigasi);
+function mapStateToProps(state) {
+  return{
+    page: state.PageReducer
+  }
+}
+
+
+export default compose(
+  withStyles(useStyles),
+  connect(mapStateToProps)
+  )(Navigasi);

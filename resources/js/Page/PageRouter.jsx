@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../page/Dashboard/Dashboard';
 import PageMedia from './MediaIklan/PageMedia';
-import PagePermintaanMedia from './MediaIklan/PagePermintaanMedia';
-import PagePersetujuanMedia from './MediaIklan/PagePersetujuanMedia';
-import PageMediaPublik from './MediaIklan/PageMediaPublik';
-import PageMediaBlock from './MediaIklan/PageMediaBlock';
+import PageConfirmMedia from './MediaIklan/PageConfirmMedia';
 import PageListMedia from './MediaIklan/PageListMedia';
-import PageAddMedia from './MediaIklan/PageAddMedia';
+
 import PageNegosiasi from './Negosiasi/PageNegosiasi';
-import PagePermintaanHarga from './Negosiasi/PagePermintaanHarga';
+import PageListNego from './Negosiasi/PageListNego';
 import PageBeriHarga from './Negosiasi/PageBeriHarga';
-import PageNegoHarga from './Negosiasi/PageNegoHarga';
 import PageHargaDeal from './Negosiasi/PageHargaDeal';
-import PageNegoMateri from './Negosiasi/PageNegoMateri';
 import PageNegoSelesai from './Negosiasi/PageNegoSelesai';
 import PageMitra from './Mitra/PageMitra';
 import PageAdvertiser from './Advertiser/PageAdvertiser';
@@ -23,24 +18,29 @@ export class PageRouter extends Component {
         return (
             <div>
                 <Switch>
-                    <Route exact path='/admin' component={Dashboard}/>
+                    <Route exact path='/' component={Dashboard}/>
 
-                    <Route exact path='/admin/mediaiklan' component={PageMedia}/>
-                    <Route exact path='/admin/mediaiklan/list/:filter' render={(props) => <PageListMedia {...props}/>} />
-                    <Route exact path='/admin/mediaiklan/permintaan/:id' component={PagePersetujuanMedia}/>
-                    <Route exact path='/admin/mediaiklan/form' component={PageAddMedia}/>
+                    <Route exact path='/mitra' component={PageMitra}/>
                     
-                    <Route exact path='/admin/mitra' component={PageMitra}/>
-                    <Route exact path='/admin/advertiser' component={PageAdvertiser}/>
-                    
-                    <Route exact path='/admin/negosiasi' component={PageNegosiasi}/>
-                    <Route exact path='/admin/negosiasi/permintaan' component={PagePermintaanHarga}/>
-                    <Route exact path='/admin/negosiasi/permintaan/:id' component={PageBeriHarga}/>
-                    <Route exact path='/admin/negosiasi/negoharga' component={PageNegoHarga}/>
-                    <Route exact path='/admin/negosiasi/negoharga/:id' component={PageHargaDeal}/>
-                    <Route exact path='/admin/negosiasi/negomateri' component={PageNegoMateri}/>
-                    <Route exact path='/admin/negosiasi/negomateri/:id' component={PageNegoSelesai}/>
+                    <Route exact path='/advertiser' component={PageAdvertiser}/>
 
+                    <Route exact path='/mediaiklan' component={PageMedia}/>
+                    <Route exact path='/mediaiklan/permintaan' render={(props) => <PageListMedia {...props} filter='pending'/>} />
+                    <Route exact path='/mediaiklan/publish' render={(props) => <PageListMedia {...props} filter='publish'/>} />
+                    <Route exact path='/mediaiklan/block' render={(props) => <PageListMedia {...props} filter='block'/>} />
+                    <Route exact path='/mediaiklan/permintaan/:id' render={(props) => <PageConfirmMedia {...props} filter='confirm'/>}/>
+                    <Route exact path='/mediaiklan/detail/:id' render={(props) => <PageConfirmMedia {...props} filter='update'/>}/>
+                    <Route exact path='/mediaiklan/form' render={(props) => <PageConfirmMedia {...props} filter='add'/>}/>
+                    
+                    
+                    <Route exact path='/negosiasi' component={PageNegosiasi}/>
+                    <Route exact path='/negosiasi/permintaan' render={(props) => <PageListNego {...props} filter='permintaan'/>}/>
+                    <Route exact path='/negosiasi/negoharga' render={(props) => <PageListNego {...props} filter='negoharga'/>}/>
+                    <Route exact path='/negosiasi/negomateri' render={(props) => <PageListNego {...props} filter='negomateri'/>}/>
+                    <Route exact path='/negosiasi/permintaan/:id' component={PageBeriHarga}/>
+                    <Route exact path='/negosiasi/negoharga/:id' component={PageHargaDeal}/>
+                    <Route exact path='/negosiasi/negomateri/:id' component={PageNegoSelesai}/>
+                    <Route render={() => <h1>Not Found</h1>}/>
                 </Switch>
             </div>
         );
