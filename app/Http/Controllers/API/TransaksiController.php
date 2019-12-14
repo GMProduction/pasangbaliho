@@ -319,7 +319,7 @@ class TransaksiController extends Controller
                     'transaksi.status as status',
                     'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
-                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.terbaca_client as terbaca_client',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.keterangan_batal as keterangan_batal',
@@ -364,6 +364,27 @@ class TransaksiController extends Controller
                     'respon' => 'success',
                     'message' => 'count transaksi berhasil',
                     'count' => $newTransaksi
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'terjadi kesalahan ' . $e
+                ], 500);
+            }
+        }
+    }
+
+    public function setReadPerTransaksiClient(Request $request)
+    {
+        if ($request->idTransaksi != null) {
+            try {
+                $transTable = TransaksiModel::find($request->idTransaksi);
+                $transTable->terbaca_client = '1';
+                $transTable->save();
+
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'read berhasil'
                 ], 200);
             } catch (\Exception $e) {
                 return response()->json([
