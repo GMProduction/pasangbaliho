@@ -11,10 +11,8 @@ use Carbon\Carbon;
 
 class BalihoController extends Controller
 {
-
     public function dataListAllBaliho()
     {
-
         try {
             $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
@@ -137,7 +135,7 @@ class BalihoController extends Controller
 
 
     //CLIENT
-    public function balihoClient(Request $request)
+    public function getBalihoClient(Request $request)
     {
         $tambahan = $request->tambahan;
         try {
@@ -147,7 +145,6 @@ class BalihoController extends Controller
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
-                    'balihos.id_client as id_client',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
                     'kotas.nama_kota as nama_kota',
@@ -162,9 +159,17 @@ class BalihoController extends Controller
                     'balihos.deskripsi as deskripsi',
                     'foto_baliho.url_foto as url_foto'
                 )
-                ->where("id_client", "LIKE", $request->idClient)
+                ->where('id_client', $request->idClient)
+                ->where("nama_kota", "LIKE", $request->kota)
+                ->where("kategori", "LIKE", $request->kategori)
+                ->where(function ($q) use ($tambahan) {
+                    $q->where('alamat', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('venue', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('deskripsi', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('nama_provinsi', 'LIKE', '%' . $tambahan . '%');
+                })
                 ->groupBy('balihos.id_baliho')
-                ->orderBy("updated_at", "DESC")
+                ->orderBy($request->sortby, $request->urutan)
                 ->paginate(20);
 
             return response()->json([
@@ -179,6 +184,4 @@ class BalihoController extends Controller
             ], 500);
         }
     }
-
-
 }

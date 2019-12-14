@@ -98,6 +98,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
             'Superbalist\\Flysystem\\GoogleStorage\\' => 36,
+            'Spatie\\Sluggable\\' => 17,
         ),
         'R' => 
         array (
@@ -343,6 +344,10 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'Superbalist\\Flysystem\\GoogleStorage\\' => 
         array (
             0 => __DIR__ . '/..' . '/superbalist/flysystem-google-storage/src',
+        ),
+        'Spatie\\Sluggable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-sluggable/src',
         ),
         'Riverline\\MultiPartParser\\' => 
         array (
@@ -627,6 +632,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\API\\AdvertiserController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AdvertiserController.php',
         'App\\Http\\Controllers\\API\\BalihoController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/BalihoController.php',
+        'App\\Http\\Controllers\\API\\ClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ClientController.php',
         'App\\Http\\Controllers\\API\\FcmController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/FcmController.php',
         'App\\Http\\Controllers\\API\\KategoriController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/KategoriController.php',
         'App\\Http\\Controllers\\API\\KotaController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/KotaController.php',
@@ -654,7 +660,9 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\Http\\Controllers\\DashboardControll' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardControll.php',
         'App\\Http\\Controllers\\FCM\\SenderMessage' => __DIR__ . '/../..' . '/app/Http/Controllers/FCM/SenderMessage.php',
         'App\\Http\\Controllers\\Member\\assetClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/assetClientController.php',
+        'App\\Http\\Controllers\\Member\\berjalanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/berjalanController.php',
         'App\\Http\\Controllers\\Member\\clientController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/clientController.php',
+        'App\\Http\\Controllers\\Member\\historyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/historyController.php',
         'App\\Http\\Controllers\\Member\\indexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/indexController.php',
         'App\\Http\\Controllers\\Member\\transaksiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/transaksiController.php',
         'App\\Http\\Controllers\\member\\advertiserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Member/advertiserController.php',
@@ -4582,6 +4590,9 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\Sluggable\\HasSlug' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/HasSlug.php',
+        'Spatie\\Sluggable\\InvalidOption' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/InvalidOption.php',
+        'Spatie\\Sluggable\\SlugOptions' => __DIR__ . '/..' . '/spatie/laravel-sluggable/src/SlugOptions.php',
         'Superbalist\\Flysystem\\GoogleStorage\\GoogleStorageAdapter' => __DIR__ . '/..' . '/superbalist/flysystem-google-storage/src/GoogleStorageAdapter.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\DiactorosFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/DiactorosFactory.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',

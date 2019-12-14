@@ -111,137 +111,91 @@ body #process .process-border {
     @foreach ($data as $d)
 
 
-    <div class="row ">
-        <div class="col-lg-4" style="height: 300px">
+    <div class="row pb-3">
+        <div class="col-lg-4" style="">
             <img src="{{asset('assets/original/'.$d->url_foto)}}" alt="" width="100%">
         </div>
         <div class="col-lg-8">
-            <h4>{{$d->nama_baliho}}</h4>
+            <h4 class="warnaGreen">{{$d->nama_baliho}}</h4>
             <h5>{{$d->alamat}}, {{$d->kota}}, {{$d->provinsi}}</h5>
             <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</h5>
         </div>
     </div>
+    <div class="body table-responsive table-borderless">
+        <table class="table ">
+            <tr>
+                <td class="text-center">
+                     <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="permintaan" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-file-invoice-dollar" data-fa-transform="shrink-6"></i>
+                    </span>
+                    
+                </td>
+                <td class="text-center" rowspan="2" style="vertical-align: middle">
+                    <i class="fa fa-arrow-right text-center fa-2x " id="panahNegoHarga"
+                        style="color:#DDDDDD;vertical-align: middle !important "></i>
+                </td>
+                <td class="text-center">
+                    <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="negoHarga" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-comments-dollar" data-fa-transform="shrink-6"></i>
+                    </span>
+                </td>
 
-    <div class="row align-items-center">
-        <div class="col-md-2" style="">
-            <div class="fa-4x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fas fa-circle" id="permintaan" style="color:#DDDDDD"></i>
-                    <i class="fa-inverse fas fa-file-invoice-dollar" data-fa-transform="shrink-6"></i>
-                </span>
-            </div>
-            <h6 class="text-center">Permintaan Harga</h6>
-        </div>
-        <div class="col-md-1" style="">
-            <div class="fa-2x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fa fa-arrow-right text-center" id="panahNegoHarga" style="color:#DDDDDD"></i>
-                </span>
-            </div>
-            <br>
-        </div>
-        <div class="col-md-2" style="">
-            <div class="fa-4x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fas fa-circle" id="negoHarga" style="color:#DDDDDD"></i>
-                    <i class="fa-inverse fas fa-comments-dollar" data-fa-transform="shrink-6"></i>
-                </span>
-            </div>
-            <h6 class="text-center">Nego Harga</h6>
-        </div>
-        <div class="col-md-1" style="">
-            <div class="fa-2x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fa fa-arrow-right text-center" id="panahNegoMateri" style="color:#DDDDDD"></i>
-                </span>
-            </div>
-            <br>
-        </div>
-        <div class="col-md-2" style="">
-            <div class="fa-4x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fas fa-circle" id="negoMateri" style="color:#DDDDDD"></i>
-                    <i class="fa-inverse fas fa-image" data-fa-transform="shrink-6"></i>
-                </span>
-            </div>
-            <h6 class="text-center">Kirim Materi</h6>
-        </div>
-        <div class="col-md-1" style="">
-            <div class="fa-2x" style="">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fa fa-arrow-right text-center" id="panahPembayaran" style="color:#DDDDDD"></i>
-                </span>
-            </div>
-            <br>
-        </div>
-        <div class="col-md-2" style="">
-            <div class="fa-4x">
-                <span class="fa-layers fa-fw fa-2x" style="">
-                    <i class="fas fa-circle" id="pembayaran" style="color:#DDDDDD"></i>
-                    <i class="fa-inverse fas fa-money-bill" data-fa-transform="shrink-6"></i>
-                </span>
-            </div>
-            <h6 class="text-center">Pembayaran</h6>
-        </div>
+                <td class="text-center" rowspan="2" style="vertical-align: middle">
+                        <i class="fa fa-arrow-right text-center fa-2x" id="panahNegoMateri" style="color:#DDDDDD"></i>
+                 
 
+                </td>
+                <td class="text-center">
+                    <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="negoMateri" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-image" data-fa-transform="shrink-6"></i>
+                    </span>
+                </td>
 
+                <td class="text-center" rowspan="2" style="vertical-align: middle">
+                        <i class="fa fa-arrow-right text-center fa-2x" id="panahPembayaran" style="color:#DDDDDD"></i>
+                   
+                </td>
+                <td class="text-center">
+                    <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="pembayaran" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-money-bill" data-fa-transform="shrink-6"></i>
+                    </span>
+                </td>
+
+                <td class="text-center" rowspan="2" style="vertical-align: middle">
+                        <i class="fa fa-arrow-right text-center fa-2x" id="panahSelesai" style="color:#DDDDDD"></i>
+                 
+                </td>
+
+                <td class="text-center">
+                    <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="selesai" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-check" data-fa-transform="shrink-6"></i>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><Span>Permintaan Harga</Span></td>
+                <td class="text-center"><span>Nego Harga</span></td>
+                <td class="text-center"><span>Kirim Materi</span></td>
+                <td class="text-center"><span>Pembayara</span></td>
+                <td class="text-center"><span>Selesai</span></td>
+            </tr>
+        </table>
     </div>
-
-    {{-- <div id="process" style="">
-        <div class="row justify-content-center">
-            <div class="col-md-2 col-sm-6 bg-red " style="border-radius: 100%">
-                <span class="process-icon text-center pl-0" id="" style=""><i
-                        class="fas fa-file-invoice-dollar    " style="font-size: 28pt"></i></span>
-                <span class="" style="">Penawaran</span>
-            </div>
-            <div class="col-md-1 col-sm-6 ">
-                <span class="process-icon text-center " style="background-color: transparent; color: red !important"><i
-                        class="fa fa-arrow-right fa-3x" id="" style="color: #DDDDDD"></i></span>
-
-            </div>
-            <div class="col-md-1 col-sm-6">
-                <span class="process-icon text-center" id=""><i class="fas fa-comments-dollar"
-                        style="font-size: 28pt"></i></span>
-                <h6 class="text-center bg-red" style="">Nego</h6>
-            </div>
-            <div class="col-md-1 col-sm-6 ">
-                <span class="process-icon text-center" style="background-color: transparent; color: red !important"><i
-                        class="fa fa-arrow-right fa-3x" id="" style="color: #DDDDDD""></i></span>
-            </div>
-            <div class=" col-md-1 col-sm-6">
-                        <span class="process-icon text-center" id=""><i class="fas fa-images    "
-                                style="font-size: 28pt"></i></span>
-                        <span class="" style="">Materi</span>
-            </div>
-            <div class="col-md-1 col-sm-6 ">
-                <span class="process-icon text-center" style="background-color: transparent; color: red !important"><i
-                        class="fa fa-arrow-right fa-3x" id="" style="color: #DDDDDD"></i></span>
-            </div>
-            <div class="col-md-1 col-sm-6">
-                <span class="process-icon text-center" id="pembayaran"><i class="fas fa-money-bill    "
-                        style="font-size: 28pt"></i></span>
-                <span class="" style="">Pembayaran</span>
-            </div>
-            <div class="col-md-1 col-sm-6 ">
-                <span class="process-icon text-center" style="background-color: transparent; color: red !important"><i
-                        class="fa fa-arrow-right fa-3x" id="panahSelesai" style="color: #DDDDDD"></i></span>
-            </div>
-            <div class="col-md-1 col-sm-6">
-                <span class="process-icon text-center" id="selesai"><i class="fa fa-check" aria-hidden="true"
-                        style="font-size: 28pt"></i></span>
-                <span class="" style="">Selesai</span>
-            </div>
-        </div>
-    </div> --}}
+   
     <br>
     <h5>Status Transaksi</h5>
-    <div class="body table-responsive">
-        <table class="table table-hover">
+    <div class="body table-responsive" style="">
+        <table class="table table-hover" style="min-width: 500px">
             <thead>
                 <tr>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Keterangan</th>
-                    <th class="text-center" colspan="2">Aksi</th>
+                    <th class="text-center" style="vertical-align: middle">Status</th>
+                    <th class="text-center" style="vertical-align: middle">Keterangan</th>
+                    <th class="text-center" style="vertical-align: middle" colspan="2">Aksi</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -250,49 +204,50 @@ body #process .process-border {
 
                     <td>Meminta Penawaran Harga</td>
                     <td class="text-center">Diproses</td>
-                    <td class="text-center" colspan="2">Menunggu</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2">Menunggu</td>
 
                     @else
-                    <td>Meminta Penawaran Harga</td>
-                    <td class="text-center">Permintaan Telah Dikirim</td>
-                    <td class="text-center" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td class="" style="vertical-align: middle">Meminta Penawaran Harga</td>
+                    <td class="text-center" style="vertical-align: middle">Permintaan Telah Dikirim</td>
+                    <td class="text-center"  style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
 
                 <tr>
                     @if ($d->status == 'negoharga')
-                    <td>Negosiasi Harga</td>
-                    <td class="text-center">Rp. 200.000</td>
-                    <td class="text-center" style="width: 50px"><a href="#!" class="btn btn-sm btn-light">Nego</a></td>
-                    <td class="text-center" style="width: 50px"><a href="#!" class="btn btn-sm btn-light">Setuju</a></td>
+                    <td style="vertical-align: middle">Negosiasi Harga <span style="font-size: 10pt; font-weight: bold"> (Jika ingin mengajukan negisiasi harga silahkan klik 'Nego' untuk menghubungi Admin) </span></td>
+                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!" class="btn btn-sm btn-light">Nego</a></td>
+                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!" class="btn btn-sm btn-light">Setuju</a>
+                    </td>
                     @elseif(($d->status == 'negomateri') || ($d->status == 'pembayaran') || ($d->status == 'selesai'))
-                    <td>Deal Harga</td>
-                    <td class="text-center">Rp. 200.000</td>
-                    <td class="text-center" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td style="vertical-align: middle">Deal Harga</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
                 <tr>
 
                     @if ($d->status == 'negomateri')
-                    <td>Negosiasi Materi</td>
-                    <td class="text-center">Kirim Materi</td>
-                    <td class="text-center" colspan="2">Proses</td>
+                    <td style="vertical-align: middle">Negosiasi Materi</td>
+                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2">Proses</td>
                     @elseif(($d->status == 'pembayaran') || ($d->status == 'selesai'))
-                    <td>Negosiasi Materi</td>
-                    <td class="text-center">Kirim Materi</td>
-                    <td class="text-center" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td style="vertical-align: middle">Negosiasi Materi</td>
+                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
                 <tr>
 
                     @if ($d->status == 'pembayaran')
-                    <td>Proses Pembayaran</td>
-                    <td class="text-center">Rp. 200.000</td>
-                    <td class="text-center" colspan="2">Proses</td>
+                    <td style="vertical-align: middle">Proses Pembayaran</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2">Proses</td>
                     @elseif(($d->status == 'selesai'))
-                    <td>Proses Pembayaran</td>
-                    <td class="text-center">Rp. 200.000</td>
-                    <td class="text-center" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td style="vertical-align: middle">Proses Pembayaran</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
             </tbody>

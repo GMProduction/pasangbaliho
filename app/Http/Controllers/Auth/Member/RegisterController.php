@@ -7,17 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Master\advertiserModel;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use App\Jobs\sendVerificationEmail;
 use Carbon\Carbon;
-use Alert;
 use App\models\ClientModel;
-use Auth;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     //
-
+    
     use RegistersUsers;
     protected $redirectTo = '/';
 
@@ -25,7 +23,7 @@ class RegisterController extends Controller
         {
             $this->middleware('guest');
             $this->middleware('guest:advertiser');
-            $this->middleware('guest:clients');
+            $this->middleware('guest:client');
         }
 
     public function showOptionRegister()

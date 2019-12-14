@@ -14,7 +14,8 @@ class SliderModel extends Model
         'title',
         'deskripsi',
         'link',
-        'url_foto'
+        'url_foto',
+        'url_fotoWeb'
     ];
 
 }

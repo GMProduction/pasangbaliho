@@ -35,7 +35,7 @@
 
             <span class="menu-collapsed">Client Dashboard</span>
         </a>
-        <div class="collapse navbar-collapse" id="">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                
                 <li class="nav-item dropdown d-sm-block d-md-none">

@@ -8,25 +8,22 @@
         <div class="row  pt-2">
             <div class="col-md-6 col-sm-12 forms-right-icons">
                 <div class="section-heading">
-                    <h2>Sign In With <span>Us</span></h2>
-                    <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                        fierentis ea saperet inimicu ut qui dolor oratio mnesarchum.
+                    <h2>Login <span></span></h2>
+                    <p class="subheading">Ini adalah halaman login untuk anda yang sudah mendaftar sebagai Client / Advertiser. Jika anda belum mempunyai akun, silahkan klik <a href="/registration">Register</a> untuk mendaftar.
                     </p>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2 icon"><i class="fa fa-bullhorn"></i></div>
+                    <div class="col-xs-2 icon"><i class="fa fa-user"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Powerful Features</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Client</h4>
+                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan yang bergerak di bidang jasa pemasangan iklan.</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2 icon"><i class="fa fa-support"></i></div>
+                    <div class="col-xs-2 icon"><i class="fa fa-user"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Customer Support</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Advertiser</h4>
+                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan / Orang yang ingin mempromosikan produk anda dengan media iklan yang kami miliki.</p>
                     </div>
                 </div>
 
@@ -68,7 +65,7 @@
                             </div>
                         </div>
         
-                        <div class="social-login">
+                        {{-- <div class="social-login">
                             <h3>...or login with:</h3>
                             <div class="social-login-buttons">
                                 <a class="btn btn-link-1 btn-link-1-facebook" href="#">
@@ -81,7 +78,7 @@
                                     <i class="fa fa-google-plus"></i> Google Plus
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div id="cli" class="tab-pane fade">
                         <div class="form-box">
@@ -112,7 +109,7 @@
                             </div>
                         </div>
         
-                        <div class="social-login">
+                        {{-- <div class="social-login">
                             <h3>...or login with:</h3>
                             <div class="social-login-buttons">
                                 <a class="btn btn-link-1 btn-link-1-facebook" href="#">
@@ -125,7 +122,7 @@
                                     <i class="fa fa-google-plus"></i> Google Plus
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
 
