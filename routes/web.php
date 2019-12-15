@@ -31,7 +31,7 @@ Route::get('kebijakan-privasi', function(){
 // Route::get('product/search',function(){
 //     echo 'asd';
 // });
-
+    
 
 
 // Route::get('/detail', function () {
