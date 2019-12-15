@@ -75,6 +75,11 @@
                                 
                             
                             @forelse ($produk as $p)
+                            @php
+                            $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                            $urlweb = str_replace(' ', '-', $uri);
+                           
+                           @endphp
 
                             <input type="hidden" name="id" value="{{$p->id_baliho}}">
                             {{-- @for ($i = 0; $i < 8; $i++)  --}}
@@ -103,7 +108,7 @@
                                             <br><b>Kisaran Harga :
                                                 <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
                                         </p>
-                                            <a href="/product/detail?id={{$p->id_baliho}}&n={{$p->nama_baliho}}&l={{$p->alamat}},{{$p->kota}},{{$p->provinsi}}"
+                                    <a href="/product/detail/{{$p->id_baliho}}/{{$urlweb}}"
                                                 class="btn btn-block btn-primary btn-sm">Detail</a>
 
                                     </div>

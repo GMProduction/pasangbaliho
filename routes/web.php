@@ -21,9 +21,13 @@ Route::get('/', 'Member\indexController@index');
 
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
-Route::get('product/detail', 'Member\productController@detailProduct');
+Route::get('product/detail/{id}/{url}', 'Member\productController@detailProduct');
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
 Route::get('news', 'Member\indexController@showNews');
+Route::get('kebijakan-privasi', function(){
+    return view('main.kebijakan');
+});
+
 // Route::get('product/search',function(){
 //     echo 'asd';
 // });

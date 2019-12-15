@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                <div class="row" style="">
+                <div class="row pb-2" style="">
 
                     <div class="col-md-12">
 
@@ -96,7 +96,7 @@
             @foreach ($produkDetail as $p)
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-align ">
                 <div class="section-heading">
-                    <h2>{{$p->nama_baliho}}</h2>
+                    <h3><span>{{$p->nama_baliho}}</span></h3>
                     <p style="font-size: 14pt">{{$p->alamat}}, {{$p->kota}}, {{$p->provinsi}}</p>
 
 
@@ -226,7 +226,7 @@
                 height: 500px;
                 width: 100%;
             }
-
+             
             .gmap_canvas {
                 overflow: hidden;
                 background: none !important;
@@ -241,7 +241,7 @@
 
                     <div class="mapouter">
                         <div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas"
-                                src="https://maps.google.com/maps?hl=en&amp;q={{$p->latitude}},{{$p->logitude}}&amp;&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed"
+                                src="https://maps.google.com/maps?hl=en&amp;q={{$p->latitude}},{{$p->longitude}}&amp;&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed"
                                 frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
 
                     </div>

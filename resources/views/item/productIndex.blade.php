@@ -26,9 +26,12 @@
                                 @endif
                         </div>
                         @php
-                         $uri = $p->nama_baliho.'-'.$p->alamat.'-'.$p->kota.'-'.$p->provinsi;
-                         $urlweb = $uri;
+                         $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                         $urlweb = str_replace(' ', '-', $uri);
+                        
                         @endphp
+
+                      
                         {{-- <div class="portfolio-hover">
                             <a class="portfolio-link" href="#"><i class="fa fa-link"></i></a>
                             <a class="portfolio-zoom" href="#"><i class="fa fa-search"></i></a>
@@ -36,14 +39,14 @@
                     </div>
                     <!-- End portfolio-head -->
                     <div class="portfolio-content">
-                        <h6 class="title">{{$p->alamat}}</h6>
+                        <h6 class="title">{{$p->alamat}} </h6>
                         <h6 class="title" style="font-size: 12pt">{{$p->kota}}, {{$p->provinsi}}</h6>
                         <p class="pb-1"><span>{{$p->kategori}} </span>
                             <br><span>{{$p->orientasi}}, {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
                             <br><b>Kisaran Harga :
                                     <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
                         </p>
-                    <a href="/product/detail?id={{$p->id_baliho}}/{{$urlweb}}" class="btn btn-block btn-primary btn-sm">Detail</a>
+                    <a href="/product/detail/{{$p->id_baliho}}/{{$urlweb}}" class="btn btn-block btn-primary btn-sm">Detail</a>
 
                     </div>
                     <!-- End portfolio-content -->      

@@ -177,7 +177,7 @@
                                     <a href="#" class="post">Tentang Kami</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="post">Kebijakan Privasi</a>
+                                    <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
                                 </li>
                                 <li>
                                     <a href="#" class="post">Syarat & Ketentuan</a>

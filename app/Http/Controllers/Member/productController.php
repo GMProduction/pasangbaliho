@@ -41,7 +41,7 @@ class productController extends Controller
         return $query;
     }
 
-    public function detailProduct(Request $req)
+    public function detailProduct($id)
     {
         
         $c = Carbon::now();
@@ -60,34 +60,38 @@ class productController extends Controller
                 'balihos.tinggi as tinggi',
                 'balihos.orientasi as orientasi',
                 'balihos.harga_market as harga_market',
-                'balihos.deskripsi as deskripsi',
+                'balihos.deskripsi as deskripsi',                
+                'balihos.latitude as latitude',
+                'balihos.longitude as longitude',
                 'foto_baliho.url_foto as url_foto'
             )
             ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
             ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
-            ->where('balihos.id_baliho', '=', $req->id)
+            ->where('balihos.id_baliho', '=', $id)
             ->orderBy('balihos.created_at','DESC')
             ->groupBy('balihos.id_baliho')
             ->get();
 
         $dipesan = transaksiModel::query()
-            ->where('id_baliho', '=', $req->id)
+            ->where('id_baliho', '=', $id)
             ->where('tanggal_akhir','>',$day)
             ->get();
 
         $foto = FotoBalihoModel::query()
-            ->where('id_baliho', '=', $req->id)
+            ->where('id_baliho', '=', $id)
             ->get();
 
-        $id = "";
+        $idM = "";
         if (auth()->guard('advertiser')->check()) {
-            $id = auth()->guard('advertiser')->user()->id;
+            $idM = auth()->guard('advertiser')->user()->id;
         }
 
         $notif = $this->notif($id);
         $getNotif = $this->getJumlahNotif($id);
+
+     
 
         $data = [
             'produkDetail' => $product,
@@ -96,6 +100,8 @@ class productController extends Controller
             'notif' => $notif,
             'jumNotif' => $getNotif
         ];
+
+       
 
         SEOTools::setTitle($product[0]->nama_baliho);
         SEOTools::setDescription($product[0]->deskripsi.' '.$product[0]->orientasi.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi);
