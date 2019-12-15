@@ -319,7 +319,7 @@ class TransaksiController extends Controller
                     'transaksi.status as status',
                     'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
-                    'transaksi.terbaca_client as terbaca_client',
+                    'transaksi.terbaca_client as terbaca',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.keterangan_batal as keterangan_batal',
