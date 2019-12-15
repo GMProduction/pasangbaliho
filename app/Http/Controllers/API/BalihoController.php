@@ -152,6 +152,7 @@ class BalihoController extends Controller
                     'provinsis.nama_provinsi as nama_provinsi',
                     'balihos.harga_client as harga_client',
                     'balihos.lebar as lebar',
+                    'balihos.status as status',
                     'balihos.tinggi as tinggi',
                     'balihos.venue as venue',
                     'balihos.orientasi as orientasi',
