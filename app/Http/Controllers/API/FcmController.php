@@ -71,13 +71,13 @@ class FcmController extends Controller
 
             if ($request->idClient != "0") {
                 if ($getToken == null) {
-                    $insToken = new FcmModel();
+                    $insToken = new FcmClientModel();
                     $insToken->id_client = $request->idClient;
                     $insToken->fcm_token = $request->fcmToken;
                     $insToken->save();
                 } else {
-                    $fcmTable = (new FcmModel())->getTable();
-                    DB::table($fcmTable)->where("fcm_token", $request->fcmToken)->update(['id_advertiser' => $request->idClient]);
+                    $fcmTable = (new FcmClientModel())->getTable();
+                    DB::table($fcmTable)->where("fcm_token", $request->fcmToken)->update(['id_client' => $request->idClient]);
                 }
             }
             return response()->json([
