@@ -16,7 +16,6 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'left', 
-                fontFamily: 'Roboto Light',
                 width: '20%'
             }
     },
@@ -31,7 +30,6 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'center', 
-                fontFamily: 'Roboto Light',
                 width: '15%'
             }
     },
@@ -46,7 +44,6 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'center', 
-                fontFamily: 'Roboto Light',
                 width: '15%'
             }
     },
@@ -61,7 +58,6 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'left', 
-                fontFamily: 'Roboto Light',
                 width: '30%'
             }
     },
@@ -75,14 +71,13 @@ export const columns = [
         cellStyle:
             {
                 textAlign: 'center',
-                fontFamily: 'Roboto Light',
             },
         sorting: false,
         render: rowData => 
                     <div>
                         <Button variant="outlined" size='small' color="primary" 
                             component={NavLink} 
-                            to={`/admin/mediaiklan/permintaan`}
+                            to={`/advertiser/detail/${rowData.id}`}
                         >
                             Kelola
                         </Button>

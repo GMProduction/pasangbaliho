@@ -58,6 +58,7 @@ Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')-
 Route::get('v1/dataTransaksiClient', 'API\TransaksiController@dataTransaksiClient')->name('dataTransaksiClient');
 Route::get('v1/allDataTransaksiClient', 'API\TransaksiController@allDataTransaksiClient')->name('allDataTransaksiClient');
 Route::get('v1/countNewTransaksiClient', 'API\TransaksiController@countNewTransaksiClient')->name('countNewTransaksiClient');
+Route::get('v1/detailTransaksiClient/{idTransaksi}', 'API\TransaksiController@detailTransaksiClient')->name('detailTransaksiClient');
 
 
 //Slider
@@ -73,6 +74,9 @@ Route::get('v1/testMessage', 'API\AdvertiserController@testMessage')->name('test
 //FCM
 Route::post('v1/insertFcmAdvertiser', 'API\FcmController@insertFcmAdvertiser')->name('insertFcmAdvertiser');
 Route::post('v1/deleteFcmAdvertiser', 'API\FcmController@deleteFcmAdvertiser')->name('deleteFcmAdvertiser');
+
+Route::post('v1/insertFcmClient', 'API\FcmController@insertFcmClient')->name('insertFcmClient');
+Route::post('v1/deleteFcmClient', 'API\FcmController@deleteFcmClient')->name('deleteFcmClient');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');

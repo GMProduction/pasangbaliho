@@ -29,7 +29,7 @@ const useStyles = theme => ({
     },
     '@global':{
         '.mainWrap':{
-            fontFamily: 'Roboto Light'
+            fontFamily: 'Roboto'
         },
         '.mysidenav':{
             color: '#34352F'
@@ -60,7 +60,7 @@ export class Sidebar extends Component {
         
         return (
             <div className='mysidenav'>
-                <Box className={classes.toolbar} fontSize={20} fontFamily='Roboto Regular' display='flex' alignItems='center' justifyContent='center'>
+                <Box className={classes.toolbar} fontSize={20} fontFamily='Roboto' display='flex' alignItems='center' justifyContent='center'>
                     PASANG BALIHO
                 </Box>
                 <Divider variant='middle' classes={{
@@ -69,51 +69,49 @@ export class Sidebar extends Component {
                 <List>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin' exact
+                        component={NavLink} to='/' exact
                         >
                             <Icon>dashboard</Icon>Dashboard
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/mitra' exact
+                        component={NavLink} to='/mitra' exact
                         >
-                            <Icon>assignment_ind</Icon>Client
+                            <Icon>assignment_ind</Icon>Mitra
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/advertiser' exact
-                        // isActive={() => this.sendTitle('Advertiser')}
+                        component={NavLink} to='/advertiser' exact
                         >
                             <Icon>face</Icon>Advertiser
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/mediaiklan'
-                        // isActive={() => this.sendTitle('Media Iklan')}
+                        component={NavLink} to='/mediaiklan'
                         >
                             <Icon>desktop_mac</Icon>Media Iklan
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/negosiasi'
+                        component={NavLink} to='/negosiasi'
                         >
                             <Icon>question_answer</Icon>Negosiasi
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/pembayaran'
+                        component={NavLink} to='/pembayaran'
                         >
                             <Icon>payment</Icon>Pembayaran
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/admin/laporan'
+                        component={NavLink} to='/laporan'
                         >
                             <Icon>pie_chart</Icon>Laporan
                         </ListItem>

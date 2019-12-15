@@ -1,4 +1,4 @@
-const onurl = 'https://www.pasangbaliho.com';
+const onurl = 'http://localhost:8000';
 
 export async function loadProvinsi () {
     let data = 0;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Http\Controllers\Controller;
+use App\models\FcmClientModel;
 use App\models\FcmModel;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +47,56 @@ class FcmController extends Controller
     {
         try {
 
-            $fcmAdvertiser = FcmModel::where("fcm_token",$request->fcmToken)
+            FcmModel::where("fcm_token", $request->fcmToken)
+                ->delete();
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'success delete fcm'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function insertFcmClient(Request $request)
+    {
+
+        try {
+
+            $getToken = FcmClientModel::where("fcm_token", $request->fcmToken)
+                ->first();
+
+            if ($request->idClient != "0") {
+                if ($getToken == null) {
+                    $insToken = new FcmClientModel();
+                    $insToken->id_client = $request->idClient;
+                    $insToken->fcm_token = $request->fcmToken;
+                    $insToken->save();
+                } else {
+                    $fcmTable = (new FcmClientModel())->getTable();
+                    DB::table($fcmTable)->where("fcm_token", $request->fcmToken)->update(['id_client' => $request->idClient]);
+                }
+            }
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'success insert fcm'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function deleteFcmClient(Request $request)
+    {
+        try {
+
+            FcmClientModel::where("fcm_token", $request->fcmToken)
                 ->delete();
             return response()->json([
                 'respon' => 'success',

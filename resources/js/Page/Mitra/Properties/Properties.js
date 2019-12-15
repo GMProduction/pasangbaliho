@@ -3,53 +3,11 @@ import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 export const columns = [
-    { 
-        title: '#', 
-        cellStyle:{textAlign: 'center'},
-        headerStyle:{textAlign: 'center', width: '5%'},
-        sorting: false,
-        render: rowData => <div>{rowData.tableData.id + 1}</div>
-    },
-    {
-        title: 'Nama Mitra',
-        field: 'nama',
-        cellStyle: 
-            {
-                textAlign: 'left', 
-                fontFamily: 'Roboto Light',
-                width: '20%'
-            }
-    },
-    {
-        title: 'Email', 
-        field: 'email',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
-        cellStyle: 
-            {
-                textAlign: 'center', 
-                fontFamily: 'Roboto Light',
-                width: '15%'
-            }
-    },
-    {
-        title: 'Telp.', 
-        field: 'telp',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
-        cellStyle: 
-            {
-                textAlign: 'center', 
-                fontFamily: 'Roboto Light',
-                width: '15%'
-            }
-    },
+    {title: '#',cellStyle:{textAlign: 'center'},headerStyle:{textAlign: 'center', width: '5%'},sorting: false,
+        render: rowData => <div>{rowData.tableData.id + 1}</div>},
+    {title: 'Nama Mitra',field: 'nama',cellStyle:{textAlign: 'left',width: '20%'}},
+    {title: 'Email',field: 'email',headerStyle:{textAlign: 'center', width: '15%'},cellStyle: {textAlign: 'center',width: '15%'}},
+    {title: 'Telp.', field: 'telp',headerStyle:{textAlign: 'center', width: '15%'},cellStyle: {textAlign: 'center', width: '15%'}},
     {
         title: 'Alamat', 
         field: 'alamat',
@@ -61,7 +19,6 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'left', 
-                fontFamily: 'Roboto Light',
                 width: '30%'
             }
     },
@@ -75,14 +32,13 @@ export const columns = [
         cellStyle:
             {
                 textAlign: 'center',
-                fontFamily: 'Roboto Light',
             },
         sorting: false,
         render: rowData => 
                     <div>
                         <Button variant="outlined" size='small' color="primary" 
                             component={NavLink} 
-                            to={`/admin/mediaiklan/permintaan`}
+                            to={`/mitra/detail/${rowData.id_client}`}
                         >
                             Kelola
                         </Button>

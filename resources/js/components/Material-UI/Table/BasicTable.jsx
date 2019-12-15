@@ -12,8 +12,11 @@ export class BasicTable extends Component {
                         draggable: false,
                         emptyRowsWhenPaging: false,
                         headerStyle: {    
-                            fontFamily: 'Roboto Regular'
+                            fontFamily: 'Roboto'
                         },
+                        rowStyle:{
+                            fontFamily: 'Roboto'
+                        }
                     }}
                     style={{boxShadow: 'none'}}
                     components={{Toolbar: props => (

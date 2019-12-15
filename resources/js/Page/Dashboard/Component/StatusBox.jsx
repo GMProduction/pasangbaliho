@@ -30,15 +30,15 @@ export class StatusBox extends Component {
                             </IconPanelHeader>
                             <IconPanelSubHeader>
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">Baliho</Box>
-                                    <Box fontSize={24} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">{this.props.jumlahBaliho}</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">Media</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">{this.props.qtyMedia}</Box>
                                 </Typography>
                             </IconPanelSubHeader>
                             <IconPanelContent>
                                 <Divider/> 
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/dashboard/baliho' style={style.link}>Lihat Detail</NavLink>
+                                    <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                        <NavLink to='/admin/mediaiklan/daftar' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -51,15 +51,15 @@ export class StatusBox extends Component {
                             </IconPanelHeader>
                             <IconPanelSubHeader>
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">Client</Box>
-                                    <Box fontSize={24} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">120</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">Mitra</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">{this.props.qtyMitra}</Box>
                                 </Typography>
                             </IconPanelSubHeader>
                             <IconPanelContent>
                                 <Divider/> 
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/dashboard/client' style={style.link}>Lihat Detail</NavLink>
+                                    <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                        <NavLink to='/admin/mitra' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -72,15 +72,15 @@ export class StatusBox extends Component {
                             </IconPanelHeader>
                             <IconPanelSubHeader>
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">Advertiser</Box>
-                                    <Box fontSize={24} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">120</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">Advertiser</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">{this.props.qtyAdvertiser}</Box>
                                 </Typography>
                             </IconPanelSubHeader>
                             <IconPanelContent>
                                 <Divider/> 
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/dashboard/advertiser' style={style.link}>Lihat Detail</NavLink>
+                                    <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                        <NavLink to='/admin/advertiser' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -89,19 +89,19 @@ export class StatusBox extends Component {
                     <Grid item xs={12} sm={12} md={6} lg={3}>
                         <Iconpanel>
                             <IconPanelHeader color='#1FC1D5'>
-                                <Icon fontSize='inherit'>shopping_cart</Icon>
+                                <Icon fontSize='inherit'>shopping_cart</Icon>                                                        
                             </IconPanelHeader>
                             <IconPanelSubHeader>
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">Penjualan</Box>
-                                    <Box fontSize={24} fontFamily="Roboto Light" display="flex" justifyContent="flex-end" alignItems="center">120</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">Penjualan</Box>
+                                    <Box display="flex" justifyContent="flex-end" alignItems="center">{this.props.qtyPenjualan}</Box>
                                 </Typography>
                             </IconPanelSubHeader>
                             <IconPanelContent>
                                 <Divider/> 
                                 <Typography component="div">
-                                    <Box fontSize={14} fontFamily="Roboto Light" display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/dashboard/penjualan' style={style.link}>Lihat Detail</NavLink>
+                                    <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                        <NavLink to='/admin/penjualan' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>

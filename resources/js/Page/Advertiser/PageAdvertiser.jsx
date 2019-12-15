@@ -1,105 +1,96 @@
 import React, { Component } from 'react';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import { NavLink } from 'react-router-dom';
-import Icon from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import {withStyles} from '@material-ui/core';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
+import BCPageAdvertiser from '../../components/Material-UI/Breadcumbs/BCPageAdvertiser';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
-import { loadAdvertiser } from '../../Controller/AdvertiserControll';
-import { breadcumbStyle } from '../../Style/Breadcumb'
 import { columns } from './Properties/Properties';
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { prepareMount, onMounted, fetchData, prepareSearch, onSearched} from '../../Actions/AdvertiserActions';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
 
 export class PageAdvertiser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loadingBarProgress: 0,
-            isLoading: true,
-            data: [],
-            key: '',
-            dataLoading: true
+            searchKey: '',
         }
     }
 
-    initData = async () => {
+    handleSearch = async (key) => {
+        await this.props.prepareSearch()
+        await this.props.fetchData(key)
+        await this.props.onSearched()
+    }
+
+    onSearch = async (e) => {
+        let key = e.target.value;
+        if (e.keyCode === 13) {
+            this.handleSearch(key);
+        }        
+    }
+
+    handleChange = async (e) => {
+        let v = e.target.value;
+        if (v === '') {
+            this.handleSearch(v);
+        }
         this.setState({
-            loadingBarProgress: 50,
-        })
-        let advertiser = await loadAdvertiser();
-        this.setState({
-            data : advertiser,
-            dataLoading: false,
-            loadingBarProgress: 100,
-            isLoading: false
+            searchKey: e.target.value
         })
     }
 
-    componentDidMount () {
-        this.initData()
+    async componentDidMount () {
+        await this.props.prepareMount()
+        await this.props.fetchData('')
+        await this.props.onMounted()
     }
 
+    
     render() {
-        const { classes } = this.props;
+
+        const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
+        const {dataAdvertiser} = this.props.advertiser;
+
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
+        
         return (
             <div>
-                <LoadingBar
-                    progress={this.state.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                <Paper elevation={0} style={breadcumbStyle.paper}>
-                    <Breadcrumbs separator="›" aria-label="breadcrumb">
-                            <NavLink
-                            color="inherit" to="/admin"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>dashboard</Icon>
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                            color="inherit" to="/admin/negosiasi"
-                            className={classes.link}
-                            >
-                            <Icon className={classes.icon}>face</Icon>
-                                Advertiser
-                            </NavLink>
-                        <Box display='flex' alignItems='center' style={{color: '#555555', fontFamily: 'Roboto Light', fontSize: '14px'}}>
-                            <Icon className={classes.icon}>list</Icon>
-                                Daftar Advertiser
-                            </Box>
-                    </Breadcrumbs>
-                </Paper>
+                <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <BCPageAdvertiser/>
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                            <Box flexGrow={1}>Dafta Advertiser Media Iklan </Box>
+                            <Box flexGrow={1}>Daftar Advertiser </Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center'>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto Regular'>Tabel Advertiser</Box>
+                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
+                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Data Advertiser</Box>
                                 <Box>
                                     <TextField
                                         id="outlined-basic"
                                         label="Cari"
                                         margin="dense"
                                         variant="outlined"
-                                        value={this.state.key}
+                                        value={this.state.searchKey}
                                         onChange={this.handleChange}
-                                        onKeyUp={this.search}
+                                        onKeyUp={this.onSearch}
                                     />
                                 </Box>
                             </Box>
-                            <BasicTable
-                                columns={columns}
-                                data={this.state.data}
-                                loading={this.state.dataLoading}
-                            />
+                            <BasicTable columns={columns} data={dataAdvertiser} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
@@ -108,4 +99,23 @@ export class PageAdvertiser extends Component {
     }
 }
 
-export default withStyles(breadcumbStyle)(PageAdvertiser);
+function mapStateToProps(state) {
+    return{
+        advertiser: state.AdvertiserReducer,
+        page: state.PageReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        fetchData: bindActionCreators(fetchData, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch),
+        prepareSearch: bindActionCreators(prepareSearch, dispatch),
+        onSearched: bindActionCreators(onSearched, dispatch),
+    }
+} 
+
+export default compose(
+    connect(mapStateToProps, mapDispatcToProps)
+    )(PageAdvertiser);

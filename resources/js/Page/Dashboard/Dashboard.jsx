@@ -4,70 +4,79 @@ import LoadingBar  from 'react-top-loading-bar';
 import StatusBox from './Component/StatusBox';
 import Grid from '@material-ui/core/Grid';
 import PermintaanHarga from './Component/PermintaanHarga';
-import { loadPermintaan } from '../../Controller/DashboardControll';
+import PermintaanPenambahanAsset from './Component/PermintaanPenambahanAsset';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {prepareMount, onMounted, fetchData} from '../../Actions/DashboardActions';
 
 export class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loadingBarProgress: 0,
-            isLoading: true,
-            dataPermintaan: [],
-            dataPermintaanMedia: [],
-            databaliho: [],
-            jumlahBaliho: 0
-        }
     }
 
-    initData = async () => {
-        this.setState({
-            loadingBarProgress: 30,
-        })
-        let permintaanHarga = await loadPermintaan();
-        this.setState({
-            loadingBarProgress: 100,
-            dataPermintaan: permintaanHarga,
-            isLoading: false
-        })
-    }
-
-    componentDidMount () {
-        this.initData()
+    async componentDidMount () {
+        await this.props.prepareMount()
+        await this.props.fetchData()
+        await this.props.onMounted()
     }
 
     render() {
+        const {pageProgress, pageLoadingStatus, pageLoading} = this.props.page;
+        const {qtyMedia, qtyAdvertiser, qtyMitra, dataPermintaanHarga, dataPermintaanAssets} = this.props.dashboard;
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946'
+                    />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
         return (
             <div>
-                <LoadingBar
-                    progress={this.state.loadingBarProgress}
-                    height={3}
-                    color='#f11946'
-                   />
-                   <Fade right><StatusBox jumlahBaliho={this.state.jumlahBaliho}/></Fade>
-                {
-                    !this.state.isLoading ? 
-                <Fade bottom>
-                    
-                    <Grid container spacing={3} style={{marginTop: '10px'}}>
-                        <Grid item xs={12} sm={12} md={7} lg={7}>
-                            <PermintaanHarga data={this.state.dataPermintaan}/>
+                <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <React.Fragment>
+                    <Fade right>
+                        <StatusBox qtyMedia={qtyMedia} qtyAdvertiser={qtyAdvertiser} qtyMitra={qtyMitra}/>
+                    </Fade>
+                    <Fade bottom>
+                    <React.Fragment>
+                        <Grid container spacing={3} style={{marginTop: '10px'}}>
+                            <Grid item xs={12} sm={12} md={7} lg={7}>
+                                <PermintaanHarga data={dataPermintaanHarga}/>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={5} lg={5}>
+                                <PermintaanPenambahanAsset data={dataPermintaanAssets}/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={5} lg={5}>
-                            {/* <RecentBaliho data={this.state.databaliho}/> */}
+                        <Grid container spacing={3} style={{marginTop: '10px'}}>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid container spacing={3} style={{marginTop: '10px'}}>
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            {/* <PermintaanBaliho data={this.state.dataPermintaanMedia}/> */}
-                        </Grid>
-                        
-                    </Grid>
-                </Fade> : ''
-                }
+                    </React.Fragment>
+                    </Fade>
+                </React.Fragment> 
             </div>
         );
     }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+    return{
+        dashboard: state.DashboardReducer,
+        page: state.PageReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        fetchData: bindActionCreators(fetchData, dispatch),
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch)
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatcToProps)(Dashboard);

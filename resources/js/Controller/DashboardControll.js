@@ -1,12 +1,12 @@
-const onurl = 'https://www.pasangbaliho.com'
-
-export async function loadPermintaan () {
-    let data = 0;
+export async function dashboardAPI (apiURL) {
     try {
-        let res = await axios.get(onurl+'/adminapi/negosiasi/request');
-        data = res.data;
+        let res = await axios.get(apiURL);
+        return {data: res,
+            statusdata: 'success'}
     } catch (error) {
-        alert(error)
+        return {
+            statusdata: 'error',
+            data: error
+        }
     }
-    return data;
 }
