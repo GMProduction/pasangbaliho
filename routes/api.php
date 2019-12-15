@@ -75,6 +75,9 @@ Route::get('v1/testMessage', 'API\AdvertiserController@testMessage')->name('test
 Route::post('v1/insertFcmAdvertiser', 'API\FcmController@insertFcmAdvertiser')->name('insertFcmAdvertiser');
 Route::post('v1/deleteFcmAdvertiser', 'API\FcmController@deleteFcmAdvertiser')->name('deleteFcmAdvertiser');
 
+Route::post('v1/insertFcmClient', 'API\FcmController@insertFcmClient')->name('insertFcmClient');
+Route::post('v1/deleteFcmClient', 'API\FcmController@deleteFcmClient')->name('deleteFcmClient');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
 });
