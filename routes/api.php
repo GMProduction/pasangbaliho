@@ -58,6 +58,7 @@ Route::get('v1/countNewTransaksi', 'API\TransaksiController@countNewTransaksi')-
 Route::get('v1/dataTransaksiClient', 'API\TransaksiController@dataTransaksiClient')->name('dataTransaksiClient');
 Route::get('v1/allDataTransaksiClient', 'API\TransaksiController@allDataTransaksiClient')->name('allDataTransaksiClient');
 Route::get('v1/countNewTransaksiClient', 'API\TransaksiController@countNewTransaksiClient')->name('countNewTransaksiClient');
+Route::get('v1/detailTransaksiClient/{idTransaksi}', 'API\TransaksiController@detailTransaksiClient')->name('detailTransaksiClient');
 
 
 //Slider
