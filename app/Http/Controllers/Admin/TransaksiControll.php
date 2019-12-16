@@ -88,9 +88,9 @@ class TransaksiControll extends Controller
             $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
-            if ($update) {
-                sendNotifAdvertiser('6', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
-            }
+            // if ($update) {
+            //     sendNotifAdvertiser('6', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
+            // }
             return response()->json([
                 'status' => 'ok',
                 'data' => $data,
