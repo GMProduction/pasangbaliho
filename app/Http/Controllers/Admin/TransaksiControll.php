@@ -79,22 +79,30 @@ class TransaksiControll extends Controller
 
     public function postPrice (Request $r) {
         try {
-            $data = [
-                'status' => $r->status,
-                'terbaca_client' => 0,
-                'terbaca_advertiser' => 0
-            ];
             $body = '';
+            $status ='permintaan';
             switch ($r->status) {
+                case 'permintaan':
+                    $status = 'negoharga';
+                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
+                    break;
                 case 'negoharga':
+                    $status = 'negomateri';
                     $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
                     break;
                 case 'negomateri':
+                    $status = 'pembayaran';
                     $body = 'Penawaran Materi Anda telah kami terima dan setujui';
                     break;
                 default:
                     break;
             }
+            $data = [
+                'status' => $status,
+                'terbaca_client' => 0,
+                'terbaca_advertiser' => 0
+            ];
+            
             $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);

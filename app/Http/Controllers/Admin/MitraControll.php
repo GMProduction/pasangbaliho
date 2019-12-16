@@ -13,6 +13,7 @@ class MitraControll extends Controller
     public function getMitra(Request $r){
         $idmitra = [['id_client', 'LIKE', '%' .$r->index . '%']];
         $namamitra = [['nama', 'LIKE', '%' .$r->index . '%']];
+        $namaInstansi = [['nama_instansi', 'LIKE', '%' .$r->index . '%']];
         $email = [['email', 'LIKE', '%' .$r->index . '%']];
         $alamat = [['alamat', 'LIKE', '%' .$r->index . '%']];
         $mitra = MitraModel::query()
@@ -20,6 +21,8 @@ class MitraControll extends Controller
                 'id_client', 
                 'email', 
                 'nama', 
+                'nama_instansi', 
+                'status',
                 'password', 
                 'telp', 
                 'alamat', 
@@ -30,9 +33,10 @@ class MitraControll extends Controller
                 'npwp', 
                 'no_ktp'
             )
-            ->where(function ($query) use ($idmitra, $namamitra, $email, $alamat) {
+            ->where(function ($query) use ($idmitra, $namamitra, $email, $alamat, $namaInstansi) {
                 $query->where($idmitra)
                     ->orWhere($namamitra)
+                    ->orWhere($namaInstansi)
                     ->orWhere($email)
                     ->orWhere($alamat);
             })

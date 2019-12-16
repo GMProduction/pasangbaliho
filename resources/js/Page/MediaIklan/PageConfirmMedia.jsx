@@ -22,7 +22,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import {fetchMediaByID, fetchKota, fetchKategori, fetchProvinsi, fetchMitra,
-    prepareMount, onMounted, formMediaValue, onUnMounted,
+    prepareMount, onMounted, onUnMounted,
     prepareSubmit, onSubmit, postMedia} from '../../Actions/MediaIklanActions';
 
 
@@ -421,7 +421,6 @@ function mapDispatcToProps (dispatch) {
         fetchKota: bindActionCreators(fetchKota, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
-        formMediaValue: bindActionCreators(formMediaValue, dispatch),
         onUnMounted: bindActionCreators(onUnMounted, dispatch),
         prepareSubmit: bindActionCreators(prepareSubmit, dispatch),
         onSubmit: bindActionCreators(onSubmit, dispatch),

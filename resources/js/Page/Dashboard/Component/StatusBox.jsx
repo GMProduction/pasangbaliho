@@ -38,7 +38,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/admin/mediaiklan/daftar' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/mediaiklan/all' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -59,7 +59,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/admin/mitra' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/mitra' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -80,7 +80,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/admin/advertiser' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/advertiser' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -101,7 +101,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/admin/penjualan' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/penjualan' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>

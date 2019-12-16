@@ -27,6 +27,7 @@ export class PageRouter extends Component {
                     <Route exact path='/mediaiklan/permintaan' render={(props) => <PageListMedia {...props} filter='pending'/>} />
                     <Route exact path='/mediaiklan/publish' render={(props) => <PageListMedia {...props} filter='publish'/>} />
                     <Route exact path='/mediaiklan/block' render={(props) => <PageListMedia {...props} filter='block'/>} />
+                    <Route exact path='/mediaiklan/all' render={(props) => <PageListMedia {...props} filter='all'/>} />
                     <Route exact path='/mediaiklan/permintaan/:id' render={(props) => <PageConfirmMedia {...props} filter='confirm'/>}/>
                     <Route exact path='/mediaiklan/detail/:id' render={(props) => <PageConfirmMedia {...props} filter='update'/>}/>
                     <Route exact path='/mediaiklan/form' render={(props) => <PageConfirmMedia {...props} filter='add'/>}/>

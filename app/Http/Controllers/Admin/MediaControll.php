@@ -13,9 +13,10 @@ class MediaControll extends Controller
 {
     //
     public function getCountMedia(){
-        $qtyMedia = DB::table('balihos')->count();
+        $qtyMedia = DB::table('balihos')->where('status','!=' ,'pending')->count();
         return response()->json($qtyMedia);
     }
+
     public function getMedia(Request $r){
         $id = [['id_baliho', 'LIKE', '%' .$r->index . '%']];
         $nama = [['clients.nama', 'LIKE', '%' .$r->index . '%']];
@@ -47,11 +48,12 @@ class MediaControll extends Controller
                     ->orWhere($nama_baliho)
                     ->orWhere($kategori);
             })
-            ->where('status', 'LIKE', '%'.$r->status.'%')
+            ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
             ->orderBy('id_baliho', 'ASC')
             ->get();
         return response()->json($permintaan);
     }
+    
 
     public function getMediaById(Request $r){
         $permintaan = BalihoModel::query()
@@ -74,13 +76,50 @@ class MediaControll extends Controller
                     'balihos.alamat', 'latitude', 'longitude',
                     'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
                 )
-                ->where('status', 'LIKE', '%'.$r->status.'%')
+                ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
                 ->where('id_baliho', '=', $r->id)
                 ->first();
         if ($permintaan != null) {
             return response()->json($permintaan);
         }
         return null;
+    }
+
+    public function getMediaExceptPending(Request $r){
+        $id = [['id_baliho', 'LIKE', '%' .$r->index . '%']];
+        $nama = [['clients.nama', 'LIKE', '%' .$r->index . '%']];
+        $nama_baliho = [['nama_baliho', 'LIKE', '%' .$r->index . '%']];
+        $kategori = [['kategoris.kategori', 'LIKE', '%' .$r->index . '%']];
+        $permintaan = BalihoModel::query()
+            ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
+            ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
+            ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
+            ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
+            ->select(
+                'id_baliho',
+                'balihos.id_client',
+                'clients.nama',
+                'balihos.id_kategori', 
+                'kategoris.kategori',
+                'nama_baliho', 
+                'lebar', 'tinggi' , 'luas',
+                'balihos.id_provinsi',
+                'provinsis.nama_provinsi',
+                'balihos.id_kota',
+                'kotas.nama_kota',
+                'balihos.alamat', 'latitude', 'longitude',
+        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+            )
+            ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
+                $query->where($id)
+                    ->orWhere($nama)
+                    ->orWhere($nama_baliho)
+                    ->orWhere($kategori);
+            })
+            ->where('balihos.status', '!=', 'pending')
+            ->orderBy('id_baliho', 'ASC')
+            ->get();
+        return response()->json($permintaan);
     }
 
     private function upload (Request $r, $idbaliho) {

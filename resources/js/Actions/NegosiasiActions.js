@@ -67,10 +67,10 @@ export const postNegosiasi = (data, data2, filter) => {
         let res = await postAPI(url, data, config);
         if (res.status === 'success') {
             if (res.data.data.status === 'ok') {
-                if(filter === 'permintaan'){
-                    let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
-                    console.log(reslampiran.data);
-                }
+                // if(filter === 'permintaan'){
+                //     let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
+                //     console.log(reslampiran.data);
+                // }
                 console.log(res.data)
             }else{
                 console.log(res.data);

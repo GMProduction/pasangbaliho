@@ -11,6 +11,6 @@ class MitraModel extends Model
     protected $primaryKey  = 'id_client';
 
     protected $fillable = [
-        'email', 'nama', 'password', 'telp', 'alamat', 'api_token', 'email_verifed_at', 'remember_token', 'mib', 'npwp', 'no_ktp'
+        'email', 'nama', 'nama_instansi', 'status', 'password', 'mib', 'npwp', 'no_ktp', 'telp', 'alamat', 'api_token', 'email_verifed_at', 'remember_token'
     ];
 }
