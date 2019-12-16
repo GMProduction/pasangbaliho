@@ -89,7 +89,7 @@ class MediaControll extends Controller
                 $image = $r->file('gambar1');
                 $namaFoto = 'gambar_'.$idbaliho.'-1.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image);
-                $image_resize->resize(150, 150);
+                $image_resize->resize(300, 200);
                 $image_resize->save(public_path('assets/thumbnails/' . $namaFoto));
                 $r->gambar1->move(public_path('assets/original'), $namaFoto);
                 $foto = new FotoBalihoModel;
