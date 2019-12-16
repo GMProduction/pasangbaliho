@@ -22,7 +22,7 @@ class SenderMessage extends Controller
             'notification_priority' => 'high'
         );
 
-        $apikey = 'AAAAAkPEgO0:APA91bHHWjxxeA6d66UHQezAKGc7IiQ-DTt64daEsYx6PLHPuB0cUQSDke3lrQ2GzTojdViVqIViFbJGsJcGiWZVb-Lgj51HWTe91Zq1rP21Taw2SpwrTY9D8M3EWCg-6QGcPYtTk_0B';
+        $apikey = 'AIzaSyDQOCnyw7NrB3HLJEHAhF4rxqTvuCzmFQc';
         $fields = array('to' => $to, 'notification' => $data);
         $header = array('Authorization: key=' . $apikey, 'Content-Type: application/json');
         $url = 'https://fcm.googleapis.com/fcm/send';
