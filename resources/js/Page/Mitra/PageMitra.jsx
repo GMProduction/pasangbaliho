@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
-import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
+import {BasicPanel, BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
 import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
@@ -69,7 +69,6 @@ export class PageMitra extends Component {
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
                 <BCPageMitra/>
-                    <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>Daftar Mitra</Box>
@@ -92,7 +91,7 @@ export class PageMitra extends Component {
                             <BasicTable columns={columns} data={dataMitra} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
-                </Fade>
+                    
             </div>
         );
     }

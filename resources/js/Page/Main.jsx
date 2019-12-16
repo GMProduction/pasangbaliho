@@ -11,7 +11,7 @@ import appStore from '../Store/appStore';
 export default class Main extends Component {
     constructor(props) {
         super(props);
-        axios.defaults.baseURL = 'https://www.pasangbaliho.com/adminapi';
+        axios.defaults.baseURL = 'http://localhost:8000/adminapi';
     }
     
     render() {

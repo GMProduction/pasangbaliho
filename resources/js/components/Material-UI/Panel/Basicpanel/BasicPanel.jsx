@@ -58,22 +58,21 @@ export class BasicPanelHeader extends Component {
 export class BasicPanel extends Component {
     render() {
 
-        const header = React.Children.map(this.props.children, (child, i) => {
-            if (child.type.name === 'BasicPanelHeader') {
-                return child;
-            }
-        });
+        // const header = React.Children.map(this.props.children, (child, i) => {
+        //     if (child.type.name === 'BasicPanelHeader') {
+        //         return child;
+        //     }
+        // });
 
-        const content = React.Children.map(this.props.children, (child, i) => {
-            if (child.type.name === 'BasicPanelContent') {
-                return child;
-            }
-        });
+        // const content = React.Children.map(this.props.children, (child, i) => {
+        //     if (child.type.name === 'BasicPanelContent') {
+        //         return child;
+        //     }
+        // });
         
         return (
             <div style={styles.card}>
-                {header}
-                {content}
+                {this.props.children}
             </div>
         );
     }

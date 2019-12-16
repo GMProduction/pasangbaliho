@@ -68,8 +68,7 @@ export const postNegosiasi = (data, data2) => {
         if (res.status === 'success') {
             if (res.data.data.status === 'ok') {
                 let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
-                console.log(res.data.data);
-                console.log(reslampiran);
+                console.log(reslampiran.data);
             }else{
                 console.log(res.data);
             }
