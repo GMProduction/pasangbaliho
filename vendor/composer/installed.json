@@ -535,6 +535,62 @@
         ]
     },
     {
+        "name": "emotality/tawk-laravel",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/emotality/tawk-laravel.git",
+            "reference": "84781b9256f5ce33df5c7c943500952154028a88"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/emotality/tawk-laravel/zipball/84781b9256f5ce33df5c7c943500952154028a88",
+            "reference": "84781b9256f5ce33df5c7c943500952154028a88",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6.0"
+        },
+        "time": "2018-07-29T10:16:06+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Emotality\\TawkTo\\TawkToServiceProvider"
+                ],
+                "aliases": {
+                    "TawkTo": "Emotality\\TawkTo\\Facades\\TawkTo"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Emotality\\TawkTo\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jean-Pierre Fourie",
+                "email": "jp@emotality.com"
+            }
+        ],
+        "description": "A tawk.to chat widget for Laravel.",
+        "keywords": [
+            "chat",
+            "laravel",
+            "tawk",
+            "tawk.to",
+            "tawkto",
+            "widget"
+        ]
+    },
+    {
         "name": "erusev/parsedown",
         "version": "1.7.3",
         "version_normalized": "1.7.3.0",

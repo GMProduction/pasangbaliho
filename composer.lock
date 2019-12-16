@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37b5b83c4228926829303c4a2395948c",
+    "content-hash": "d395fa87d98277c1a3ed42e4c90f409f",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -466,6 +466,60 @@
                 "validator"
             ],
             "time": "2019-08-13T17:33:27+00:00"
+        },
+        {
+            "name": "emotality/tawk-laravel",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emotality/tawk-laravel.git",
+                "reference": "84781b9256f5ce33df5c7c943500952154028a88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emotality/tawk-laravel/zipball/84781b9256f5ce33df5c7c943500952154028a88",
+                "reference": "84781b9256f5ce33df5c7c943500952154028a88",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Emotality\\TawkTo\\TawkToServiceProvider"
+                    ],
+                    "aliases": {
+                        "TawkTo": "Emotality\\TawkTo\\Facades\\TawkTo"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Emotality\\TawkTo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Pierre Fourie",
+                    "email": "jp@emotality.com"
+                }
+            ],
+            "description": "A tawk.to chat widget for Laravel.",
+            "keywords": [
+                "chat",
+                "laravel",
+                "tawk",
+                "tawk.to",
+                "tawkto",
+                "widget"
+            ],
+            "time": "2018-07-29T10:16:06+00:00"
         },
         {
             "name": "erusev/parsedown",
