@@ -56,12 +56,12 @@ class indexController extends Controller
     public function index()
     {
 
-        SEOTools::setTitle('Pasang Baliho');
+        SEOTools::setTitle('Solusi Media Iklan Anda');
         SEOTools::setDescription('website untuk menyewakan iklan dengan media iklan Billboard, Videotron, Website dan Blog, Parking Spot, Digital Display, Neon Box ');
         SEOTools::opengraph()->setUrl('http://pasangbaliho.com');
         SEOTools::setCanonical('https://pasangbaliho.com');
         SEOTools::opengraph()->addProperty('type', 'articles');
-        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::twitter()->setSite('https://pasangbaliho.com');
         SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
         $c = Carbon::now();

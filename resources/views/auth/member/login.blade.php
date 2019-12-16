@@ -8,7 +8,7 @@
         <div class="row  pt-2">
             <div class="col-md-6 col-sm-12 forms-right-icons">
                 <div class="section-heading">
-                    <h2>Login <span></span></h2>
+                    <h2 class="warnaGreen">Login <span></span></h2>
                     <p class="subheading">Ini adalah halaman login untuk anda yang sudah mendaftar sebagai Client / Advertiser. Jika anda belum mempunyai akun, silahkan klik <a href="/registration">Register</a> untuk mendaftar.
                     </p>
                 </div>
@@ -30,8 +30,8 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#ad"><span>Login as Advertiser</span></a></li>
-                    <li><a data-toggle="tab" href="#cli"><span>Login as Client</span></a></li>
+                    <li class="active"><a data-toggle="tab" href="#ad"><span>Sebagai Advertiser</span></a></li>
+                    <li><a data-toggle="tab" href="#cli"><span>Sebagai Client</span></a></li>
 
                 </ul>
 
@@ -60,7 +60,7 @@
                                         <input type="password" class="form-control" name="password" placeholder="Password"
                                             aria-describedby="basic-addon1">
                                     </div>
-                                    <button type="submit" class="btn">Sign in!</button>
+                                    <button type="submit" class="btn">Masuk</button>
                                 </form>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                         <input type="password" class="form-control" name="password" placeholder="Password"
                                             aria-describedby="basic-addon1">
                                     </div>
-                                    <button type="submit" class="btn">Sign in!</button>
+                                    <button type="submit" class="btn">Masuk</button>
                                 </form>
                             </div>
                         </div>

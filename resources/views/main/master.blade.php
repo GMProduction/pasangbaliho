@@ -76,9 +76,9 @@
                     </div>
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
-                            <li id="navhome" class=""><a href="/">Home</a></li>
-                            <li id="navproduct" class=""><a href="/product?d=all">Product</a></li>
-                            <li id="navnews" class=""><a href="/news">Article</a></li>
+                            <li id="navhome" class=""><a href="/">Beranda</a></li>
+                            <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
+                            <li id="navnews" class=""><a href="/news">Artikel</a></li>
                           
                             @if (auth()->guard('client')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
@@ -87,7 +87,7 @@
                                         class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
                                     <li id="dashboard" class=""><a href="/dashboard" class="drop">Dashboard</a></li>
-                                    <li id="navlogout"><a href="/logout" class="drop">Sign Out</a></li>
+                                    <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
                             @endif
@@ -98,7 +98,7 @@
                                         class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
                                     <li id="dashboard" class=""><a href="/dashboard" class="drop">Dashboard</a></li>
-                                    <li id="navlogout"><a href="/logout" class="drop">Sign Out</a></li>
+                                    <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -140,8 +140,8 @@
                             </li>
                             <!-- #END# Notifications -->
                             @else
-                            <li id="navlogin"><a href="/login">Sign In</a></li>
-                            <li id="navregistration"><a href="/registration">Sign Up</a></li>
+                            <li id="navlogin"><a href="/login">Masuk</a></li>
+                            <li id="navregistration"><a href="/registration">Keluar</a></li>
                             @endif
 
 
@@ -261,6 +261,6 @@
     <script src="{{asset('js/dropdown.js')}}"></script>
 
 
-
-
-</html>
+ {{ TawkTo::widgetCode() }}
+</body>
+</html>     

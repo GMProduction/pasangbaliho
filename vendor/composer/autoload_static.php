@@ -183,6 +183,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         ),
         'E' => 
         array (
+            'Emotality\\TawkTo\\' => 17,
             'Egulias\\EmailValidator\\' => 23,
         ),
         'D' => 
@@ -542,6 +543,10 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         array (
             0 => __DIR__ . '/..' . '/facade/flare-client-php/src',
         ),
+        'Emotality\\TawkTo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/emotality/tawk-laravel/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
@@ -645,6 +650,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\Http\\Controllers\\Admin\\DashboardControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardControll.php',
         'App\\Http\\Controllers\\Admin\\KategoriControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/KategoriControll.php',
         'App\\Http\\Controllers\\Admin\\LokasiControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/LokasiControll.php',
+        'App\\Http\\Controllers\\Admin\\MailSender' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MailSender.php',
         'App\\Http\\Controllers\\Admin\\MediaControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MediaControll.php',
         'App\\Http\\Controllers\\Admin\\MitraControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MitraControll.php',
         'App\\Http\\Controllers\\Admin\\TransaksiControll' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TransaksiControll.php',
@@ -678,6 +684,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Middleware\\ifNotAdvertiser' => __DIR__ . '/../..' . '/app/Http/Middleware/ifNotAdvertiser.php',
         'App\\Http\\Middleware\\ifNotClient' => __DIR__ . '/../..' . '/app/Http/Middleware/ifNotClient.php',
+        'App\\Mail\\sendEmail' => __DIR__ . '/../..' . '/app/Mail/sendEmail.php',
         'App\\Master\\advertiserModel' => __DIR__ . '/../..' . '/app/Master/advertiserModel.php',
         'App\\Master\\clientModel' => __DIR__ . '/../..' . '/app/Master/clientModel.php',
         'App\\Master\\memberModel' => __DIR__ . '/../..' . '/app/Master/memberModel.php',
@@ -692,6 +699,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\models\\AdvertiserModel' => __DIR__ . '/../..' . '/app/models/AdvertiserModel.php',
         'App\\models\\BalihoModel' => __DIR__ . '/../..' . '/app/models/BalihoModel.php',
         'App\\models\\ClientModel' => __DIR__ . '/../..' . '/app/models/ClientModel.php',
+        'App\\models\\FcmClientModel' => __DIR__ . '/../..' . '/app/models/FcmClientModel.php',
         'App\\models\\FcmModel' => __DIR__ . '/../..' . '/app/models/FcmModel.php',
         'App\\models\\FotoBalihoModel' => __DIR__ . '/../..' . '/app/models/FotoBalihoModel.php',
         'App\\models\\KategoriModel' => __DIR__ . '/../..' . '/app/models/KategoriModel.php',
@@ -900,6 +908,9 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'Emotality\\TawkTo\\Facades\\TawkTo' => __DIR__ . '/..' . '/emotality/tawk-laravel/src/Facade/TawkTo.php',
+        'Emotality\\TawkTo\\TawkTo' => __DIR__ . '/..' . '/emotality/tawk-laravel/src/TawkTo.php',
+        'Emotality\\TawkTo\\TawkToServiceProvider' => __DIR__ . '/..' . '/emotality/tawk-laravel/src/TawkToServiceProvider.php',
         'Facade\\FlareClient\\Api' => __DIR__ . '/..' . '/facade/flare-client-php/src/Api.php',
         'Facade\\FlareClient\\Concerns\\HasContext' => __DIR__ . '/..' . '/facade/flare-client-php/src/Concerns/HasContext.php',
         'Facade\\FlareClient\\Concerns\\UsesTime' => __DIR__ . '/..' . '/facade/flare-client-php/src/Concerns/UsesTime.php',

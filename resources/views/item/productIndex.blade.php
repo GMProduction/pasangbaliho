@@ -41,8 +41,8 @@
                     <div class="portfolio-content">
                         <h6 class="title">{{$p->alamat}} </h6>
                         <h6 class="title" style="font-size: 12pt">{{$p->kota}}, {{$p->provinsi}}</h6>
-                        <p class="pb-1"><span>{{$p->kategori}} </span>
-                            <br><span>{{$p->orientasi}}, {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                        <p class="pb-1"><span>{{$p->kategori}}, {{$p->orientasi}} </span>
+                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
                             <br><b>Kisaran Harga :
                                     <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
                         </p>
