@@ -92,11 +92,17 @@ export const fetchMedia = (status, index) => {
         let stat = ''
         if (status !== 'all') {
             stat = status
+            let resMedia = await fetchAPI('/mediaiklan/request?status='+stat+'&index='+index);
+            if (resMedia.status === 'success') {
+            dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.data})
+            }
+        }else{
+            let resMedia = await fetchAPI('/mediaiklan/request?index='+index);
+            if (resMedia.status === 'success') {
+            dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.data})
+            }
         }
-        let resMedia = await fetchAPI('/mediaiklan/request?status='+stat+'&index='+index);
-        if (resMedia.status === 'success') {
-           dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.data})
-        }
+        
     }
 }
 
@@ -165,37 +171,6 @@ export const fetchMitra = () => {
         let resMitra = await fetchAPI('/mitra/request')
         if (resMitra.status === 'success') {
             await dispatch({type: FETCH_MITRA, data: resMitra.data.data})
-        }
-    }
-}
-export const formValue = (name, value) => {
-    return (dispatch) => {
-        dispatch({type: ON_CHANGE, name: name, value: value})
-    }
-}
-
-export const formMediaValue = (data) => {
-    return (dispatch) => {
-        if (Object.keys(data).length > 0) {
-            dispatch({type: ON_CHANGE, name: 'idBaliho', value: data.id_baliho})
-            dispatch({type: ON_CHANGE, name: 'idClient', value: data.id_client})
-            dispatch({type: ON_CHANGE, name: 'idKategori', value: data.id_kategori})
-            dispatch({type: ON_CHANGE, name: 'namaMedia', value: data.nama_baliho})
-            dispatch({type: ON_CHANGE, name: 'lebar', value: data.lebar})
-            dispatch({type: ON_CHANGE, name: 'tinggi', value: data.tinggi})
-            dispatch({type: ON_CHANGE, name: 'luas', value: data.luas})
-            dispatch({type: ON_CHANGE, name: 'idProvinsi', value: data.id_provinsi})
-            dispatch({type: ON_CHANGE, name: 'idKota', value: data.id_kota})
-            dispatch({type: ON_CHANGE, name: 'venue', value: data.venue})
-            dispatch({type: ON_CHANGE, name: 'alamat', value: data.alamat})
-            dispatch({type: ON_CHANGE, name: 'latitude', value: data.latitude})
-            dispatch({type: ON_CHANGE, name: 'longitude', value: data.longitude})
-            dispatch({type: ON_CHANGE, name: 'hargaClient', value: data.harga_client})
-            dispatch({type: ON_CHANGE, name: 'hargaMarket', value: data.harga_market})
-            dispatch({type: ON_CHANGE, name: 'orientasi', value: data.orientasi})
-            dispatch({type: ON_CHANGE, name: 'deskripsi', value: data.deskripsi})
-            dispatch({type: ON_CHANGE, name: 'url360', value: data.url_360})
-            dispatch({type: ON_CHANGE, name: 'status', value: data.status})
         }
     }
 }

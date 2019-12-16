@@ -56,7 +56,7 @@ export const onSubmit = () => {
     }
 }
 
-export const postNegosiasi = (data, data2) => {
+export const postNegosiasi = (data, data2, filter) => {
     return async (dispatch) => {
         const config = {
             headers: {
@@ -67,9 +67,11 @@ export const postNegosiasi = (data, data2) => {
         let res = await postAPI(url, data, config);
         if (res.status === 'success') {
             if (res.data.data.status === 'ok') {
-                let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
-                console.log(res.data.data);
-                console.log(reslampiran);
+                // if(filter === 'permintaan'){
+                //     let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
+                //     console.log(reslampiran.data);
+                // }
+                console.log(res.data)
             }else{
                 console.log(res.data);
             }

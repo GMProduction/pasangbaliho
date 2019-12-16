@@ -31,12 +31,12 @@ export const fetchData = () => {
             await dispatch({type: FETCH_QTY_MEDIA, data: resCountMedia.data.data});
         }
 
-        let resCountMitra = await fetchAPI('/mitra/countMitra')   
+        let resCountMitra = await fetchAPI('/mitra/cMitra')   
         if (resCountMitra.status === 'success') {
             await dispatch({type: FETCH_QTY_MITRA, data: resCountMitra.data.data})
         }
 
-        let resCountAdvertiser = await fetchAPI('/advertiser/countAdvertiser')
+        let resCountAdvertiser = await fetchAPI('/advertiser/cAdvertiser')
         if (resCountAdvertiser.status === 'success') {
             await dispatch({type: FETCH_QTY_ADVERTISER, data: resCountAdvertiser.data.data})
         }
@@ -47,7 +47,7 @@ export const fetchData = () => {
         }
         
 
-        let resPermintaanHarga = await fetchAPI('/negosiasi/request')
+        let resPermintaanHarga = await fetchAPI('/negosiasi/request?status=permintaan&index=')
         if (resPermintaanHarga.status === 'success') {
             await dispatch({type: FETCH_PERMINTAAN_HARGA, data: resPermintaanHarga.data.data})
         }   

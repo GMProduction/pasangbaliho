@@ -79,19 +79,36 @@ class TransaksiControll extends Controller
 
     public function postPrice (Request $r) {
         try {
+            $body = '';
+            $status ='permintaan';
+            switch ($r->status) {
+                case 'permintaan':
+                    $status = 'negoharga';
+                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
+                    break;
+                case 'negoharga':
+                    $status = 'negomateri';
+                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
+                    break;
+                case 'negomateri':
+                    $status = 'pembayaran';
+                    $body = 'Penawaran Materi Anda telah kami terima dan setujui';
+                    break;
+                default:
+                    break;
+            }
             $data = [
-                'status' => 'negoharga',
+                'status' => $status,
                 'terbaca_client' => 0,
                 'terbaca_advertiser' => 0
             ];
-
-            TransaksiModel::query()
+            
+            $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
-            // if ($update) {
-            //     # code...
-            //     // sendNotifAdvertiser('1', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
-            // }
+            if ($update) {
+                sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+            }
             return response()->json([
                 'status' => 'ok',
                 'data' => $data,
@@ -105,163 +122,6 @@ class TransaksiControll extends Controller
         }
     }
 
-    public function getNegosiasiHarga() {
-        $permintaan = TransaksiModel::query()
-            ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
-            ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
-            ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
-            ->select(
-                'id_transaksi',
-                'advertisers.id as idAdvertiser', 
-                'advertisers.nama as namaAdvertiser', 
-                'transaksi.id_baliho as idBaliho',
-                'balihos.nama_baliho as namaBaliho', 
-                'balihos.id_kategori as idKategori', 
-                'kategoris.kategori as kategori', 
-                'harga_ditawarkan',
-                'harga_deal',
-                'transaksi.status',
-                'status_pembayaran',
-                'tanggal_transaksi',
-                'tanggal_awal',
-                'tanggal_akhir'
-            )
-            ->where('transaksi.status', '=', 'negoharga')
-            ->orderBy('id_transaksi', 'ASC')
-            ->get();
-        return response()->json($permintaan);
-    }
-
-    public function getNegosiasiHargaById(Request $r){
-        $negoharga = TransaksiModel::query()
-                ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
-                ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
-                ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
-                ->select(
-                    'id_transaksi',
-                    'advertisers.id as idAdvertiser', 
-                    'advertisers.nama as namaAdvertiser', 
-                    'transaksi.id_baliho as idBaliho',
-                    'balihos.nama_baliho as namaBaliho', 
-                    'balihos.id_kategori as idKategori', 
-                    'kategoris.kategori as kategori', 
-                    'harga_ditawarkan',
-                    'harga_deal',
-                    'transaksi.status',
-                    'status_pembayaran',
-                    'tanggal_transaksi',
-                    'tanggal_awal',
-                    'tanggal_akhir'
-                    )
-                ->where('transaksi.status', '=', 'negoharga')
-                ->where('id_transaksi', '=', $r->id)
-                ->first();
-        return response()->json($negoharga);
-    }
-
-    public function setHargaDeal (Request $r) {
-        try {
-            $data = [
-                'harga_deal' => $r->hargaDeal,
-                'status' => 'negomateri',
-                'terbaca_client' => 0,
-                'terbaca_advertiser' => 0
-            ];
-
-            TransaksiModel::query()
-            ->where('id_transaksi', '=', $r->idtransaksi)
-            ->update($data);
-            return response()->json([
-                'status' => 'ok',
-                'data' => $data,
-            ]);
-        } catch (\Exception $e) {
-            $exData = explode('(', $e->getMessage());
-            return response()->json([
-                'status' => 'failed',
-                'data' => $exData[0],
-            ]);
-        }
-    }
-
-    public function getNegosiasiMateri() {
-        $permintaan = TransaksiModel::query()
-            ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
-            ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
-            ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
-            ->select(
-                'id_transaksi',
-                'advertisers.id as idAdvertiser', 
-                'advertisers.nama as namaAdvertiser', 
-                'transaksi.id_baliho as idBaliho',
-                'balihos.nama_baliho as namaBaliho', 
-                'balihos.id_kategori as idKategori', 
-                'kategoris.kategori as kategori', 
-                'harga_ditawarkan',
-                'harga_deal',
-                'transaksi.status',
-                'status_pembayaran',
-                'tanggal_transaksi',
-                'tanggal_awal',
-                'tanggal_akhir'
-            )
-            ->where('transaksi.status', '=', 'negomateri')
-            ->orderBy('id_transaksi', 'ASC')
-            ->get();
-        return response()->json($permintaan);
-    }
-
-    public function getNegosiasiMateriById(Request $r){
-        
-        $negoharga = TransaksiModel::query()
-                ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
-                ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
-                ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
-                ->select(
-                    'id_transaksi',
-                    'advertisers.id as idAdvertiser', 
-                    'advertisers.nama as namaAdvertiser', 
-                    'transaksi.id_baliho as idBaliho',
-                    'balihos.nama_baliho as namaBaliho', 
-                    'balihos.id_kategori as idKategori', 
-                    'kategoris.kategori as kategori', 
-                    'harga_ditawarkan',
-                    'harga_deal',
-                    'transaksi.status',
-                    'status_pembayaran',
-                    'tanggal_transaksi',
-                    'tanggal_awal',
-                    'tanggal_akhir'
-                    )
-                ->where('transaksi.status', '=', 'negomateri')
-                ->where('id_transaksi', '=', $r->id)
-                ->first();
-        return response()->json($negoharga);
-    }
-
-    public function setFinisNego (Request $r) {
-        try {
-            $data = [
-                'status' => 'pembayaran',
-                'terbaca_client' => 0,
-                'terbaca_advertiser' => 0
-            ];
-
-            TransaksiModel::query()
-            ->where('id_transaksi', '=', $r->idtransaksi)
-            ->update($data);
-            return response()->json([
-                'status' => 'ok',
-                'data' => $data,
-            ]);
-        } catch (\Exception $e) {
-            $exData = explode('(', $e->getMessage());
-            return response()->json([
-                'status' => 'failed',
-                'data' => $exData[0],
-            ]);
-        }
-    }
 
     public function getBalihoOnUsed (Request $r) {
         $now = Carbon::now()->format('Y-m-d');

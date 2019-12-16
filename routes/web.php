@@ -102,12 +102,12 @@ Route::group(['prefix' => 'admin'], function(){
 Route::group(['prefix' => 'adminapi'], function(){
 
     Route::group(['prefix' => 'advertiser'] , function(){
-        Route::get('/countAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
+        Route::get('/cAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
         Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
     });
 
     Route::group(['prefix' => 'mitra'], function(){
-        Route::get('/countMitra', 'Admin\MitraControll@getCountMitra');
+        Route::get('/cMitra', 'Admin\MitraControll@getCountMitra');
         Route::get('/request', 'Admin\MitraControll@getMitra');
     });
 
@@ -123,6 +123,7 @@ Route::group(['prefix' => 'adminapi'], function(){
     Route::group(['prefix' => 'mediaiklan'], function(){
         Route::get('/countMedia', 'Admin\MediaControll@getCountMedia');
         Route::get('/request', 'Admin\MediaControll@getMedia');
+        Route::get('/requestExceptPending', 'Admin\MediaControll@getMediaExceptPending');
         Route::get('/requestById', 'Admin\MediaControll@getMediaById');
         Route::post('/konfirmmedia','Admin\MediaControll@konfirmasiMedia');
         Route::post('/addmedia','Admin\MediaControll@addMedia');
@@ -134,12 +135,6 @@ Route::group(['prefix' => 'adminapi'], function(){
         Route::post('/postPrice', 'Admin\TransaksiControll@postPrice');
         Route::post('/sendemail', 'Admin\MailSender@send'); 
 
-        Route::get('/nego', 'Admin\TransaksiControll@getNegosiasiHarga');
-        Route::get('/negoById', 'Admin\TransaksiControll@getNegosiasiHargaById');
-        Route::post('/postPriceDeal', 'Admin\TransaksiControll@setHargaDeal');
-        Route::get('/negomateri', 'Admin\TransaksiControll@getNegosiasiMateri');
-        Route::get('/negomateriById', 'Admin\TransaksiControll@getNegosiasiMateriById');
-        Route::post('/finishnego', 'Admin\TransaksiControll@setFinisNego');
         Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
     });
 

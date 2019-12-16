@@ -265,7 +265,8 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         if (isset($this->params['stream_context_options'])) {
             $options = array_merge($options, $this->params['stream_context_options']);
         }
-        
+        $options['ssl']['verify_peer'] = FALSE;
+        $options['ssl']['verify_peer_name'] = FALSE;
         $streamContext = stream_context_create($options);
 
         set_error_handler(function ($type, $msg) {

@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import Grid from '@material-ui/core/Grid';
-import { loadPermintaanHargaById, setHarga, loadMediaOnUsed } from '../../Controller/NegosiasiControll';
 import { Divider } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -15,7 +14,7 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {prepareMount, onMounted, prepareSearch, onSearched, fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {prepareMount, onMounted, prepareSearch, onSearched, prepareSubmit, onSubmit, fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
 
 const style = {
     resize2: {
@@ -50,7 +49,10 @@ export class PageBeriHarga extends Component {
         if (e.target.files[0] !== undefined) {
             this.setState({
                 [e.target.name]: e.target.files[0],
+            }, () => {
+                console.log(this.state.lampiran);
             })
+            
         }else {
             this.setState({
                 [e.target.name]: null
@@ -61,16 +63,21 @@ export class PageBeriHarga extends Component {
      handleSave = async () =>{
         let data = new FormData();
         let data2 = new FormData();
+        let filter = this.props.filter;
         data.append('idTransaksi', this.props.negosiasi.dataNegosiasiById.id_transaksi)
+        data.append('status', filter)
+        data.append('idAdvertiser', this.props.negosiasi.dataNegosiasiById.idAdvertiser)
         data2.append('lampiran', this.state.lampiran)
-        
-        await this.props.postNegosiasi(data, data2)
+        await this.props.prepareSubmit()
+        await this.props.postNegosiasi(data, data2, filter)
+        await this.props.onSubmit()
     }
 
     async componentDidMount () {
         let id = this.props.match.params.id;
+        let filter = this.props.filter;
         await this.props.prepareMount()
-        await this.props.fetchNegosiasiById('permintaan', id)
+        await this.props.fetchNegosiasiById(filter, id)
         await this.props.onMounted()
         console.log(this.props)
     }
@@ -78,7 +85,24 @@ export class PageBeriHarga extends Component {
     render() {
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
         const {dataNegosiasiByIdFound, dataNegosiasiById} = this.props.negosiasi;
-
+        const filter = this.props.filter;
+        let btnTitle = '', title = '';
+        switch(filter){
+            case 'permintaan' :
+                btnTitle = 'Kirim Harga';
+                title = 'Permintaan Harga';
+                break;
+            case 'negoharga' :
+                btnTitle = 'Submit';
+                title = 'Negosiasi Harga';
+                break;
+            case 'negomateri' :
+                btnTitle = 'Submit';
+                title = 'Negosiasi Materi';
+                break;
+            default:
+                break;
+        }
 
         if (pageLoading === true) {
             return(
@@ -106,7 +130,7 @@ export class PageBeriHarga extends Component {
                 <Grid item xs={12} sm={12} md={12} lg={6}>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                        <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Permintaan Harga</Box>
+                        <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi {title}</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
                         <TextField disabled label="Nama Advertiser" margin="dense" variant="outlined" fullWidth 
@@ -119,25 +143,33 @@ export class PageBeriHarga extends Component {
                                 InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={dataNegosiasiById.namaBaliho} />
                         
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                        <input accept=".doc, .docx, .pdf, .xls, .xlsx" style={{display: 'none'}} id="lampiran" type="file" name='lampiran'
-                        onChange={this.handleChangeLampiran}
-                        />
-                        <label htmlFor="lampiran">
-                            <TextField disabled label="Lampiran" variant="outlined" margin="dense" fullWidth
-                                InputProps={{style: style.resize,
-                                    endAdornment: <InputAdornment position="end" style={style.adornment}>
-                                        <Button style={style.resize} component="span">Browse</Button>
-                                    </InputAdornment>
-                                }} InputLabelProps={{style: style.resize}}
-                                value={this.state.lampiran !== null ? this.state.lampiran.name : ''}/>
-                        </label>
-                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                        {
+                            filter === 'permintaan' ?
+                            <React.Fragment>
+                                <input accept=".doc, .docx, .pdf, .xls, .xlsx" style={{display: 'none'}} id="lampiran" type="file" name='lampiran'
+                                onChange={this.handleChangeLampiran}
+                                />
+                                <label htmlFor="lampiran">
+                                    <TextField disabled label="Lampiran" variant="outlined" margin="dense" fullWidth
+                                        InputProps={{style: style.resize,
+                                            endAdornment: <InputAdornment position="end" style={style.adornment}>
+                                                <Button style={style.resize} component="span">Browse</Button>
+                                            </InputAdornment>
+                                        }} InputLabelProps={{style: style.resize}}
+                                        value={this.state.lampiran !== null ? this.state.lampiran.name : ''}/>
+                                </label>
+                                <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                            </React.Fragment>
+                            :
+                            ''
+                        }
+                        
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
                             <Button variant="contained" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleSave}>
                                 Tolak
                             </Button>
                             <Button variant="outlined" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={this.handleSave}>
-                                Kirim Harga
+                                {btnTitle}
                             </Button>
                         </Box>
                         </BasicPanelContent>
@@ -187,6 +219,8 @@ function mapDispatcToProps (dispatch) {
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
+        prepareSubmit: bindActionCreators(prepareSubmit, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
     }
 }
 
