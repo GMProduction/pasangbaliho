@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FCM;
 
 
 use App\Http\Controllers\Controller;
+use App\models\FcmClientModel;
 use App\models\FcmModel;
 
 class SenderMessage extends Controller
@@ -12,7 +13,7 @@ class SenderMessage extends Controller
     public function toFcm()
     {
         $fcm = FcmModel::where('id_advertiser', '6')
-        ->latest()->first();
+            ->latest()->first();
 
         $to = $fcm->fcm_token;
 
@@ -40,8 +41,8 @@ class SenderMessage extends Controller
 
     public function toFcmClient()
     {
-        $fcm = FcmModel::where('id_advertiser', '6')
-        ->latest()->first();
+        $fcm = FcmClientModel::where('id_client', '2')
+            ->latest()->first();
 
         $to = $fcm->fcm_token;
 
