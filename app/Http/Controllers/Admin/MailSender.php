@@ -21,7 +21,7 @@ class MailSender extends Controller
                 return response()->json(['status' => 'success', 'data' => 'failed']);
             }
         } catch (\Exception $th) {
-            return response()->json(['status' => 'failed', 'Exception' => $th]);
+            return $th;
         }
         
     }
