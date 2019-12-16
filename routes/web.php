@@ -134,12 +134,6 @@ Route::group(['prefix' => 'adminapi'], function(){
         Route::post('/postPrice', 'Admin\TransaksiControll@postPrice');
         Route::post('/sendemail', 'Admin\MailSender@send'); 
 
-        Route::get('/nego', 'Admin\TransaksiControll@getNegosiasiHarga');
-        Route::get('/negoById', 'Admin\TransaksiControll@getNegosiasiHargaById');
-        Route::post('/postPriceDeal', 'Admin\TransaksiControll@setHargaDeal');
-        Route::get('/negomateri', 'Admin\TransaksiControll@getNegosiasiMateri');
-        Route::get('/negomateriById', 'Admin\TransaksiControll@getNegosiasiMateriById');
-        Route::post('/finishnego', 'Admin\TransaksiControll@setFinisNego');
         Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
     });
 
