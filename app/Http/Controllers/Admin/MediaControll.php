@@ -89,7 +89,7 @@ class MediaControll extends Controller
                 $image = $r->file('gambar1');
                 $namaFoto = 'gambar_'.$idbaliho.'-1.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image);
-                $image_resize->resize(300, 200);
+                $image_resize->resize(300, 300);
                 $image_resize->save(public_path('assets/thumbnails/' . $namaFoto));
                 $r->gambar1->move(public_path('assets/original'), $namaFoto);
                 $foto = new FotoBalihoModel;
@@ -101,7 +101,7 @@ class MediaControll extends Controller
                 $image = $r->file('gambar2');
                 $namaFoto = 'gambar_'.$idbaliho.'-2.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image);
-                $image_resize->resize(150, 150);
+                $image_resize->resize(300, 300);
                 $image_resize->save(public_path('assets/thumbnails/' . $namaFoto));
                 $r->gambar2->move(public_path('assets/original'), $namaFoto);
                 $foto = new FotoBalihoModel;
@@ -113,7 +113,7 @@ class MediaControll extends Controller
                 $image = $r->file('gambar3');
                 $namaFoto = 'gambar_'.$idbaliho.'-3.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image);
-                $image_resize->resize(150, 150);
+                $image_resize->resize(300, 300);
                 $image_resize->save(public_path('assets/thumbnails/' . $namaFoto));
                 $r->gambar3->move(public_path('assets/original'), $namaFoto);
                 $foto = new FotoBalihoModel;
