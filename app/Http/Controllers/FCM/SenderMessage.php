@@ -9,10 +9,6 @@ use App\models\FcmModel;
 class SenderMessage extends Controller
 {
 
-
-    public function sendNotificaton()
-    { }
-
     public function toFcm()
     {
         $fcm = FcmModel::where('id_advertiser', '6')
