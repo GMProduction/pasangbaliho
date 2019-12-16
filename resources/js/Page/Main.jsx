@@ -13,7 +13,7 @@ export default class Main extends Component {
         super(props);
         // axios.defaults.baseURL = 'https://www.pasangbaliho.com/adminapi';
         // axios.defaults.baseURL = 'http://localhost:8000/adminapi';
-        axios.defaults.baseURL = 'http://www.genossys.site/adminapi';
+        axios.defaults.baseURL = 'http://genossys.site/adminapi';
     }
     
     render() {
