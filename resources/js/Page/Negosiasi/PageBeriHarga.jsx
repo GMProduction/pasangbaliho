@@ -50,7 +50,10 @@ export class PageBeriHarga extends Component {
         if (e.target.files[0] !== undefined) {
             this.setState({
                 [e.target.name]: e.target.files[0],
+            }, () => {
+                console.log(this.state.lampiran);
             })
+            
         }else {
             this.setState({
                 [e.target.name]: null

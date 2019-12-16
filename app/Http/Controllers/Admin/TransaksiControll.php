@@ -80,18 +80,17 @@ class TransaksiControll extends Controller
     public function postPrice (Request $r) {
         try {
             $data = [
-                'status' => 'negoharga',
+                'status' => 'permintaan',
                 'terbaca_client' => 0,
                 'terbaca_advertiser' => 0
             ];
 
-            TransaksiModel::query()
+            $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
-            // if ($update) {
-            //     # code...
-            //     // sendNotifAdvertiser('1', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
-            // }
+            if ($update) {
+                sendNotifAdvertiser('6', 'Pemberitahuan', 'Permintaan Harga Telah Dikirim');
+            }
             return response()->json([
                 'status' => 'ok',
                 'data' => $data,

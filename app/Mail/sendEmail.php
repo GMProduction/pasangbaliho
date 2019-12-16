@@ -12,16 +12,16 @@ class sendEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $path;
+    public $pdf;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($path)
+    public function __construct($pdf)
     {
         //
-        $this->path = $path;
+        $this->pdf = $pdf;
     }
 
     /**
@@ -31,7 +31,11 @@ class sendEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.exampleMail')->attachFromStorage($this->path)->with(['test' => $this->path]);
+        return $this->view('admin.exampleMail')
+        ->attach($this->pdf,[
+            'as' => 'Penawaran Harga',
+            'mime' => $this->pdf->getMimeType()
+        ]);
         // return $this->view('admin.exampleMail')->attach('file.pdf');
     }
 }

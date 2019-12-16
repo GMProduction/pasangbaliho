@@ -93,9 +93,7 @@ export class Iconpanel extends Component {
         });
         return (
             <div style={styles.card}>
-                {header}
-                {subHeader}
-                {content}
+                {this.props.children}
             </div>
         );
     }
