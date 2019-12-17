@@ -8,34 +8,29 @@
         <div class="row">
             <div class="col-md-6 col-sm-12 forms-right-icons">
                 <div class="section-heading">
-                    <h2><span>Client</span> Member</h2>
-                    <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                        fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
-                        nostrud euismod volumus ne mei.
+                    <h2><span>Pendaftaran</span> Klien</h2>
+                    <p class="subheading">Untuk anda yang sudah mempunyai akun sebagai Perusahaan yang bergerak di bidang jasa pemasangan iklan..
                     </p>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-laptop"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>100% Responsive</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Akses Penuh</h4>
+                        <p>Anda dapat memasukkan berbagai jenis media iklan yang anda miliki</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-bullhorn"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Powerful Features</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Dashboard</h4>
+                        <p>Tersedia dashboard klien untuk menambah aset, melihat aset yang dipesan, dll.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-cog"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Customer Support</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Solusi Pemasaran</h4>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -44,8 +39,8 @@
                 <div class="form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Sign up now</h3>
-                            <p>Fill in the form below to get instant access</p>
+                            <h3>Daftar Sekarang</h3>
+                            <p>Silahkan isi data dengan benar</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-pencil-alt"></i>
@@ -128,28 +123,25 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
-                                        <input type="password" name="password" id="password" class="form-control"
+                                        <input type="password" name="password" id="password" class="form-control" style="border-right: 0"
                                             placeholder="Password" aria-describedby="basic-addon1">
+                                        <span class="input-group-addon " style="border-left: 0" id="" style=""><i
+                                                id="ico" class="fas fa-eye-slash" onclick="showPassword()"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-5 col-xs-10">
+                                <div class="col-md-6 col-xs-10">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
                                         <input type="password" name="re-password" id="re-password" class="form-control"
-                                            placeholder="Retype Password" aria-describedby="basic-addon1">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-1 col-xs-1">
-                                    <div class="input-group form-group">
-                                        <span class="input-group-addon noBorder eye btn btn-sm" id="" style=""
-                                            onclick="showPassword()"><i id="ico"
-                                                class="fas fa-eye-slash    "></i></span>
+                                            style="border-right: 0" placeholder="Retype Password"
+                                            aria-describedby="basic-addon1">
+                                        <span class="input-group-addon " style="border-left: 0" id="" style=""><i
+                                                id="icoRe" class="fas fa-eye-slash" onclick="showRePassword()"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -204,11 +196,24 @@
         $('#ico').removeClass("fa-eye");
         $('#ico').addClass("fa-eye-slash");
         document.getElementById('password').type = 'password';
-        document.getElementById('re-password').type = 'password';
+        
     }else{
         $('#ico').removeClass("fa-eye-slash");
         $('#ico').addClass("fa-eye");
         document.getElementById('password').type = 'text';
+       
+    }
+    }
+    function showRePassword(){
+        if($('#icoRe').hasClass("fa-eye")){        
+        $('#icoRe').removeClass("fa-eye");
+        $('#icoRe').addClass("fa-eye-slash");
+       
+        document.getElementById('re-password').type = 'password';
+    }else{
+        $('#icoRe').removeClass("fa-eye-slash");
+        $('#icoRe').addClass("fa-eye");
+      
         document.getElementById('re-password').type = 'text';
     }
     }

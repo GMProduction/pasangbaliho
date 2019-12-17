@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     {{-- <title>Pasang Baliho</title> --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
+
     <!-- OR -->
     {!! SEO::generate() !!}
-     <!-- OG -->
+    <!-- OG -->
 
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropdown.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}" />
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/index.js')}}"></script>
@@ -79,7 +79,7 @@
                             <li id="navhome" class=""><a href="/">Beranda</a></li>
                             <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
                             <li id="navnews" class=""><a href="/news">Artikel</a></li>
-                          
+
                             @if (auth()->guard('client')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -141,7 +141,7 @@
                             <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="/login">Masuk</a></li>
-                            <li id="navregistration"><a href="/registration">Keluar</a></li>
+                            <li id="navregistration"><a href="/registration">Pendaftaran</a></li>
                             @endif
 
 
@@ -159,33 +159,33 @@
     </div>
 
     <style>
-    .post{
-        border-bottom: 0px;
-    }
+        .post {
+            border-bottom: 0px;
+        }
     </style>
 
 
     <section id="footer">
         <div class="container">
             <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-12 <block></block>">
-                        <div class="footer-block">
-                            <h4>Pasang Baliho </h4>
-                            <hr />
-                            <ul class="footer-links">
-                                 <li>
-                                    <a href="#" class="post">Tentang Kami</a>
-                                </li>
-                                <li>
-                                    <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="post">Syarat & Ketentuan</a>
-                                </li> 
-    
-                            </ul>
-                        </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 <block></block>">
+                    <div class="footer-block">
+                        <h4>Pasang Baliho </h4>
+                        <hr />
+                        <ul class="footer-links">
+                            <li>
+                                <a href="#" class="post">Tentang Kami</a>
+                            </li>
+                            <li>
+                                <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
+                            </li>
+                            <li>
+                                <a href="#" class="post">Syarat & Ketentuan</a>
+                            </li>
+
+                        </ul>
                     </div>
+                </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 block">
                     <div class="footer-block">
                         <h4>Alamat</h4>
@@ -204,9 +204,10 @@
                         <h4>Kontak Kami</h4>
                         <hr />
                         <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>   info@pasangbaliho.com</a></li>
-                            <li><a href="#"><i class="fas fa-phone    "></i> +62271 724 811</a>  </li>
-                            
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> info@pasangbaliho.com</a>
+                            </li>
+                            <li><a href="#"><i class="fas fa-phone    "></i> +62271 724 811</a> </li>
+
                         </ul>
                     </div>
                 </div>
@@ -222,7 +223,7 @@
                     </div>
                 </div>
 
-               
+
             </div>
         </div>
 
@@ -249,7 +250,7 @@
                 // alert('{{session("status")}}');
                 Swal.fire({
      title: '{{session("status")}}',
-     icon: 'info'
+     icon: '{{session("icon")}}'
      
     })
             }
@@ -261,6 +262,29 @@
     <script src="{{asset('js/dropdown.js')}}"></script>
 
 
- {{ TawkTo::widgetCode() }}
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5df7972443be710e1d224eb6/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    if('{{auth()->guard("advertiser")->check()}}'){
+        Tawk_API.visitor = {
+        name : 'auth()->guard("advertiser")->user()->nama',
+        email : 'auth()->guard("advertiser")->user()->email'
+        };
+    }else{
+        
+    }
+    </script>
+    <!--End of Tawk.to Script-->
+
+
 </body>
-</html>     
+
+</html>

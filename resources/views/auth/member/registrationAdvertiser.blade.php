@@ -9,34 +9,30 @@
         <div class="row">
             <div class="col-md-6 col-sm-12 forms-right-icons">
                 <div class="section-heading">
-                    <h2>Register <span>Advertiser</span> </h2>
-                    <p class="subheading">Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique
-                        fierentis ea saperet inimicu ut qui dolor oratio mnesarchum ea utamur impetus fuisset nam
-                        nostrud euismod volumus ne mei.
+                    <h2>Pendaftaran <span>Advertiser</span> </h2>
+                    <p class="subheading">Untuk anda yang sudah mempunyai akun sebagai Perusahaan / Orang yang ingin
+                        mempromosikan produk anda dengan media iklan yang kami miliki.
                     </p>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-laptop"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>100% Responsive</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Akses Penuh</h4>
+                        <p>Dapat memesan berbagai produk di pasangbaliho.com.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-bullhorn"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Powerful Features</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Notifikasi</h4>
+                        <p></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-cog"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Customer Support</h4>
-                        <p>Lorem ipsum dolor sit amet sit legimus copiosae instructior ei ut vix denique fierentis ea
-                            saperet inimicu ut qui dolor oratio mnesarchum.</p>
+                        <h4>Solusi Media Iklan Anda</h4>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -45,8 +41,8 @@
                 <div class="form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Sign up now</h3>
-                            <p>Fill in the form below to get instant access</p>
+                            <h3>Daftar Sekarang</h3>
+                            <p>Silahkan isi data dengan benar</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-pencil-alt"></i>
@@ -122,30 +118,28 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
-                                        <input type="password" name="password" id="password" class="form-control"
+                                        <input type="password" name="password" id="password" class="form-control" style="border-right: 0"
                                             placeholder="Password" aria-describedby="basic-addon1">
+                                        <span class="input-group-addon " style="border-left: 0" id="" style=""><i
+                                                id="ico" class="fas fa-eye-slash" onclick="showPassword()"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-5 col-xs-10">
+                                <div class="col-md-6 col-xs-10">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
                                         <input type="password" name="re-password" id="re-password" class="form-control"
-                                            placeholder="Retype Password" aria-describedby="basic-addon1">
+                                            style="border-right: 0" placeholder="Retype Password"
+                                            aria-describedby="basic-addon1">
+                                        <span class="input-group-addon " style="border-left: 0" id="" style=""><i
+                                                id="icoRe" class="fas fa-eye-slash" onclick="showRePassword()"></i></span>
+                                    </div>
+                                </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-1 col-xs-1">
-                                    <div class="input-group form-group">
-                                        <span class="input-group-addon noBorder eye btn btn-sm" id="" style=""
-                                            onclick="showPassword()"><i id="ico"
-                                                class="fas fa-eye-slash    "></i></span>
-                                    </div>
-                                </div>
                             </div>
                             @error('alamat')
                             <span class="msg invalid-feedback" style="color:red" role="alert">
@@ -163,7 +157,7 @@
                                 <div class="social-login-buttons">
                                     <a class="btn btn-link-1 btn-link-1-twitter btn-block" href="#!"
                                         onclick="sendRegister()">
-                                        <i class="fas fa-sign-in-alt"></i> Sign Up me !
+                                        <i class="fas fa-sign-in-alt"></i> Daftar
                                     </a>
                                     <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="#">
                                         <i class="fab fa-google"></i> Google
@@ -198,11 +192,24 @@
         $('#ico').removeClass("fa-eye");
         $('#ico').addClass("fa-eye-slash");
         document.getElementById('password').type = 'password';
-        document.getElementById('re-password').type = 'password';
+        
     }else{
         $('#ico').removeClass("fa-eye-slash");
         $('#ico').addClass("fa-eye");
         document.getElementById('password').type = 'text';
+       
+    }
+    }
+    function showRePassword(){
+        if($('#icoRe').hasClass("fa-eye")){        
+        $('#icoRe').removeClass("fa-eye");
+        $('#icoRe').addClass("fa-eye-slash");
+       
+        document.getElementById('re-password').type = 'password';
+    }else{
+        $('#icoRe').removeClass("fa-eye-slash");
+        $('#icoRe').addClass("fa-eye");
+      
         document.getElementById('re-password').type = 'text';
     }
     }

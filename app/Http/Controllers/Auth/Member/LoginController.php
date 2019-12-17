@@ -32,13 +32,17 @@ class LoginController extends Controller
 
     public function postlogin(Request $request)
     {
+        $data = [
+            'status' => 'Anda login sebagai advertiser',
+            'icon' => 'success'
+        ];
         if (FacadesAuth::guard('advertiser')->attempt($request->only('email', 'password'))) {
             return redirect()->intended('/')
-                ->with('status', 'You are Logged in as advertiser!');
+                ->with($data);
         } else {    
             // Alert::error('Periksa username atau password anda', 'Gagal');
             return redirect()->back()->withInput()
-                ->with('status', 'Cek email / password');
+                ->with($data);
         }
 
         // return redirect('/');
@@ -49,7 +53,11 @@ class LoginController extends Controller
 
     function logout()
     {
+        $data = [
+            'status' => 'Anda Telah logged out!',
+            'icon' => 'success'
+        ];
         FacadesAuth::guard('advertiser')->logout();
-        return redirect('/')->with('status', 'advertiser has been logged out!');;
+        return redirect('/')->with($data);;
     }
 }

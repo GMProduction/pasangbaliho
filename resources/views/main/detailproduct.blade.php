@@ -174,7 +174,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-bottom">
-                            <form role="form" action="addTransaksi" class="login-form" method="POST">
+                            <form role="form" action="/product/addTransaksi" class="login-form" method="POST">
                                 @csrf
                                 <input type="hidden" name="id_baliho" value="{{$p->id_baliho}}">
                                 @if (auth()->guard('advertiser')->check())
