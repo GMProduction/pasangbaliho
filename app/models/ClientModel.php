@@ -22,7 +22,7 @@ class ClientModel extends Authenticatable
         'password',
         'no_ktp', 
         'npwp', 
-        'mib', 
+        'nib', 
         'telp',
         'alamat',
         'status',
