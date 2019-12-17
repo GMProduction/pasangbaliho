@@ -15,7 +15,7 @@ class AdvertiserModel extends Authenticatable
     protected $primaryKey  = 'id';
 
     protected $fillable = [
-        'id', 'email', 'nama', 'password', 'telp', 'alamat', 'nama_instansi'
+        'id', 'email', 'nama', 'nama_instansi', 'password', 'telp', 'alamat'
     ];
 
     protected $hidden = [

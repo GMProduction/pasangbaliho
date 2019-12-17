@@ -71,10 +71,14 @@ export const postNegosiasi = (data, data2, filter) => {
                 //     let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
                 //     console.log(reslampiran.data);
                 // }
+                dispatch({type: PAGE_REDIRECT, redirect: true})
                 console.log(res.data)
             }else{
+                dispatch({type: PAGE_REDIRECT, redirect: true})
                 console.log(res.data);
             }
+        }else{
+            dispatch({type: PAGE_REDIRECT, redirect: false})
         }
     }
 }

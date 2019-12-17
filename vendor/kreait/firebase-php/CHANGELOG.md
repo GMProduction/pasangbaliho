@@ -1,12 +1,34 @@
 # CHANGELOG
 
+## 4.37.0 - 2019-12-13
+
+### Auth
+
+* Reworked action link (OOB mail) handling for better resilience and flexibility
+* Added methods ([Documentation](https://firebase-php.readthedocs.io/en/latest/user-management.html#email-link-for-sign-in))
+  * `getEmailVerificationLink($email, $actionCodeSettings)`
+  * `sendEmailVerificationLink($email, $actionCodeSettings, $locale)`
+  * `getPasswordResetLink($email, $actionCodeSettings)`
+  * `sendPasswordResetLink($email, $actionCodeSettings, $locale)`
+  * `getSignInWithEmailLink($email, $actionCodeSettings)`
+  * `sendSignInWithEmailLink($email, $actionCodeSettings, $locale)`
+  * `getEmailActionLink($type, $email, $actionCodeSettings)`
+  * `sendEmailActionLink($type, $email, $actionCodeSettings, $locale)`
+* Deprecated methods
+  * `sendPasswordResetEmail()`
+  * `sendEmailVerification()`
+
+## 4.36.2 - 2019-12-05
+
+* Actually increased the FCM batch request limit to 500 (not just in the documentation)
+
 ## 4.36.1 - 2019-12-02
 
 ### Bugfixes
 
 #### Messaging
 
-- The Messaging component didn't work for projects with non-word characters in their project ID.  
+* The Messaging component didn't work for projects with non-word characters in their project ID.  
 
 ## 4.36.0 - 2019-12-01
 

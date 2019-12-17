@@ -16,7 +16,19 @@ class ClientModel extends Authenticatable
     protected $guard = 'clients';
 
     protected $fillable = [
-        'nama','email','password','telp','alamat','perusahaan', 'api_token','email_verifed_at', 'remember_token', 'mib', 'npwp', 'no_ktp', 'created_at', 'updated_at'
+        'email',
+        'nama', 
+        'nama_instansi',
+        'password',
+        'no_ktp', 
+        'npwp', 
+        'nib', 
+        'telp',
+        'alamat',
+        'status',
+        'api_token',
+        'email_verifed_at', 
+        'remember_token', 
     ];
 
     protected $hidden = [
