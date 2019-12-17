@@ -82,7 +82,7 @@ class transaksiController extends Controller
             'jumNotif' => $jumNotif
         ];
 
-        return view('advertiser/data/transaksiBerlangsung')->with($data);
+        return view('advertiser/data/transaksiberlangsung')->with($data);
         // echo $data;
     }
 
@@ -135,8 +135,13 @@ class transaksiController extends Controller
     {
         $mytime = Carbon::now();
         $hariini = $mytime->toDateString();
+        
         try {
             //code...
+            $messege = [
+                'status' => 'Pemesanan anda akan segera kami proses, Silahkan cek dashboard anda',
+                'icon' => 'success'
+            ];
             $data = new transaksiModel();
             $data->id_baliho = $r->id_baliho;
             $data->id_advertiser = $r->id_advertiser;
@@ -145,13 +150,20 @@ class transaksiController extends Controller
             $data->tanggal_awal = $r->mulai;
             $data->tanggal_akhir = $r->selesai;
             $data->save();
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()
+            ->with($messege);
         } catch (\Throwable $e) {
+            $messege = [
+                'status' => 'Pemesanan anda gagal kami proses',
+                'icon' => 'warning'
+            ];
             //throw $th;
             $exData = explode('(', $e->getMessage());
             // Alert::error('Gagal \n' . $exData[0], 'Ooops');
             echo 'Gagal \n' . $exData[0], 'Ooops';
             // return redirect()->back()->withInput();
+            return redirect()->back()->withInput()
+            ->with($data);
         }
     }
 }

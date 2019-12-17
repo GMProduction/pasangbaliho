@@ -48,9 +48,10 @@
         @foreach ($trans as $d)
         <tbody>
             <tr>
-                <td class="text-center" rowspan="2" style=" vertical-align: middle">1</td>
+                
+            <td class="text-center" rowspan="2" style=" vertical-align: middle">{{$loop->iteration}}</td>
                 <td class="text-center" rowspan="2"  ><img src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
-                <td class="text-center border-bottom-0" style="padding-bottom: 0" >{{$d->nama_baliho}}</td>
+                <td class="text-center border-bottom-0" style="padding-bottom: 0" >{{$d->kategori}}</td>
                 <td class="text-center" rowspan="2" style=" vertical-align: middle" >{{formatDateToSurat($d->tanggal_transaksi)}}</td>
                 <td class="text-center" rowspan="2" style=" vertical-align: middle" >{{$d->status}}</td>
                 <td class="text-center" rowspan="2"   style="width: 50px; vertical-align: middle" ><a href="berlangsung/detail?q={{$d->id_transaksi}}" style="width: 40px" class="btn  btn-sm  btn-info"><i class="fas fa-eye    "></i></a></td>

@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-user"></i></div>
                     <div class="col-xs-10 datablock">
-                        <h4>Client</h4>
+                        <h4>Klien</h4>
                         <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan yang bergerak di bidang jasa pemasangan iklan.</p>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
             <div class="col-md-6 col-sm-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#ad"><span>Sebagai Advertiser</span></a></li>
-                    <li><a data-toggle="tab" href="#cli"><span>Sebagai Client</span></a></li>
+                    <li><a data-toggle="tab" href="#cli"><span>Sebagai Klien</span></a></li>
 
                 </ul>
 
@@ -84,15 +84,15 @@
                         <div class="form-box">
                             <div class="form-top">
                                 <div class="form-top-left">
-                                    <h3>Client</h3>
-                                    <p>Client dapat melakukan pemasangan iklan baliho</p>
+                                    <h3>Klien</h3>
+                                    <p>Klien dapat melakukan pemasangan iklan baliho</p>
                                 </div>
                                 <div class="form-top-right">
                                     <i class="fa fa-key"></i>
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <form role="form" action="/loginClient" class="login-form" method="POST">
+                                {{-- <form role="form" action="/loginClient" class="login-form" method="POST">
                                     @csrf
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
@@ -105,8 +105,11 @@
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <button type="submit" class="btn">Masuk</button>
-                                </form>
+                                </form> --}}
+
+                                <h3>Masih Dalam Perbaikan</h3>
                             </div>
+                                
                         </div>
         
                         {{-- <div class="social-login">
