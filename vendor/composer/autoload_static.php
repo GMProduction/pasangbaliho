@@ -14,8 +14,8 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
@@ -30,12 +30,12 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         '40360c0b9b437e69bcbb7f1349ce029e' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/parse_cookie_header.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '27592325262b385204a263c2ab632d6e' => __DIR__ . '/..' . '/kreait/clock/src/Clock.php',
-        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
-        'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
-        '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         'f7c6080b46f9fe41a46a657439674576' => __DIR__ . '/..' . '/kreait/firebase-php/src/Firebase.php',
+        'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
+        '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
@@ -203,11 +203,9 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'B' => 
         array (
             'Benwilkins\\FCM\\' => 15,
-            'Barryvdh\\Cors\\' => 14,
         ),
         'A' => 
         array (
-            'Asm89\\Stack\\' => 12,
             'Artesaos\\SEOTools\\' => 18,
             'App\\' => 4,
         ),
@@ -589,14 +587,6 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         array (
             0 => __DIR__ . '/..' . '/benwilkins/laravel-fcm-notification/src',
         ),
-        'Barryvdh\\Cors\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/laravel-cors/src',
-        ),
-        'Asm89\\Stack\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack',
-        ),
         'Artesaos\\SEOTools\\' => 
         array (
             0 => __DIR__ . '/..' . '/artesaos/seotools/src/SEOTools',
@@ -718,6 +708,7 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'App\\models\\NewsModel' => __DIR__ . '/../..' . '/app/models/NewsModel.php',
         'App\\models\\NotificationModel' => __DIR__ . '/../..' . '/app/models/NotificationModel.php',
         'App\\models\\NotifikasiAdvertiserModel' => __DIR__ . '/../..' . '/app/models/NotifikasiAdvertiserModel.php',
+        'App\\models\\NotifikasiClientModel' => __DIR__ . '/../..' . '/app/models/NotifikasiClientModel.php',
         'App\\models\\ProvinsiModel' => __DIR__ . '/../..' . '/app/models/ProvinsiModel.php',
         'App\\models\\SliderModel' => __DIR__ . '/../..' . '/app/models/SliderModel.php',
         'App\\models\\TransaksiModel' => __DIR__ . '/../..' . '/app/models/TransaksiModel.php',
@@ -739,12 +730,6 @@ class ComposerStaticInit578bb2501f780e5564b45ae591fc4fc1
         'Artesaos\\SEOTools\\SEOTools' => __DIR__ . '/..' . '/artesaos/seotools/src/SEOTools/SEOTools.php',
         'Artesaos\\SEOTools\\Traits\\SEOTools' => __DIR__ . '/..' . '/artesaos/seotools/src/SEOTools/Traits/SEOTools.php',
         'Artesaos\\SEOTools\\TwitterCards' => __DIR__ . '/..' . '/artesaos/seotools/src/SEOTools/TwitterCards.php',
-        'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
-        'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
-        'Barryvdh\\Cors\\HandleCors' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandleCors.php',
-        'Barryvdh\\Cors\\HandlePreflight' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandlePreflight.php',
-        'Barryvdh\\Cors\\LumenServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/LumenServiceProvider.php',
-        'Barryvdh\\Cors\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/ServiceProvider.php',
         'Benwilkins\\FCM\\FcmChannel' => __DIR__ . '/..' . '/benwilkins/laravel-fcm-notification/src/FcmChannel.php',
         'Benwilkins\\FCM\\FcmMessage' => __DIR__ . '/..' . '/benwilkins/laravel-fcm-notification/src/FcmMessage.php',
         'Benwilkins\\FCM\\FcmNotificationServiceProvider' => __DIR__ . '/..' . '/benwilkins/laravel-fcm-notification/src/FcmNotificationServiceProvider.php',

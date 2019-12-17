@@ -165,7 +165,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Emotality\TawkTo\TawkToServiceProvider::class,
-        Barryvdh\Cors\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
