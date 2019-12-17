@@ -153,16 +153,16 @@ function sendNotifAdvertiser($idAdvertiser, $tittle, $body)
     // return json_encode($result, true);
 }
 
-function sendNotifClient($tittle, $body)
+function sendNotifClient($idClient, $tittle, $body)
 {
-    $fcm = FcmClientModel::where('id_client', '2')
+    $fcm = FcmClientModel::where('id_client', $idClient)
         ->latest()->first();
 
     $to = $fcm->fcm_token;
 
     $data = array(
-        'title' => "tes fcm",
-        'body' => "tes fcm",
+        'title' => $tittle,
+        'body' => $body,
         'notification_priority' => 'high'
     );
 

@@ -41,7 +41,7 @@ class SenderMessage extends Controller
 
     public function toFcmClient()
     {
-        $fcm = FcmClientModel::where('id_client', '2')
+        $fcm = FcmClientModel::where('id_client', '1')
             ->latest()->first();
 
         $to = $fcm->fcm_token;
