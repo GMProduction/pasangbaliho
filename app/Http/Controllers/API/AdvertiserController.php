@@ -71,7 +71,7 @@ class AdvertiserController extends Controller
                 $input->email = $request->email;
                 $input->nama = $request->nama;
                 $input->telp = $request->telp;
-                $input->password = $request->password;
+                $input->password = Hash::make($request->password);
                 $input->alamat = $request->alamat;
                 $input->api_token = Hash::make($request->email);
                 $input->save();
@@ -102,23 +102,34 @@ class AdvertiserController extends Controller
 
     public function loginAdvertiser(Request $request)
     {
-        $advertiser = AdvertiserModel::where([
-            'email' => $request->email,
-            'password' => $request->password
-        ])
-            ->first();
+
+        $advertiser = AdvertiserModel::where(
+            'email',
+            $request->email
+        )->first();
 
         if ($advertiser == null) {
+
             return response()->json([
                 'respon' => 'failure',
-                'message' => 'user tidak terdaftar',
+                'message' => 'user tidak terdaftar'
             ], 401);
         } else {
-            return response()->json([
-                'respon' => 'success',
-                'message' => 'login sukses',
-                'advertiser' => $advertiser
-            ]);
+            $password = $advertiser->password;
+
+            if (Hash::check($request->password, $password)) {
+                return response()->json([
+                    'respon' => 'success',
+                    'message' => 'login sukses',
+                    'client' => $advertiser
+                ]);
+            } else {
+
+                return response()->json([
+                    'respon' => 'failure',
+                    'message' => 'user tidak terdaftar'
+                ], 401);
+            }
         }
     }
 

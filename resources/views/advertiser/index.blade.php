@@ -115,12 +115,12 @@
         <tbody>
             <tr>
             <td class="text-center" style=" vertical-align: middle">{{$loop->iteration }}</td>
-                <td class="text-center" style=" vertical-align: middle"><img src="{{asset('assets/img/iphone62.png')}}" alt="" height="60"></td>
+                <td class="text-center" style=" vertical-align: middle"><img src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
                 <td class="text-center " style=" vertical-align: middle">{{$d->nama_baliho}}</td>
                 <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_transaksi)}}</td>
                 <td class="text-center" style=" vertical-align: middle">{{$d->status}}</td>
-                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_transaksi)}}</td>
-                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_transaksi)}}</td>
+                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_awal)}}</td>
+                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_akhir)}}</td>
             </tr>
 
         </tbody>

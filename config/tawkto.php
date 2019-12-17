@@ -13,7 +13,7 @@ return [
     | Example: If your "Direct Chat Link" is https://tawk.to/chat/54f52bfdf7bcaa72719c6b7/default
     | then your API Key is "54f52bfdf7bcaa72719c6b7".
     |
-    */
+    */  
     'api_key' => env('TAWKTO_API_KEY', 'no_api_key_set_in_env'),
 
 ];

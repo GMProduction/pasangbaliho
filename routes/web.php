@@ -31,7 +31,7 @@ Route::get('kebijakan-privasi', function(){
 // Route::get('product/search',function(){
 //     echo 'asd';
 // });
-    
+
 
 
 // Route::get('/detail', function () {
@@ -79,7 +79,7 @@ Route::group(['middleware' => 'advertiser'], function () {
 Route::group(['prefix' => 'dashboardClient'], function(){
     Route::group(['prefix' => 'asset'], function(){
         Route::get('add','Member\Client\assetClientController@showAddAsset' );
-       
+
     });
 });
 
@@ -89,6 +89,7 @@ Route::group(['prefix' => 'dashboardClient'], function(){
 Route::get('showStreetView/{id}','Member\productController@showStreetView');
 
 Route::get('/toFcm', 'FCM\SenderMessage@toFcm')->name('toFcm');
+Route::get('/toFcmClient', 'FCM\SenderMessage@toFcmClient')->name('toFcmClient');
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/', 'DashboardControll@index')->name('dashboard');
@@ -133,10 +134,10 @@ Route::group(['prefix' => 'adminapi'], function(){
         Route::get('/request', 'Admin\TransaksiControll@getNegosiasi');
         Route::get('/requestById', 'Admin\TransaksiControll@getNegosiasiById');
         Route::post('/postPrice', 'Admin\TransaksiControll@postPrice');
-        Route::post('/sendemail', 'Admin\MailSender@send'); 
+        Route::post('/sendemail', 'Admin\MailSender@send');
 
         Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
     });
 
-    
+
 });
