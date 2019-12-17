@@ -6,6 +6,7 @@
         list-style: square !important;
         margin-left: 10px !important;
         padding-left: 10px !important;
+        text-align: justify;
     }
 </style>
 <div class="container">

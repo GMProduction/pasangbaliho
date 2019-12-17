@@ -7,6 +7,7 @@
     {{-- <title>Pasang Baliho</title> --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+    <link rel='icon' href='{{asset('favicon.png')}}' type='image/x-icon' />
     <!-- OR -->
     {!! SEO::generate() !!}
     <!-- OG -->
@@ -154,6 +155,7 @@
     </header>
     <!--/.nav-ends -->
 
+    {{-- test status : {{auth()->guard('advertiser')->check()}} --}}
     <div id="content">
         @yield('content')
     </div>
@@ -180,7 +182,7 @@
                                 <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
                             </li>
                             <li>
-                                <a href="#" class="post">Syarat & Ketentuan</a>
+                                <a href="/s&k" class="post" >Syarat & Ketentuan</a>
                             </li>
 
                         </ul>
@@ -273,14 +275,7 @@
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
-    if('{{auth()->guard("advertiser")->check()}}'){
-        Tawk_API.visitor = {
-        name : 'auth()->guard("advertiser")->user()->nama',
-        email : 'auth()->guard("advertiser")->user()->email'
-        };
-    }else{
-        
-    }
+   
     </script>
     <!--End of Tawk.to Script-->
 

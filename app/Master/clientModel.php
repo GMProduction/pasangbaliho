@@ -17,7 +17,7 @@ class clientModel extends Authenticatable
     protected $guard = 'client';
 
     protected $fillable = [
-        'nama','email','password','telp','alamat','perusahaan', 'mib','npwp','no_ktp'
+        'nama','email','password','telp','alamat','nama_instansi', 'mib','npwp','no_ktp'
     ];
 
     protected $hidden = [

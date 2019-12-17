@@ -17,7 +17,7 @@ class advertiserModel extends Authenticatable
     protected $guard = 'advertiser';
 
     protected $fillable = [
-        'nama','email','password','telp','alamat','status','verifikasi'
+        'nama','email','password','telp','alamat','status','verifikasi', 'nama_instansi'
     ];
 
     protected $hidden = [

@@ -27,6 +27,10 @@ Route::get('news', 'Member\indexController@showNews');
 Route::get('kebijakan-privasi', function(){
     return view('main.kebijakan');
 });
+Route::get('s&k', function(){
+    return view('main.sk');
+});
+
 
 // Route::get('product/search',function(){
 //     echo 'asd';
