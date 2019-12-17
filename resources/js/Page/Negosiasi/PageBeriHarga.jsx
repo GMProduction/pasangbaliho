@@ -120,6 +120,14 @@ export class PageBeriHarga extends Component {
                 </div>
             )
         }
+
+        if (redirect === true) {
+            let url = '/mediaiklan';
+            if (this.props.filter === 'confirm') {
+                url = '/mediaiklan/permintaan'
+            }
+            return <Redirect to={url} />
+        }
         
         return (
             <div>

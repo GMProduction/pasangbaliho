@@ -68,6 +68,124 @@
         ]
     },
     {
+        "name": "asm89/stack-cors",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/asm89/stack-cors.git",
+            "reference": "c163e2b614550aedcf71165db2473d936abbced6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/asm89/stack-cors/zipball/c163e2b614550aedcf71165db2473d936abbced6",
+            "reference": "c163e2b614550aedcf71165db2473d936abbced6",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9",
+            "symfony/http-foundation": "~2.7|~3.0|~4.0",
+            "symfony/http-kernel": "~2.7|~3.0|~4.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5.0 || ^4.8.10",
+            "squizlabs/php_codesniffer": "^2.3"
+        },
+        "time": "2017-12-20T14:37:45+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Asm89\\Stack\\": "src/Asm89/Stack/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexander",
+                "email": "iam.asm89@gmail.com"
+            }
+        ],
+        "description": "Cross-origin resource sharing library and stack middleware",
+        "homepage": "https://github.com/asm89/stack-cors",
+        "keywords": [
+            "cors",
+            "stack"
+        ]
+    },
+    {
+        "name": "barryvdh/laravel-cors",
+        "version": "v0.11.4",
+        "version_normalized": "0.11.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/barryvdh/laravel-cors.git",
+            "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+            "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+            "shasum": ""
+        },
+        "require": {
+            "asm89/stack-cors": "^1.2",
+            "illuminate/support": "^5.5|^6",
+            "php": ">=7",
+            "symfony/http-foundation": "^3.1|^4",
+            "symfony/http-kernel": "^3.1|^4"
+        },
+        "require-dev": {
+            "laravel/framework": "^5.5",
+            "orchestra/testbench": "3.3.x|3.4.x|3.5.x|3.6.x|3.7.x",
+            "phpunit/phpunit": "^4.8|^5.2|^7.0",
+            "squizlabs/php_codesniffer": "^2.3"
+        },
+        "time": "2019-08-28T11:27:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.11-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Barryvdh\\Cors\\ServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Barryvdh\\Cors\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Barry vd. Heuvel",
+                "email": "barryvdh@gmail.com"
+            }
+        ],
+        "description": "Adds CORS (Cross-Origin Resource Sharing) headers support in your Laravel application",
+        "keywords": [
+            "api",
+            "cors",
+            "crossdomain",
+            "laravel"
+        ]
+    },
+    {
         "name": "benwilkins/laravel-fcm-notification",
         "version": "v4.0.0",
         "version_normalized": "4.0.0.0",
@@ -194,27 +312,27 @@
     },
     {
         "name": "dnoegel/php-xdg-base-dir",
-        "version": "0.1",
-        "version_normalized": "0.1.0.0",
+        "version": "v0.1.1",
+        "version_normalized": "0.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/dnoegel/php-xdg-base-dir.git",
-            "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a"
+            "reference": "8f8a6e48c5ecb0f991c2fdcf5f154a47d85f9ffd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/dnoegel/php-xdg-base-dir/zipball/265b8593498b997dc2d31e75b89f053b5cc9621a",
-            "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a",
+            "url": "https://api.github.com/repos/dnoegel/php-xdg-base-dir/zipball/8f8a6e48c5ecb0f991c2fdcf5f154a47d85f9ffd",
+            "reference": "8f8a6e48c5ecb0f991c2fdcf5f154a47d85f9ffd",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
         "require-dev": {
-            "phpunit/phpunit": "@stable"
+            "phpunit/phpunit": "~7.0|~6.0|~5.0|~4.8.35"
         },
-        "time": "2014-10-24T07:27:01+00:00",
-        "type": "project",
+        "time": "2019-12-04T15:06:13+00:00",
+        "type": "library",
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
@@ -640,17 +758,17 @@
     },
     {
         "name": "facade/flare-client-php",
-        "version": "1.3.0",
-        "version_normalized": "1.3.0.0",
+        "version": "1.3.1",
+        "version_normalized": "1.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facade/flare-client-php.git",
-            "reference": "0fd0c0a5c75a5acf04578311a08a7832e06a981c"
+            "reference": "24444ea0e1556f0a4b5fc8e61802caf72ae9a408"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facade/flare-client-php/zipball/0fd0c0a5c75a5acf04578311a08a7832e06a981c",
-            "reference": "0fd0c0a5c75a5acf04578311a08a7832e06a981c",
+            "url": "https://api.github.com/repos/facade/flare-client-php/zipball/24444ea0e1556f0a4b5fc8e61802caf72ae9a408",
+            "reference": "24444ea0e1556f0a4b5fc8e61802caf72ae9a408",
             "shasum": ""
         },
         "require": {
@@ -658,14 +776,14 @@
             "illuminate/pipeline": "~5.5|~5.6|~5.7|~5.8|^6.0",
             "php": "^7.1",
             "symfony/http-foundation": "~3.3|~4.1",
-            "symfony/var-dumper": "^3.4|^4.0"
+            "symfony/var-dumper": "^3.4|^4.0|^5.0"
         },
         "require-dev": {
             "larapack/dd": "^1.1",
             "phpunit/phpunit": "^7.5.16",
             "spatie/phpunit-snapshot-assertions": "^2.0"
         },
-        "time": "2019-11-27T10:09:46+00:00",
+        "time": "2019-12-15T18:28:38+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1034,17 +1152,17 @@
     },
     {
         "name": "fzaninotto/faker",
-        "version": "v1.9.0",
-        "version_normalized": "1.9.0.0",
+        "version": "v1.9.1",
+        "version_normalized": "1.9.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fzaninotto/Faker.git",
-            "reference": "27a216cbe72327b2d6369fab721a5843be71e57d"
+            "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/27a216cbe72327b2d6369fab721a5843be71e57d",
-            "reference": "27a216cbe72327b2d6369fab721a5843be71e57d",
+            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fc10d778e4b84d5bd315dad194661e091d307c6f",
+            "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f",
             "shasum": ""
         },
         "require": {
@@ -1055,10 +1173,12 @@
             "phpunit/phpunit": "^4.8.35 || ^5.7",
             "squizlabs/php_codesniffer": "^2.9.2"
         },
-        "time": "2019-11-14T13:13:06+00:00",
+        "time": "2019-12-12T13:22:17+00:00",
         "type": "library",
         "extra": {
-            "branch-alias": []
+            "branch-alias": {
+                "dev-master": "1.9-dev"
+            }
         },
         "installation-source": "dist",
         "autoload": {
@@ -1084,17 +1204,17 @@
     },
     {
         "name": "giggsey/libphonenumber-for-php",
-        "version": "8.11.0",
-        "version_normalized": "8.11.0.0",
+        "version": "8.11.1",
+        "version_normalized": "8.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-            "reference": "356a97b1601edde8256dace68fe7ffeec0d777f9"
+            "reference": "f6a367f08e323edc1c27546d8d5818bb016d812e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/356a97b1601edde8256dace68fe7ffeec0d777f9",
-            "reference": "356a97b1601edde8256dace68fe7ffeec0d777f9",
+            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/f6a367f08e323edc1c27546d8d5818bb016d812e",
+            "reference": "f6a367f08e323edc1c27546d8d5818bb016d812e",
             "shasum": ""
         },
         "require": {
@@ -1111,7 +1231,7 @@
             "phpunit/phpunit": "^4.8.36|^5.0",
             "symfony/console": "^2.8|^3.0"
         },
-        "time": "2019-11-26T16:09:47+00:00",
+        "time": "2019-12-11T10:03:19+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1418,17 +1538,17 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "6.4.1",
-        "version_normalized": "6.4.1.0",
+        "version": "6.5.0",
+        "version_normalized": "6.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "0895c932405407fd3a7368b6910c09a24d26db11"
+            "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0895c932405407fd3a7368b6910c09a24d26db11",
-            "reference": "0895c932405407fd3a7368b6910c09a24d26db11",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
+            "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
             "shasum": ""
         },
         "require": {
@@ -1443,13 +1563,14 @@
             "psr/log": "^1.1"
         },
         "suggest": {
+            "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2019-10-23T15:58:00+00:00",
+        "time": "2019-12-07T18:20:45+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.3-dev"
+                "dev-master": "6.5-dev"
             }
         },
         "installation-source": "dist",
@@ -1919,17 +2040,17 @@
     },
     {
         "name": "kreait/firebase-php",
-        "version": "4.36.1",
-        "version_normalized": "4.36.1.0",
+        "version": "4.37.0",
+        "version_normalized": "4.37.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/kreait/firebase-php.git",
-            "reference": "759dd2d51812e9eb61954348caa4cf62c7c2f988"
+            "reference": "ef769848adda5261a4acb8d23990b23043e3e355"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kreait/firebase-php/zipball/759dd2d51812e9eb61954348caa4cf62c7c2f988",
-            "reference": "759dd2d51812e9eb61954348caa4cf62c7c2f988",
+            "url": "https://api.github.com/repos/kreait/firebase-php/zipball/ef769848adda5261a4acb8d23990b23043e3e355",
+            "reference": "ef769848adda5261a4acb8d23990b23043e3e355",
             "shasum": ""
         },
         "require": {
@@ -1961,7 +2082,7 @@
         "suggest": {
             "google/cloud-firestore": "^1.0 to use the Firestore component"
         },
-        "time": "2019-12-02T18:03:56+00:00",
+        "time": "2019-12-13T21:24:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2184,17 +2305,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v6.6.1",
-        "version_normalized": "6.6.1.0",
+        "version": "v6.7.0",
+        "version_normalized": "6.7.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "0a8e3e6e96e5ec3af6b9f30026cb8e5551554875"
+            "reference": "ba4204f3a8b9672b6116398c165bd9c0c6eac077"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/0a8e3e6e96e5ec3af6b9f30026cb8e5551554875",
-            "reference": "0a8e3e6e96e5ec3af6b9f30026cb8e5551554875",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/ba4204f3a8b9672b6116398c165bd9c0c6eac077",
+            "reference": "ba4204f3a8b9672b6116398c165bd9c0c6eac077",
             "shasum": ""
         },
         "require": {
@@ -2290,13 +2411,13 @@
             "league/flysystem-sftp": "Required to use the Flysystem SFTP driver (^1.0).",
             "moontoast/math": "Required to use ordered UUIDs (^1.1).",
             "pda/pheanstalk": "Required to use the beanstalk queue driver (^4.0).",
-            "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0)",
+            "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
             "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^4.0).",
             "symfony/cache": "Required to PSR-6 cache bridge (^4.3.4).",
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^1.2).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2019-12-03T15:23:55+00:00",
+        "time": "2019-12-10T16:01:57+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2638,17 +2759,17 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.57",
-        "version_normalized": "1.0.57.0",
+        "version": "1.0.61",
+        "version_normalized": "1.0.61.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a"
+            "reference": "4fb13c01784a6c9f165a351e996871488ca2d8c9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
-            "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4fb13c01784a6c9f165a351e996871488ca2d8c9",
+            "reference": "4fb13c01784a6c9f165a351e996871488ca2d8c9",
             "shasum": ""
         },
         "require": {
@@ -2678,7 +2799,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2019-10-16T21:01:05+00:00",
+        "time": "2019-12-08T21:46:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3011,17 +3132,17 @@
     },
     {
         "name": "myclabs/deep-copy",
-        "version": "1.9.3",
-        "version_normalized": "1.9.3.0",
+        "version": "1.9.4",
+        "version_normalized": "1.9.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/myclabs/DeepCopy.git",
-            "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea"
+            "reference": "579bb7356d91f9456ccd505f24ca8b667966a0a7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/007c053ae6f31bba39dfa19a7726f56e9763bbea",
-            "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea",
+            "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/579bb7356d91f9456ccd505f24ca8b667966a0a7",
+            "reference": "579bb7356d91f9456ccd505f24ca8b667966a0a7",
             "shasum": ""
         },
         "require": {
@@ -3035,7 +3156,7 @@
             "doctrine/common": "^2.6",
             "phpunit/phpunit": "^7.1"
         },
-        "time": "2019-08-09T12:45:53+00:00",
+        "time": "2019-12-15T19:12:40+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3625,30 +3746,31 @@
     },
     {
         "name": "phpoption/phpoption",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "1.7.2",
+        "version_normalized": "1.7.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/schmittjoh/php-option.git",
-            "reference": "f4e7a6a1382183412246f0d361078c29fb85089e"
+            "reference": "77f7c4d2e65413aff5b5a8cc8b3caf7a28d81959"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/f4e7a6a1382183412246f0d361078c29fb85089e",
-            "reference": "f4e7a6a1382183412246f0d361078c29fb85089e",
+            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/77f7c4d2e65413aff5b5a8cc8b3caf7a28d81959",
+            "reference": "77f7c4d2e65413aff5b5a8cc8b3caf7a28d81959",
             "shasum": ""
         },
         "require": {
             "php": "^5.5.9 || ^7.0"
         },
         "require-dev": {
+            "bamarni/composer-bin-plugin": "^1.3",
             "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
         },
-        "time": "2019-11-30T20:20:49+00:00",
+        "time": "2019-12-15T19:35:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.6-dev"
+                "dev-master": "1.7-dev"
             }
         },
         "installation-source": "dist",
@@ -4102,17 +4224,17 @@
     },
     {
         "name": "phpunit/phpunit",
-        "version": "8.4.3",
-        "version_normalized": "8.4.3.0",
+        "version": "8.5.0",
+        "version_normalized": "8.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "67f9e35bffc0dd52d55d565ddbe4230454fd6a4e"
+            "reference": "3ee1c1fd6fc264480c25b6fb8285edefe1702dab"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/67f9e35bffc0dd52d55d565ddbe4230454fd6a4e",
-            "reference": "67f9e35bffc0dd52d55d565ddbe4230454fd6a4e",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3ee1c1fd6fc264480c25b6fb8285edefe1702dab",
+            "reference": "3ee1c1fd6fc264480c25b6fb8285edefe1702dab",
             "shasum": ""
         },
         "require": {
@@ -4150,14 +4272,14 @@
             "ext-xdebug": "*",
             "phpunit/php-invoker": "^2.0.0"
         },
-        "time": "2019-11-06T09:42:23+00:00",
+        "time": "2019-12-06T05:41:38+00:00",
         "bin": [
             "phpunit"
         ],
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "8.4-dev"
+                "dev-master": "8.5-dev"
             }
         },
         "installation-source": "dist",
@@ -4491,21 +4613,21 @@
     },
     {
         "name": "psy/psysh",
-        "version": "v0.9.11",
-        "version_normalized": "0.9.11.0",
+        "version": "v0.9.12",
+        "version_normalized": "0.9.12.0",
         "source": {
             "type": "git",
             "url": "https://github.com/bobthecow/psysh.git",
-            "reference": "75d9ac1c16db676de27ab554a4152b594be4748e"
+            "reference": "90da7f37568aee36b116a030c5f99c915267edd4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bobthecow/psysh/zipball/75d9ac1c16db676de27ab554a4152b594be4748e",
-            "reference": "75d9ac1c16db676de27ab554a4152b594be4748e",
+            "url": "https://api.github.com/repos/bobthecow/psysh/zipball/90da7f37568aee36b116a030c5f99c915267edd4",
+            "reference": "90da7f37568aee36b116a030c5f99c915267edd4",
             "shasum": ""
         },
         "require": {
-            "dnoegel/php-xdg-base-dir": "0.1",
+            "dnoegel/php-xdg-base-dir": "0.1.*",
             "ext-json": "*",
             "ext-tokenizer": "*",
             "jakub-onderka/php-console-highlighter": "0.3.*|0.4.*",
@@ -4526,7 +4648,7 @@
             "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history.",
             "hoa/console": "A pure PHP readline implementation. You'll want this if your PHP install doesn't already support readline or libedit."
         },
-        "time": "2019-11-27T22:44:29+00:00",
+        "time": "2019-12-06T14:19:43+00:00",
         "bin": [
             "bin/psysh"
         ],
@@ -4698,17 +4820,17 @@
     },
     {
         "name": "riverline/multipart-parser",
-        "version": "2.0.5",
-        "version_normalized": "2.0.5.0",
+        "version": "2.0.6",
+        "version_normalized": "2.0.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Riverline/multipart-parser.git",
-            "reference": "8bb18f1d374b5d611325c4ac36a5dbdc1cdd9248"
+            "reference": "f71c80281d8f04e840c31edede6516b63f4d699b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Riverline/multipart-parser/zipball/8bb18f1d374b5d611325c4ac36a5dbdc1cdd9248",
-            "reference": "8bb18f1d374b5d611325c4ac36a5dbdc1cdd9248",
+            "url": "https://api.github.com/repos/Riverline/multipart-parser/zipball/f71c80281d8f04e840c31edede6516b63f4d699b",
+            "reference": "f71c80281d8f04e840c31edede6516b63f4d699b",
             "shasum": ""
         },
         "require": {
@@ -4721,12 +4843,12 @@
             "symfony/psr-http-message-bridge": "^1.1",
             "zendframework/zend-diactoros": "^1.0"
         },
-        "time": "2019-08-26T14:21:49+00:00",
+        "time": "2019-12-16T11:23:08+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Riverline\\MultiPartParser\\": "src/Riverline/MultiPartParser/"
+                "Riverline\\MultiPartParser\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -4798,17 +4920,17 @@
     },
     {
         "name": "scrivo/highlight.php",
-        "version": "v9.15.10.0",
-        "version_normalized": "9.15.10.0",
+        "version": "v9.17.1.0",
+        "version_normalized": "9.17.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/scrivo/highlight.php.git",
-            "reference": "9ad3adb4456dc91196327498dbbce6aa1ba1239e"
+            "reference": "5451a9ad6d638559cf2a092880f935c39776134e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/9ad3adb4456dc91196327498dbbce6aa1ba1239e",
-            "reference": "9ad3adb4456dc91196327498dbbce6aa1ba1239e",
+            "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/5451a9ad6d638559cf2a092880f935c39776134e",
+            "reference": "5451a9ad6d638559cf2a092880f935c39776134e",
             "shasum": ""
         },
         "require": {
@@ -4818,12 +4940,13 @@
         },
         "require-dev": {
             "phpunit/phpunit": "^4.8|^5.7",
-            "symfony/finder": "^2.8"
+            "symfony/finder": "^3.4",
+            "symfony/var-dumper": "^3.4"
         },
         "suggest": {
             "ext-dom": "Needed to make use of the features in the utilities namespace"
         },
-        "time": "2019-08-27T04:27:48+00:00",
+        "time": "2019-12-13T21:54:06+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -4842,18 +4965,18 @@
         "authors": [
             {
                 "name": "Geert Bergman",
-                "role": "Project Author",
-                "homepage": "http://www.scrivo.org/"
+                "homepage": "http://www.scrivo.org/",
+                "role": "Project Author"
             },
             {
                 "name": "Vladimir Jimenez",
-                "role": "Contributor",
-                "homepage": "https://allejo.io"
+                "homepage": "https://allejo.io",
+                "role": "Maintainer"
             },
             {
                 "name": "Martin Folkers",
-                "role": "Contributor",
-                "homepage": "https://twobrain.io"
+                "homepage": "https://twobrain.io",
+                "role": "Contributor"
             }
         ],
         "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
@@ -5747,27 +5870,27 @@
     },
     {
         "name": "symfony/css-selector",
-        "version": "v5.0.1",
-        "version_normalized": "5.0.1.0",
+        "version": "v4.4.1",
+        "version_normalized": "4.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/css-selector.git",
-            "reference": "19d29e7098b7b2c3313cb03902ca30f100dcb837"
+            "reference": "64acec7e0d67125e9f4656c68d4a38a42ab5a0b7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/css-selector/zipball/19d29e7098b7b2c3313cb03902ca30f100dcb837",
-            "reference": "19d29e7098b7b2c3313cb03902ca30f100dcb837",
+            "url": "https://api.github.com/repos/symfony/css-selector/zipball/64acec7e0d67125e9f4656c68d4a38a42ab5a0b7",
+            "reference": "64acec7e0d67125e9f4656c68d4a38a42ab5a0b7",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2.5"
+            "php": "^7.1.3"
         },
-        "time": "2019-11-18T17:27:11+00:00",
+        "time": "2019-10-12T00:35:04+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.0-dev"
+                "dev-master": "4.4-dev"
             }
         },
         "installation-source": "dist",
@@ -6250,21 +6373,21 @@
     },
     {
         "name": "symfony/mime",
-        "version": "v5.0.1",
-        "version_normalized": "5.0.1.0",
+        "version": "v4.4.1",
+        "version_normalized": "4.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/mime.git",
-            "reference": "0e6a4ced216e49d457eddcefb61132173a876d79"
+            "reference": "010cc488e56cafe5f7494dea70aea93100c234df"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/mime/zipball/0e6a4ced216e49d457eddcefb61132173a876d79",
-            "reference": "0e6a4ced216e49d457eddcefb61132173a876d79",
+            "url": "https://api.github.com/repos/symfony/mime/zipball/010cc488e56cafe5f7494dea70aea93100c234df",
+            "reference": "010cc488e56cafe5f7494dea70aea93100c234df",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2.5",
+            "php": "^7.1.3",
             "symfony/polyfill-intl-idn": "^1.10",
             "symfony/polyfill-mbstring": "^1.0"
         },
@@ -6273,13 +6396,13 @@
         },
         "require-dev": {
             "egulias/email-validator": "^2.1.10",
-            "symfony/dependency-injection": "^4.4|^5.0"
+            "symfony/dependency-injection": "^3.4|^4.1|^5.0"
         },
-        "time": "2019-11-30T14:12:50+00:00",
+        "time": "2019-11-30T08:27:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.0-dev"
+                "dev-master": "4.4-dev"
             }
         },
         "installation-source": "dist",
@@ -6873,31 +6996,31 @@
     },
     {
         "name": "symfony/service-contracts",
-        "version": "v2.0.1",
-        "version_normalized": "2.0.1.0",
+        "version": "v1.1.8",
+        "version_normalized": "1.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/service-contracts.git",
-            "reference": "144c5e51266b281231e947b51223ba14acf1a749"
+            "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
-            "reference": "144c5e51266b281231e947b51223ba14acf1a749",
+            "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
+            "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2.5",
+            "php": "^7.1.3",
             "psr/container": "^1.0"
         },
         "suggest": {
             "symfony/service-implementation": ""
         },
-        "time": "2019-11-18T17:27:11+00:00",
+        "time": "2019-10-14T12:27:06+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "dist",
@@ -7011,30 +7134,30 @@
     },
     {
         "name": "symfony/translation-contracts",
-        "version": "v2.0.1",
-        "version_normalized": "2.0.1.0",
+        "version": "v1.1.7",
+        "version_normalized": "1.1.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation-contracts.git",
-            "reference": "8cc682ac458d75557203b2f2f14b0b92e1c744ed"
+            "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/8cc682ac458d75557203b2f2f14b0b92e1c744ed",
-            "reference": "8cc682ac458d75557203b2f2f14b0b92e1c744ed",
+            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/364518c132c95642e530d9b2d217acbc2ccac3e6",
+            "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2.5"
+            "php": "^7.1.3"
         },
         "suggest": {
             "symfony/translation-implementation": ""
         },
-        "time": "2019-11-18T17:27:11+00:00",
+        "time": "2019-09-17T11:12:18+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "dist",

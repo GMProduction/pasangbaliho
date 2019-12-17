@@ -20,7 +20,7 @@ class TransaksiModel extends Model
         'tanggal_transaksi',
         'tanggal_awal',
         'tanggal_akhir',
-        'created_at',
-        'updated_at'
+        'terbaca_client',
+        'terbaca_advertiser'
     ];
 }
