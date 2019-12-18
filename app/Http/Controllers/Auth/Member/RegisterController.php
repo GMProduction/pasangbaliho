@@ -62,14 +62,19 @@ class RegisterController extends Controller
             //echo $errors;
 
         } else {
+            $masage = [
+                'status' => 'Pendaftaran Advertiser Berhasil, Silahkan Login kembali',
+                'icon' => 'success'
+            ];
             $data = new advertiserModel();
             $data->nama = $req->nama;
             $data->email = $req->email;
+            $data->nama_instansi = $req->nama_instansi;
             $data->alamat = $req->alamat;
             $data->password = Hash::make($req->password);
             $data->telp = $req->telp;
             $data->save();
-            return redirect('/');
+            return redirect('/')->with($masage);
         }
     }
 
@@ -94,15 +99,19 @@ class RegisterController extends Controller
             //echo $errors;
 
         } else {
+            $masage = [
+                'status' => 'Pendaftaran Klien Berhasil, Silahkan Tunggu Konfirmasi dari Admin',
+                'icon' => 'success'
+            ];
             $data = new ClientModel();
             $data->nama = $req->nama;
-            $data->perusahaan = $req->perusahaan;
+            $data->nama_instansi = $req->nama_instansi;
             $data->email = $req->email;
             $data->alamat = $req->alamat;
             $data->password = Hash::make($req->password);
             $data->telp = $req->telp;
             $data->save();
-            return redirect('/');
+            return redirect('/')->with($masage);
         }
     }
 }

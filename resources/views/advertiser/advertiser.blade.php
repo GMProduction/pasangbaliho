@@ -44,14 +44,14 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                    <li class="nav-item dropdown d-sm-block d-md-none">
-                            <a href="#" class="nav-link">
-                                <div class="d-flex w-100 justify-content-start align-items-center">
-                                    <span class="fa fa-home fa-fw mr-3"></span>
-                                    <span class="menu-collapsed">Home</span>
-                                </div>
-                            </a>
-                        </li>
+                <li class="nav-item dropdown d-sm-block d-md-none">
+                    <a href="#" class="nav-link">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-home fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Home</span>
+                        </div>
+                    </a>
+                </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
                     <a href="/dashboard" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
@@ -95,21 +95,21 @@
                 <li class="nav-item dropdown d-sm-block d-md-none">
                     <a href="/dashboard/notifikasi" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                                <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
-                                        class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
-                                @endforeach
+                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
+                                    class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
+                            @endforeach
                         </div>
                     </a>
                 </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                        <a href="/dashboard/notifikasi" class="nav-link">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                    <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
-                                    <span class="menu-collapsed">Logout</span>
-                            </div>
-                        </a>
-                    </li>
+                    <a href="/dashboard/notifikasi" class="nav-link">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Logout</span>
+                        </div>
+                    </a>
+                </li>
             </ul>
 
         </div>
@@ -233,5 +233,26 @@
     <script src="{{asset('js/collapse.js')}}"></script>
 
     <script src="{{asset('js/jquery.countTo.js')}}"></script>
+
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5df7972443be710e1d224eb6/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+   
+        Tawk_API.visitor = {
+        name : '{{auth()->guard("advertiser")->user()->nama}}',
+        email : '{{auth()->guard("advertiser")->user()->email}}'
+        };
+    
+        
+    
+    </script>
+</body>
 
 </html>

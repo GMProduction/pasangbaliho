@@ -63,6 +63,19 @@
                                     value="{{old('nama')}}">
 
                             </div>
+                            @error('nama_instansi')
+                            <span class="msg invalid-feedback" style="color:red" role="alert">
+                                {{$message}}
+                            </span>
+                            @enderror
+                            <div class="input-group form-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-building"></i></span>
+                                <input type="text" name="nama_instansi"
+                                    class="form-control @error('nama_instansi') is-invalid @enderror"
+                                    value="{{old('nama_instansi')}}" placeholder="Nama Instansi"
+                                    aria-describedby="basic-addon1" value="{{old('nama_instansi')}}">
+
+                            </div>
                             <div class="row ">
                                 <div class="col-md-6">
                                     @error('email')
@@ -122,13 +135,14 @@
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
-                                        <input type="password" name="password" id="password" class="form-control" style="border-right: 0"
-                                            placeholder="Password" aria-describedby="basic-addon1">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            style="border-right: 0" placeholder="Password"
+                                            aria-describedby="basic-addon1">
                                         <span class="input-group-addon " style="border-left: 0" id="" style=""><i
                                                 id="ico" class="fas fa-eye-slash" onclick="showPassword()"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-xs-10">
+                                <div class="col-md-6 col-xs-12">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
@@ -136,7 +150,8 @@
                                             style="border-right: 0" placeholder="Retype Password"
                                             aria-describedby="basic-addon1">
                                         <span class="input-group-addon " style="border-left: 0" id="" style=""><i
-                                                id="icoRe" class="fas fa-eye-slash" onclick="showRePassword()"></i></span>
+                                                id="icoRe" class="fas fa-eye-slash"
+                                                onclick="showRePassword()"></i></span>
                                     </div>
                                 </div>
 
@@ -153,7 +168,26 @@
                                     placeholder="Address" aria-describedby="basic-addon1">{{old('alamat')}}</textarea>
 
                             </div>
-                            <div class="    ">
+                            <div class="row">
+                                <div class="col-md-1 col-sm-1 col-xs-1">
+                                    <input type="checkbox" required name="terms"
+                                        onchange="this.setCustomValidity(validity.valueMissing ? 'Please indicate that you accept the Terms and Conditions' : '');"
+                                        id="field_terms">  
+                                </div>
+                                <div class="col-md-11 col-sm-11 col-xs-11">
+                                    <label for="terms" style="font-size: 10pt">Dengan masuk atau mendaftar saya menerima
+                                        <a href="/s&k" target="_blank"
+                                            title="You may read our terms and conditions by clicking on this link"
+                                            class="text-primary">Syarat dan
+                                            Ketentuan</a>
+                                        pasangbaliho.com.</label>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="">
                                 <div class="social-login-buttons">
                                     <a class="btn btn-link-1 btn-link-1-twitter btn-block" href="#!"
                                         onclick="sendRegister()">
@@ -168,21 +202,40 @@
                     </div>
                 </div>
             </div>
+           
+
+
 </section>
+
 
 <script>
     function sendRegister(){
         var p = $('#password').val();
         var r = $('#re-password').val();
+        if(p === ''){
+            Swal.fire({
+                title: 'Password masih kosong',
+                icon: 'warning'
+            });
+        }else {
         if(p === r){
-            document.getElementById('formRegister').action = 'addAdvertiser';
-        document.getElementById('formRegister').method = 'POST';
-        document.getElementById('formRegister').submit();
+            if($('#field_terms').prop('checked')){
+                document.getElementById('formRegister').action = 'addAdvertiser';
+                document.getElementById('formRegister').method = 'POST';
+                document.getElementById('formRegister').submit();
+            }else{
+                Swal.fire({
+                title: 'Silahkan centang Syarat & Ketentuan untuk Mendaftar',
+                icon: 'warning'
+            });
+            }
+          
         }else {
             $('#pas').html('incorect retype Password')
              $('#password').val('');
             $('#re-password').val('');
         }
+    }
 
        
     }

@@ -63,9 +63,9 @@
                             </div>
                             <div class="input-group form-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-building"></i></span>
-                                <input type="text" name="perusahaan" class="form-control @error('perusahaan') is-invalid @enderror"
-                                    value="{{old('perusahaan')}}" placeholder="Nama Perusahaan" aria-describedby="basic-addon1"
-                                    value="{{old('perusahaan')}}">
+                                <input type="text" name="nama_instansi" class="form-control @error('perusahaan') is-invalid @enderror"
+                                    value="{{old('nama_instansi')}}" placeholder="Nama Instansi" aria-describedby="basic-addon1"
+                                    value="{{old('nama_instansi')}}">
 
                             </div>
                             <div class="row ">
@@ -133,7 +133,7 @@
                                                 id="ico" class="fas fa-eye-slash" onclick="showPassword()"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-xs-10">
+                                <div class="col-md-6 col-xs-12">
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i
                                                 class="fa fa-lock"></i></span>
@@ -157,6 +157,22 @@
                                     placeholder="Address" aria-describedby="basic-addon1">{{old('alamat')}}</textarea>
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-1 col-sm-1 col-xs-1">
+                                    <input type="checkbox" required name="terms"
+                                        onchange="this.setCustomValidity(validity.valueMissing ? 'Please indicate that you accept the Terms and Conditions' : '');"
+                                        id="field_terms">  
+                                </div>
+                                <div class="col-md-11 col-sm-11 col-xs-11">
+                                    <label for="terms" style="font-size: 10pt">Dengan masuk atau mendaftar saya menerima
+                                        <a href="/s&k" target="_blank"
+                                            title="You may read our terms and conditions by clicking on this link"
+                                            class="text-primary">Syarat dan
+                                            Ketentuan</a>
+                                        pasangbaliho.com.</label>
+
+                                </div>
+                            </div>
                             <div class="    ">
                                 <div class="social-login-buttons">
                                     <a class="btn btn-link-1 btn-link-1-twitter btn-block" href="#!"
@@ -178,15 +194,29 @@
     function sendRegister(){
         var p = $('#password').val();
         var r = $('#re-password').val();
+        if(p === ''){
+            Swal.fire({
+                title: 'Password masih kosong',
+                icon: 'warning'
+            })
+        }else {
         if(p === r){
+            if($('#field_terms').prop('checked')){
             document.getElementById('formRegister').action = 'addClient';
         document.getElementById('formRegister').method = 'POST';
         document.getElementById('formRegister').submit();
+    }else{
+                Swal.fire({
+                title: 'Silahkan centang Syarat & Ketentuan untuk Mendaftar',
+                icon: 'warning'
+            });
+            }
         }else {
             $('#pas').html('incorect retype Password')
              $('#password').val('');
             $('#re-password').val('');
         }
+    }
 
        
     }
