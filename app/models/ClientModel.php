@@ -16,6 +16,7 @@ class ClientModel extends Authenticatable
     protected $guard = 'clients';
 
     protected $fillable = [
+        'id_client',
         'email',
         'nama', 
         'nama_instansi',

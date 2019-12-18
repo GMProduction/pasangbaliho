@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
+
 export const columns = [
     {title: '#',cellStyle:{textAlign: 'center'},headerStyle:{textAlign: 'center', width: '5%'},sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>},
@@ -22,26 +23,5 @@ export const columns = [
                 width: '30%'
             }
     },
-    {
-        title: 'Aksi',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
-        cellStyle:
-            {
-                textAlign: 'center',
-            },
-        sorting: false,
-        render: rowData => 
-                    <div>
-                        <Button variant="outlined" size='small' color="primary" 
-                            component={NavLink} 
-                            to={`/mitra/detail/${rowData.id_client}`}
-                        >
-                            Kelola
-                        </Button>
-                    </div>
-    }
+    
 ];

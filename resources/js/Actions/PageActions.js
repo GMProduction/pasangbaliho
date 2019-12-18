@@ -2,22 +2,36 @@ import {
     PREPARE_MOUNT,
     ON_MOUNTED,
     PAGE_PROGRESS,
+    PREPARE_SEARCH,
+    ON_SEARCHED,
 } from './type';
 
-export const prepareMount = () => {
+export const prepareMount = (status) => {
     return (dispatch) => {
-        dispatch({type: PREPARE_MOUNT, status: 'Mohon Tunggu Sebentar'})
+        dispatch({type: PREPARE_MOUNT, status: status})
     }
 }
 
-export const onMounted = () => {
+export const onMounted = (title) => {
     return (dispatch) => {
-        dispatch({type: ON_MOUNTED, title: 'Dashboard'})
+        dispatch({type: ON_MOUNTED, title: title})
     }
 }
 
-export const pageOnProgress = () => {
+export const pageOnProgress = (progress, status) => {
     return (dispatch) => {
-        await dispatch({type: PAGE_PROGRESS, progress: progress, status: 'Fetching Data...'})
+        dispatch({type: PAGE_PROGRESS, progress: progress, status: status})
     }
-}s
+}
+
+export const prepareSearch = () => {
+    return (dispatch) => {
+        dispatch({type: PREPARE_SEARCH})   
+    }
+}
+
+export const onSearched = () => {
+    return (dispatch) => {
+        dispatch({type: ON_SEARCHED})
+    }
+}

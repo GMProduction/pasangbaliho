@@ -10,7 +10,9 @@ import PageListNego from './Negosiasi/PageListNego';
 import PageBeriHarga from './Negosiasi/PageBeriHarga';
 
 import PageMitra from './Mitra/PageMitra';
+import PageAddMitra from './Mitra/PageAddMitra';
 import PageAdvertiser from './Advertiser/PageAdvertiser';
+import PageAddAdvertiser from './Advertiser/PageAddAdvertiser';
 
 export class PageRouter extends Component {
     render() {
@@ -20,8 +22,12 @@ export class PageRouter extends Component {
                     <Route exact path='/' component={Dashboard}/>
 
                     <Route exact path='/mitra' component={PageMitra}/>
+                    <Route exact path='/mitra/add' render={(props) => <PageAddMitra {...props} filter='add'/>}/>
+                    <Route exact path='/mitra/edit/:id' render={(props) => <PageAddMitra {...props} filter='edit'/>}/>
                     
                     <Route exact path='/advertiser' component={PageAdvertiser}/>
+                    <Route exact path='/advertiser/add' render={(props) => <PageAddAdvertiser {...props} filter='add'/>}/>
+                    <Route exact path='/advertiser/edit/:id' render={(props) => <PageAddAdvertiser {...props} filter='edit'/>}/>
 
                     <Route exact path='/mediaiklan' component={PageMedia}/>
                     <Route exact path='/mediaiklan/permintaan' render={(props) => <PageListMedia {...props} filter='pending'/>} />

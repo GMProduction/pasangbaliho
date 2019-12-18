@@ -3,15 +3,25 @@ import Box from '@material-ui/core/Box';
 import {BasicPanel, BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+
 import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
+import ConfirmAksi from '../../components/Material-UI/Dialog/ConfirmAksi';
+
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import { columns } from './Properties/Properties';
+import { Redirect } from 'react-router'
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { prepareMount, onMounted, fetchData, prepareSearch, onSearched} from '../../Actions/MitraActions';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
+
+import {fetchMitra, deleteMitra} from '../../Actions/MitraActions';
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
+
+
 
 export class PageMitra extends Component {
 
@@ -19,12 +29,16 @@ export class PageMitra extends Component {
         super(props);
         this.state = {
             searchKey: '',
+            redirect : false,
+            notif: false
         }
     }
 
+    
+
     handleSearch = async (key) => {
         await this.props.prepareSearch()
-        await this.props.fetchData(key)
+        await this.props.fetchMitra(key)
         await this.props.onSearched()
     }
     
@@ -44,17 +58,62 @@ export class PageMitra extends Component {
             searchKey: e.target.value
         })
     }
-   async componentDidMount () {
-        await this.props.prepareMount()
-        await this.props.fetchData('')
-        await this.props.onMounted()
+
+    handleDelete = async (a) => {
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
+        await this.props.deleteMitra(a)
+        await this.props.fetchMitra('')
+        await this.props.onMounted('Mitra')
     }
 
+   async componentDidMount () {
+
+        const aksi = {
+            title: 'Aksi',
+            headerStyle:
+                {
+                    textAlign: 'center', 
+                    width: '15%'
+                },
+            cellStyle:
+                {
+                    textAlign: 'center',
+                },
+            sorting: false,
+            render: rowData => 
+                        <ConfirmAksi 
+                        url={`/mitra/edit/${rowData.id_client}`}
+                        id={rowData.id_client}
+                        dialogTitle={`Apakah Anda Yakin Ingin Menghapus Mitra ${rowData.nama}`}
+                        onSubmit={this.handleDelete}/>
+        }
+        
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.fetchMitra('')
+        columns.push(aksi)
+        await this.props.onMounted('Mitra')
+    }
+
+    handleClick = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    componentWillUnmount () {
+        columns.pop()
+    }
 
     render() {
         
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
         const {dataMitra} = this.props.mitra;
+
+        if(this.state.redirect === true) {
+            return <Redirect push to='/mitra/add' />
+        }
 
         if (pageLoading === true) {
             return(
@@ -67,11 +126,14 @@ export class PageMitra extends Component {
 
         return (
             <div>
+                
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
                 <BCPageMitra/>
+                <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>Daftar Mitra</Box>
+                            <Box><Button onClick={this.handleClick}>Tambah Daftar Mitra</Button></Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
                             <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
@@ -91,7 +153,7 @@ export class PageMitra extends Component {
                             <BasicTable columns={columns} data={dataMitra} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
-                    
+                </Fade>
             </div>
         );
     }
@@ -106,9 +168,11 @@ function mapStateToProps(state) {
 
 function mapDispatcToProps (dispatch) {
     return {
+        fetchMitra: bindActionCreators(fetchMitra, dispatch),
+        deleteMitra: bindActionCreators(deleteMitra, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
-        fetchData: bindActionCreators(fetchData, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
     }

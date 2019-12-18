@@ -40,7 +40,7 @@ class MediaControll extends Controller
                 'balihos.id_kota',
                 'kotas.nama_kota',
                 'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+        'harga_client', 'harga_market', 'orientasi', 'deskripsi', 'url_360'
             )
             ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
                 $query->where($id)
@@ -74,7 +74,7 @@ class MediaControll extends Controller
                     'balihos.id_kota',
                     'kotas.nama_kota',
                     'balihos.alamat', 'latitude', 'longitude',
-                    'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+                    'harga_client', 'harga_market', 'orientasi', 'deskripsi', 'url_360'
                 )
                 ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
                 ->where('id_baliho', '=', $r->id)
@@ -108,7 +108,7 @@ class MediaControll extends Controller
                 'balihos.id_kota',
                 'kotas.nama_kota',
                 'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+        'harga_client', 'harga_market', 'orientasi', 'deskripsi', 'url_360'
             )
             ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
                 $query->where($id)
@@ -179,7 +179,6 @@ class MediaControll extends Controller
                 'id_kota' => $r->idKota,
                 'alamat' => $r->alamat,
                 'harga_client' => $r->hargaClient,
-                'venue' => $r->venue,
                 'deskripsi' => $r->deskripsi,
                 'harga_market' => $r->hargaMarket,
                 'latitude' => $r->latitude,
@@ -233,7 +232,6 @@ class MediaControll extends Controller
             $baliho->harga_client = $r->hargaClient;
             $baliho->harga_market = $r->hargaMarket;
             $baliho->orientasi = 'landscape';
-            $baliho->venue = $r->venue;
             $baliho->deskripsi = $r->deskripsi;
             $baliho->url_360 = $r->url360;
             $baliho->status = 'publish';

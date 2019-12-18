@@ -102,14 +102,22 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::group(['prefix' => 'adminapi'], function(){
 
-    Route::group(['prefix' => 'advertiser'] , function(){
-        Route::get('/cAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
-        Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
-    });
-
     Route::group(['prefix' => 'mitra'], function(){
         Route::get('/cMitra', 'Admin\MitraControll@getCountMitra');
         Route::get('/request', 'Admin\MitraControll@getMitra');
+        Route::get('/requestById', 'Admin\MitraControll@getMitraById');
+        Route::post('/add', 'Admin\MitraControll@addMitra');
+        Route::post('/edit', 'Admin\MitraControll@editMitra');
+        Route::delete('/delete', 'Admin\MitraControll@deleteMitra');
+    });
+
+    Route::group(['prefix' => 'advertiser'] , function(){
+        Route::get('/cAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
+        Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
+        Route::get('/requestById', 'Admin\AdvertiserControll@getAdvertiserById');
+        Route::post('/add', 'Admin\AdvertiserControll@addAdvertiser');
+        Route::post('/edit', 'Admin\AdvertiserControll@editAdvertiser');
+        Route::delete('/delete', 'Admin\AdvertiserControll@deleteAdvertiser');
     });
 
     Route::group(['prefix' => 'kategori'], function(){
