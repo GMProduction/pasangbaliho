@@ -85,7 +85,7 @@ return [
     */
 
     "username" => "bagus.yanuar613@gmail.com",
-    "password" => "ptxcjtasrvuweuos",
+    "password" => "matius6ayat13",
 
     /*
     |--------------------------------------------------------------------------

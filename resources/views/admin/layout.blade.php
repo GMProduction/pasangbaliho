@@ -24,6 +24,7 @@
         padding-top: 70px;
         padding-right: 25px;
         padding-bottom: 15px;
+        min-height: 550px;
       }
     }
 

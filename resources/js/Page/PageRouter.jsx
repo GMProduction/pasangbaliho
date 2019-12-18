@@ -10,7 +10,9 @@ import PageListNego from './Negosiasi/PageListNego';
 import PageBeriHarga from './Negosiasi/PageBeriHarga';
 
 import PageMitra from './Mitra/PageMitra';
+import PageAddMitra from './Mitra/PageAddMitra';
 import PageAdvertiser from './Advertiser/PageAdvertiser';
+import PageAddAdvertiser from './Advertiser/PageAddAdvertiser';
 
 export class PageRouter extends Component {
     render() {
@@ -20,8 +22,12 @@ export class PageRouter extends Component {
                     <Route exact path='/' component={Dashboard}/>
 
                     <Route exact path='/mitra' component={PageMitra}/>
+                    <Route exact path='/mitra/add' render={(props) => <PageAddMitra {...props} filter='add'/>}/>
+                    <Route exact path='/mitra/edit/:id' render={(props) => <PageAddMitra {...props} filter='edit'/>}/>
                     
                     <Route exact path='/advertiser' component={PageAdvertiser}/>
+                    <Route exact path='/advertiser/add' render={(props) => <PageAddAdvertiser {...props} filter='add'/>}/>
+                    <Route exact path='/advertiser/edit/:id' render={(props) => <PageAddAdvertiser {...props} filter='edit'/>}/>
 
                     <Route exact path='/mediaiklan' component={PageMedia}/>
                     <Route exact path='/mediaiklan/permintaan' render={(props) => <PageListMedia {...props} filter='pending'/>} />
@@ -36,7 +42,7 @@ export class PageRouter extends Component {
                     <Route exact path='/negosiasi' component={PageNegosiasi}/>
                     <Route exact path='/negosiasi/permintaan' render={(props) => <PageListNego {...props} filter='permintaan'/>}/>
                     <Route exact path='/negosiasi/negoharga' render={(props) => <PageListNego {...props} filter='negoharga'/>}/>
-                    <Route exact path='/negosiasi/negomateri' render={(props) => <PageListNego {...props} filter='negomateri'/>}/>
+                    {/* <Route exact path='/negosiasi/negomateri' render={(props) => <PageListNego {...props} filter='negomateri'/>}/> */}
                     <Route exact path='/negosiasi/permintaan/:id' render={(props) => <PageBeriHarga {...props} filter='permintaan'/>}/>
                     <Route exact path='/negosiasi/negoharga/:id' render={(props) => <PageBeriHarga {...props} filter='negoharga'/>}/>
                     <Route exact path='/negosiasi/negomateri/:id' render={(props) => <PageBeriHarga {...props} filter='negomateri'/>}/>

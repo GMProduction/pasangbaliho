@@ -15,6 +15,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import {prepareMount, onMounted, prepareSearch, onSearched, prepareSubmit, onSubmit, fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {redirectPage } from '../../Actions/pageActions';
 
 const style = {
     resize2: {
@@ -67,6 +68,7 @@ export class PageBeriHarga extends Component {
         data.append('idTransaksi', this.props.negosiasi.dataNegosiasiById.id_transaksi)
         data.append('status', filter)
         data.append('idAdvertiser', this.props.negosiasi.dataNegosiasiById.idAdvertiser)
+        data.append('idClient', this.props.negosiasi.dataNegosiasiById.idClient)
         data2.append('lampiran', this.state.lampiran)
         await this.props.prepareSubmit()
         await this.props.postNegosiasi(data, data2, filter)
@@ -80,6 +82,10 @@ export class PageBeriHarga extends Component {
         await this.props.fetchNegosiasiById(filter, id)
         await this.props.onMounted()
         console.log(this.props)
+    }
+
+    componentWillUnmount () {
+        this.props.redirectPage(false)
     }
 
     render() {
@@ -229,6 +235,7 @@ function mapDispatcToProps (dispatch) {
         onSearched: bindActionCreators(onSearched, dispatch),
         prepareSubmit: bindActionCreators(prepareSubmit, dispatch),
         onSubmit: bindActionCreators(onSubmit, dispatch),
+        redirectPage: bindActionCreators(redirectPage, dispatch),
     }
 }
 

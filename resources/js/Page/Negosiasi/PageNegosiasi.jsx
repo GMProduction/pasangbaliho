@@ -54,34 +54,23 @@ export class PageNegosiasi extends Component {
                 <Fade right>
                 <Grid container justify='center' spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12} >
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <PanelMenu
-                                    link='/negosiasi/permintaan'
-                                    color='#20C1D5'
-                                    icon='local_offer'
-                                    title={`Permintaan Harga (${0})`}
-                                    subTitle='Permintaan Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <PanelMenu
-                                    link='/negosiasi/negoharga'
-                                    color='#FC9007'
-                                    icon='monetization_on'
-                                    title={`Negosiasi Harga (${0})`}
-                                    subTitle='Proses Negosiasi Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
-                                />
-                            </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                            <PanelMenu
+                                link='/negosiasi/permintaan'
+                                color='#20C1D5'
+                                icon='local_offer'
+                                title={`Permintaan Harga (${0})`}
+                                subTitle='Permintaan Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
+                            />
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '15px'}}>
                         <PanelMenu
-                            link='/negosiasi/negomateri'
-                            color='#9129AC'
-                            icon='forum'
-                            title={`Negosiasi Materi (${0})`}
-                            subTitle='Proses Negosiasi Materi Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
+                            link='/negosiasi/negoharga'
+                            color='#FC9007'
+                            icon='monetization_on'
+                            title={`Negosiasi Harga (${0})`}
+                            subTitle='Proses Negosiasi Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
                         />
                     </Grid>
                 </Grid>

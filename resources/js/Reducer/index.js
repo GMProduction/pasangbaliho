@@ -5,6 +5,7 @@ import NegosiasiReducer from './NegosiasiReducer';
 import MitraReducer from './MitraReducer';
 import AdvertiserReducer from './AdvertiserReducer';
 import MediaIklanReducer from './MediaIklanReducer';
+import UtilityReducer from './UtilityReducer';
 
 const reducers = combineReducers({
     PageReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     NegosiasiReducer,
     MitraReducer,
     AdvertiserReducer,
-    MediaIklanReducer
+    MediaIklanReducer,
+    UtilityReducer
 });
 
 export default reducers;

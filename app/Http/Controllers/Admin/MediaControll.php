@@ -40,7 +40,7 @@ class MediaControll extends Controller
                 'balihos.id_kota',
                 'kotas.nama_kota',
                 'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+        'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360'
             )
             ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
                 $query->where($id)
@@ -74,7 +74,7 @@ class MediaControll extends Controller
                     'balihos.id_kota',
                     'kotas.nama_kota',
                     'balihos.alamat', 'latitude', 'longitude',
-                    'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+                    'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360'
                 )
                 ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
                 ->where('id_baliho', '=', $r->id)
@@ -108,7 +108,7 @@ class MediaControll extends Controller
                 'balihos.id_kota',
                 'kotas.nama_kota',
                 'balihos.alamat', 'latitude', 'longitude',
-        'harga_client', 'harga_market', 'orientasi', 'venue', 'deskripsi', 'url_360'
+        'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan', 'deskripsi', 'url_360'
             )
             ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
                 $query->where($id)
@@ -175,12 +175,14 @@ class MediaControll extends Controller
                 'nama_baliho' => $r->namaMedia,
                 'lebar' => $r->lebar,
                 'tinggi' => $r->tinggi,
+                'luas' => ($r->lebar * $r->tinggi),
                 'id_provinsi' => $r->idProvinsi,
                 'id_kota' => $r->idKota,
                 'alamat' => $r->alamat,
                 'harga_client' => $r->hargaClient,
-                'venue' => $r->venue,
                 'deskripsi' => $r->deskripsi,
+                'tampilan' => $r->tampilan,
+                'posisi' => $r->posisi,
                 'harga_market' => $r->hargaMarket,
                 'latitude' => $r->latitude,
                 'longitude' => $r->longitude,
@@ -224,6 +226,7 @@ class MediaControll extends Controller
             $baliho->nama_baliho = $r->namaMedia;
             $baliho->lebar = $r->lebar;
             $baliho->tinggi = $r->tinggi;
+            $baliho->orientasi = $r->orientasi;
             $baliho->luas = ($r->lebar * $r->tinggi);
             $baliho->id_provinsi = $r->idProvinsi;
             $baliho->id_kota = $r->idKota;
@@ -232,8 +235,8 @@ class MediaControll extends Controller
             $baliho->longitude = $r->longitude;
             $baliho->harga_client = $r->hargaClient;
             $baliho->harga_market = $r->hargaMarket;
-            $baliho->orientasi = 'landscape';
-            $baliho->venue = $r->venue;
+            $baliho->tampilan = $r->tampilan;
+            $baliho->posisi = $r->posisi;
             $baliho->deskripsi = $r->deskripsi;
             $baliho->url_360 = $r->url360;
             $baliho->status = 'publish';
@@ -260,6 +263,49 @@ class MediaControll extends Controller
                 'status' => 'failed',
                 'data' => $exData[0],
                 'data' => $e,
+            ]);
+        }
+    }
+
+    public function updateStatusMedia (Request $r){
+        try {
+            $data = [
+                'status' => $r->status
+            ];
+            BalihoModel::query()
+            ->where('id_baliho', '=', $r->idBaliho)
+            ->update($data);
+            
+            return response()->json([
+                'status' => 'ok',
+                'update' => $data
+            ]);
+            
+        } catch (\Exception $e) {
+            $exData = explode('(', $e->getMessage());
+            return response()->json([
+                'status' => 'failed',
+                'data' => $exData[0],
+                'data' => $e,
+            ]);
+        }
+    }
+
+    public function delete (Request $r){
+        $id = $r->id;
+        try {
+            BalihoModel::query()
+            ->where('id_baliho', '=', $id)
+            ->delete();
+            return response()->json([
+                'sqlResponse' => true,
+                'data' => $id
+            ]);
+        } catch (\Exception $e) {
+            $exData = explode('(', $e->getMessage());
+            return response()->json([
+                'data' =>  $exData[0],
+                'sqlResponse' => false,
             ]);
         }
     }

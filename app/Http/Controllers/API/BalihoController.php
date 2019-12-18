@@ -28,6 +28,8 @@ class BalihoController extends Controller
                     'balihos.harga_client as harga_client',
                     'balihos.lebar as lebar',
                     'balihos.tinggi as tinggi',
+                    'balihos.posisi as posisi',
+                    'balihos.tampilan as tampilan',
                     'balihos.orientasi as orientasi',
                     'balihos.harga_market as harga_market',
                     'balihos.deskripsi as deskripsi',
@@ -69,7 +71,8 @@ class BalihoController extends Controller
                     'balihos.harga_client as harga_client',
                     'balihos.lebar as lebar',
                     'balihos.tinggi as tinggi',
-                    'balihos.venue as venue',
+                    'balihos.posisi as posisi',
+                    'balihos.tampilan as tampilan',
                     'balihos.orientasi as orientasi',
                     'balihos.harga_market as harga_market',
                     'balihos.deskripsi as deskripsi',
@@ -80,7 +83,8 @@ class BalihoController extends Controller
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('alamat', 'LIKE', '%' . $tambahan . '%')
-                        ->orwhere('venue', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('posisi', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('tampilan', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('deskripsi', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('nama_provinsi', 'LIKE', '%' . $tambahan . '%');
                 })
@@ -154,7 +158,8 @@ class BalihoController extends Controller
                     'balihos.lebar as lebar',
                     'balihos.status as status',
                     'balihos.tinggi as tinggi',
-                    'balihos.venue as venue',
+                    'balihos.posisi as posisi',
+                    'balihos.tampilan as tampilan',
                     'balihos.orientasi as orientasi',
                     'balihos.harga_market as harga_market',
                     'balihos.deskripsi as deskripsi',
@@ -165,7 +170,8 @@ class BalihoController extends Controller
                 ->where("kategori", "LIKE", $request->kategori)
                 ->where(function ($q) use ($tambahan) {
                     $q->where('alamat', 'LIKE', '%' . $tambahan . '%')
-                        ->orwhere('venue', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('posisi', 'LIKE', '%' . $tambahan . '%')
+                        ->orwhere('tampilan', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('deskripsi', 'LIKE', '%' . $tambahan . '%')
                         ->orwhere('nama_provinsi', 'LIKE', '%' . $tambahan . '%');
                 })

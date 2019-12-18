@@ -76,14 +76,14 @@ export class Sidebar extends Component {
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/mitra' exact
+                        component={NavLink} to='/mitra'
                         >
                             <Icon>assignment_ind</Icon>Mitra
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/advertiser' exact
+                        component={NavLink} to='/advertiser'
                         >
                             <Icon>face</Icon>Advertiser
                         </ListItem>

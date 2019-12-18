@@ -21,9 +21,11 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchMediaByID, fetchKota, fetchKategori, fetchProvinsi, fetchMitra,
-    prepareMount, onMounted, onUnMounted,
-    prepareSubmit, onSubmit, postMedia} from '../../Actions/MediaIklanActions';
+
+import {fetchMediaByID, postMedia} from '../../Actions/MediaIklanActions';
+import {fetchKategori, fetchProvinsi, fetchKota} from '../../Actions/UtilityActions';
+import {fetchMitra} from '../../Actions/MitraActions';
+import {prepareMount, pageOnProgress, onMounted, redirectPage } from '../../Actions/pageActions';
 
 
 const style = {
@@ -51,8 +53,8 @@ export class PageConfirmMedia extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idBaliho: '',idClient : '',namaClient : '',idKategori : '',namaMedia: '',lebar: '0',tinggi: '0',alamat: '',idProvinsi: '', idKota: '',
-            venue:'', alamat: '', hargaClient: '0', deskripsi: '',
+            idBaliho: '',idClient : '',namaClient : '',idKategori : '',namaMedia: '',lebar: '0',tinggi: '0', orientasi: 'potrait', alamat: '',idProvinsi: '', idKota: '',
+            posisi:'Stand Alone', tampilan: '1', alamat: '', hargaClient: '0', deskripsi: '', 
             hargaMarket: 0,latitude: '',longitude: '',url360: '', gambar1: null, gambar2: null, gambar3: null
         }
     }
@@ -107,10 +109,12 @@ export class PageConfirmMedia extends Component {
             namaMedia: data.nama_baliho,
             lebar: data.lebar,
             tinggi: data.tinggi,
+            orientasi: data.orientasi,
             idProvinsi: data.id_provinsi,
             idKota: data.id_kota,
             alamat: data.alamat,
-            venue: data.venue,
+            tampilan: data.tampilan,
+            posisi: data.posisi,
             hargaClient: data.harga_client,
             deskripsi: data.deskripsi,
             hargaMarket: data.harga_market,
@@ -132,43 +136,49 @@ export class PageConfirmMedia extends Component {
             param = 'update';   
         }
         
-        await this.props.prepareSubmit()
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan penyimpanan Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan penyimpanan Data...')
         await this.props.postMedia(data, param)
-        await this.props.onSubmit()
-        console.log(this.state.status);
+        await this.props.onMounted('Media Iklan')
     }
 
     async componentDidMount () {
         let filter = this.props.filter
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.fetchMitra('')
+        await this.props.fetchKategori()
+        await this.props.fetchProvinsi()
         if (filter !== 'add') {
             let id = this.props.match.params.id;
-            this.props.prepareMount()
-            await this.props.fetchMediaByID('pending', id)
-            console.log(this.props);
-            this.props.onMounted()
+            if (filter === 'confirm') {
+                await this.props.fetchMediaByID('pending', id)
+            }else{
+                await this.props.fetchMediaByID('publish', id)
+            }
+            let idProv = this.props.mediaiklan.dataMediaById.id_provinsi
+            await this.props.fetchKota(idProv)
             if (this.props.mediaiklan.dataMediaByIdFound === true) {
                 this.initState(this.props.mediaiklan.dataMediaById)
             }
         }else {
-            this.props.prepareMount()
-            await this.props.fetchMitra()
-            await this.props.fetchKategori()
-            await this.props.fetchProvinsi()
-            let firstProv = this.props.mediaiklan.dataProvinsi[0]
+            let firstProv = this.props.utility.dataProvinsi[0]
             await this.props.fetchKota(firstProv.id_provinsi)
-            this.props.onMounted()
         }
+        await this.props.onMounted('Media Iklan')
         
     }
 
     componentWillUnmount () {
-        this.props.onUnMounted()
+        this.props.redirectPage(false)
     }
 
     render() {
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
-        const {dataMediaByIdFound, dataKategori, dataProvinsi, dataKota, dataMitra} = this.props.mediaiklan;
-
+        const {dataMediaByIdFound} = this.props.mediaiklan;
+        const {dataMitra} = this.props.mitra;
+        const {dataKategori, dataProvinsi, dataKota} = this.props.utility;
+        console.log(this.props)
         if (pageLoading === true) {
             return(
                 <div>
@@ -265,6 +275,22 @@ export class PageConfirmMedia extends Component {
                                 InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.tinggi} onChange={this.handleChange}/>
                             </Grid>
                         </Grid>
+                        <FormControl variant='outlined' margin='dense' fullWidth>
+                                <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
+                                    Orientasi
+                                </InputLabel>
+                                <Select
+                                    id="demo-simple-select-outlined"
+                                    value={this.state.orientasi}
+                                    onChange={this.handleChange}
+                                    labelWidth={80}
+                                    style={style.resize}
+                                    name='orientasi'
+                                    >
+                                        <MenuItem value='potrait' style={style.resize}>Potrait</MenuItem>
+                                        <MenuItem value='landscape' style={style.resize}>Landscape</MenuItem>
+                                </Select>
+                            </FormControl>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
                             <FormControl variant='outlined' margin='dense' fullWidth>
@@ -317,8 +343,44 @@ export class PageConfirmMedia extends Component {
                                 </FormControl>
                             </Grid>
                         </Grid>
-                        <TextField name='venue' id="venue" label="Venue" margin="dense" variant="outlined" fullWidth
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.venue} onChange={this.handleChange}/>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12} md={12} lg={6}>
+                            <FormControl variant='outlined' margin='dense' fullWidth>
+                                    <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
+                                        Posisi
+                                    </InputLabel>
+                                    <Select
+                                        id="demo-simple-select-outlined"
+                                        value={this.state.posisi}
+                                        onChange={this.handleChange}
+                                        labelWidth={80}
+                                        style={style.resize}
+                                        name='posisi'
+                                        >
+                                            <MenuItem value='Stand Alone' style={style.resize}>Stand Alone</MenuItem>
+                                            <MenuItem value='Attach By Building' style={style.resize}>Attach By Building</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12} lg={6}>
+                            <FormControl variant='outlined' margin='dense' fullWidth>
+                                <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
+                                    Tampilan Muka
+                                </InputLabel>
+                                <Select
+                                    id="demo-simple-select-outlined"
+                                    value={this.state.tampilan}
+                                    onChange={this.handleChange}
+                                    labelWidth={80}
+                                    style={style.resize}
+                                    name='tampilan'
+                                    >
+                                        <MenuItem value='1' style={style.resize}>1 Muka</MenuItem>
+                                        <MenuItem value='2' style={style.resize}>2 Muka</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </Grid>
+                        </Grid>
                         <TextField name='alamat' id="alamat" label="Alamat" margin="dense" variant="outlined" fullWidth multiline rows="3"
                                 InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.alamat} onChange={this.handleChange}/>
                         <TextField name='hargaClient' id="hargaClient" label="Harga Mitra" margin="dense" variant="outlined" fullWidth type='number'
@@ -408,6 +470,8 @@ export class PageConfirmMedia extends Component {
 function mapStateToProps(state) {
     return{
         mediaiklan: state.MediaIklanReducer,
+        utility: state.UtilityReducer,
+        mitra: state.MitraReducer,
         page: state.PageReducer
     }
 }
@@ -421,9 +485,8 @@ function mapDispatcToProps (dispatch) {
         fetchKota: bindActionCreators(fetchKota, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
-        onUnMounted: bindActionCreators(onUnMounted, dispatch),
-        prepareSubmit: bindActionCreators(prepareSubmit, dispatch),
-        onSubmit: bindActionCreators(onSubmit, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
+        redirectPage: bindActionCreators(redirectPage, dispatch),
         postMedia: bindActionCreators(postMedia, dispatch),
     }
 }

@@ -11,7 +11,7 @@ export const columns = [
         render: rowData => <div>{rowData.tableData.id + 1}</div>
     },
     {
-        title: 'Nama Mitra',
+        title: 'Nama Advertiser',
         field: 'nama',
         cellStyle: 
             {
@@ -60,27 +60,5 @@ export const columns = [
                 textAlign: 'left', 
                 width: '30%'
             }
-    },
-    {
-        title: 'Aksi',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
-        cellStyle:
-            {
-                textAlign: 'center',
-            },
-        sorting: false,
-        render: rowData => 
-                    <div>
-                        <Button variant="outlined" size='small' color="primary" 
-                            component={NavLink} 
-                            to={`/advertiser/detail/${rowData.id}`}
-                        >
-                            Kelola
-                        </Button>
-                    </div>
     }
 ];

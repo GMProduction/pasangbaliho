@@ -17,3 +17,13 @@ export async function postAPI (apiURL, data, config) {
         return {status: 'error', data: error}
     }
 }
+
+export async function deleteAPI (apiURL, data) {
+    try {
+        let res = await axios.delete(apiURL, {params: data});
+        return {data: res, status: 'success'}
+    } catch (error) {
+        alert('Terjadi Kesalahan Dalam Melakukan Fetch Data!\n'+error)
+        return {status: 'error', data: error}
+    }
+}
