@@ -74,8 +74,6 @@
             line-height: 15px;
         }
     }
-
-  
 </style>
 
 <script>
@@ -281,42 +279,42 @@
 
                     </div>
 
-
-                </div>
-            </div>
-
-
-
-            <div class="" id="">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-4 col-md-offset-1 col-md-5 col-sm-12 block mb-2">
-                        <select name="" id="kategori" class="form-control" style="height: 45px">
-                            <option value="">Semua Kategori</option>
-                            <option value="Videotron">Videotron</option>
-                            <option value="Baliho">Baliho</option>
-                            <option value="Billboard">Billboard</option>
-                            <option value="Neon Box">Neon Box</option>
-                            <option value="Banner">Banner</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-5 col-sm-12">
-                        <select name="" id="kota" class="form-control" style="height: 45px">
-                            <option value="">Semua Kota</option>
-                            @foreach ($kota as $k)
-                            <option value="{{$k->nama_kota}}">{{$k->nama_kota}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <div class="" id="">
+                        <div class="row">
+                            <div class=" col-lg-6  col-md-6 col-sm-12 block mb-2">
+                                <select name="" id="kategori" class="form-control" style="height: 45px">
+                                    <option value="">Semua Kategori</option>
+                                    <option value="Videotron">Videotron</option>
+                                    <option value="Baliho">Baliho</option>
+                                    <option value="Billboard">Billboard</option>
+                                    <option value="Neon Box">Neon Box</option>
+                                    <option value="Banner">Banner</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <select name="" id="kota" class="form-control" style="height: 45px">
+                                    <option value="">Semua Kota</option>
+                                    @foreach ($kota as $k)
+                                    <option value="{{$k->nama_kota}}">{{$k->nama_kota}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
 
-                </div>
-                <div class="row pt-3">
-                    <div class="col-lg-offset-5 col-lg-2 col-lg-offset-2">
-                        <a href="#!" class="btn btn-primary btn-block btn-sm btn-rounded" style=""
-                            onclick="cariProdukIndex()"><i class="fas fa-search    "></i> Cari</a>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-lg-offset-5 col-lg-2 col-lg-offset-2">
+                                <a href="#!" class="btn btn-primary btn-block btn-sm btn-rounded" style=""
+                                    onclick="cariProdukIndex()"><i class="fas fa-search    "></i> Cari</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
     </div>
 </div>
