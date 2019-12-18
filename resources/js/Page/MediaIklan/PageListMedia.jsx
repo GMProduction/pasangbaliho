@@ -6,6 +6,7 @@ import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
 import BCPageListMedia from '../../components/Material-UI/Breadcumbs/BCPageListMedia';
+import ConfirmAksiMedia from '../../components/Material-UI/Dialog/ConfirmAksiMedia';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import { columns } from './Properties/Properties';
@@ -13,7 +14,8 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {prepareMount, onMounted, prepareSearch, onSearched, fetchMedia} from '../../Actions/MediaIklanActions';
+import {fetchMedia, ChangeStatusMedia, deleteMitra} from '../../Actions/MediaIklanActions';
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
 
 
 export class PageListMedia extends Component {
@@ -49,6 +51,40 @@ export class PageListMedia extends Component {
         })
     }
 
+    handlePublish = async (a) => {
+        let filter = this.props.filter;
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        let data = new FormData()
+        data.append('idBaliho', a)
+        data.append('status', 'publish')
+        await this.props.ChangeStatusMedia(data)
+        await this.props.fetchMedia(filter, '')
+        await this.props.onMounted()
+        
+    }
+    handleBlock = async (a) => {
+        let filter = this.props.filter;
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        let data = new FormData()
+        data.append('idBaliho', a)
+        data.append('status', 'block')
+        await this.props.ChangeStatusMedia(data)
+        await this.props.fetchMedia(filter, '')
+        await this.props.onMounted()
+        
+    }
+
+    handleDelete = async (a) => {
+        let filter = this.props.filter;
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.deleteMitra(a)
+        await this.props.fetchMedia(filter, '')
+        await this.props.onMounted()
+    }
+
     async componentDidMount () {
         let link = 'detail'
         if (this.props.filter === 'pending') {
@@ -57,17 +93,43 @@ export class PageListMedia extends Component {
         const aksi = {title: 'Aksi',headerStyle:{textAlign: 'center',width: '15%'},cellStyle:{textAlign: 'center',width: '15%'},sorting: false,
                 render: rowData => 
                 <div>
-                    <Button variant="outlined" size='small' color="primary" 
-                        component={NavLink} 
-                        to={`/mediaiklan/${link}/${rowData.id_baliho}`}
-                    >
-                        Kelola
-                    </Button>
+                    {
+                        this.props.filter !== 'pending' ?
+                        this.props.filter === 'publish' ?
+                        <ConfirmAksiMedia 
+                            url={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                            id={rowData.id_baliho}
+                            dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
+                            dialogTitleBlock={`Apakah Anda Yakin Ingin Memblokir Media Iklan ${rowData.nama_baliho}`}
+                            iconStatus='block'
+                            onSubmit={this.handleDelete}
+                            onSubmitStatus={this.handleBlock}
+                            />
+                        :
+                        <ConfirmAksiMedia 
+                            url={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                            id={rowData.id_baliho}
+                            dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
+                            dialogTitleBlock={`Apakah Anda Yakin Ingin Mempublish Media Iklan ${rowData.nama_baliho}`}
+                            iconStatus='visibility'
+                            onSubmit={this.handleDelete}
+                            onSubmitStatus={this.handlePublish}
+                            />
+                        :
+                        <Button variant="outlined" size='small' color="primary" 
+                            component={NavLink} 
+                            to={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                        >
+                            Kelola
+                        </Button>
+                    }
+                    
                 </div>
             }
         columns.push(aksi)
         let filter = this.props.filter;
-        await this.props.prepareMount()
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.fetchMedia(filter, '')
         await this.props.onMounted()
     }
@@ -150,9 +212,12 @@ function mapStateToProps(state) {
 
 function mapDispatcToProps (dispatch) {
     return {
-        prepareMount: bindActionCreators(prepareMount, dispatch),
         fetchMedia: bindActionCreators(fetchMedia, dispatch),
+        ChangeStatusMedia: bindActionCreators(ChangeStatusMedia, dispatch),
+        deleteMitra: bindActionCreators(deleteMitra, dispatch),
+        prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
     }

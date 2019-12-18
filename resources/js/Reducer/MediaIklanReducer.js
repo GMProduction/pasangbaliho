@@ -1,5 +1,6 @@
 import {
     FETCH_MEDIA_IKLAN,
+    FETCH_QTY_MEDIA_IKLAN,
     FETCH_MEDIA_IKLAN_BY_ID,
     FETCH_KATEGORI,
     FETCH_MITRA,
@@ -9,29 +10,9 @@ import {
 } from '../Actions/type';
 
 const initialState = {
-    formMedia: {
-        idBaliho: '',
-        idClient: '',
-        idKategori: '',
-        namaMedia: '',
-        lebar: 0,
-        tinggi:0,
-        luas:0,
-        idProvinsi: '',
-        idKota: '',
-        alamat: '',
-        latitude: '',
-        longitude: '',
-        hargaClient: 0,
-        hargaMarket: 0,
-        orientasi: '',
-        venue: '',
-        deskripsi: '',
-        url360: '',
-        status: ''
-    },
     dataMedia: [],
     dataMediaById: null,
+    qtyMedia: 0,
     dataMediaByIdFound: false,
     dataKategori: null,
     dataProvinsi: null,
@@ -51,6 +32,11 @@ export default function MediaIklanReducer (state = initialState, action) {
                 ...state,
                 dataMediaById: action.data,
                 dataMediaByIdFound: action.dataFound
+            }
+        case FETCH_QTY_MEDIA_IKLAN:
+            return {
+                ...state,
+                qtyMedia: action.data,
             }
         case FETCH_MITRA:
             return {

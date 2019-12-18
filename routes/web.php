@@ -134,12 +134,14 @@ Route::group(['prefix' => 'adminapi'], function(){
     });
 
     Route::group(['prefix' => 'mediaiklan'], function(){
-        Route::get('/countMedia', 'Admin\MediaControll@getCountMedia');
+        Route::get('/cMedia', 'Admin\MediaControll@getCountMedia');
         Route::get('/request', 'Admin\MediaControll@getMedia');
         Route::get('/requestExceptPending', 'Admin\MediaControll@getMediaExceptPending');
         Route::get('/requestById', 'Admin\MediaControll@getMediaById');
         Route::post('/konfirmmedia','Admin\MediaControll@konfirmasiMedia');
         Route::post('/addmedia','Admin\MediaControll@addMedia');
+        Route::post('/updateStatus','Admin\MediaControll@updateStatusMedia');
+        Route::delete('/delete','Admin\MediaControll@delete');
     });
 
     Route::group(['prefix' => 'negosiasi'], function(){

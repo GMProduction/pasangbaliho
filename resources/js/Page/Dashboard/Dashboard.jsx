@@ -8,7 +8,12 @@ import PermintaanPenambahanAsset from './Component/PermintaanPenambahanAsset';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {prepareMount, onMounted, fetchData} from '../../Actions/DashboardActions';
+
+import {fetchQtyMitra} from '../../Actions/MitraActions';
+import {fetchQtyAdvertiser} from '../../Actions/AdvertiserActions';
+import {fetchQtyMedia, fetchMedia} from '../../Actions/MediaIklanActions';
+import {fetchNegosiasi} from '../../Actions/NegosiasiActions';
+import {prepareMount, pageOnProgress, onMounted} from '../../Actions/pageActions';
 
 export class Dashboard extends Component {
 
@@ -17,14 +22,26 @@ export class Dashboard extends Component {
     }
 
     async componentDidMount () {
-        await this.props.prepareMount()
-        await this.props.fetchData()
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(20, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Jumlah Mitra...')
+        await this.props.fetchQtyMitra()
+        await this.props.pageOnProgress(40, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Jumlah Advertiser...')
+        await this.props.fetchQtyAdvertiser()
+        await this.props.pageOnProgress(60, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Jumlah Media...')
+        await this.props.fetchQtyMedia()
+        await this.props.pageOnProgress(80, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Permintaan Harga...')
+        await this.props.fetchNegosiasi('permintaan','')
+        await this.props.pageOnProgress(90, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Permintaan Penambahan Asset...')
+        await this.props.fetchMedia('pending','')
         await this.props.onMounted()
     }
 
     render() {
         const {pageProgress, pageLoadingStatus, pageLoading} = this.props.page;
-        const {qtyMedia, qtyAdvertiser, qtyMitra, dataPermintaanHarga, dataPermintaanAssets} = this.props.dashboard;
+        const {qtyMitra} = this.props.mitra;
+        const {qtyAdvertiser} = this.props.advertiser;
+        const {qtyMedia, dataMedia} = this.props.mediaiklan;
+        const {dataNegosiasi} = this.props.negosiasi;
         if (pageLoading === true) {
             return(
                 <div>
@@ -45,10 +62,10 @@ export class Dashboard extends Component {
                     <React.Fragment>
                         <Grid container spacing={3} style={{marginTop: '10px'}}>
                             <Grid item xs={12} sm={12} md={7} lg={7}>
-                                <PermintaanHarga data={dataPermintaanHarga}/>
+                                <PermintaanHarga data={dataNegosiasi}/>
                             </Grid>
                             <Grid item xs={12} sm={12} md={5} lg={5}>
-                                <PermintaanPenambahanAsset data={dataPermintaanAssets}/>
+                                <PermintaanPenambahanAsset data={dataMedia}/>
                             </Grid>
                         </Grid>
                         <Grid container spacing={3} style={{marginTop: '10px'}}>
@@ -65,16 +82,24 @@ export class Dashboard extends Component {
 
 function mapStateToProps(state) {
     return{
-        dashboard: state.DashboardReducer,
+        mitra: state.MitraReducer,
+        advertiser: state.AdvertiserReducer,
+        mediaiklan: state.MediaIklanReducer,
+        negosiasi: state.NegosiasiReducer,
         page: state.PageReducer
     }
 }
 
 function mapDispatcToProps (dispatch) {
     return {
-        fetchData: bindActionCreators(fetchData, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
-        onMounted: bindActionCreators(onMounted, dispatch)
+        onMounted: bindActionCreators(onMounted, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
+        fetchQtyMitra: bindActionCreators(fetchQtyMitra, dispatch),
+        fetchQtyAdvertiser: bindActionCreators(fetchQtyAdvertiser, dispatch),
+        fetchQtyMedia: bindActionCreators(fetchQtyMedia, dispatch),
+        fetchNegosiasi: bindActionCreators(fetchNegosiasi, dispatch),
+        fetchMedia: bindActionCreators(fetchMedia, dispatch),
     }
 }
 

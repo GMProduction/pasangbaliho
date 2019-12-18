@@ -66,7 +66,7 @@ export const deleteAdvertiser = (id) => {
 
 export const fetchQtyAdvertiser = () => {
     return async (dispatch) => {
-        let response = await fetchAPI('/advertiser/cMitra')
+        let response = await fetchAPI('/mitra/cMitra')
         if (response.status === 'success') {
             await dispatch({type: FETCH_QTY_ADVERTISER, data: response.data.data});
         }

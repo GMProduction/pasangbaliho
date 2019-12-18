@@ -42,7 +42,7 @@ export class PageRouter extends Component {
                     <Route exact path='/negosiasi' component={PageNegosiasi}/>
                     <Route exact path='/negosiasi/permintaan' render={(props) => <PageListNego {...props} filter='permintaan'/>}/>
                     <Route exact path='/negosiasi/negoharga' render={(props) => <PageListNego {...props} filter='negoharga'/>}/>
-                    <Route exact path='/negosiasi/negomateri' render={(props) => <PageListNego {...props} filter='negomateri'/>}/>
+                    {/* <Route exact path='/negosiasi/negomateri' render={(props) => <PageListNego {...props} filter='negomateri'/>}/> */}
                     <Route exact path='/negosiasi/permintaan/:id' render={(props) => <PageBeriHarga {...props} filter='permintaan'/>}/>
                     <Route exact path='/negosiasi/negoharga/:id' render={(props) => <PageBeriHarga {...props} filter='negoharga'/>}/>
                     <Route exact path='/negosiasi/negomateri/:id' render={(props) => <PageBeriHarga {...props} filter='negomateri'/>}/>

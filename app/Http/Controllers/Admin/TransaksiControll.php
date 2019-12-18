@@ -58,6 +58,7 @@ class TransaksiControll extends Controller
                     'advertisers.nama as namaAdvertiser', 
                     'transaksi.id_baliho as idBaliho',
                     'balihos.nama_baliho as namaBaliho', 
+                    'balihos.id_client as idClient', 
                     'balihos.id_kategori as idKategori', 
                     'kategoris.kategori as kategori', 
                     'harga_ditawarkan',
@@ -107,7 +108,8 @@ class TransaksiControll extends Controller
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
             if ($update) {
-                // sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+                sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+                sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
             }
             return response()->json([
                 'status' => 'ok',

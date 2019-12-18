@@ -4,6 +4,7 @@ import {
     PAGE_PROGRESS,
     PREPARE_SEARCH,
     ON_SEARCHED,
+    PAGE_REDIRECT,
 } from './type';
 
 export const prepareMount = (status) => {
@@ -15,6 +16,11 @@ export const prepareMount = (status) => {
 export const onMounted = (title) => {
     return (dispatch) => {
         dispatch({type: ON_MOUNTED, title: title})
+    }
+}
+export const redirectPage = (param) => {
+    return (dispatch) => {
+        dispatch({type: PAGE_REDIRECT, redirect: param})
     }
 }
 
