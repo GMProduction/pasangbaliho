@@ -73,6 +73,7 @@ class AdvertiserController extends Controller
                 $input->telp = $request->telp;
                 $input->password = Hash::make($request->password);
                 $input->alamat = $request->alamat;
+                $input->nama_instansi = $request->namaInstansi;
                 $input->api_token = Hash::make($request->email);
                 $input->save();
 
@@ -133,8 +134,5 @@ class AdvertiserController extends Controller
         }
     }
 
-    public function testMessage()
-    {
-        sendNotifAdvertiser(6, "tes", "testes");
-    }
+
 }
