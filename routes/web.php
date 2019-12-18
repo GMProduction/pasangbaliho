@@ -15,10 +15,12 @@
 //     return view('main.index');
 // });
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'Member\indexController@index');
 
+
+Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
 Route::get('product/detail/{id}/{url}', 'Member\productController@detailProduct');
@@ -27,7 +29,7 @@ Route::get('news', 'Member\indexController@showNews');
 Route::get('kebijakan-privasi', function(){
     return view('main.kebijakan');
 });
-Route::get('s&k', function(){
+Route::get('syarat-dan-ketentuan', function(){
     return view('main.sk');
 });
 
@@ -145,3 +147,5 @@ Route::group(['prefix' => 'adminapi'], function(){
 
 
 });
+
+

@@ -30,7 +30,7 @@
                     <div class="col-xs-2 icon"><i class="fa fa-cog"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Solusi Pemasaran</h4>
-                        <p></p>
+                        <p>Jadikan pasangbaliho.com sebagai solusi pemasaran media iklan anda!</p>
                     </div>
                 </div>
             </div>

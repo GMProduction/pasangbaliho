@@ -7,7 +7,7 @@
     {{-- <title>Pasang Baliho</title> --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel='icon' href='{{asset('favicon.png')}}' type='image/x-icon' />
+    
     <!-- OR -->
     {!! SEO::generate() !!}
     <!-- OG -->
@@ -23,9 +23,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}" />
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="{{asset('js/index.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
     <style>
         .menu li:hover {
             /* background-color: darkgray; */
@@ -57,7 +58,7 @@
         </div>
 
     </section>
-
+    
     <header>
         <nav class="navbar navbar-inverse" style="">
             <div class="container">
@@ -81,7 +82,7 @@
                             <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
                             <li id="navnews" class=""><a href="/news">Artikel</a></li>
 
-                            @if (auth()->guard('client')->check())
+                            @if (auth()->guard('web')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">{{auth()->guard('clients')->user()->nama}} <i
@@ -91,8 +92,8 @@
                                     <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
-                            @endif
-                            @if (auth()->guard('advertiser')->check())
+                         
+                            @elseif (auth()->guard('advertiser')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">{{auth()->guard('advertiser')->user()->nama}} <i
@@ -155,7 +156,7 @@
     </header>
     <!--/.nav-ends -->
 
-    {{-- test status : {{auth()->guard('advertiser')->check()}} --}}
+   
     <div id="content">
         @yield('content')
     </div>
@@ -182,7 +183,7 @@
                                 <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
                             </li>
                             <li>
-                                <a href="/s&k" class="post" >Syarat & Ketentuan</a>
+                                <a href="/syarat-dan-ketentuan" class="post" >Syarat & Ketentuan</a>
                             </li>
 
                         </ul>
@@ -236,8 +237,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Use</a>
+                    {{-- <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a> --}}
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 copyright">
                     Developed by <a href="#!">PT. Aksara Solopos</a>

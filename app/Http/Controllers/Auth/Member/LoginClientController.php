@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -28,11 +28,11 @@ class LoginClientController extends Controller
     public function postloginClient(Request $request)
     {
         
-        if (FacadesAuth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->intended('/')
-                ->with('status', 'You are Logged in as '. FacadesAuth::guard('client')->user()->nama);
+                ->with('status', 'You are Logged in as '. Auth::guard('client')->user()->nama);
             //    echo auth()->guard('client')->user();
-            // echo Auth::guard('client')->user()->nama;
+            // echo Auth::guard('web')->user()->nama;
         } else {
             // Alert::error('Periksa username atau password anda', 'Gagal');
             return redirect()->back()->withInput()
@@ -44,7 +44,7 @@ class LoginClientController extends Controller
 
     function logoutClient()
     {
-        FacadesAuth::guard('client')->logout();
+        Auth::guard('web')->logout();
         return redirect('/')->with('status', 'You are Logged Out');;
     }
 }

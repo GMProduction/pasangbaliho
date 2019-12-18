@@ -125,11 +125,11 @@ body #process .process-border {
         <table class="table ">
             <tr>
                 <td class="text-center">
-                     <span class="fa-layers fa-fw fa-3x" style="">
+                    <span class="fa-layers fa-fw fa-3x" style="">
                         <i class="fas fa-circle" id="permintaan" style="color:#DDDDDD"></i>
                         <i class="fa-inverse fas fa-file-invoice-dollar" data-fa-transform="shrink-6"></i>
                     </span>
-                    
+
                 </td>
                 <td class="text-center" rowspan="2" style="vertical-align: middle">
                     <i class="fa fa-arrow-right text-center fa-2x " id="panahNegoHarga"
@@ -143,20 +143,7 @@ body #process .process-border {
                 </td>
 
                 <td class="text-center" rowspan="2" style="vertical-align: middle">
-                        <i class="fa fa-arrow-right text-center fa-2x" id="panahNegoMateri" style="color:#DDDDDD"></i>
-                 
-
-                </td>
-                <td class="text-center">
-                    <span class="fa-layers fa-fw fa-3x" style="">
-                        <i class="fas fa-circle" id="negoMateri" style="color:#DDDDDD"></i>
-                        <i class="fa-inverse fas fa-image" data-fa-transform="shrink-6"></i>
-                    </span>
-                </td>
-
-                <td class="text-center" rowspan="2" style="vertical-align: middle">
-                        <i class="fa fa-arrow-right text-center fa-2x" id="panahPembayaran" style="color:#DDDDDD"></i>
-                   
+                    <i class="fa fa-arrow-right text-center fa-2x" id="panahPembayaran" style="color:#DDDDDD"></i>
                 </td>
                 <td class="text-center">
                     <span class="fa-layers fa-fw fa-3x" style="">
@@ -166,8 +153,22 @@ body #process .process-border {
                 </td>
 
                 <td class="text-center" rowspan="2" style="vertical-align: middle">
-                        <i class="fa fa-arrow-right text-center fa-2x" id="panahSelesai" style="color:#DDDDDD"></i>
-                 
+                    <i class="fa fa-arrow-right text-center fa-2x" id="panahNegoMateri" style="color:#DDDDDD"></i>
+
+
+                </td>
+                <td class="text-center">
+                    <span class="fa-layers fa-fw fa-3x" style="">
+                        <i class="fas fa-circle" id="negoMateri" style="color:#DDDDDD"></i>
+                        <i class="fa-inverse fas fa-image" data-fa-transform="shrink-6"></i>
+                    </span>
+                </td>
+
+
+
+                <td class="text-center" rowspan="2" style="vertical-align: middle">
+                    <i class="fa fa-arrow-right text-center fa-2x" id="panahSelesai" style="color:#DDDDDD"></i>
+
                 </td>
 
                 <td class="text-center">
@@ -179,14 +180,14 @@ body #process .process-border {
             </tr>
             <tr>
                 <td class="text-center"><Span>Permintaan Harga</Span></td>
-                <td class="text-center"><span>Nego Harga</span></td>
+                <td class="text-center"><span>Harga Disetujui</span></td>
+                <td class="text-center"><span>Pembayaran</span></td>
                 <td class="text-center"><span>Kirim Materi</span></td>
-                <td class="text-center"><span>Pembayara</span></td>
                 <td class="text-center"><span>Selesai</span></td>
             </tr>
         </table>
     </div>
-   
+
     <br>
     <h5>Status Transaksi</h5>
     <div class="body table-responsive" style="">
@@ -209,21 +210,27 @@ body #process .process-border {
                     @else
                     <td class="" style="vertical-align: middle">Meminta Penawaran Harga</td>
                     <td class="text-center" style="vertical-align: middle">Permintaan Telah Dikirim</td>
-                    <td class="text-center"  style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                            class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
 
                 <tr>
                     @if ($d->status == 'negoharga')
-                    <td style="vertical-align: middle">Negosiasi Harga <span style="font-size: 10pt; font-weight: bold"> (Jika ingin mengajukan negisiasi harga silahkan klik 'Nego' untuk menghubungi Admin) </span></td>
-                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
-                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!" class="btn btn-sm btn-light">Nego</a></td>
-                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!" class="btn btn-sm btn-light">Setuju</a>
+                    <td style="vertical-align: middle">Negosiasi Harga <span style="font-size: 10pt; font-weight: bold">
+                            (Jika ingin mengajukan negisiasi harga silahkan klik 'Nego' untuk menghubungi Admin) </span>
+                    </td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
+                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!"
+                            class="btn btn-sm btn-light">Nego</a></td>
+                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!"
+                            class="btn btn-sm btn-light">Setuju</a>
                     </td>
                     @elseif(($d->status == 'negomateri') || ($d->status == 'pembayaran') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Deal Harga</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                            class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
                 <tr>
@@ -235,7 +242,8 @@ body #process .process-border {
                     @elseif(($d->status == 'pembayaran') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Negosiasi Materi</td>
                     <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                            class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
                 <tr>
@@ -247,7 +255,8 @@ body #process .process-border {
                     @elseif(($d->status == 'selesai'))
                     <td style="vertical-align: middle">Proses Pembayaran</td>
                     <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i class="fas fa-check-circle col-green   "></i></td>
+                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                            class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
             </tbody>
@@ -265,12 +274,12 @@ body #process .process-border {
                     $('#panahNegoHarga').addClass('warnaGreen');
                 }
                 if(('{{$d->status}}' == 'negomateri') || ('{{$d->status}}' == 'pembayaran') || ('{{$d->status}}' == 'selesai')){
-                    $('#negoMateri').addClass('warnaGreen');
-                    $('#panahNegoMateri').addClass('warnaGreen');
-                }
-                if(('{{$d->status}}' == 'pembayaran') || ('{{$d->status}}' == 'selesai')){
                     $('#pembayaran').addClass('warnaGreen');
                     $('#panahPembayaran').addClass('warnaGreen');
+                }
+                if(('{{$d->status}}' == 'negomateri') || ('{{$d->status}}' == 'selesai')){
+                    $('#negoMateri').addClass('warnaGreen');
+                    $('#panahNegoMateri').addClass('warnaGreen');
                 }
                 if('{{$d->status}}' == 'selesai'){
                     $('#selesai').addClass('warnaGreen');

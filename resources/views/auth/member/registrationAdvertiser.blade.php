@@ -18,21 +18,21 @@
                     <div class="col-xs-2 icon"><i class="fa fa-laptop"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Akses Penuh</h4>
-                        <p>Dapat memesan berbagai produk di pasangbaliho.com.</p>
+                        <p>Dapat memesan berbagai media di pasangbaliho.com</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-bullhorn"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Notifikasi</h4>
-                        <p></p>
+                        <p>Dapatkan notifikasi dari setiap pembaruan </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-cog"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Solusi Media Iklan Anda</h4>
-                        <p></p>
+                        <p>Jadikan pasangbaliho.com sebagai solusi media periklanan anda!</p>
                     </div>
                 </div>
             </div>

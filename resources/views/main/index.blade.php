@@ -2,6 +2,9 @@
 
 @section('content')
 <link rel="stylesheet" href="{{asset('css/icon.css')}}">
+
+
+
 <style>
     .coruselKecil {}
 
@@ -10,13 +13,14 @@
         /* left: 15%;                            */
         /* right: 70%; */
         padding-left: 20px;
-        bottom: 20px;
+        bottom: 30%;
         z-index: 10;
         /* padding-top: 20px; */
-        padding-bottom: 10px;
+        padding-bottom: 50px;
         /* color: #fff; */
         text-align: left;
         /* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); */
+
     }
 
     .captionSLider .judul {
@@ -25,7 +29,12 @@
         padding-left: 0px;
         /* margin-top: 60px; */
         text-transform: uppercase;
+
     }
+
+
+
+
 
     .captionSLider .des {
         font-size: 14px;
@@ -35,18 +44,22 @@
         line-height: 5px
     }
 
-    @media (max-width : 400px){
-        .slider{
+
+
+    @media (max-width : 400px) {
+        .slider {
             height: 130px !important;
         }
     }
 
+
     @media (max-width : 900px) {
         .captionSLider {
             position: unset !important;
-           
+
         }
-        #portfolio{
+
+        #portfolio {
             padding-left: 2% !important;
             padding-right: 2% !important;
         }
@@ -59,25 +72,32 @@
         .captionSLider .des {
             font-size: 80% !important;
             line-height: 15px;
-        }      
+        }
     }
+
+  
 </style>
 
+<script>
+
+
+</script>
 
 <div id="portfolio" class=" mt-0 pt-3 mb-2 pb-2 contrainer" style="">
     <div class="slider slideHeader border" style="width: 100%">
         @foreach ($slider as $s)
         <div>
             <img src="{{asset('assets/img/slider/'.$s->url_fotoWeb)}}" style="width: 100%" alt="">
-            <div style="" class="captionSLider">
-            <p class="judul"><span>{{$s->title}}</span></p>
-            <p class="des " style="">{{$s->deskripsi}}</p>
+            <div style="" class="captionSLider slide-up">
+                <p class="judul"><span>{{$s->title}}</span></p>
+                <p class="des " style="">{{$s->deskripsi}}</p>
             </div>
         </div>
-            
+
         @endforeach
     </div>
 </div>
+
 
 <br>
 <div class="container pencarian" style="margin-top: -45px;  ">
@@ -323,67 +343,67 @@
             </div>
 
 
-         
-    <div class="row container">
 
-        <div class="slider  multiple-items-media " id="">
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=billboard" onclick="" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/billboard.png')}}"
-                            alt="" height="100">
-                        <h5><span>Billboard</span></h5>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=videotron" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/videotron.png')}}"
-                            alt="" height="100">
-                        <h5><span>Videotron</span></h5>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/digital.png')}}"
-                            alt="" height="100">
-                        <h5><span>Digital Display</span></h5>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/neon.png')}}" alt=""
-                            height="100">
-                        <h5><span>Neox Box</span></h5>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/web.png')}}" alt=""
-                            height="100">
-                        <h5><span>Website & Blog</span></h5>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="p-2">
-                    <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3 mediaImg" id=""
-                        style="background-color: white"><img id='' src="{{asset('assets/img/media/parking.png')}}"
-                            alt="" height="100">
-                        <h5><span>Parking Spot</span></h5>
-                    </a>
-                </div>
-            </div>
-        </div>
+            <div class="row container">
 
-    </div>
+                <div class="slider  multiple-items-media " id="">
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=billboard" onclick=""
+                                class="text-center borderNyala pt-3 mediaImg" id="" style="background-color: white"><img
+                                    id='' src="{{asset('assets/img/media/billboard.png')}}" alt="" height="100">
+                                <h5><span>Billboard</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=videotron" class="text-center borderNyala pt-3 mediaImg" id=""
+                                style="background-color: white"><img id=''
+                                    src="{{asset('assets/img/media/videotron.png')}}" alt="" height="100">
+                                <h5><span>Videotron</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=Digital Display" class="text-center borderNyala pt-3 mediaImg"
+                                id="" style="background-color: white"><img id=''
+                                    src="{{asset('assets/img/media/digital.png')}}" alt="" height="100">
+                                <h5><span>Digital Display</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=Neon Box" class="text-center borderNyala pt-3 mediaImg" id=""
+                                style="background-color: white"><img id='' src="{{asset('assets/img/media/neon.png')}}"
+                                    alt="" height="100">
+                                <h5><span>Neox Box</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3 mediaImg"
+                                id="" style="background-color: white"><img id=''
+                                    src="{{asset('assets/img/media/web.png')}}" alt="" height="100">
+                                <h5><span>Website & Blog</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
+                            <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3 mediaImg" id=""
+                                style="background-color: white"><img id=''
+                                    src="{{asset('assets/img/media/parking.png')}}" alt="" height="100">
+                                <h5><span>Parking Spot</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 </section>
 

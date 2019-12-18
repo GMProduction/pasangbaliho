@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                {{-- <form role="form" action="/loginClient" class="login-form" method="POST">
+                                <form role="form" action="/loginClient" class="login-form" method="POST">
                                     @csrf
                                     <div class="input-group form-group">
                                         <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
@@ -105,9 +105,9 @@
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <button type="submit" class="btn">Masuk</button>
-                                </form> --}}
+                                </form>
 
-                                <h3>Masih Dalam Perbaikan</h3>
+                                {{-- <h3>Masih Dalam Perbaikan</h3> --}}
                             </div>
                                 
                         </div>

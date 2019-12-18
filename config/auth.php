@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        // 'passwords' => 'advertiser',
+        'passwords' => 'advertiser',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'clients',
         ],
 
         'api' => [
@@ -54,7 +54,12 @@ return [
         'advertiser' => [
             'driver' => 'session',
             'provider' => 'advertiserM',
+        ],
+        'advertiser-api' => [
+            'driver' => 'token',
+            'provider' => 'advertiserM',
         ]
+
 
     ],
 
