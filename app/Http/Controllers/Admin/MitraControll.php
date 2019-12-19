@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\ClientModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class MitraControll extends Controller
 {
@@ -77,14 +78,14 @@ class MitraControll extends Controller
             $mitra->email = $r->email;
             $mitra->nama = $r->nama;
             $mitra->nama_instansi = $r->namaInstansi;
-            $mitra->password = $r->password;
+            $mitra->password = Hash::make($r->password);
             $mitra->no_ktp = $r->noKtp;
             $mitra->npwp = $r->npwp;
             $mitra->nib = $r->nib;
             $mitra->telp = $r->telp;
             $mitra->alamat = $r->alamat;
             $mitra->status = 'terima';
-            $mitra->api_token = '';
+            $mitra->api_token = Hash::make($r->email);
             $mitra->save();
             return response()->json([
                 'sqlResponse' => true,

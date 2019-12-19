@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\AdvertiserModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdvertiserControll extends Controller
 {
@@ -63,9 +64,10 @@ class AdvertiserControll extends Controller
             $advertiser->email = $r->email;
             $advertiser->nama = $r->nama;
             $advertiser->nama_instansi = $r->namaInstansi;
-            $advertiser->password = $r->password;
+            $advertiser->password = Hash::make($r->password);
             $advertiser->telp = $r->telp;
             $advertiser->alamat = $r->alamat;
+            $advertiser->api_token = Hash::make($r->email);
             $advertiser->save();
             return response()->json([
                 'sqlResponse' => true,
