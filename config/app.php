@@ -168,7 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+       
         /*
          * Application Service Providers...
          */
@@ -234,7 +234,7 @@ return [
         'JsonLd'   => Artesaos\SEOTools\Facades\JsonLd::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'TawkTo' => Emotality\TawkTo\Facades\TawkTo::class,
-        
+       
     ],
 
 ];

@@ -102,8 +102,10 @@ class productController extends Controller
         ];
 
        
+        $uri = $product[0]->kategori.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi;
+        $urlweb = str_replace(' ', '-', $uri);
 
-        SEOTools::setTitle($product[0]->nama_baliho);
+        SEOTools::setTitle($uri);
         SEOTools::setDescription($product[0]->deskripsi.' '.$product[0]->orientasi.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi);
         SEOTools::opengraph()->setUrl('http://current.url.com');
         SEOTools::setCanonical('https://codecasts.com.br/lesson');
