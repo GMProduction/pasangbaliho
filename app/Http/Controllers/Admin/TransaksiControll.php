@@ -115,8 +115,8 @@ class TransaksiControll extends Controller
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
             if ($update) {
-                // sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
-                // sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
+                sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+                sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
             }
             return response()->json([
                 'status' => 'ok',
