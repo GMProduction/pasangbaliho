@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class TransaksiControll extends Controller
 {
@@ -23,6 +24,7 @@ class TransaksiControll extends Controller
                 'id_transaksi',
                 'advertisers.id as idAdvertiser', 
                 'advertisers.nama as namaAdvertiser', 
+                'advertisers.nama_instansi as namaInstansi', 
                 'transaksi.id_baliho as idBaliho',
                 'balihos.nama_baliho as namaMedia', 
                 'balihos.id_kategori as idKategori', 
@@ -56,6 +58,7 @@ class TransaksiControll extends Controller
                     'id_transaksi',
                     'advertisers.id as idAdvertiser', 
                     'advertisers.nama as namaAdvertiser', 
+                    'advertisers.nama_instansi as namaInstansi', 
                     'transaksi.id_baliho as idBaliho',
                     'balihos.nama_baliho as namaBaliho', 
                     'balihos.id_client as idClient', 
@@ -104,16 +107,21 @@ class TransaksiControll extends Controller
                 'terbaca_advertiser' => 0
             ];
             
+            if ($r->status == 'negoharga') {
+                # code...
+                $data = Arr::add($data, 'harga_deal', $r->hargaDeal);
+            }
             $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
             if ($update) {
-                sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
-                sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
+                // sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+                // sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
             }
             return response()->json([
                 'status' => 'ok',
                 'data' => $data,
+                'id_trans' => $r->idTransaksi,
             ]);
         } catch (\Exception $e) {
             $exData = explode('(', $e->getMessage());
