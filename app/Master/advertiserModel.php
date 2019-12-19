@@ -11,13 +11,13 @@ class advertiserModel extends Authenticatable
 {
     //
     use Notifiable;
-    
+
     protected $table = 'advertisers';
 
     protected $guard = 'advertiser';
 
     protected $fillable = [
-        'nama','email','password','telp','alamat','status','verifikasi', 'nama_instansi'
+        'nama','email','password','telp','alamat','status','verifikasi', 'nama_instansi', 'api_token'
     ];
 
     protected $hidden = [

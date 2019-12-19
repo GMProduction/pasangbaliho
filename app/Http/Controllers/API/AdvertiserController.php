@@ -122,7 +122,7 @@ class AdvertiserController extends Controller
                 return response()->json([
                     'respon' => 'success',
                     'message' => 'login sukses',
-                    'client' => $advertiser
+                    'advertiser' => $advertiser
                 ]);
             } else {
 

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class RegisterController extends Controller
 {
     //
-    
+
     use RegistersUsers;
     protected $redirectTo = '/';
 
@@ -74,6 +74,7 @@ class RegisterController extends Controller
             $data->password = Hash::make($req->password);
             $data->api_token = Hash::make($req->email);
             $data->telp = $req->telp;
+            $data->api_token = Hash::make($req->email);
             $data->save();
             return redirect('/')->with($masage);
         }
