@@ -123,6 +123,13 @@ export class Sidebar extends Component {
                             <Icon>pie_chart</Icon>Laporan
                         </ListItem>
                     </li>
+                    <li>
+                        <ListItem button classes={{button: classes.item}}
+                        component={NavLink} to='/perlengkapan'
+                        >
+                            <Icon>extension</Icon>Perlengkapan
+                        </ListItem>
+                    </li>
                 </List>
             </div>
         );
