@@ -19,6 +19,7 @@
         "kreait/laravel-firebase": "^1.2",
         "laravel/framework": "^6.0",
         "laravel/passport": "^7.5",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
         "spatie/laravel-sluggable": "^2.2"
     },
