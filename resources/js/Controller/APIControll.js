@@ -1,3 +1,4 @@
+
 export async function fetchAPI (apiURL) {
     try {
         let res = await axios.get(apiURL);
@@ -27,3 +28,4 @@ export async function deleteAPI (apiURL, data) {
         return {status: 'error', data: error}
     }
 }
+
