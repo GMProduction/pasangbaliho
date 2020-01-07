@@ -1,0 +1,10 @@
+body #contact-page {
+    background-color: #fff;
+}
+
+body #contact-page .submit-button {
+    padding: 8px 20px;
+    color: #fff;
+    border: none;
+    margin-top: 10px;
+}

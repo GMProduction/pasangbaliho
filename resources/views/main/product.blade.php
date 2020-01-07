@@ -108,7 +108,7 @@
                                             <br><b>Kisaran Harga :
                                                 <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
                                         </p>
-                                    <a href="/product/detail/{{$p->id_baliho}}/{{$urlweb}}"
+                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
                                                 class="btn btn-block btn-primary btn-sm">Detail</a>
 
                                     </div>

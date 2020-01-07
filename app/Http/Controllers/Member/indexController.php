@@ -96,6 +96,7 @@ class indexController extends Controller
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
             ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+            ->where('balihos.status','!=','pending')
             ->groupBy('balihos.id_baliho')
             ->orderBy('balihos.created_at','DESC')
             ->take(8)

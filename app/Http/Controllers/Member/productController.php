@@ -41,7 +41,7 @@ class productController extends Controller
         return $query;
     }
 
-    public function detailProduct($id)
+    public function detailProduct($url,$id)
     {
         
         $c = Carbon::now();
@@ -179,6 +179,7 @@ class productController extends Controller
             ->orwhere('kotas.nama_kota', '=', $r->c)
             ->groupBy('balihos.id_baliho')
             ->orderBy('balihos.created_at','DESC')
+            ->where('balihos.status','!=','pending')
             // ->orwhere('kota','like','%'.$r->t.'%')
             // ->orwhere(function ($txt) use ($r) {
             //     $txt->orwhere('kategori','like','%'.$r->t.'%')
@@ -211,6 +212,7 @@ class productController extends Controller
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->groupBy('balihos.id_baliho')
                 ->orderBy('balihos.created_at','DESC')
+                ->where('balihos.status','!=','pending')
                 ->paginate(12);
 
             $data = [

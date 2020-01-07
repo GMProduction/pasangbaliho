@@ -193,7 +193,7 @@
                                         onclick="sendRegister()">
                                         <i class="fas fa-sign-in-alt"></i> Daftar
                                     </a>
-                                    <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="#">
+                                    <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="{{ route('login.provider', 'google') }}">
                                         <i class="fab fa-google"></i> Google
                                     </a>
                                 </div>
