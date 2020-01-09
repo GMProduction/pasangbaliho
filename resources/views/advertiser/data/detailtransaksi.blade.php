@@ -250,11 +250,11 @@ body #process .process-border {
 
                     @if ($d->status == 'pembayaran')
                     <td style="vertical-align: middle">Proses Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
                     <td class="text-center" style="vertical-align: middle" colspan="2">Proses</td>
                     @elseif(($d->status == 'selesai'))
                     <td style="vertical-align: middle">Proses Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. 200.000</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
                     <td class="text-center" style="vertical-align: middle" colspan="2"><i
                             class="fas fa-check-circle col-green   "></i></td>
                     @endif

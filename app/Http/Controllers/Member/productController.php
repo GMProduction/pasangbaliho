@@ -41,7 +41,7 @@ class productController extends Controller
         return $query;
     }
 
-    public function detailProduct($id)
+    public function detailProduct($url,$id)
     {
         
         $c = Carbon::now();
@@ -102,8 +102,10 @@ class productController extends Controller
         ];
 
        
+        $uri = $product[0]->kategori.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi;
+        $urlweb = str_replace(' ', '-', $uri);
 
-        SEOTools::setTitle($product[0]->nama_baliho);
+        SEOTools::setTitle($uri);
         SEOTools::setDescription($product[0]->deskripsi.' '.$product[0]->orientasi.' '.$product[0]->alamat.' '.$product[0]->kota.' '.$product[0]->provinsi);
         SEOTools::opengraph()->setUrl('http://current.url.com');
         SEOTools::setCanonical('https://codecasts.com.br/lesson');
@@ -177,6 +179,7 @@ class productController extends Controller
             ->orwhere('kotas.nama_kota', '=', $r->c)
             ->groupBy('balihos.id_baliho')
             ->orderBy('balihos.created_at','DESC')
+            ->where('balihos.status','!=','pending')
             // ->orwhere('kota','like','%'.$r->t.'%')
             // ->orwhere(function ($txt) use ($r) {
             //     $txt->orwhere('kategori','like','%'.$r->t.'%')
@@ -209,6 +212,7 @@ class productController extends Controller
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->groupBy('balihos.id_baliho')
                 ->orderBy('balihos.created_at','DESC')
+                ->where('balihos.status','!=','pending')
                 ->paginate(12);
 
             $data = [

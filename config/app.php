@@ -165,10 +165,11 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Emotality\TawkTo\TawkToServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
-
+       
         /*
          * Application Service Providers...
          */
@@ -234,7 +235,7 @@ return [
         'JsonLd'   => Artesaos\SEOTools\Facades\JsonLd::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'TawkTo' => Emotality\TawkTo\Facades\TawkTo::class,
-        
+       
     ],
 
 ];

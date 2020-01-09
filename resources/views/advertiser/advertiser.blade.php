@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
     {{-- <link rel="stylesheet" href="{{asset('css/padding.css')}}"> --}}
 
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
-
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <style>
         @media (max-width : 767px) {
             .iconHome {

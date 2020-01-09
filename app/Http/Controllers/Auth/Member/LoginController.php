@@ -6,22 +6,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Master\advertiserModel;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
     //
 
-    
+    // use Socialite;
     use AuthenticatesUsers;
 
     protected $redirectTo = '/';
 
     public function __construct()
     {
-        
-        $this->middleware('guest:advertiser')->except('logout');
-        $this->middleware('guest:client')->except('logout');
+
+        $this->middleware('guest');
     }
 
     public function showLoginForm()
@@ -30,16 +32,58 @@ class LoginController extends Controller
         return view('auth.member.login');
     }
 
-    public function postlogin(Request $request)
+
+    public function redirectToProvider($driver)
     {
+        return Socialite::driver($driver)->redirect();
+    }
+
+    public function handleProviderCallback($driver)
+{
+    try {
+        
+        $user = Socialite::driver($driver)->user();
+        $create = advertiserModel::firstOrCreate([
+            'email' => $user->getEmail()
+        ], [
+            'nama' => $user->getName(),
+            'api_token' => Hash::make($user->getEmail()),
+            'email_verified_at' => Carbon::now()
+            
+        ]);
         $data = [
-            'status' => 'Anda login sebagai advertiser',
+            'status' => 'Selamat datang '.$user->getName(),
+            'text' => 'Anda login sebagai advertiser',
             'icon' => 'success'
         ];
-        if (FacadesAuth::guard('advertiser')->attempt($request->only('email', 'password'))) {
+        Auth::guard('advertiser')->login($create, true);
+        return redirect($this->redirectPath())->with($data);
+        // echo $create;
+    } catch (\Exception $e) {
+        return redirect()->route('login');
+    }
+}
+
+    public function postlogin(Request $request)
+    {
+        // echo $request->email;    
+        // echo $request->password;
+        if (Auth::guard('advertiser')->attempt($request->only('email', 'password'))) {
+            $data = [
+                'status' => 'Selamat datang '.auth()->guard('advertiser')->user()->nama,
+                'text' => ' Anda login sebagai advertiser',
+                'icon' => 'success'
+            ];
             return redirect()->intended('/')
                 ->with($data);
-        } else {    
+            // echo auth()->guard('advertiser')->user();
+
+        } else {
+            $data = [
+                'status' => 'Login Gagal',
+                'title' => 'Password / Email tidak cocok',
+                'icon' => 'success'
+            ];
             // Alert::error('Periksa username atau password anda', 'Gagal');
             return redirect()->back()->withInput()
                 ->with($data);
@@ -54,10 +98,11 @@ class LoginController extends Controller
     function logout()
     {
         $data = [
-            'status' => 'Anda Telah logged out!',
+            'status' => 'Anda Telah Logout',
+            'text' => 'Terima Kasih',
             'icon' => 'success'
         ];
-        FacadesAuth::guard('advertiser')->logout();
+        Auth::guard('advertiser')->logout();
         return redirect('/')->with($data);;
     }
 }
