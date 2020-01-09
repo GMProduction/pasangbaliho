@@ -18,7 +18,10 @@
 use Illuminate\Support\Facades\Route;
 
 
-
+Route::get('/testIpay', 'Member\testIpay88@index');
+Route::post('/payment', function(){
+    return "success";
+});
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
