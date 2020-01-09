@@ -284,11 +284,11 @@
                             <div class=" col-lg-6  col-md-6 col-sm-12 block mb-2">
                                 <select name="" id="kategori" class="form-control" style="height: 45px">
                                     <option value="">Semua Kategori</option>
-                                    <option value="Videotron">Videotron</option>
                                     <option value="Baliho">Baliho</option>
                                     <option value="Billboard">Billboard</option>
+                                    <option value="Videotron">Videotron</option>
+                                    <option value="Digital Display">Digital Display</option>
                                     <option value="Neon Box">Neon Box</option>
-                                    <option value="Banner">Banner</option>
                                 </select>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -347,6 +347,15 @@
                 <div class="slider  multiple-items-media " id="">
                     <div>
                         <div class="p-2">
+                            <a href="/product/search?k=Baliho" class="text-center borderNyala pt-3 mediaImg"
+                                id="" style="background-color: white"><img id=''
+                                    src="{{asset('assets/img/media/baliho.png')}}" alt="" height="100">
+                                <h5><span>Baliho</span></h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-2">
                             <a href="/product/search?k=billboard" onclick=""
                                 class="text-center borderNyala pt-3 mediaImg" id="" style="background-color: white"><img
                                     id='' src="{{asset('assets/img/media/billboard.png')}}" alt="" height="100">
@@ -381,15 +390,7 @@
                             </a>
                         </div>
                     </div>
-                    <div>
-                        <div class="p-2">
-                            <a href="/product/search?k=Website & Blog" class="text-center borderNyala pt-3 mediaImg"
-                                id="" style="background-color: white"><img id=''
-                                    src="{{asset('assets/img/media/web.png')}}" alt="" height="100">
-                                <h5><span>Website & Blog</span></h5>
-                            </a>
-                        </div>
-                    </div>
+                   
                     <div>
                         <div class="p-2">
                             <a href="/product/search?k=Parking Spot" class="text-center borderNyala pt-3 mediaImg" id=""

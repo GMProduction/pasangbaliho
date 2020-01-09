@@ -26,7 +26,7 @@ Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
 
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
-Route::get('news', 'Member\indexController@showNews');
+Route::get('news', 'Member\newsController@showNews');
 Route::get('kebijakan-privasi', function () {
     return view('main.kebijakan');
 });
@@ -95,12 +95,13 @@ Route::group(['middleware' => 'advertiser'], function () {
 Route::group(['middleware' => 'client'], function () {
     Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
     Route::get('dashboardClient/profile', 'Member\Client\profileController@getDataProfile');
+    Route::get('dashboardClient/disewa', 'Member\Client\disewaController@showDisewa');
     Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset');
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
             Route::get('add', 'Member\Client\assetClientController@showAddAsset');
             Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
     });
-    Route::post('dashboardClient/updateVisible', 'Member\Client\assetClientController@visibleAsset');
+    Route::get('dashboardClient/asset/updateVisible', 'Member\Client\assetClientController@editvisibleAsset');
 
 });
 

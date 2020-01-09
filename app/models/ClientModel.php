@@ -10,10 +10,10 @@ class ClientModel extends Authenticatable
 {
     use Notifiable;
 
-    protected $primaryKey  = 'id_client';
+    protected $primaryKey = 'id_client';
     protected $table = 'clients';
 
-    protected $guard = 'clients';
+    protected $guard = 'client';
 
     protected $fillable = [
         'id_client',

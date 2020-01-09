@@ -19,7 +19,7 @@
                     <th class="text-center">Terlihat</th>
                     <th class="text-center" colspan="3">Aksi</th>
                 </tr>
-                @foreach ($product as $key => $d)
+                @forelse ($product as $key => $d)
                 {{ csrf_field() }}
                 <tbody>
                     <tr>
@@ -39,11 +39,11 @@
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
                             <a href=""><i class="fas fa-edit    "></i></a></td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href="#!" onclick="editVisible({{$product->firstItem() + $key}}, {{$d->id_baliho}})"><i @if ($d->status ==
-                                    'pending')
-                                    class="fa fa-eye-slash"
-                                    @else
+                            <a href="#!"  onclick="editVisible({{$product->firstItem() + $key}}, {{$d->id_baliho}}, '{{$d->status}}')"><i @if ($d->status ==
+                                    'publish')
                                     class="fa fa-eye"
+                                    @else
+                                    class="fa fa-eye-slash"
                                     @endif
                                     id="iconVisible{{$product->firstItem() + $key}}" aria-hidden="true"></i></a></td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
@@ -53,7 +53,13 @@
                         <td class="border-top-0" style="">{{$d->alamat}}</td>
                     </tr>
                 </tbody>
-                @endforeach
+                @empty
+                <tbody>
+                    <tr style="height: 400px">
+                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan</td>
+                    </tr>
+                </tbody>
+                @endforelse
             </table>
             {{$product->links()}}
         </div>
@@ -63,42 +69,72 @@
 </div>
 <!-- #END# Basic Examples -->
 <script>
-    function editVisible(a,b) {
-        
+    function editVisible(a,b,stat) {
         var icon = this.document.getElementById('iconVisible'+a).className;
-        // alert(icon);
-        if(icon === 'fa fa-eye'){
-            $('#iconVisible'+a).removeClass('fa-eye');
-            $('#iconVisible'+a).addClass('fa-eye-slash');
+        if (stat === 'pending') {
             swal.fire({
+                icon: 'warning',
+                title: 'Pending',
+                text: 'Silahkan tunggu asset anda di proses oleh admin'
+            });
+        } else {
+            if(icon === 'fa fa-eye'){
+            // $('#iconVisible'+a).removeClass('fa-eye');
+            // $('#iconVisible'+a).addClass('fa-eye-slash');
+            $title = 'Block aseet ?';
+            $text = 'Jika Asset di blok, maka advertiser tidak dapat melihat asset yang anda miliki';
+            alertVisible($title,$text, 'block',b);
+           
+           
+        }else{
+            // $('#iconVisible'+a).removeClass('fa-eye-slash');
+            // $('#iconVisible'+a).addClass('fa-eye');
+           
+            $title = 'Perlihatkan aseet ?';
+            $text = 'Jika Asset diperlihatkan, maka advertiser dapat melihat asset yang anda miliki';
+            alertVisible($title,$text, 'publish',b);
+        }
+        }
+        
+        // alert(icon);
+        
+    }
+
+    function alertVisible(a,b,c,d) {
+        var z = ''
+        if(c === 'publish'){
+            z = 'Publish';
+        }else {
+            z = 'Block';
+        }
+        swal.fire({
                 icon: 'info',
-                title: 'Perlihatkan aseet ?',
-                    text: 'Jika Asset diperlihatkan, maka advertiser dapat melihat asset yang anda miliki',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Tampilkan',
-                    cancelButtonText: 'Cancel'
+                title: a,
+                text: b,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: z,
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if(result.value){
                     $.ajax({
-                        type: 'POST',
+                        type: 'GET',
                         dataType: "json",
                         url: 'updateVisible',
                         data: {
-                            status: 'terlihat',
-                            id: b
+                            status: c,
+                            id: d
                         },
-                        success: function name(params) {
-                            
+                        success: function (data) {
+                           alert('suksen');
+                        },
+                        error: function (data) {
+                            window.location.reload();
                         }
                     })
                 }
             })
-        }else{
-            $('#iconVisible'+a).removeClass('fa-eye-slash');
-            $('#iconVisible'+a).addClass('fa-eye');
-        }
     }
 </script>
 

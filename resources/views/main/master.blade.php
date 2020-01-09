@@ -86,7 +86,7 @@
                         <ul class="nav navbar-nav">
                             <li id="navhome" class=""><a href="/">Beranda</a></li>
                             <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
-                            <li id="navnews" class=""><a href="/news">Artikel</a></li>
+                            <li id="navnews" class=""><a href="/news">News</a></li>
 
                             @if (auth()->guard('client')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"

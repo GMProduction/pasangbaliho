@@ -21,7 +21,7 @@ class clientController extends Controller
     public function showDashboard()
     {
         if (auth()->guard('client')->check()) {
-            $id = auth()->guard('client')->user()->id;
+            $id = auth()->guard('client')->user()->id_client;
         }
         $media = $this->jumMedia($id);
 

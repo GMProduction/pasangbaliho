@@ -75,6 +75,7 @@ class RegisterController extends Controller
             $data->api_token = Hash::make($req->email);
             $data->telp = $req->telp;
             $data->api_token = Hash::make($req->email);
+            $data->status = 'pending';
             $data->save();
             return redirect('/')->with($masage);
         }

@@ -87,7 +87,7 @@ return [
         ],
         'clients' => [
             'driver' => 'eloquent',
-            'model' => App\Master\clientModel::class,
+            'model' => App\models\ClientModel::class,
         ],
 
         'advertisers' => [

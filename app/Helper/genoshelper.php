@@ -4,7 +4,14 @@ use App\models\FcmClientModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\models\FcmModel;
+use PHPHtmlParser\Dom;
 
+function parseBerita($isi){
+    $dom = new Dom;
+    $dom->loadStr($isi,[]);
+    $data = $dom->find('p')[0];
+    return $data;
+}
 function formatRupiah($angka)
 {
     return "Rp " . number_format($angka, 0, ',', '.');

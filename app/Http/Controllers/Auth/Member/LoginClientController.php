@@ -35,8 +35,28 @@ class LoginClientController extends Controller
                 'text' => ' Anda login sebagai klien',
                 'icon' => 'success'
             ];
-             return redirect()->intended('/')
+            if(auth()->guard('client')->user()->status === 'pending'){
+                $data1 = [
+                    'status' => 'Belum bisa login',
+                    'text' => ' Mohon tunggu konfirmasi dari admin untuk dapat login',
+                    'icon' => 'warning'
+                ];
+                return redirect()->back()->withInput()
+                ->with($data1);
+            }else if(auth()->guard('client')->user()->status === 'tolak'){
+                $data1 = [
+                    'status' => 'Akun anda ditolak',
+                    'text' => 'Mohon maaf pendaftaran anda ditolak',
+                    'icon' => 'warning'
+                ];
+                return redirect()->back()->withInput()
+                ->with($data1);
+            }
+            else{
+                return redirect()->intended('/')
                 ->with($data);
+            }
+            
             //    echo auth()->guard('client')->user();
             // echo Auth::guard('web')->user();
         } else {
@@ -59,6 +79,6 @@ class LoginClientController extends Controller
             'icon' => 'success'
         ];
         Auth::guard('client')->logout();
-        return redirect('/')->with('status', 'You are Logged Out');;
+        return redirect('/')->with($data);;
     }
 }

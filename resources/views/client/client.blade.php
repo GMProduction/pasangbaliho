@@ -151,7 +151,7 @@
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-envelope-o fa-fw mr-3"></span>
                         <span class="menu-collapsed">Notifikasi <span
-                                class="badge badge-pill badge-primary ml-2">1</span></span>
+                                class="badge badge-pill badge-primary ml-2">0</span></span>
                     </div>
                 </a>
                 <!-- Separator without title -->

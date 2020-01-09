@@ -168,9 +168,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="my-modal-title">Tanggal Pemasangan</h5>
-                        <button class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        
                     </div>
                     <div class="modal-body">
                         <div class="form-bottom">
@@ -187,11 +185,11 @@
                                     {{-- <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span> --}}
                                     <label for="mulai">Tanggal Mulai</label>
                                     <input type="date" id="mulai" class="form-control" name="mulai"
-                                        placeholder="Tanggal Mulai" aria-describedby="basic-addon1">
+                                        placeholder="Tanggal Mulai" >
                                 </div>
                                 <div class="input-group form-group">
                                     <label for="selesai">Tanggal Selesai</label>
-                                    <input type="date" class="form-control" id="selesai" name="selesai"
+                                    <input type="date" id="selesai" class="form-control"  name="selesai"
                                         placeholder="Tanggal Selesai" aria-describedby="basic-addon1">
                                 </div>
                                 <button type="submit" class="btn">Submit</button>
@@ -273,6 +271,35 @@
     @endforeach
 </section>
 <script>
+// let today = new Date().toISOString().substr(0, 10);
+// document.querySelector("#today").value = today;
+
+var date = new Date();
+var dates = new Date();
+var h = date.getDate()+3;
+var b = date.getMonth()+1;
+var t = date.getFullYear();
+
+var hs = dates.getDate();
+var bs = dates.getMonth()+2;
+var ts = dates.getFullYear();
+if(b<10){b='0'+b}
+if(h<10){h='0'+h}
+
+if(bs<10){bs='0'+bs}
+if(hs<10){hs='0'+hs}
+
+var te = t+'-'+b+'-'+h;
+var tse = ts+'-'+bs+'-'+hs;
+date.setDate(date.getDate() + 3);
+
+document.querySelector("#mulai").valueAsDate = date;
+$('#mulai').attr('min',te);
+dates.setDate(dates.getDate() + 31);
+document.querySelector("#selesai").valueAsDate = dates;
+$('#selesai').attr('min',tse);
+// $('#today2').value(d);
+
     function test() {
            
             Swal.fire({

@@ -41,7 +41,7 @@ class assetClientController extends Controller
     public function showAsset(Request $req)
     {
         if (auth()->guard('client')->check()) {
-            $id = auth()->guard('client')->user()->id;
+            $id = auth()->guard('client')->user()->id_client;
         }
 
         $product = BalihoModel::query()
@@ -123,10 +123,10 @@ class assetClientController extends Controller
     }
 
 
-    public function visibleAsset(Request $r)
+    public function editvisibleAsset(Request $r)
     {
         if (auth()->guard('client')->check()) {
-            $id = auth()->guard('client')->user()->id;
+            $id = auth()->guard('client')->user()->id_client;
         }
         $data = [
             'status' => $r->status
@@ -135,7 +135,6 @@ class assetClientController extends Controller
         ->where('id_baliho','=',$r->id)
         ->update($data);
         
-    //    return redirect()
 
     }
 }

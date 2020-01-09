@@ -11,10 +11,10 @@ class profileController extends Controller
     //
     public function getDataProfile(){
         if (auth()->guard('client')->check()) {
-            $id = auth()->guard('client')->user()->id;
+            $id = auth()->guard('client')->user()->id_client;
         }
         $query = clientModel::query()
-            ->where('id','=',$id)
+            ->where('id_client','=',$id)
             ->get();
 
         $data = [
