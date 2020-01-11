@@ -7,7 +7,7 @@
     {{-- <title>Pasang Baliho</title> --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    
+
     <!-- OR -->
     {!! SEO::generate() !!}
     <!-- OG -->
@@ -26,11 +26,17 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="{{asset('js/index.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
-    
+
     <style>
         .menu li:hover {
             /* background-color: darkgray; */
 
+        }
+
+        @media (min-width:600px) {
+            .swal2-container {
+                zoom: 1.5;
+            }
         }
     </style>
 </head>
@@ -58,7 +64,7 @@
         </div>
 
     </section>
-    
+
     <header>
         <nav class="navbar navbar-inverse" style="">
             <div class="container">
@@ -80,19 +86,19 @@
                         <ul class="nav navbar-nav">
                             <li id="navhome" class=""><a href="/">Beranda</a></li>
                             <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
-                            <li id="navnews" class=""><a href="/news">Artikel</a></li>
+                            <li id="navnews" class=""><a href="/news">News</a></li>
 
-                            @if (auth()->guard('web')->check())
+                            @if (auth()->guard('client')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{auth()->guard('clients')->user()->nama}} <i
+                                    aria-expanded="false">{{auth()->guard('client')->user()->nama}} <i
                                         class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
-                                    <li id="dashboard" class=""><a href="/dashboard" class="drop">Dashboard</a></li>
-                                    <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
+                                    <li id="dashboard" class=""><a href="/dashboardClient" class="drop">Dashboard</a></li>
+                                    <li id="navlogout"><a href="/logoutClient" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
-                         
+
                             @elseif (auth()->guard('advertiser')->check())
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -157,7 +163,9 @@
     <!--/.nav-ends -->
 
    
-    <div id="content">
+    
+
+    <div id="content">  
         @yield('content')
     </div>
 
@@ -183,7 +191,7 @@
                                 <a href="/kebijakan-privasi" class="post">Kebijakan Privasi</a>
                             </li>
                             <li>
-                                <a href="/syarat-dan-ketentuan" class="post" >Syarat & Ketentuan</a>
+                                <a href="/syarat-dan-ketentuan" class="post">Syarat & Ketentuan</a>
                             </li>
 
                         </ul>
@@ -253,6 +261,7 @@
                 // alert('{{session("status")}}');
                 Swal.fire({
      title: '{{session("status")}}',
+     text: '{{session("text")}}',
      icon: '{{session("icon")}}'
      
     })
@@ -263,6 +272,7 @@
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/dropdown.js')}}"></script>
+    <script src="{{asset('js/inputimg.js')}}"></script>
 
 
     <!--Start of Tawk.to Script-->

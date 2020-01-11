@@ -18,13 +18,18 @@
 use Illuminate\Support\Facades\Route;
 
 
-
+Route::get('/testIpay', 'Member\testIpay88@index');
+Route::post('/payment', function(){
+    return "success";
+});
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
-Route::get('product/detail/{id}/{url}', 'Member\productController@detailProduct');
+Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
+
+
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
-Route::get('news', 'Member\indexController@showNews');
+Route::get('news', 'Member\newsController@showNews');
 Route::get('kebijakan-privasi', function () {
     return view('main.kebijakan');
 });
@@ -48,6 +53,16 @@ Route::post('addAdvertiser', 'Auth\Member\RegisterController@registerAdvertiser'
 Route::post('addClient', 'Auth\Member\RegisterController@registerClient');
 
 //
+Route::get('log', function () {
+    return view('auth.login');
+});
+
+Route::post('testlogin', 'Auth\LoginController@login');
+Route::GET('testlogout', 'Auth\LoginController@logout');
+
+Route::get('redirect/{driver}', 'Auth\member\LoginController@redirectToProvider')->name('login.provider');
+Route::get('{driver}/callback', 'Auth\Member\LoginController@handleProviderCallback')->name('login.callback');
+
 Route::group(['guard' => 'guest'], function () {
     Route::get('registration', 'Auth\Member\RegisterController@showOptionRegister');
     Route::get('registration-client', 'Auth\Member\RegisterController@showRegisterClient');
@@ -64,8 +79,8 @@ Route::group(['guard' => 'guest'], function () {
     Route::get('dashboard/addProduk', function () {
         return view('advertiser.data.input');
     });
-});
-
+}); 
+Route::get('logout', 'Auth\Member\LoginController@logout');
 Route::group(['middleware' => 'advertiser'], function () {
     Route::get('dashboard', 'Member\advertiserController@showDashboard');
     Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
@@ -74,21 +89,24 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
     Route::get('/dashboard/history', 'Member\historyController@dataHistory');
     Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');
-});
-// Client Dashboar
-// Route::group(['middleware' => 'client'], function () {
-Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
-Route::get('dashboardClient/profile', 'Member\Client\clientController@showProfile');
-Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset');
-// });
-
-Route::group(['prefix' => 'dashboardClient'], function () {
-    Route::group(['prefix' => 'asset'], function () {
-        Route::get('add', 'Member\Client\assetClientController@showAddAsset');
+    // Route::post('/dashboard/profile/editProfil', 'Member\profileController@editProfile');
+    Route::group(['prefix' => 'dashboard/profile'], function () {
+        Route::post('editProfil', 'Member\profileController@editProfile');
     });
 });
+// Client Dashboar
+Route::group(['middleware' => 'client'], function () {
+    Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
+    Route::get('dashboardClient/profile', 'Member\Client\profileController@getDataProfile');
+    Route::get('dashboardClient/disewa', 'Member\Client\disewaController@showDisewa');
+    Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset');
+    Route::group(['prefix' => 'dashboardClient/asset'], function () {
+            Route::get('add', 'Member\Client\assetClientController@showAddAsset');
+            Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
+    });
+    Route::get('dashboardClient/asset/updateVisible', 'Member\Client\assetClientController@editvisibleAsset');
 
-
+});
 
 
 Route::get('showStreetView/{id}', 'Member\productController@showStreetView');

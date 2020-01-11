@@ -14,8 +14,23 @@
         border: none;
         margin-top: 10px;
     }
-    
+
+    .borderEdit {
+        border-bottom: 4px solid #26A69A;
+    }
 </style>
+
+<script>
+    if('{{session("status")}}'){
+            // alert('{{session("status")}}');
+            Swal.fire({
+ title: '{{session("status")}}',
+ text: '{{session("text")}}',
+ icon: '{{session("icon")}}'
+ 
+})
+        }
+</script>
 <link rel="stylesheet" href="{{asset('css/profile.css')}}">
 {{-- <link rel="stylesheet" href="{{asset('css/main.css')}}"> --}}
 <section id="contact-page" style="">
@@ -42,46 +57,64 @@
                             <input type="file" class="small">
                             <button type="submit" class="btn btn-sm btn-info">Save</button>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="portlet light bordered">
-                       
+
                         <div class="portlet-body">
                             <div>
-                                <h6 class="text-right m-0 p-0"><a href=""><i class="fas fa-edit    "></i></a></h6>
+                                
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#profile" aria-controls="profile"
                                             role="tab" data-toggle="tab">Profile</a></li>
-                                  
+
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="profile">
-                                        <form>
+                                        <form id="formProfil" role="form">
+                                            {{ csrf_field() }}
+                                            <h6 class="text-right m-0 p-0"><a href="#!" onclick="edit()" class="btn btn-info btn-sm"
+                                                id=""><i class="fas fa-edit" id="iconEdit" class="text-center"></i> <label
+                                                    id="txtEdit" class="text-center" style="">Edit</label></a>
+                                        </h6>
+                                            <input type="hidden" name="id" value="{{$p->id}}">
                                             <div class="form-group">
-                                                <label for="inputName">Name</label>
-                                                <input type="text" class="form-control" readonly id="inputName"
-                                                    placeholder="Name" value="{{$p->nama}}">
+                                                <label for="nama">Name</label>
+                                                <input type="text" class="form-control" style="" readonly id="nama"
+                                                    name="nama" placeholder="Name" value="{{$p->nama}}">
                                             </div>
-                                           
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control"readonly id="exampleInputEmail1"
-                                                    placeholder="Email" value="{{$p->email}}">
+                                                <label for="instansi">Nama Instansi</label>
+                                                <input type="text" class="form-control" readonly id="instansi"
+                                                    name="instansi" placeholder="Instansi"
+                                                    value="{{$p->nama_instansi}}">
                                             </div>
                                             <div class="form-group">
-                                                    <label for="inputLastName">Address</label>
-                                                    <textarea name="" class="form-control" readonly id="" cols="30" rows="4" placeholder="Address">{{$p->alamat}}</textarea>
-                                                </div>
-                                            
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                                <label for="telp">Telp</label>
+                                                <input type="number" class="form-control" readonly id="telp" name="telp"
+                                                    placeholder="telp" value="{{$p->telp}}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="email">Email address</label>
+                                                <input type="email" class="form-control" readonly id="email"
+                                                    name="email" placeholder="Email" value="{{$p->email}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="alamat">Address</label>
+                                                <textarea name="alamat" class="form-control" readonly id="alamat"
+                                                    cols="30" rows="4" placeholder="Address">{{$p->alamat}}</textarea>
+                                            </div>
+
+
                                         </form>
                                     </div>
-                                   
+
                                 </div>
 
                             </div>
@@ -92,6 +125,49 @@
         </div>
     </div>
     @endforeach
+
+    <script>
+        function edit() {
+            if ($('#txtEdit').html() === 'Edit') {
+                $('#txtEdit').html('Save');
+                $('#iconEdit').removeClass('fa-edit');
+                $('#iconEdit').addClass('fa-save');
+                $('#formProfil input').removeAttr('readonly');
+                $('#formProfil textarea').removeAttr('readonly');
+                $('#formProfil input').addClass('borderEdit');
+                $('#formProfil textarea').addClass('borderEdit');
+               
+            } else {
+                $('#txtEdit').html('Edit');
+                $('#iconEdit').removeClass('fa-save');
+                $('#iconEdit').addClass('fa-edit');
+                $('#formProfil input').attr('readonly','');
+                $('#formProfil textarea').attr('readonly','');
+                $('#formProfil input').removeClass('borderEdit');
+                $('#formProfil textarea').removeClass('borderEdit');
+                swal.fire({
+                    icon: 'info',
+                    text: 'Apakah anda yakin akan merubah data ?',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if(result.value){
+                    // swal.fire({
+                    //     icon: 'success',
+                    //     text: 'Data berhasil disimpan !'
+                    // }).then((result) => {
+                        document.getElementById('formProfil').action = 'editProfil';
+                        document.getElementById('formProfil').method = 'POST';
+                        document.getElementById('formProfil').submit();
+                    // })
+                }
+            })
+            }
+          
+        }
+    </script>
 </section>
 
 @endsection

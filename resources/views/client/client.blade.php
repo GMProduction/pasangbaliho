@@ -8,11 +8,11 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap4/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/datatable/css/datatable.bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/collapse.css')}}">
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/client.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
     {{-- <link rel="stylesheet" href="{{asset('css/padding.css')}}"> --}}
 
@@ -63,10 +63,10 @@
                         </a>
                     </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="/dashboard/berlangsung" class="nav-link">
+                    <a href="/dashboardClient/berlangsung" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-file-invoice-dollar fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Transaksi</span>
+                            <span class="menu-collapsed">Disewa</span>
                         </div>
                     </a>
                 </li>
@@ -129,10 +129,10 @@
                     </div>
                 </a>
 
-                <a href="/dashboardClient/berlangsung" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboardClient/disewa" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-file-invoice-dollar fa-fw mr-3"></span>
-                        <span class="menu-collapsed">Transaksi</span>
+                        <span class="menu-collapsed">Disewa</span>
                     </div>
                 </a>
                 <a href="#" class="bg-dark list-group-item list-group-item-action">
@@ -151,7 +151,7 @@
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-envelope-o fa-fw mr-3"></span>
                         <span class="menu-collapsed">Notifikasi <span
-                                class="badge badge-pill badge-primary ml-2">1</span></span>
+                                class="badge badge-pill badge-primary ml-2">0</span></span>
                     </div>
                 </a>
                 <!-- Separator without title -->
@@ -182,20 +182,11 @@
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
-    
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>
 
-    <script src="{{asset('css/datatable/js/bootstrap-select.js')}}"></script>
-
-    <script src="{{asset('css/datatable/js/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('css/datatable/js/dataTables.bootstrap.js')}}"></script>
-    <script src="{{asset('css/datatable/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('css/datatable/js/buttons.flash.min.js')}}"></script>
-    <script src="{{asset('css/datatable/js/jszip.min.js')}}"></script>
-    <script src="{{asset('css/datatable/js/pdfmake.min.js')}}"></script>
-    <script src="{{asset('css/datatable/js/vfs_fonts.js')}}"></script>
-    <script src="{{asset('css/datatable/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('css/datatable/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+    
 
 
  

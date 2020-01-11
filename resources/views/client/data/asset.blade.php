@@ -1,58 +1,141 @@
 @extends('client.client')
 
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Basic Examples -->
-<div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header">
-                <h2 class="pb-2">
-                    Asset Media Iklan
-                </h2>
-                <a href="add" class="btn btn-primary">Tambah Asset</a>
+<div class=" contact-page ">
 
-            </div>
-            <div class="body">
-                <div class="body table-responsive">
-                    <table class="table table-sm">
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center" style="width: 50px">Gambar</th>
-                            <th class="text-center">Jenis Media / Alamat</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Terlihat</th>
-                            <th class="text-center" colspan="2">Aksi</th>
-                        </tr>
-                        @foreach ($produk as $d)
-                        <tbody>
-                            <tr>
-                                <td class="text-center" rowspan="2" style=" vertical-align: middle">1</td>
-                                <td class="text-center" rowspan="2"><img
-                                        src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
-                                <td class="border-bottom-0" style="padding-bottom: 0">{{$d->nama_baliho}}
-                                </td>
-                                <td class="text-center" rowspan="2" style=" vertical-align: middle">sukses
-                                </td>
-                                <td class="text-center" rowspan="2" style=" vertical-align: middle">
-                                    sukses</td>
-                                <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                                    <a href=""><i class="fas fa-edit    "></i></a></td>
-                                <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                                    <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="border-top-0" style="">{{$d->alamat}}</td>
-                            </tr>
-                        </tbody>
-                        @endforeach
-                    </table>
-                </div>
-
-            </div>
-        </div>
+    <div class=" backgroundGreen pb-1" style="">
+        <h4 class="text-center pt-1 text-white">Asset Media</h4>
     </div>
+    <div class="backgroundGray">
+        <div class="body table-responsive">
+            <table class="table table-sm">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center" style="width: 50px">Gambar</th>
+                    <th class="text-center">Jenis Media / Alamat</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Terlihat</th>
+                    <th class="text-center" colspan="3">Aksi</th>
+                </tr>
+                @forelse ($product as $key => $d)
+                {{ csrf_field() }}
+                <tbody>
+                    <tr>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle">
+                            {{$product->firstItem() + $key}}</td>
+                        <td class="text-center" rowspan="2"> @if ($d->url_foto == null)
+                            <img alt="" src="{{asset('assets/noimage.jpg')}}" height="60">
+                            @else
+                            <img alt="" src="{{asset('assets/thumbnails/'.$d->url_foto)}}" height="60">
+                            @endif</td>
+                        <td class="border-bottom-0" style="padding-bottom: 0">{{$d->nama_baliho}}
+                        </td>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle"> {{$d->status}}
+                        </td>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle">
+                            {{$d->status}}</td>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
+                            <a href=""><i class="fas fa-edit    "></i></a></td>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
+                            <a href="#!"  onclick="editVisible({{$product->firstItem() + $key}}, {{$d->id_baliho}}, '{{$d->status}}')"><i @if ($d->status ==
+                                    'publish')
+                                    class="fa fa-eye"
+                                    @else
+                                    class="fa fa-eye-slash"
+                                    @endif
+                                    id="iconVisible{{$product->firstItem() + $key}}" aria-hidden="true"></i></a></td>
+                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
+                            <a href="" id=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td class="border-top-0" style="">{{$d->alamat}}</td>
+                    </tr>
+                </tbody>
+                @empty
+                <tbody>
+                    <tr style="height: 400px">
+                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan</td>
+                    </tr>
+                </tbody>
+                @endforelse
+            </table>
+            {{$product->links()}}
+        </div>
+
+    </div>
+
 </div>
 <!-- #END# Basic Examples -->
+<script>
+    function editVisible(a,b,stat) {
+        var icon = this.document.getElementById('iconVisible'+a).className;
+        if (stat === 'pending') {
+            swal.fire({
+                icon: 'warning',
+                title: 'Pending',
+                text: 'Silahkan tunggu asset anda di proses oleh admin'
+            });
+        } else {
+            if(icon === 'fa fa-eye'){
+            // $('#iconVisible'+a).removeClass('fa-eye');
+            // $('#iconVisible'+a).addClass('fa-eye-slash');
+            $title = 'Block aseet ?';
+            $text = 'Jika Asset di blok, maka advertiser tidak dapat melihat asset yang anda miliki';
+            alertVisible($title,$text, 'block',b);
+           
+           
+        }else{
+            // $('#iconVisible'+a).removeClass('fa-eye-slash');
+            // $('#iconVisible'+a).addClass('fa-eye');
+           
+            $title = 'Perlihatkan aseet ?';
+            $text = 'Jika Asset diperlihatkan, maka advertiser dapat melihat asset yang anda miliki';
+            alertVisible($title,$text, 'publish',b);
+        }
+        }
+        
+        // alert(icon);
+        
+    }
+
+    function alertVisible(a,b,c,d) {
+        var z = ''
+        if(c === 'publish'){
+            z = 'Publish';
+        }else {
+            z = 'Block';
+        }
+        swal.fire({
+                icon: 'info',
+                title: a,
+                text: b,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: z,
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if(result.value){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: "json",
+                        url: 'updateVisible',
+                        data: {
+                            status: c,
+                            id: d
+                        },
+                        success: function (data) {
+                           alert('suksen');
+                        },
+                        error: function (data) {
+                            window.location.reload();
+                        }
+                    })
+                }
+            })
+    }
+</script>
 
 @endsection

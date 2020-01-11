@@ -4,7 +4,14 @@ use App\models\FcmClientModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\models\FcmModel;
+use PHPHtmlParser\Dom;
 
+function parseBerita($isi){
+    $dom = new Dom;
+    $dom->loadStr($isi,[]);
+    $data = $dom->find('p')[0];
+    return $data;
+}
 function formatRupiah($angka)
 {
     return "Rp " . number_format($angka, 0, ',', '.');
@@ -137,7 +144,7 @@ function sendNotifAdvertiser($idAdvertiser, $tittle, $body)
         'notification_priority' => 'high'
     );
 
-    $apikey = 'AIzaSyDQOCnyw7NrB3HLJEHAhF4rxqTvuCzmFQc';
+    $apikey = 'AAAAzHLmzn4:APA91bELGa2d7lWLg6-k8XB53ApPMbF-taXt8gLoC-eM8qY9XgpzR58Mc5APWacCUHIIhXDAHWpXcrj1SJJsk1JDFPaj0VhcF7P60EajfSkThp2I9OJS4Lh6kJOd1WCuRopnmBa9ozqG';
     $fields = array('to' => $to, 'notification' => $data);
     $header = array('Authorization: key=' . $apikey, 'Content-Type: application/json');
     $url = 'https://fcm.googleapis.com/fcm/send';
@@ -166,7 +173,7 @@ function sendNotifClient($idClient, $tittle, $body)
         'notification_priority' => 'high'
     );
 
-    $apikey = 'AIzaSyCtVhkhcte1L7e7FDehHlUSIS98daGSrns';
+    $apikey = 'AAAATRwbVhs:APA91bE9GDZMlZPKqdvEk6vyhFo_lAvVzCCA03ubskskjYrYTOtP1ZfhrsAjLfJ-ChmDcXNIuAaKCtXowDaWBNgO4LcSclXTMgtn-dUmpqICfpTNQNKs30eBHow5MLq63z5DgKlUt0YW';
     $fields = array('to' => $to, 'notification' => $data);
     $header = array('Authorization: key=' . $apikey, 'Content-Type: application/json');
     $url = 'https://fcm.googleapis.com/fcm/send';

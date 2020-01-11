@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'advertiser',
+        'passwords' => 'clients',
     ],
 
     /*
@@ -64,7 +64,7 @@ return [
         'advertiser-api' => [
             'driver' => 'token',
             'provider' => 'advertiserM',
-        ]
+        ],
 
 
     ],
@@ -89,7 +89,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Master\ClientsModel::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\models\ClientModel::class,
         ],
 
         'advertisers' => [
@@ -102,10 +106,7 @@ return [
             'model' => App\Master\advertiserModel::class,
         ],
 
-        'clients' => [
-            'driver' => 'eloquent',
-            'model' => App\Master\clientModel::class,
-        ],
+      
 
         'admins' => [
             'driver' => 'eloquent',
