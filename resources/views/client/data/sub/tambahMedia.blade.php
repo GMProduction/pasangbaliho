@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{asset('css/inputimg.css')}}">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
 <style>
     .noBorderLeft {
         border-left: none !important;
@@ -30,7 +31,7 @@
                 <div class="body">
 
                     <div class="form-group">
-                        <label for="media">Jenis Media Iklan</label>
+                        <label for="media">Jenis Media Iklan :</label>
                         <select class="form-control" id="jenmedia" name="jenmedia">
                             <option value="">- Jenis Media Iklan -</option>
                             @foreach ($kategori as $k)
@@ -39,15 +40,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="cth : Surakarta">
+                        <label for="nama">Nama :</label>
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="contoh : Baliho Jl. Adi Sucipto No. 190">
                     </div>
 
 
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="prov">Provinsi</label>
+                                <label for="prov">Provinsi :</label>
                                 <select class="form-control" id="prov" name="prov">
                                     <option value="">- Pilih Provinsi -</option>
                                     @foreach ($provinsi as $k)
@@ -58,7 +59,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="kota">Kota</label>
+                                <label for="kota">Kota :</label>
                                 <select class="form-control" id="kota" name="kota">
                                     <option value="">- Jenis Kota -</option>
                                     @foreach ($kota as $k)
@@ -71,22 +72,19 @@
 
 
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
+                        <label for="alamat">Alamat :</label>
                         <textarea class="form-control" id="alamat" name="alamat" cols="30" rows="3"
-                            placeholder="cth : Jl. Slamet Riyadi No. 132"></textarea>
+                            placeholder="contoh : Jl. Adi Sucipto No. 190"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="deskripsi">Deskripsi</label>
+                        <label for="deskripsi">Deskripsi :</label>
                         <textarea name="deskripsi" class="form-control" id="deskripsi" cols="30" rows="3"
-                            placeholder="Deskripsi produk"></textarea>
+                            placeholder="contoh : Kawasan Strategis, Ramai Lalu Lintas, Jalan antar Provinsi"></textarea>
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="harga">Harga</label>
-                        <input type="number" name="harga" class="form-control" id="harga" placeholder="cth : 200000">
-                    </div>
+                   
 
 
 
@@ -101,18 +99,18 @@
                     </h2>
                 </div>
                 <div class="body">
-                    <div class="form-group">
-                        <label for="hargamitra">Harga Mitra</label>
-                        <input type="number" class="form-control" name="hargamitra" id="hargamitra"
-                            placeholder="cth : 200000">
-                    </div>
+                   
                     <div class="form-row">
+                        <div class="form-group">
+                            <label for="harga">Harga :</label>
+                            <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" name="harga" class="form-control" id="harga" placeholder="contoh : 60000000">
+                        </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="tinggi">Tinggi</label>
+                                <label for="tinggi">Tinggi :</label>
                                 <div class="input-group mb-2">
                                     <input type="text" class="form-control noBorderRight" name="tinggi" id="tinggi"
-                                        placeholder="cth : 200">
+                                        placeholder="contoh : 200">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text noBorderLeft" style="">cm</div>
                                     </div>
@@ -121,10 +119,10 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="lebar">Lebar</label>
+                                <label for="lebar">Lebar :</label>
                                 <div class="input-group mb-2">
                                     <input type="text" class="form-control noBorderRight" name="lebar" id="lebar"
-                                        placeholder="cth : 200">
+                                        placeholder="contoh : 200">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text noBorderLeft">cm</div>
                                     </div>
@@ -135,7 +133,7 @@
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="orientasi">Orientasi</label>
+                                <label for="orientasi">Orientasi :</label>
                                 <select name="orientasi" id="orientasi" name="orientasi" class="form-control">
                                     <option value="Potrait">Potrait</option>
                                     <option value="Landscape">Landscape</option>
@@ -144,7 +142,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="venue">Venue</label>
+                                <label for="venue">Venue :</label>
                                 <select name="venue" id="venue" class="form-control">
                                     <option value="">- Pilih Venue -</option>
                                     <option value="Street">Street</option>
@@ -156,7 +154,7 @@
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="posisi">Posisi</label>
+                                <label for="posisi">Posisi :</label>
                                 <select name="posisi" id="posisi" class="form-control">
                                     <option value="">- Pilih Posisi -</option>
                                     <option value="Stand Alone">Stand Alone</option>
@@ -166,7 +164,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="tampil">Tampil Muka</label>
+                                <label for="tampil">Tampil Muka :</label>
                                 <select name="tampil" id="tampil" class="form-control">
                                     <option value="">- Pilih Tampil Muka -</option>
                                     <option value="1 Muka">1 Muka</option>
@@ -176,15 +174,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="gambar1">Gambar 1</label>
+                        <label for="gambar1">Gambar 1 :</label>
                         <input type="file" class="form-control-file" name="gambar1" id="gambar1" placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="gambar2">Gambar 2</label>
+                        <label for="gambar2">Gambar 2 :</label>
                         <input type="file" class="form-control-file" name="gambar2" id="gambar2" placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="gambar3">Gambar 3</label>
+                        <label for="gambar3">Gambar 3 :</label>
                         <input type="file" class="form-control-file" name="gambar3" id="gambar3" placeholder="">
                     </div>
 
@@ -193,7 +191,7 @@
                             <a href="#!" onclick="addAsset()" class="btn btn-primary btn-block btn-lg">Save</a>
                         </div>
                         <div class="col">
-                            <a href="#!" onclick="" class="btn btn-danger btn-block btn-lg">Close</a>
+                            <a href="/dashboardClient/asset" onclick="" class="btn btn-danger btn-block btn-lg">Close</a>
                         </div>
                     </div>
 

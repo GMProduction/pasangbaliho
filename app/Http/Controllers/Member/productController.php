@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\models\NotificationModel;
 use Carbon\Carbon;
 
+
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\OpenGraph;
 
@@ -77,6 +78,7 @@ class productController extends Controller
         $dipesan = transaksiModel::query()
             ->where('id_baliho', '=', $id)
             ->where('tanggal_akhir','>',$day)
+            ->where('status','!=','permintaan')
             ->get();
 
         $foto = FotoBalihoModel::query()
@@ -178,8 +180,8 @@ class productController extends Controller
             ->where('kategoris.kategori', '=', $r->k)
             ->orwhere('kotas.nama_kota', '=', $r->c)
             ->groupBy('balihos.id_baliho')
-            ->orderBy('balihos.created_at','DESC')
-            ->where('balihos.status','!=','pending')
+            ->orderBy('balihos.created_at','DESC')            
+            ->where('balihos.status','=','publish')
             // ->orwhere('kota','like','%'.$r->t.'%')
             // ->orwhere(function ($txt) use ($r) {
             //     $txt->orwhere('kategori','like','%'.$r->t.'%')
@@ -212,7 +214,7 @@ class productController extends Controller
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->groupBy('balihos.id_baliho')
                 ->orderBy('balihos.created_at','DESC')
-                ->where('balihos.status','!=','pending')
+                ->where('balihos.status','=','publish')
                 ->paginate(12);
 
             $data = [

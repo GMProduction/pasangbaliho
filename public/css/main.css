@@ -7721,7 +7721,7 @@ body #login-reg .btn-link-1.btn-link-1-twitter {
 	background: #55acee;
 }
 body #login-reg .btn-link-1.btn-link-1-google-plus {
-	background: #dd4b39;
+	background: #dd4b39 !important;
 }
 body #login-reg .btn-link-1 i {
 	padding-right: 5px;

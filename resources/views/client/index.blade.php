@@ -38,7 +38,9 @@
             </div>
             <div class="content">
                 <div class="text">ASSET DIGUNAKAN</div>
-                <div class="number">0</div>
+                @foreach ($sewa as $m)
+                <div class="number">{{$m->count}}</div>
+               @endforeach
             </div>
         </div>
     </div>

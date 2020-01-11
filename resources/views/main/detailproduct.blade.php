@@ -152,7 +152,12 @@
                 <button class="btn btn-primary " type="button" data-toggle="modal"
                     data-target="#tglPenawaran">Permintaan
                     Penawaran</button>
+                @elseif(auth()->guard('client')->check())
+                <button class="btn btn-primary " type="button" onclick="testClient()"
+                data-target=" #tglPenawaran">Permintaan
+                    Penawaran</button>
                 @else
+
                 <button class="btn btn-primary " type="button" onclick="test()">Permintaan
                     Penawaran</button>
                 @endif
@@ -168,7 +173,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="my-modal-title">Tanggal Pemasangan</h5>
-                        
+
                     </div>
                     <div class="modal-body">
                         <div class="form-bottom">
@@ -185,11 +190,11 @@
                                     {{-- <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span> --}}
                                     <label for="mulai">Tanggal Mulai</label>
                                     <input type="date" id="mulai" class="form-control" name="mulai"
-                                        placeholder="Tanggal Mulai" >
+                                        placeholder="Tanggal Mulai">
                                 </div>
                                 <div class="input-group form-group">
                                     <label for="selesai">Tanggal Selesai</label>
-                                    <input type="date" id="selesai" class="form-control"  name="selesai"
+                                    <input type="date" id="selesai" class="form-control" name="selesai"
                                         placeholder="Tanggal Selesai" aria-describedby="basic-addon1">
                                 </div>
                                 <button type="submit" class="btn">Submit</button>
@@ -224,7 +229,7 @@
                 height: 500px;
                 width: 100%;
             }
-             
+
             .gmap_canvas {
                 overflow: hidden;
                 background: none !important;
@@ -271,7 +276,7 @@
     @endforeach
 </section>
 <script>
-// let today = new Date().toISOString().substr(0, 10);
+    // let today = new Date().toISOString().substr(0, 10);
 // document.querySelector("#today").value = today;
 
 var date = new Date();
@@ -300,11 +305,19 @@ document.querySelector("#selesai").valueAsDate = dates;
 $('#selesai').attr('min',tse);
 // $('#today2').value(d);
 
+function testClient() {
+    Swal.fire({
+  title: 'Peringatan !',
+  text: "Client tidak dapat melakukan permintaan penawaran",
+  icon: 'warning',
+ 
+})
+}
     function test() {
            
             Swal.fire({
   title: 'Peringatan !',
-  text: "Silahkan Login / Register untuk meminta penawaran harga",
+  text: "Silahkan Login / Register sebagai Advertiser untuk meminta penawaran harga",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',

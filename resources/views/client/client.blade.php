@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap4/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/collapse.css')}}">
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
+ 
     <link rel="stylesheet" href="{{asset('css/client.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
-    {{-- <link rel="stylesheet" href="{{asset('css/padding.css')}}"> --}}
+    <link rel="stylesheet" href="{{asset('css/padding.css')}}">
 
 
     
@@ -31,7 +32,7 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/dashboardClient">
 
             <span class="menu-collapsed">Client Dashboard</span>
         </a>
@@ -157,7 +158,7 @@
                 <!-- Separator without title -->
                 <li class="list-group-item sidebar-separator menu-collapsed"></li>
                 <!-- /END Separator -->
-                <a href="logout" class="bg-dark list-group-item list-group-item-action">
+                <a href="/logoutClient" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
                         <span class="menu-collapsed">Logout</span>
@@ -186,6 +187,7 @@
     <script src="{{asset('js/collapse.js')}}"></script>
 
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('js/currency.js')}}"></script>
     
 
 

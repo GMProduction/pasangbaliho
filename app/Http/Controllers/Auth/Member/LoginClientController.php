@@ -30,29 +30,31 @@ class LoginClientController extends Controller
     {
         
         if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            $data = [
-                'status' => 'Selamat datang '.auth()->guard('client')->user()->nama,
-                'text' => ' Anda login sebagai klien',
-                'icon' => 'success'
-            ];
-            if(auth()->guard('client')->user()->status === 'pending'){
+            if(auth()->guard('client')->user()->status == 'pending'){
                 $data1 = [
                     'status' => 'Belum bisa login',
                     'text' => ' Mohon tunggu konfirmasi dari admin untuk dapat login',
                     'icon' => 'warning'
                 ];
+                $this->logoutClient();
                 return redirect()->back()->withInput()
                 ->with($data1);
-            }else if(auth()->guard('client')->user()->status === 'tolak'){
+            }else if(auth()->guard('client')->user()->status == 'tolak'){
                 $data1 = [
                     'status' => 'Akun anda ditolak',
                     'text' => 'Mohon maaf pendaftaran anda ditolak',
                     'icon' => 'warning'
                 ];
+                $this->logoutClient();
                 return redirect()->back()->withInput()
                 ->with($data1);
             }
             else{
+                $data = [
+                    'status' => 'Selamat datang '.auth()->guard('client')->user()->nama,
+                    'text' => ' Anda login sebagai klien',
+                    'icon' => 'success'
+                ];
                 return redirect()->intended('/')
                 ->with($data);
             }

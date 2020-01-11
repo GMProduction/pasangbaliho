@@ -3,9 +3,13 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Basic Examples -->
-<div class=" contact-page ">
 
-    <div class=" backgroundGreen pb-1" style="">
+
+<div class=" contact-page ">
+    <a href="add" class="float">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+    <div class=" backgroundGreen pb-1 " style="">
         <h4 class="text-center pt-1 text-white">Asset Media</h4>
     </div>
     <div class="backgroundGray">
@@ -16,8 +20,7 @@
                     <th class="text-center" style="width: 50px">Gambar</th>
                     <th class="text-center">Jenis Media / Alamat</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Terlihat</th>
-                    <th class="text-center" colspan="3">Aksi</th>
+                    <th class="text-center" colspan="2">Aksi</th>
                 </tr>
                 @forelse ($product as $key => $d)
                 {{ csrf_field() }}
@@ -34,12 +37,12 @@
                         </td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle"> {{$d->status}}
                         </td>
-                        <td class="text-center" rowspan="2" style=" vertical-align: middle">
-                            {{$d->status}}</td>
+                       
+
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href=""><i class="fas fa-edit    "></i></a></td>
-                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href="#!"  onclick="editVisible({{$product->firstItem() + $key}}, {{$d->id_baliho}}, '{{$d->status}}')"><i @if ($d->status ==
+                            <a href="#!" class="btn btn-warning btn-circle btn-circle-sm"
+                                onclick="editVisible({{$product->firstItem() + $key}}, {{$d->id_baliho}}, '{{$d->status}}')"><i
+                                    @if ($d->status ==
                                     'publish')
                                     class="fa fa-eye"
                                     @else
@@ -47,7 +50,7 @@
                                     @endif
                                     id="iconVisible{{$product->firstItem() + $key}}" aria-hidden="true"></i></a></td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href="" id=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                            <a href="info" class="btn btn-info btn-circle btn-circle-sm"><i class="fas fa-info    "></i></a></td>
                     </tr>
                     <tr>
                         <td class="border-top-0" style="">{{$d->alamat}}</td>
@@ -56,7 +59,8 @@
                 @empty
                 <tbody>
                     <tr style="height: 400px">
-                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan</td>
+                        <td colspan="8" class="text-center" style="padding: 20%">Anda belum mempunyai asset media iklan
+                        </td>
                     </tr>
                 </tbody>
                 @endforelse
@@ -127,7 +131,7 @@
                             id: d
                         },
                         success: function (data) {
-                           alert('suksen');
+                           alert('sukses');
                         },
                         error: function (data) {
                             window.location.reload();
