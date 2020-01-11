@@ -43,10 +43,16 @@ export class ConfirmAksiMedia extends Component {
 
     handleSubmit = (param) => {
         this.props.onSubmit(param);
+        this.setState({
+            openDelete: false
+        })
     }
 
     handleSubmitStatus = (param) => {
         this.props.onSubmitStatus(param);
+        this.setState({
+            openStatus: false
+        })
     }
 
     render(){

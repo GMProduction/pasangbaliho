@@ -5,6 +5,8 @@ export const ON_UNMOUNT = 'ON_UNMOUNT';
 export const PAGE_PROGRESS = 'PAGE_PROGRESS';
 export const PAGE_REDIRECT = 'PAGE_REDIRECT';
 
+//auth proccessing
+export const FETCH_AUTH = 'FETCH_AUTH';
 
 //data proccessing
 export const PREPARE_SEARCH = 'PREPARE_SEARCH';
@@ -38,6 +40,8 @@ export const FETCH_MEDIA_IKLAN_BY_ID = 'FETCH_MEDIA_IKLAN_BY_ID';
 export const FETCH_NEGOSIASI = 'FETCH_NEGOSIASI'; 
 export const FETCH_NEGOSIASI_BY_ID = 'FETCH_NEGOSIASI_BY_ID'; 
 
+//PAYMENT
+export const FETCH_PAYMENT = 'FETCH_PAYMENT';
 
 //utility
 export const FETCH_KATEGORI = 'FETCH_KATEGORI';

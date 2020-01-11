@@ -9,6 +9,12 @@ import Button from '@material-ui/core/Button';
 import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
 import ConfirmAksi from '../../components/Material-UI/Dialog/ConfirmAksi';
 
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {withStyles} from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import { columns } from './Properties/Properties';
@@ -22,6 +28,12 @@ import {fetchMitra, deleteMitra} from '../../Actions/MitraActions';
 import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
 
 
+const useStyles = theme => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+});
 
 export class PageMitra extends Component {
 
@@ -30,7 +42,8 @@ export class PageMitra extends Component {
         this.state = {
             searchKey: '',
             redirect : false,
-            notif: false
+            notif: false,
+            submitProses: false, error: false, succes: false
         }
     }
 
@@ -60,15 +73,18 @@ export class PageMitra extends Component {
     }
 
     handleDelete = async (a) => {
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
-        await this.props.deleteMitra(a)
+        this.setState({submitProses: true,})
+        let res = await this.props.deleteMitra(a)
+        if (res.status !== 'success'){
+            this.setState({error: true,success: false})
+        }else{
+            this.setState({error: false,success: true})
+        }
         await this.props.fetchMitra('')
-        await this.props.onMounted('Mitra')
+        this.setState({submitProses: false,})
     }
 
    async componentDidMount () {
-
         const aksi = {
             title: 'Aksi',
             headerStyle:
@@ -83,7 +99,7 @@ export class PageMitra extends Component {
             sorting: false,
             render: rowData => 
                         <ConfirmAksi 
-                        url={`/mitra/edit/${rowData.id_client}`}
+                        url={`/dashboard/perlengkapan/mitra/edit/${rowData.id_client}`}
                         id={rowData.id_client}
                         dialogTitle={`Apakah Anda Yakin Ingin Menghapus Mitra ${rowData.nama}`}
                         onSubmit={this.handleDelete}/>
@@ -106,13 +122,25 @@ export class PageMitra extends Component {
         columns.pop()
     }
 
+    handleCloseSnackBar = (param) => {
+        if(param === 'error'){
+            this.setState({
+                error: false
+            })
+        }else{
+            this.setState({
+                success: false
+            })
+        }
+    }
+
     render() {
-        
+        const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
         const {dataMitra} = this.props.mitra;
 
         if(this.state.redirect === true) {
-            return <Redirect push to='/mitra/add' />
+            return <Redirect push to='/dashboard/perlengkapan/mitra/add' />
         }
 
         if (pageLoading === true) {
@@ -128,16 +156,28 @@ export class PageMitra extends Component {
             <div>
                 
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
+                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
+                    </Alert>
+                </Snackbar>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
+                        Berhasil Menyimpan Data.
+                    </Alert>
+                </Snackbar>
                 <BCPageMitra/>
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>Daftar Mitra</Box>
-                            <Box><Button onClick={this.handleClick}>Tambah Daftar Mitra</Button></Box>
+                            {/* <Box><Button onClick={this.handleClick}>Tambah Daftar Mitra</Button></Box> */}
                         </BasicPanelHeader>
                         <BasicPanelContent>
                             <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar Mitra</Box>
+                                <Box display='flex' flexGrow={1}>
+                                    <Button variant='contained' color='primary' onClick={this.handleClick}>Tambah</Button>
+                                </Box>
                                 <Box>
                                     <TextField
                                         id="outlined-basic"
@@ -154,6 +194,22 @@ export class PageMitra extends Component {
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
+                <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.submitProses}
+                >
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Box>
+                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
+                                <CircularProgress color="inherit" />
+                            </Box>
+                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            Mohon Tunggu Sebentar. Sedang Menghapus Data...
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                </Backdrop>
             </div>
         );
     }
@@ -179,5 +235,10 @@ function mapDispatcToProps (dispatch) {
 }
 
 export default compose(
+    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps)
     )(PageMitra);
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

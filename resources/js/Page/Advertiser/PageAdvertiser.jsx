@@ -76,7 +76,7 @@ export class PageAdvertiser extends Component {
             sorting: false,
             render: rowData => 
                         <ConfirmAksi 
-                        url={`/advertiser/edit/${rowData.id}`}
+                        url={`/dashboard/perlengkapan/advertiser/edit/${rowData.id}`}
                         id={rowData.id}
                         dialogTitle={`Apakah Anda Yakin Ingin Menghapus Advertiser ${rowData.nama}`}
                         onSubmit={this.handleDelete}/>
@@ -104,7 +104,7 @@ export class PageAdvertiser extends Component {
         const {dataAdvertiser} = this.props.advertiser;
 
         if(this.state.redirect === true) {
-            return <Redirect push to='/advertiser/add' />
+            return <Redirect push to='/dashboard/perlengkapan/advertiser/add' />
         }
 
         if (pageLoading === true) {
@@ -124,11 +124,12 @@ export class PageAdvertiser extends Component {
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>Daftar Advertiser </Box>
-                            <Box><Button onClick={this.handleClick}>Tambah Daftar Advertiser</Button></Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
                             <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Data Advertiser</Box>
+                            <Box display='flex' flexGrow={1}>
+                                    <Button variant='contained' color='primary' onClick={this.handleClick}>Tambah</Button>
+                                </Box>
                                 <Box>
                                     <TextField
                                         id="outlined-basic"

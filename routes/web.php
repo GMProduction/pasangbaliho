@@ -121,8 +121,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('{any}', function () {
         return view('admin.layout');
     })->where('any', '.*');
-
-    Route::get('/api/negosiasi/request', 'Admin\TransaksiControll@getPermintaanharga');
 });
 
 Route::group(['prefix' => 'adminapi'], function () {
@@ -172,5 +170,6 @@ Route::group(['prefix' => 'adminapi'], function () {
         Route::post('/sendemail', 'Admin\MailSender@send');
 
         Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
+        Route::get('/sendsms', 'Admin\TransaksiControll@sendSms');
     });
 });
