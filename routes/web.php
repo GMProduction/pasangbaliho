@@ -18,10 +18,9 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/testIpay', 'Member\testIpay88@index');
-Route::post('/payment', function(){
-    return "success";
-});
+Route::get('/payment', 'Member\testIpay88@index');
+Route::get('/test', 'Member\testIpay88@posIpay');
+
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
@@ -79,7 +78,7 @@ Route::group(['guard' => 'guest'], function () {
     Route::get('dashboard/addProduk', function () {
         return view('advertiser.data.input');
     });
-}); 
+});
 Route::get('logout', 'Auth\Member\LoginController@logout');
 Route::group(['middleware' => 'advertiser'], function () {
     Route::get('dashboard', 'Member\advertiserController@showDashboard');
