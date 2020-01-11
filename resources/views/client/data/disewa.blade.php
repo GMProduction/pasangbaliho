@@ -16,7 +16,6 @@
                     <th class="text-center">Penyewa</th>
                     <th class="text-center">Mulai</th>
                     <th class="text-center">Selesai</th>
-                    <th class="text-center" colspan="2">Aksi</th>
                 </tr>
                 @forelse ($disewa as $key => $d)
                 {{ csrf_field() }}
@@ -37,16 +36,8 @@
                         </td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle"> {{$d->tanggal_akhir}}
                         </td>
-                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href=""><i class="fas fa-edit    "></i></a></td>
-                        <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href="#!"  onclick="editVisible({{$disewa->firstItem() + $key}}, {{$d->id_baliho}}, '{{$d->status}}')"><i @if ($d->status ==
-                                    'publish')
-                                    class="fa fa-eye"
-                                    @else
-                                    class="fa fa-eye-slash"
-                                    @endif
-                                    id="iconVisible{{$disewa->firstItem() + $key}}" aria-hidden="true"></i></a></td>
+                     
+                       
                         
                     </tr>
                     <tr>

@@ -5,49 +5,81 @@ import {
     PAGE_REDIRECT,
 } from '../Actions/type';
 
-import {fetchAPI, deleteAPI, postAPI} from '../Controller/APIControll';
+import {mainApi, configJSON} from '../Controller/APIControll';
 
 export const fetchAdvertiser = (index) => {
     return async (dispatch) => {
-        let response = await fetchAPI('/advertiser/request?index='+index)
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_ADVERTISER, data: response.data.data});
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try {
+            let response = await mainApi.get('/advertiser/request?index='+index, configJSON)
+            if(response.status === 200){
+                await dispatch({type: FETCH_ADVERTISER, data: response.data});
+            }
+        } catch (error){
+            alert('Terjadi Kesalahan Dalam Melakukan Fetch Data./n'+error);
+            await dispatch({type: FETCH_ADVERTISER, data: []});
         }
     }
 }
 
 export const fetchAdvertiserById = (id) => {
     return async (dispatch) => {
-        let response = await fetchAPI('/advertiser/requestById?id='+id)
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_ADVERTISER_BY_ID, data: response.data.data});
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
         }
-        console.log(response);
+        try {
+            let response = await mainApi.get('/advertiser/requestById?id='+id, configJSON)
+            if(response.status === 200){
+                await dispatch({type: FETCH_ADVERTISER_BY_ID, data: response.data});
+            }else{
+                await dispatch({type: FETCH_ADVERTISER_BY_ID, data: null});
+            }
+        } catch (error){
+            alert('Terjadi Kesalahan Dalam Melakukan Fetch Data./n'+error);
+            await dispatch({type: FETCH_ADVERTISER_BY_ID, data: null});
+        }
     }
 }
 
 export const postAdvertiser = (data, filter) =>{
     return async (dispatch) => {
-        const config = {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
             headers: {
-                'content-type': 'multipart/form-data'
-            }
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
         }
         let url = '/advertiser/add';
         if (filter === 'edit') {
             url = '/advertiser/edit';
-          }
-        let res = await postAPI(url, data, config);
-        if (res.status === 'success') {
-            if (res.data.data.sqlResponse === true) {
-                alert('berhasil')
-                dispatch({type: PAGE_REDIRECT, redirect: true})
-                console.log(res.data.data);
+        }
+        try{
+            let response = await mainApi.post(url, data, configJSON)
+            if (response.status === 200) {
+                return {status: 'success'}
             }else{
-                alert('gagal')
-                dispatch({type: PAGE_REDIRECT, redirect: false})
-                console.log(res.data.data);
+                return {status: 'failed', message: response.data}
             }
+        } catch(error) {
+            alert('Terjadi Kesalahan Dalam Melakukan Penyimpanan Data./n'+error);
+            return {status: 'failed', message: error}
         }
     }
 }
@@ -66,9 +98,14 @@ export const deleteAdvertiser = (id) => {
 
 export const fetchQtyAdvertiser = () => {
     return async (dispatch) => {
-        let response = await fetchAPI('/mitra/cMitra')
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_QTY_ADVERTISER, data: response.data.data});
+        try{
+            let response = await mainApi.get('/advertiser/cAdvertiser', configJSON)
+            if (response.status === 200) {
+                dispatch({type: FETCH_QTY_ADVERTISER, data: response.data});
+            }
+        }catch (e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_QTY_ADVERTISER, data: 0});
         }
     }
 }

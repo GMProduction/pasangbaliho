@@ -9,7 +9,7 @@ use PHPHtmlParser\Dom;
 function parseBerita($isi){
     $dom = new Dom;
     $dom->loadStr($isi,[]);
-    $data = $dom->find('p')[0];
+    $data = $dom->outerHTML;
     return $data;
 }
 function formatRupiah($angka)

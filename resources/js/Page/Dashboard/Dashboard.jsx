@@ -33,7 +33,7 @@ export class Dashboard extends Component {
         await this.props.fetchNegosiasi('permintaan','')
         await this.props.pageOnProgress(90, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data Permintaan Penambahan Asset...')
         await this.props.fetchMedia('pending','')
-        await this.props.onMounted()
+        await this.props.onMounted('Dashboard')
     }
 
     render() {
@@ -45,8 +45,7 @@ export class Dashboard extends Component {
         if (pageLoading === true) {
             return(
                 <div>
-                    <LoadingBar progress={pageProgress} height={3} color='#f11946'
-                    />
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
                     <Preloading textloading={pageLoadingStatus}/>
                 </div>
             )
@@ -59,20 +58,11 @@ export class Dashboard extends Component {
                         <StatusBox qtyMedia={qtyMedia} qtyAdvertiser={qtyAdvertiser} qtyMitra={qtyMitra}/>
                     </Fade>
                     <Fade bottom>
-                    <React.Fragment>
-                        <Grid container spacing={3} style={{marginTop: '10px'}}>
-                            <Grid item xs={12} sm={12} md={7} lg={7}>
-                                <PermintaanHarga data={dataNegosiasi}/>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={5} lg={5}>
-                                <PermintaanPenambahanAsset data={dataMedia}/>
-                            </Grid>
-                        </Grid>
                         <Grid container spacing={3} style={{marginTop: '10px'}}>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <PermintaanHarga data={dataNegosiasi}/>
                             </Grid>
                         </Grid>
-                    </React.Fragment>
                     </Fade>
                 </React.Fragment> 
             </div>

@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
     <title>Document</title>
     <style>
     
@@ -21,10 +22,10 @@
     @media only screen and (max-width : 959px) {
        main {
         padding-left: 25px;
-        padding-top: 70px;
+        padding-top: 75px;
         padding-right: 25px;
         padding-bottom: 15px;
-        min-height: 550px;
+        min-height: 610px;
       }
     }
 

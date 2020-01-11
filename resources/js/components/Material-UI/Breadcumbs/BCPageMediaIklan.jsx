@@ -15,7 +15,7 @@ export class BCPageMediaIklan extends Component {
             <Paper elevation={0} style={breadcumbStyle.paper}>
                 <Breadcrumbs separator="›" aria-label="breadcrumb">
                         <NavLink
-                        color="inherit" to="/"
+                        color="inherit" to="/dashboard"
                         className={classes.link}
                         >
                         <Icon className={classes.icon}>dashboard</Icon>

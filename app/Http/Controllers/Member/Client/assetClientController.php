@@ -100,10 +100,13 @@ class assetClientController extends Controller
 
     public function addAsset(Request $r)
     {
+        if (auth()->guard('client')->check()) {
+            $id = auth()->guard('client')->user()->id_client;
+        }
         $luas = $r->tinggi * $r->lebar;
         $data = new BalihoModel();
         $data->nama_baliho = $r->nama;
-        $data->id = '1';
+        $data->id_client = $id;
         $data->id_kategori = $r->jenmedia;
         $data->lebar = $r->lebar;
         $data->tinggi = $r->tinggi;
@@ -111,7 +114,7 @@ class assetClientController extends Controller
         $data->id_provinsi = $r->prov;
         $data->id_kota = $r->kota;
         $data->alamat = $r->alamat;
-        $data->harga_client = $r->harga;
+        $data->harga_client = str_replace(',','',$r->harga);
         $data->orientasi = $r->orientasi;
         $data->posisi = $r->posisi;
         $data->tampilan = $r->tampil;
@@ -134,7 +137,10 @@ class assetClientController extends Controller
        BalihoModel::query()
         ->where('id_baliho','=',$r->id)
         ->update($data);
-        
 
+    }
+
+    public function detailAsset(){
+        return view('client.data.sub.detailAsset');
     }
 }

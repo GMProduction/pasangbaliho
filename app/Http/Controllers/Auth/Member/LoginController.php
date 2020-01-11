@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
+
 class LoginController extends Controller
 {
     //

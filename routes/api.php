@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,4 +81,77 @@ Route::post('v1/deleteFcmClient', 'API\FcmController@deleteFcmClient')->name('de
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('v1/details', 'API\AdvertiserController@details');
+});
+
+
+
+
+Route::group(['prefix' => 'admin'], function(){
+
+    Route::group(['prefix' => 'v1'], function(){
+        Route::post('/register', 'Admin\AdminControll@register');
+        Route::post('/login', 'Admin\AdminControll@login');
+
+        Route::group(['middleware' => 'auth:admin-api'], function(){
+
+            Route::group(['prefix' => 'kategori'], function () {
+                Route::get('/request', 'Admin\KategoriControll@getKategori');
+            });
+        
+            Route::group(['prefix' => 'lokasi'], function () {
+                Route::get('/requestProvinsi', 'Admin\LokasiControll@getProvinsi');
+                Route::post('/addProvinsi', 'Admin\LokasiControll@addProvinsi');
+                Route::get('/requestKota', 'Admin\LokasiControll@getKota');
+                Route::post('/addKota', 'Admin\LokasiControll@addKota');
+            });
+
+            Route::group(['prefix' => 'mitra'], function () {
+                Route::get('/cMitra', 'Admin\MitraControll@getCountMitra');
+                Route::get('/request', 'Admin\MitraControll@getMitra');
+                Route::get('/requestById', 'Admin\MitraControll@getMitraById');
+                Route::post('/add', 'Admin\MitraControll@addMitra');
+                Route::post('/edit', 'Admin\MitraControll@editMitra');
+                Route::delete('/delete/{id}', 'Admin\MitraControll@deleteMitra');
+            });
+            
+            Route::group(['prefix' => 'advertiser'], function(){
+                Route::get('/cAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
+                Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
+                Route::get('/requestById', 'Admin\AdvertiserControll@getAdvertiserById');
+                Route::post('/add', 'Admin\AdvertiserControll@addAdvertiser');
+                Route::post('/edit', 'Admin\AdvertiserControll@editAdvertiser');
+                Route::delete('/delete/{id}', 'Admin\AdvertiserControll@deleteAdvertiser');
+            });
+
+            Route::group(['prefix' => 'mediaiklan'], function () {
+                Route::get('/cMedia', 'Admin\MediaControll@getCountMedia');
+                Route::get('/request', 'Admin\MediaControll@getMedia');
+                Route::get('/requestById', 'Admin\MediaControll@getMediaById');
+                Route::post('/addMedia', 'Admin\MediaControll@addMedia');
+                Route::post('/patchMedia', 'Admin\MediaControll@patchMedia');
+                Route::post('/uploadImage', 'Admin\MediaControll@multipleUpload');
+                Route::post('/patchStatusMedia', 'Admin\MediaControll@patchStatusMedia');
+                Route::delete('/delete/{id}', 'Admin\MediaControll@delete');
+            });
+
+            Route::group(['prefix' => 'negosiasi'], function () {
+                Route::get('/request', 'Admin\TransaksiControll@getNegosiasi');
+                Route::get('/requestById', 'Admin\TransaksiControll@getNegosiasiById');
+                Route::post('/patchTransaksi', 'Admin\TransaksiControll@patchTransaksi');
+                Route::post('/sendemail', 'Admin\MailSender@send');
+        
+                Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
+                Route::get('/sendsms', 'Admin\TransaksiControll@sendSms');
+            });
+
+            Route::group(['prefix' => 'news'], function (){
+                Route::post('/addNews', 'Admin\NewsControll@addNews');
+            });
+
+            Route::group(['prefix' => 'payment'], function (){
+                Route::get('/getPayment', 'Admin\PaymentControll@getPayment');
+            });
+
+        });
+    });
 });

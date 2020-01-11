@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\TransaksiModel;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Arr;
 
 class TransaksiControll extends Controller
@@ -44,9 +45,9 @@ class TransaksiControll extends Controller
                     ->orWhere($kategori);
             })
             ->where('transaksi.status', 'LIKE', '%'.$r->status.'%')
-            ->orderBy('id_transaksi', 'ASC')
+            ->orderBy('id_transaksi', 'DESC')
             ->get();
-        return response()->json($permintaan);
+        return response()->json($permintaan, 200);
     }
 
     public function getNegosiasiById (Request $r){
@@ -58,6 +59,8 @@ class TransaksiControll extends Controller
                     'id_transaksi',
                     'advertisers.id as idAdvertiser', 
                     'advertisers.nama as namaAdvertiser', 
+                    'advertisers.telp as telp', 
+                    'advertisers.email as email', 
                     'advertisers.nama_instansi as namaInstansi', 
                     'transaksi.id_baliho as idBaliho',
                     'balihos.nama_baliho as namaBaliho', 
@@ -76,31 +79,31 @@ class TransaksiControll extends Controller
                 ->where('id_transaksi', '=', $r->id)
                 ->first();
         if ($permintaan != null) {
-            return response()->json($permintaan);
+            return response()->json($permintaan, 200);
         }
-        return null;
+        return response()->json(['message' => 'No Data Found'], 202);
     }
 
-    public function postPrice (Request $r) {
-        try {
-            $body = '';
+    public function patchTransaksi (Request $r) {
+        $body = '';
             $status ='permintaan';
             switch ($r->status) {
                 case 'permintaan':
                     $status = 'negoharga';
-                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
+                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi';
                     break;
                 case 'negoharga':
-                    $status = 'negomateri';
-                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi. Silahkan Cek Email';
-                    break;
-                case 'negomateri':
                     $status = 'pembayaran';
+                    $body = 'Permintaan Penawaran harga Anda telah kami konfirmasi';
+                    break;
+                case 'pembayaran':
+                    $status = 'negomateri';
                     $body = 'Penawaran Materi Anda telah kami terima dan setujui';
                     break;
                 default:
                     break;
             }
+        try {
             $data = [
                 'status' => $status,
                 'terbaca_client' => 0,
@@ -108,27 +111,20 @@ class TransaksiControll extends Controller
             ];
             
             if ($r->status == 'negoharga') {
-                # code...
-                $data = Arr::add($data, 'harga_deal', $r->hargaDeal);
+                $hargaDeal = str_replace('.','',$r->hargaDeal);
+                $data = Arr::add($data, 'harga_deal', $hargaDeal);
             }
             $update = TransaksiModel::query()
             ->where('id_transaksi', '=', $r->idTransaksi)
             ->update($data);
             if ($update) {
-                sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
-                sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
+                // sendNotifAdvertiser($r->idAdvertiser, 'Pemberitahuan Transaksi', $body);
+                // sendNotifClient($r->idClient, 'Pemberitahuan Transaksi', $body);
             }
-            return response()->json([
-                'status' => 'ok',
-                'data' => $data,
-                'id_trans' => $r->idTransaksi,
-            ]);
+            return response()->json(['message' => 'success'], 200);
         } catch (\Exception $e) {
             $exData = explode('(', $e->getMessage());
-            return response()->json([
-                'status' => 'failed',
-                'data' => $exData[0],
-            ]);
+            return response()->json(['message' => $exData[0]],500);
         }
     }
 
@@ -148,5 +144,10 @@ class TransaksiControll extends Controller
             ->where('id_baliho', '=', $r->id)
             ->get();
         return response()->json($transaksi);
+    }
+
+    public function sendSms () {
+         
+
     }
 }

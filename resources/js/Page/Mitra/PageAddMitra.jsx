@@ -7,6 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 
 import Divider from '@material-ui/core/Divider';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {withStyles} from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
 import Fade from 'react-reveal/Fade';
@@ -27,6 +32,12 @@ const style = {
     },
 }
 
+const useStyles = theme => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+});
 export class PageAddMitra extends Component {
 
     constructor(props) {
@@ -35,7 +46,7 @@ export class PageAddMitra extends Component {
             searchKey: '',
             redirect : false,
             idClient: '', email : '', nama: '', namaInstansi: '', password: '', noKtp: '', npwp: '', nib: '', telp: '', alamat: '',
-            status: '', apiToken: ''
+            status: '', apiToken: '',submitProses: false, error: false, succes: false
         }
     }
 
@@ -45,16 +56,30 @@ export class PageAddMitra extends Component {
         })
     }
 
+    clearField = (param) => {
+        if(param === 'add'){
+            this.setState({
+                idClient: '', email : '', nama: '', namaInstansi: '', password: '', noKtp: '', npwp: '', nib: '', telp: '', alamat: '',
+            status: '', apiToken: ''
+            })
+        }
+    }
+
     handleSubmit = async () => {
         let data = new FormData();
         Object.keys(this.state).map( row => {
             data.append(row, this.state[row])
         })
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Penghapusan Data...')
+        this.setState({submitProses: true,})
         let filter = this.props.filter;
-        await this.props.postMitra(data, filter);
-        await this.props.onMounted('Mitra')
+        let res = await this.props.postMitra(data, filter);
+        if (res.status !== 'success'){
+            this.setState({error: true,success: false})
+        }else{
+            if(filter === 'add'){this.clearField('add')}
+            this.setState({error: false,success: true})
+        }
+        this.setState({submitProses: false,})
     }
     initState = (data) => {
         this.setState({
@@ -73,6 +98,7 @@ export class PageAddMitra extends Component {
     async componentDidMount () {
         
         await this.props.prepareMount('Mohon tunggu Sebentar...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         if(this.props.filter === 'edit'){
             let id = this.props.match.params.id; 
             await this.props.fetchMitraById(id)
@@ -82,7 +108,20 @@ export class PageAddMitra extends Component {
     }
 
 
+    handleCloseSnackBar = (param) => {
+        if(param === 'error'){
+            this.setState({
+                error: false
+            })
+        }else{
+            this.setState({
+                success: false
+            })
+        }
+    }
+
     render(){
+        const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
         let title = 'Penambahan';
         if (this.props.filter === 'edit') {
@@ -98,13 +137,24 @@ export class PageAddMitra extends Component {
             )
         }
 
-        if (redirect === true) {
-            let url = '/mitra';
-            return <Redirect to={url} />
-        }
+        // if (redirect === true) {
+        //     let url = '/mitra';
+        //     return <Redirect to={url} />
+        // }
         return(
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
+                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
+                    </Alert>
+                </Snackbar>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
+                        Berhasil Menyimpan Data.
+                    </Alert>
+                </Snackbar>
+                
                 <BCPageMitra/>
                 
                 <Fade bottom>
@@ -175,6 +225,22 @@ export class PageAddMitra extends Component {
                     </Grid>
                 </Grid>
                 </Fade>
+                <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.submitProses}
+                >
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Box>
+                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
+                                <CircularProgress color="inherit" />
+                            </Box>
+                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                </Backdrop>
             </div>
         );
     }
@@ -197,6 +263,11 @@ function mapDispatcToProps (dispatch) {
     }
 }
 export default compose(
+    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps)
     )(PageAddMitra);
 
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

@@ -12,49 +12,7 @@ import {
     PAGE_REDIRECT,
 } from './type';
 
-import {fetchAPI, postAPI} from '../Controller/APIControll';
-
-export const prepareMount = () => {
-    return (dispatch) => {
-        dispatch({type: PREPARE_MOUNT, status: 'Mohon Tunggu Sebentar'})
-        dispatch({type: PAGE_PROGRESS, progress: 30, status: 'Fetching Data...'})
-    }
-}
-
-export const onMounted = () => {
-    return (dispatch) => {
-        dispatch({type: ON_MOUNTED, title: 'Negosiasi'})
-    }
-}
-
-export const onUnMounted = () => {
-    return (dispatch) => {
-        dispatch({type: PAGE_REDIRECT, redirect: false})
-    }
-}
-
-export const prepareSearch = () => {
-    return async (dispatch) => {
-        await dispatch({type: PREPARE_SEARCH})   
-    }
-}
-
-export const onSearched = () => {
-    return async (dispatch) => {
-        await dispatch({type: ON_SEARCHED})
-    }
-}
-
-export const prepareSubmit = () => {
-    return async (dispatch) => {
-        dispatch({type: PREPARE_SUBMIT, status: 'Proses Penymipanan Data..'})
-    }
-}
-export const onSubmit = () => {
-    return async (dispatch) => {
-        dispatch({type: ON_SUBMITED})
-    }
-}
+import {mainApi, configJSON} from '../Controller/APIControll';
 
 export const postNegosiasi = (data, data2, filter) => {
     return async (dispatch) => {
@@ -86,12 +44,15 @@ export const postNegosiasi = (data, data2, filter) => {
 export const fetchNegosiasi = (status, index) => {
     return async (dispatch) => {
         let stat = ''
-        if (status !== 'all') {
-            stat = status
-        }
-        let resNego = await fetchAPI('/negosiasi/request?status='+stat+'&index='+index);
-        if (resNego.status === 'success') {
-           dispatch({type: FETCH_NEGOSIASI, data: resNego.data.data})
+        if (status !== 'all') {stat = status}
+        try{
+            let response = await mainApi.get('/negosiasi/request?status='+stat+'&index='+index, configJSON)
+            if (response.status === 200) {
+                dispatch({type: FETCH_NEGOSIASI, data: response.data})
+            }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_NEGOSIASI, data: []})
         }
     }
 }
@@ -102,13 +63,17 @@ export const fetchNegosiasiById = (status, id) => {
         if (status !== 'all') {
             stat = status
         }
-        let resNego = await fetchAPI('/negosiasi/requestById?status='+stat+'&id='+id);
-        if (resNego.status === 'success') {
-            if (resNego.data.data !== ''){
-                dispatch({type: FETCH_NEGOSIASI_BY_ID, data: resNego.data.data, dataFound: true})
+        try{
+            let resNego = await mainApi.get('/negosiasi/requestById?status='+stat+'&id='+id, configJSON);
+            if (resNego.status === 200) {
+                dispatch({type: FETCH_NEGOSIASI_BY_ID, data: resNego.data, dataFound: true})
             }else {
                 dispatch({type: FETCH_NEGOSIASI_BY_ID, data: null, dataFound: false})
             }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_NEGOSIASI_BY_ID, data: null, dataFound: false})
         }
+        
     }
 }

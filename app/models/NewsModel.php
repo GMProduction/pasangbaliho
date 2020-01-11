@@ -14,7 +14,8 @@ class NewsModel extends Model
         'judul',
         'isi',
         'gambar',
-        'link'
+        'link',
+        'status'
     ];
 
 }
