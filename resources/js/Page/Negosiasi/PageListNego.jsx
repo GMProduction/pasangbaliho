@@ -13,7 +13,15 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import { columns } from './Properties/Properties';
-import {prepareMount, onMounted, prepareSearch, onSearched, fetchNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {fetchNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched} from '../../Actions/pageActions';
+import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+
+const breadcumbItems = [
+    {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
+    {title: 'Negosiasi', icon: 'question_answer', link:'/dashboard/negosiasi', active: false},
+    {title: 'Daftar Negosiasi', icon: 'list',  active: true},
+];
 
 export class PageListNego extends Component {
 
@@ -55,7 +63,7 @@ export class PageListNego extends Component {
                 <div>
                     <Button variant="outlined" size='small' color="primary" 
                         component={NavLink} 
-                        to={`/negosiasi/${filter}/${rowData.id_transaksi}`}
+                        to={`/dashboard/negosiasi/${filter}/${rowData.id_transaksi}`}
                     >
                         Kelola
                     </Button>
@@ -64,7 +72,7 @@ export class PageListNego extends Component {
         columns.push(aksi)
         await this.props.prepareMount()
         await this.props.fetchNegosiasi(filter, '')
-        await this.props.onMounted()
+        await this.props.onMounted('Negosiasi')
     }
 
     componentWillUnmount () {
@@ -101,8 +109,8 @@ export class PageListNego extends Component {
 
         return (
             <div>
-                <LoadingBar progress={100} height={3} color='#f11946'/>
-                <BCPageListNego/>
+                <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                <MBreadcumb items={breadcumbItems}/>
                 <Fade bottom>
                 <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>

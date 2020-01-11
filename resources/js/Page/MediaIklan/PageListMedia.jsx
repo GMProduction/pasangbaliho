@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import TextField from '@material-ui/core/TextField';
-import BCPageListMedia from '../../components/Material-UI/Breadcumbs/BCPageListMedia';
+import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
 import ConfirmAksiMedia from '../../components/Material-UI/Dialog/ConfirmAksiMedia';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
@@ -14,9 +14,28 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchMedia, ChangeStatusMedia, deleteMitra} from '../../Actions/MediaIklanActions';
+import {fetchMedia, ChangeStatusMedia, deleteMedia} from '../../Actions/MediaIklanActions';
 import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
 
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {withStyles} from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+const breadcumbItems = [
+    {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
+    {title: 'Media Iklan', icon: 'desktop_mac', link: '/dashboard/mediaiklan', active: false},
+    {title: 'Daftar Media Iklan', icon: 'list', active: true},
+];
+
+const useStyles = theme => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+});
 
 export class PageListMedia extends Component {
 
@@ -24,6 +43,7 @@ export class PageListMedia extends Component {
         super(props);
         this.state = {
             searchKey: '',
+            submitProses: false, error: false, succes: false,
         }
     }
 
@@ -53,36 +73,48 @@ export class PageListMedia extends Component {
 
     handlePublish = async (a) => {
         let filter = this.props.filter;
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        this.setState({submitProses: true,})
         let data = new FormData()
         data.append('idBaliho', a)
         data.append('status', 'publish')
-        await this.props.ChangeStatusMedia(data)
+        let res = await this.props.ChangeStatusMedia(data)
         await this.props.fetchMedia(filter, '')
-        await this.props.onMounted()
+        this.setState({submitProses: false})
+        if(res.status === 'success'){
+            this.setState({error: false,success: true})
+        }else{
+            this.setState({error: true,success: false})
+        }
         
     }
     handleBlock = async (a) => {
         let filter = this.props.filter;
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        this.setState({submitProses: true,})
         let data = new FormData()
         data.append('idBaliho', a)
         data.append('status', 'block')
-        await this.props.ChangeStatusMedia(data)
+        let res = await this.props.ChangeStatusMedia(data)
         await this.props.fetchMedia(filter, '')
-        await this.props.onMounted()
+        this.setState({submitProses: false})
+        if(res.status === 'success'){
+            this.setState({error: false,success: true})
+        }else{
+            this.setState({error: true,success: false})
+        }
         
     }
 
     handleDelete = async (a) => {
         let filter = this.props.filter;
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
-        await this.props.deleteMitra(a)
+        this.setState({submitProses: true,})
+        let res = await this.props.deleteMedia(a)
         await this.props.fetchMedia(filter, '')
-        await this.props.onMounted()
+        this.setState({submitProses: false})
+        if(res.status === 'success'){
+            this.setState({error: false,success: true})
+        }else{
+            this.setState({error: true,success: false})
+        }
     }
 
     async componentDidMount () {
@@ -97,7 +129,7 @@ export class PageListMedia extends Component {
                         this.props.filter !== 'pending' ?
                         this.props.filter === 'publish' ?
                         <ConfirmAksiMedia 
-                            url={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                            url={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
                             id={rowData.id_baliho}
                             dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
                             dialogTitleBlock={`Apakah Anda Yakin Ingin Memblokir Media Iklan ${rowData.nama_baliho}`}
@@ -107,7 +139,7 @@ export class PageListMedia extends Component {
                             />
                         :
                         <ConfirmAksiMedia 
-                            url={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                            url={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
                             id={rowData.id_baliho}
                             dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
                             dialogTitleBlock={`Apakah Anda Yakin Ingin Mempublish Media Iklan ${rowData.nama_baliho}`}
@@ -118,7 +150,7 @@ export class PageListMedia extends Component {
                         :
                         <Button variant="outlined" size='small' color="primary" 
                             component={NavLink} 
-                            to={`/mediaiklan/${link}/${rowData.id_baliho}`}
+                            to={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
                         >
                             Kelola
                         </Button>
@@ -131,20 +163,31 @@ export class PageListMedia extends Component {
         await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.fetchMedia(filter, '')
-        await this.props.onMounted()
+        await this.props.onMounted('Media Iklan')
     }
 
     componentWillUnmount () {
         columns.pop()
     }
 
-    render() {
+    handleCloseSnackBar = (param) => {
+        if(param === 'error'){
+            this.setState({
+                error: false
+            })
+        }else{
+            this.setState({
+                success: false
+            })
+        }
+    }
 
+    render() {
+        const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
         const {dataMedia} = this.props.mediaiklan;
         const {filter} = this.props;
         let title = 'Semua Media Iklan';
-
         switch (filter) {
             case 'pending':
                 title = 'Permintaan Penambahan Media Iklan'
@@ -171,7 +214,17 @@ export class PageListMedia extends Component {
         return (
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
-                <BCPageListMedia/>
+                <MBreadcumb items= {breadcumbItems}/>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
+                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
+                    </Alert>
+                </Snackbar>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
+                        Berhasil Menyimpan Data.
+                    </Alert>
+                </Snackbar>
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
@@ -198,6 +251,22 @@ export class PageListMedia extends Component {
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
+                <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.submitProses}
+                >
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Box>
+                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
+                                <CircularProgress color="inherit" />
+                            </Box>
+                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                </Backdrop>
             </div>
         );
     }
@@ -214,7 +283,7 @@ function mapDispatcToProps (dispatch) {
     return {
         fetchMedia: bindActionCreators(fetchMedia, dispatch),
         ChangeStatusMedia: bindActionCreators(ChangeStatusMedia, dispatch),
-        deleteMitra: bindActionCreators(deleteMitra, dispatch),
+        deleteMedia: bindActionCreators(deleteMedia, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
@@ -224,5 +293,10 @@ function mapDispatcToProps (dispatch) {
 }
 
 export default compose(
+    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps) 
     )(PageListMedia);
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

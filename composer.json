@@ -21,6 +21,7 @@
         "laravel/passport": "^7.5",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
+        "nexmo/client": "^2.0",
         "spatie/laravel-sluggable": "^2.2"
     },
     "require-dev": {

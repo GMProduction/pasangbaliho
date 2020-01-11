@@ -4,6 +4,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import MenuIcon from '@material-ui/icons/Menu';
 import {withStyles} from '@material-ui/core';
 import Sidebar from './Sidebar';
@@ -13,6 +14,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
+import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router'
 
 
 const drawerWidth = 250;
@@ -62,10 +65,18 @@ export class Navigasi extends Component {
         super(props);
         this.state = {
             openSidebar: false,
+            isLogout: false
         } 
         this.handleSidebar = this.handleSidebar.bind(this);
     }
     
+    handleLogout = () => {
+      localStorage.removeItem("user");
+      this.setState({
+        isLogout: true
+      })
+  }
+
     handleSidebar () {
         this.setState({
           openSidebar: !this.state.openSidebar
@@ -74,6 +85,10 @@ export class Navigasi extends Component {
 
     render() {
         const { classes } = this.props;
+        const user = localStorage.getItem('user');
+          if(user === null || this.state.isLogout === true){
+            return <Redirect to='/'/>
+          }
         return (
             <div className={classes.root}>
                 <AppBar className={classes.navbar} elevation={0}>
@@ -87,16 +102,17 @@ export class Navigasi extends Component {
                               <MenuIcon/>
                           </IconButton>
                           <Box p={1} flexGrow={1} fontSize={18}>{this.props.page.pageTitle}</Box>
-                          <Box p={1}>
-                            <Tooltip TransitionComponent={Zoom} title="Permintaan Harga Advertiser">
-                            <Icon>question_answer</Icon>
-                            </Tooltip>
-                          </Box>
                           <Box p={1} ml={2}>
-                            <Tooltip TransitionComponent={Zoom} title="Permintaan Penambahan Media">
-                            <Icon>desktop_mac</Icon>
-                            </Tooltip>
-                            
+                          <Tooltip TransitionComponent={Zoom} title="Logout">
+                          <IconButton
+                            size='small'
+                            edge='end'
+                            color="inherit" 
+                            aria-label="Logout"
+                            onClick={this.handleLogout}>
+                                <PowerSettingsNewIcon />
+                          </IconButton>
+                          </Tooltip>
                           </Box>
                         </Box>
                         

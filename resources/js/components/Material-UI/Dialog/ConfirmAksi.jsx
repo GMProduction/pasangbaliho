@@ -31,6 +31,9 @@ export class ConfirmAksi extends Component {
 
     handleSubmit = (param) => {
         this.props.onSubmit(param);
+        this.setState({
+            open: false
+        })
     }
 
     render(){

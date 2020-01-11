@@ -7,6 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 
 import Divider from '@material-ui/core/Divider';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {withStyles} from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import BCPageMitra from '../../components/Material-UI/Breadcumbs/BCPageMitra';
 import Fade from 'react-reveal/Fade';
@@ -26,6 +31,13 @@ const style = {
     },
 }
 
+const useStyles = theme => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+});
+
 export class PageAddAdvertiser extends Component {
 
     constructor(props) {
@@ -33,7 +45,8 @@ export class PageAddAdvertiser extends Component {
         this.state = {
             searchKey: '',
             redirect : false,
-            id: '', email : '', nama: '', namaInstansi: '', password: '',  telp: '', alamat: ''
+            id: '', email : '', nama: '', namaInstansi: '', password: '',  telp: '', alamat: '',
+            submitProses: false, error: false, succes: false
         }
     }
 
@@ -41,6 +54,14 @@ export class PageAddAdvertiser extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    clearField = (param) => {
+        if(param === 'add'){
+            this.setState({
+                id: '', email : '', nama: '', namaInstansi: '', password: '',  telp: '', alamat: '',
+            })
+        }
     }
 
     initState = (data) => {
@@ -60,11 +81,16 @@ export class PageAddAdvertiser extends Component {
         Object.keys(this.state).map( row => {
             data.append(row, this.state[row])
         })
-        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Penyimpanan Data...')
-        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Penyimpanan Data...')
+        this.setState({submitProses: true,})
         let filter = this.props.filter;
-        await this.props.postAdvertiser(data, filter);
-        await this.props.onMounted('Mitra')
+        let res = await this.props.postAdvertiser(data, filter);
+        if (res.status !== 'success'){
+            this.setState({error: true,success: false})
+        }else{
+            if(filter === 'add'){this.clearField('add')}
+            this.setState({error: false,success: true})
+        }
+        this.setState({submitProses: false,})
     }
 
     async componentDidMount () {
@@ -78,7 +104,20 @@ export class PageAddAdvertiser extends Component {
         await this.props.onMounted('Advertiser')
     }
 
+    handleCloseSnackBar = (param) => {
+        if(param === 'error'){
+            this.setState({
+                error: false
+            })
+        }else{
+            this.setState({
+                success: false
+            })
+        }
+    }
+
     render(){
+        const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
         let title = 'Penambahan';
 
@@ -95,13 +134,23 @@ export class PageAddAdvertiser extends Component {
             )
         }
 
-        if (redirect === true) {
-            let url = '/advertiser';
-            return <Redirect to={url} />
-        }
+        // if (redirect === true) {
+        //     let url = '/advertiser';
+        //     return <Redirect to={url} />
+        // }
         return(
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
+                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
+                    </Alert>
+                </Snackbar>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
+                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
+                        Berhasil Menyimpan Data.
+                    </Alert>
+                </Snackbar>
                 <BCPageMitra/>
                 <Fade bottom>
                 <Grid justify='center' container spacing={2}>
@@ -158,6 +207,21 @@ export class PageAddAdvertiser extends Component {
                     </Grid>
                 </Grid>
                 </Fade>
+                <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.submitProses}
+                >
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Box>
+                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
+                                <CircularProgress color="inherit" />
+                            </Box>
+                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
+                            </Box>
+                        </Box>
+                    </Box>
+                </Backdrop>
             </div>
         );
     }
@@ -181,5 +245,10 @@ function mapDispatcToProps (dispatch) {
     }
 }
 export default compose(
+    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps)
     )(PageAddAdvertiser);
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

@@ -9,6 +9,9 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = theme => ({
     toolbar: theme.mixins.toolbar,
+    userInfo:{
+        height: '60px',
+    },
     divider:{
         marginBottom: '15px'
     },
@@ -57,6 +60,9 @@ export class Sidebar extends Component {
     
     render() {
         const { classes } = this.props;
+        const user = JSON.parse(localStorage.getItem('user'));
+        const username = user.username;
+        const role = user.role;
         
         return (
             <div className='mysidenav'>
@@ -66,68 +72,70 @@ export class Sidebar extends Component {
                 <Divider variant='middle' classes={{
                     root: classes.divider
                 }}/>
+                <Box className={classes.userInfo} fontSize={14} fontFamily='Roboto' display='flex' alignItems='center' justifyContent='center'>
+                    <Box>
+                        <Box>{username}</Box>
+                        <Box>{role}</Box>
+                    </Box>
+                </Box>
+                <Divider variant='middle' classes={{
+                    root: classes.divider
+                }}/>
                 <List>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/' exact
+                        component={NavLink} to='/dashboard' exact
                         >
                             <Icon>dashboard</Icon>Dashboard
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/mitra'
-                        >
-                            <Icon>assignment_ind</Icon>Mitra
-                        </ListItem>
-                    </li>
-                    <li>
-                        <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/advertiser'
-                        >
-                            <Icon>face</Icon>Advertiser
-                        </ListItem>
-                    </li>
-                    <li>
-                        <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/mediaiklan'
+                        component={NavLink} to='/dashboard/mediaiklan'
                         >
                             <Icon>desktop_mac</Icon>Media Iklan
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/negosiasi'
+                        component={NavLink} to='/dashboard/negosiasi'
                         >
                             <Icon>question_answer</Icon>Negosiasi
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/pembayaran'
+                        component={NavLink} to='/dashboard/pembayaran'
                         >
                             <Icon>payment</Icon>Pembayaran
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/materi'
+                        component={NavLink} to='/dashboard/materi'
                         >
                             <Icon>library_books</Icon>Proses Materi Iklan
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/laporan'
+                        component={NavLink} to='/dasboard/laporan'
                         >
                             <Icon>pie_chart</Icon>Laporan
                         </ListItem>
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/perlengkapan'
+                        component={NavLink} to='/dashboard/perlengkapan'
                         >
                             <Icon>extension</Icon>Perlengkapan
+                        </ListItem>
+                    </li>
+                    <li>
+                        <ListItem button classes={{button: classes.item}}
+                        component={NavLink} to='/dashboard/berita'
+                        >
+                            <Icon>language</Icon>Berita
                         </ListItem>
                     </li>
                 </List>

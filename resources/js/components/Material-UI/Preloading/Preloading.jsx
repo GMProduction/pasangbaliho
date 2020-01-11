@@ -6,8 +6,8 @@ export class Preloading extends Component {
     render() {
         return (
             <Box display='flex' justifyContent='center' alignItems='center' style={{minHeight: '515px'}}>
-                <Box>
-                <Box display='flex' justifyContent='center'>
+                <Box >
+                <Box display='flex' justifyContent='center' style={{marginBottom: '15px'}}>
                 <CircularProgress />
                 </Box>
                 <Box display='flex' justifyContent='center' fontFamily='Roboto' fontWeight={300}>

@@ -5,69 +5,120 @@ import {
     PAGE_REDIRECT,
 } from './type';
 
-import {fetchAPI, deleteAPI, postAPI} from '../Controller/APIControll';
+import {mainApi, configFORM, configJSON} from '../Controller/APIControll';
+
+
 
 export const fetchMitra = (index) => {
     return async (dispatch) => {
-        let response = await fetchAPI('/mitra/request?index='+index)
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_MITRA, data: response.data.data});
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try {
+            let response = await mainApi.get('/mitra/request?index='+index, configJSON)
+            if(response.status === 200){
+                await dispatch({type: FETCH_MITRA, data: response.data});
+            }
+        } catch (error){
+            alert('Terjadi Kesalahan Dalam Melakukan Fetch Data./n'+error);
         }
     }
 }
 
 export const fetchMitraById = (id) => {
     return async (dispatch) => {
-        let response = await fetchAPI('/mitra/requestById?id='+id)
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_MITRA_BY_ID, data: response.data.data});
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try {
+            let response = await mainApi.get('/mitra/requestById?id='+id, configJSON)
+            if(response.status === 200){
+                await dispatch({type: FETCH_MITRA_BY_ID, data: response.data});
+            }else{
+                await dispatch({type: FETCH_MITRA_BY_ID, data: null});
+            }
+        } catch (error){
+            alert('Terjadi Kesalahan Dalam Melakukan Fetch Data./n'+error);
+            await dispatch({type: FETCH_MITRA_BY_ID, data: null});
         }
     }
 }
 
-export const postMitra = (data, filter) =>{
+export const postMitra = (data, filter) => {
+    let url = '/mitra/add';
+    if (filter === 'edit') {
+        url = '/mitra/edit';
+    }
     return async (dispatch) => {
-        const config = {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
             headers: {
-                'content-type': 'multipart/form-data'
-            }
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
         }
-        let url = '/mitra/add';
-        if (filter === 'edit') {
-            url = '/mitra/edit';
-          }
-        let res = await postAPI(url, data, config);
-        if (res.status === 'success') {
-            if (res.data.data.sqlResponse === true) {
-                alert('berhasil')
-                dispatch({type: PAGE_REDIRECT, redirect: true})
-                console.log(res.data.data);
+        try{
+            let response = await mainApi.post(url, data, configJSON)
+            if (response.status === 200) {
+                return {status: 'success'}
             }else{
-                alert('gagal')
-                dispatch({type: PAGE_REDIRECT, redirect: false})
-                console.log(res.data.data);
+                return {status: 'failed', message: response.data}
             }
+        } catch(error) {
+            alert('Terjadi Kesalahan Dalam Melakukan Penyimpanan Data./n'+error);
+            return {status: 'failed', message: error}
         }
     }
 }
 export const deleteMitra = (id) => {
     return async (dispatch) => {
-        let data = {id: id};
-        let response = await deleteAPI('/mitra/delete', data)
-        if (response.status === 'success') {
-            alert('Berhasil Menghapus Data.')
-        }else{
-            alert('Gagal Menghapus Data')
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
         }
-        console.log(response);
+        try{
+            let response = await mainApi.delete('/mitra/delete/'+id, configJSON)
+            if (response.status === 200) {
+                return {status: 'success'}
+            }else{
+                return {status: 'failed', message: response.data}
+            }
+
+        }catch(e){
+            return {status: 'failed', message: e}
+        }
     }
 }
 
 export const fetchQtyMitra = () => {
     return async (dispatch) => {
-        let response = await fetchAPI('/mitra/cMitra')
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_QTY_MITRA, data: response.data.data});
+        try{
+            let response = await mainApi.get('/mitra/cMitra', configJSON)
+            if (response.status === 200) {
+                dispatch({type: FETCH_QTY_MITRA, data: response.data});
+            }
+        }catch (e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_QTY_MITRA, data: 0});
         }
     }
 }

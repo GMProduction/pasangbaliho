@@ -6,61 +6,75 @@ import {
 } from '../Actions/type';
 
 
-import {fetchAPI, postAPI, deleteAPI} from '../Controller/APIControll';
+import {mainApi, configJSON, configFORM, configURLEncode} from '../Controller/APIControll';
 
 
 
 export const postMedia = (data, filter) => {
     return async (dispatch) => {
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-          }
-          let url = '/mediaiklan/addmedia';
-          if (filter === 'update') {
-            url = '/mediaiklan/konfirmmedia';
-          }
-        let res = await postAPI(url, data, config);
-        if (res.status === 'success') {
-            if (res.data.data.status === 'ok') {
-                dispatch({type: PAGE_REDIRECT, redirect: true})
-                alert('Berhasil Menyimpan Data')
+        let url = '/mediaiklan/addMedia';
+        if (filter === 'patch') {url = '/mediaiklan/patchMedia';}
+        try{
+            
+            let response = await mainApi.post(url, data, configJSON)
+            if (response.status === 200) {
+                return {status: 'success', data: response.data.data}
             }else{
-                dispatch({type: PAGE_REDIRECT, redirect: false})
-                alert('Gagal Menyimpan Data')
+                return {status: 'failed', message: response.data}
             }
+        }catch(e){
+            alert('Terjadi Kesalahan./n'+e);
+            return {status: 'failed', message: e}
         }
     }
 }
 
-export const deleteMitra = (id) => {
+export const uploadImage = (data) => {
     return async (dispatch) => {
-        let data = {id: id};
-        let response = await deleteAPI('/mediaiklan/delete', data)
-        if (response.status === 'success') {
-            alert('Berhasil Menghapus Data.')
-        }else{
-            alert('Gagal Menghapus Data')
+        try{
+            let resImg = await mainApi.post('/mediaiklan/uploadImage', data, configFORM)
+            if(resImg.status === 200){
+                return {status: 'success', image: 'uploaded'}
+            }else{
+                return {status: 'success', image: 'not uploaded'}
+            }
+        }catch(e){
+            alert('Terjadi Kesalahan Dalam Melakukan Upload Image./n'+error);
+            return {status: 'failed', message: e}
         }
-        console.log(response);
+        
+
+    }
+}
+
+export const deleteMedia = (id) => {
+    return async (dispatch) => {
+        try{
+            let response = await mainApi.delete('/mediaiklan/delete/'+id, configURLEncode)
+            if (response.status === 200) {
+                return {status: 'success'}
+            }else{
+                return {status: 'failed',}
+            }
+
+        }catch(e){
+            alert('Terjadi Kesalahan Dalam./n'+e);
+            return {status: 'failed', message: e}
+        }
     }
 }
 export const ChangeStatusMedia = (data) => {
     return async (dispatch) => {
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-          }
-        let url = '/mediaiklan/updateStatus';
-        let res = await postAPI(url, data, config);
-        if (res.status === 'success') {
-            if (res.data.data.status === 'ok') {
-                alert('Berhasil Menyimpan Data')
+        try{
+            let res = await mainApi.post('/mediaiklan/patchStatusMedia', data, configJSON);
+            if (res.status === 200) {
+                return {status: 'success'}
             }else{
-                alert('Gagal Menyimpan Data')
+                return {status: 'failed'}
             }
+        }catch(e){
+            alert('Terjadi Kesalahan Dalam./n'+e);
+            return {status: 'failed', message: e}
         }
     }
 }
@@ -71,15 +85,15 @@ export const fetchMedia = (status, index) => {
         let stat = ''
         if (status !== 'all') {
             stat = status
-            let resMedia = await fetchAPI('/mediaiklan/request?status='+stat+'&index='+index);
-            if (resMedia.status === 'success') {
-            dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.data})
+        }
+        try{
+            let resMedia = await mainApi.get('/mediaiklan/request?status='+stat+'&index='+index, configJSON);
+            if (resMedia.status === 200) {
+                dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.result})
             }
-        }else{
-            let resMedia = await fetchAPI('/mediaiklan/request?index='+index);
-            if (resMedia.status === 'success') {
-            dispatch({type: FETCH_MEDIA_IKLAN, data: resMedia.data.data})
-            }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_MEDIA_IKLAN, data: []})
         }
         
     }
@@ -91,22 +105,32 @@ export const fetchMediaByID = (status, id) => {
         if (status !== 'all') {
             stat = status
         }
-        let resMedia = await fetchAPI('/mediaiklan/requestById?status='+stat+'&id='+id)
-        if (resMedia.status === 'success') {
-            if (resMedia.data.data !== '') {
-                await dispatch({type: FETCH_MEDIA_IKLAN_BY_ID, data: resMedia.data.data, dataFound: true})
-            }else {
+        try{
+            let resMedia = await mainApi.get('/mediaiklan/requestById?status='+stat+'&id='+id, configJSON)
+            if (resMedia.status === 200) {
+                await dispatch({type: FETCH_MEDIA_IKLAN_BY_ID, data: resMedia.data, dataFound: true})
+            }else{
+                alert(resMedia.data.message)
                 await dispatch({type: FETCH_MEDIA_IKLAN_BY_ID, data: null, dataFound: false})
             }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            await dispatch({type: FETCH_MEDIA_IKLAN_BY_ID, data: null, dataFound: false})
         }
     }
 }
 
 export const fetchQtyMedia = () => {
     return async (dispatch) => {
-        let response = await fetchAPI('/mediaiklan/cMedia')
-        if (response.status === 'success') {
-            await dispatch({type: FETCH_QTY_MEDIA_IKLAN, data: response.data.data});
+        try{
+            let response = await mainApi.get('/mediaiklan/cMedia', configJSON)
+            if (response.status === 200) {
+                dispatch({type: FETCH_QTY_MEDIA_IKLAN, data: response.data});
+            }
+        }catch (e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_QTY_MEDIA_IKLAN, data: 0});
         }
+        
     }
 }

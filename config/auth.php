@@ -46,6 +46,12 @@ return [
             'provider' => 'advertisers',
         ],
 
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+            'hash' => false
+        ],
+
         'client' => [
             'driver' => 'session',
             'provider' => 'clients',
@@ -101,10 +107,11 @@ return [
             'model' => App\Master\clientModel::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\models\AdminModel::class,
+            
+        ],
     ],
 
     /*
