@@ -19,6 +19,8 @@
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('js/advertiser1.js')}}"></script>
+
     <style>
         @media (max-width : 767px) {
             .iconHome {
@@ -39,14 +41,14 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="">
 
             <span class="menu-collapsed">Advertiser</span>
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class=" navbar-nav">
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link">
+                    <a href="/" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-home fa-fw mr-3"></span>
                             <span class="menu-collapsed">Home</span>
@@ -146,33 +148,33 @@
                 </li>
                 <!-- /END Separator -->
                 <!-- Menu with submenu -->
-                <a href="/dashboard" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard" class="bg-dark list-group-item list-group-item-action navdashboard">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-tachometer-alt fa-fw mr-3"></span>
                         <span class="menu-collapsed">Dashboard</span>
                     </div>
                 </a>
-                <a href="/dashboard/profile/{{auth()->guard('advertiser')->user()->id}}"
-                    class="bg-dark list-group-item list-group-item-action ">
+                <a href="/dashboard/profile"
+                    class="bg-dark list-group-item list-group-item-action navprofile">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-user fa-fw mr-3"></span>
                         <span class="menu-collapsed">Profile</span>
                     </div>
                 </a>
 
-                <a href="/dashboard/berlangsung" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard/berlangsung" class="bg-dark list-group-item list-group-item-action navberlangsung">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-file-invoice-dollar fa-fw mr-3"></span>
                         <span class="menu-collapsed">Transaksi</span>
                     </div>
                 </a>
-                <a href="/dashboard/berjalan" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard/berjalan" class="bg-dark list-group-item list-group-item-action navberjalan">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-ad fa-fw mr-3"></span>
                         <span class="menu-collapsed">Berjalan</span>
                     </div>
                 </a>
-                <a href="/dashboard/history" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard/history" class="bg-dark list-group-item list-group-item-action navhistory">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-history fa-fw mr-3"></span>
                         <span class="menu-collapsed">History</span>
@@ -184,7 +186,7 @@
                 </li>
                 <!-- /END Separator -->
 
-                <a href="/dashboard/notifikasi" class="bg-dark list-group-item list-group-item-action">
+                <a href="/dashboard/notifikasi" class="bg-dark list-group-item list-group-item-action navnotifikasi">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-envelope-o fa-fw mr-3"></span>
                         <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)

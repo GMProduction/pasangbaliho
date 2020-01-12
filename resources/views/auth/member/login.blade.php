@@ -108,9 +108,7 @@
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <button type="submit" class="btn btn-link-1 btn-link-1-twitter btn-block"> <i class="fas fa-sign-in-alt"></i> Masuk</button>
-                                    <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="{{ route('login.provider', 'google') }}">
-                                        <i class="fab fa-google"></i> Google
-                                    </a>
+                                    
                                 </form>
 
                                 {{-- <h3>Masih Dalam Perbaikan</h3> --}}

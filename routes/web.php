@@ -68,33 +68,20 @@ Route::group(['middleware' => 'ifNotGuest'], function () {
     Route::get('registration-advertiser', 'Auth\Member\RegisterController@showRegisterAdvertiser');
 
     Route::get('login', 'Auth\Member\LoginClientController@showLoginForm');
-    // Route::get('login', function(){
-    //     return view('auth.member.login');
-    // });
+  
     Route::post('loginAdvertiser', 'Auth\Member\LoginController@postlogin');
     Route::post('loginClient', 'Auth\Member\LoginClientController@postloginClient');
 
-    Route::get('logout', 'Auth\Member\LoginController@logout');
-    Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
-    Route::get('dashboard/addProduk', function () {
-        return view('advertiser.data.input');
-    });
+   
 });
-Route::get('logout', 'Auth\Member\LoginController@logout');
 
-    
-  
-    // Route::get('dashboard/addProduk', function () {
-    //     return view('advertiser.data.input');
-    // });
-// }); 
 
 Route::group(['middleware' => 'advertiser'], function () {
     Route::get('logout', 'Auth\Member\LoginController@logout');
     Route::get('dashboard', 'Member\advertiserController@showDashboard');
     Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
     Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
-    Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
+    Route::get('/dashboard/profile', 'Member\advertiserController@showDetailProfil');
     Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
     Route::get('/dashboard/history', 'Member\historyController@dataHistory');
     Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');
@@ -107,16 +94,18 @@ Route::group(['middleware' => 'advertiser'], function () {
 Route::group(['middleware' => 'client'], function () {
     Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
     Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
-    Route::get('dashboardClient/profile', 'Member\Client\profileController@getDataProfile');
-    Route::get('dashboardClient/disewa', 'Member\Client\disewaController@showDisewa');
-    Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset')->name('asset');
+    Route::group(['prefix' => 'dashboardClient'], function () {
+        Route::get('profile', 'Member\Client\profileController@getDataProfile');
+        Route::get('disewa', 'Member\Client\disewaController@showDisewa');
+        Route::get('asset', 'Member\Client\assetClientController@showAsset')->name('asset');
+    });
+   
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
-            Route::get('add', 'Member\Client\assetClientController@showAddAsset');
-            Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
-            Route::get('info', 'Member\Client\assetClientController@detailAsset');
+        Route::get('add', 'Member\Client\assetClientController@showAddAsset');
+        Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
+        Route::get('info', 'Member\Client\assetClientController@detailAsset');
     });
     Route::get('dashboardClient/asset/updateVisible', 'Member\Client\assetClientController@editvisibleAsset');
-
 });
 
 

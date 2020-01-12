@@ -111,13 +111,17 @@ class transaksiController extends Controller
                 'balihos.orientasi as orientasi',
                 'balihos.harga_market as harga_market',
                 'balihos.deskripsi as deskripsi',
-                'foto_baliho.url_foto as url_foto'
+                'foto_baliho.url_foto as url_foto',
+                'advertisers.nama as namaAd',
+                'advertisers.email as email',
+                'advertisers.telp as telp'
             )
             ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
             ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
+            ->leftjoin('advertisers','transaksi.id_advertiser','advertisers.id')
             ->where('id_transaksi', '=', $r->q)
             ->limit(1)
             ->get();
