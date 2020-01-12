@@ -57,7 +57,7 @@ export const uploadImage = (data) => {
                 return {status: 'success', image: 'not uploaded'}
             }
         }catch(e){
-            alert('Terjadi Kesalahan Dalam Melakukan Upload Image./n'+error);
+            alert('Terjadi Kesalahan Dalam Melakukan Upload Image./n'+e);
             return {status: 'failed', message: e}
         }
         

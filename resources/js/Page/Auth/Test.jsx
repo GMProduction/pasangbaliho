@@ -158,11 +158,11 @@ export class Test extends Component {
                         Publish
                     </Button>
                 </Box>
-                <Box display="flex" justifyContent='flex-end' alignItems="center">
+                {/* <Box display="flex" justifyContent='flex-end' alignItems="center">
                     <Button variant="contained" color="primary" onClick={this.testlink}>
                         test
                     </Button>
-                </Box>
+                </Box> */}
             </Paper>
 
             <Backdrop
