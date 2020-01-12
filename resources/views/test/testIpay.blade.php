@@ -4,7 +4,7 @@
 
 <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
 <input type="text" name="MerchantCode" value="ID01270">
-<input type="text" name="PaymentId" value="1">
+<input type="text" name="PaymentId" value="">
 <input type="text" name="RefNo" value="A00999">
 <input type="text" name="Amount" value="1000000">
 <input type="text" name="Currency" value="IDR">

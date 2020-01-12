@@ -81,7 +81,7 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::get('dashboard', 'Member\advertiserController@showDashboard');
     Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
     Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
-    Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
+    Route::get('/dashboard/profile', 'Member\advertiserController@showDetailProfil');
     Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
     Route::get('/dashboard/history', 'Member\historyController@dataHistory');
     Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');

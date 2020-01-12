@@ -196,7 +196,7 @@ body #process .process-border {
                 <tr>
                     <th class="text-center" style="vertical-align: middle">Status</th>
                     <th class="text-center" style="vertical-align: middle">Keterangan</th>
-                    <th class="text-center" style="vertical-align: middle" colspan="2">Aksi</th>
+                    <th class="text-center" style="vertical-align: middle" style="width: 150px">Aksi</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -205,12 +205,12 @@ body #process .process-border {
 
                     <td>Meminta Penawaran Harga</td>
                     <td class="text-center">Diproses</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2">Menunggu</td>
+                    <td class="text-center" style="vertical-align: middle">Menunggu</td>
 
                     @else
                     <td class="" style="vertical-align: middle">Meminta Penawaran Harga</td>
                     <td class="text-center" style="vertical-align: middle">Permintaan Telah Dikirim</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                    <td class="text-center" style="vertical-align: middle"><i
                             class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
@@ -218,18 +218,17 @@ body #process .process-border {
                 <tr>
                     @if ($d->status == 'negoharga')
                     <td style="vertical-align: middle">Negosiasi Harga <span style="font-size: 10pt; font-weight: bold">
-                            (Jika ingin mengajukan negisiasi harga silahkan klik 'Nego' untuk menghubungi Admin) </span>
+                            (Jika ingin mengajukan negisiasi harga silahkan chat admin) </span>
                     </td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!"
-                            class="btn btn-sm btn-light">Nego</a></td>
-                    <td class="text-center" style="width: 50px; vertical-align: middle"><a href="#!"
-                            class="btn btn-sm btn-light">Setuju</a>
+                   
+                    <td class="text-center" style="vertical-align: middle"><a href="#!"
+                            class="btn btn-sm btn-info">Setuju</a>
                     </td>
                     @elseif(($d->status == 'negomateri') || ($d->status == 'pembayaran') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Deal Harga</td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                    <td class="text-center" style="vertical-align: middle"><i
                             class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
@@ -238,11 +237,11 @@ body #process .process-border {
                     @if ($d->status == 'negomateri')
                     <td style="vertical-align: middle">Negosiasi Materi</td>
                     <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2">Proses</td>
+                    <td class="text-center" style="vertical-align: middle" >Proses</td>
                     @elseif(($d->status == 'pembayaran') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Negosiasi Materi</td>
                     <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
+                    <td class="text-center" style="vertical-align: middle" ><i
                             class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
@@ -251,12 +250,29 @@ body #process .process-border {
                     @if ($d->status == 'pembayaran')
                     <td style="vertical-align: middle">Proses Pembayaran</td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2">Proses</td>
+                    <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
+                        <input type="hidden" name="MerchantCode" value="ID01270">
+                        <input type="hidden" name="PaymentId" value="">
+                        <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
+                        <input type="hidden" name="Amount" value="{{$d->harga_deal}}00">
+                        <input type="hidden" name="Currency" value="IDR">
+                        <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
+                        <input type="hidden" name="UserName" value="{{$d->namaAd}}">
+                        <input type="hidden" name="UserEmail" value="{{$d->email}}">
+                        <input type="hidden" name="UserContact" value="{{$d->telp}}">
+                        <input type="hidden" name="Remark" value="">
+                        <input type="hidden" name="Lang" value="UTF-8">
+                        <input type="hidden"  name="Signature" id="Signature" value="">
+                        <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com">
+                        <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com">
+                       
+                    <td class="text-center" style="vertical-align: middle"><input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang"></td>
+                </form>
                     @elseif(($d->status == 'selesai'))
                     <td style="vertical-align: middle">Proses Pembayaran</td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <td class="text-center" style="vertical-align: middle" colspan="2"><i
-                            class="fas fa-check-circle col-green   "></i></td>
+                    <td class="text-center" style="vertical-align: middle" ><i
+                            class="fas fa-check-circle col-green   "></td>
                     @endif
                 </tr>
             </tbody>
@@ -288,10 +304,19 @@ body #process .process-border {
             })
     </script>
 
-    @endforeach
+ 
     <script src="{{asset('js/font-awesome.min.js')}}"></script>
+    <script src="{{asset('js/sha1.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+{{$d->harga_deal}}+"00IDR");
+        $('#Signature').val(sh);
+        })
+      
+        </script>
 </section>
-
+@endforeach
+    
 <br>
 <br>
 <br>
