@@ -1,7 +1,7 @@
 
 export const mainApi = axios.create({
-    // baseURL: 'https://www.pasangbaliho.com/api/admin/v1',
-    baseURL: 'http://localhost:8000/api/admin/v1',
+    baseURL: 'https://www.pasangbaliho.com/api/admin/v1',
+    // baseURL: 'http://localhost:8000/api/admin/v1',
     // baseURL: 'http://genossys.site/adminapi',
 });
 
