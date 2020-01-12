@@ -68,26 +68,13 @@ Route::group(['middleware' => 'ifNotGuest'], function () {
     Route::get('registration-advertiser', 'Auth\Member\RegisterController@showRegisterAdvertiser');
 
     Route::get('login', 'Auth\Member\LoginClientController@showLoginForm');
-    // Route::get('login', function(){
-    //     return view('auth.member.login');
-    // });
+  
     Route::post('loginAdvertiser', 'Auth\Member\LoginController@postlogin');
     Route::post('loginClient', 'Auth\Member\LoginClientController@postloginClient');
 
-    Route::get('logout', 'Auth\Member\LoginController@logout');
-    Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
-    Route::get('dashboard/addProduk', function () {
-        return view('advertiser.data.input');
-    });
+   
 });
-Route::get('logout', 'Auth\Member\LoginController@logout');
 
-    
-  
-    // Route::get('dashboard/addProduk', function () {
-    //     return view('advertiser.data.input');
-    // });
-}); 
 
 Route::group(['middleware' => 'advertiser'], function () {
     Route::get('logout', 'Auth\Member\LoginController@logout');
@@ -111,12 +98,11 @@ Route::group(['middleware' => 'client'], function () {
     Route::get('dashboardClient/disewa', 'Member\Client\disewaController@showDisewa');
     Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset')->name('asset');
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
-            Route::get('add', 'Member\Client\assetClientController@showAddAsset');
-            Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
-            Route::get('info', 'Member\Client\assetClientController@detailAsset');
+        Route::get('add', 'Member\Client\assetClientController@showAddAsset');
+        Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
+        Route::get('info', 'Member\Client\assetClientController@detailAsset');
     });
     Route::get('dashboardClient/asset/updateVisible', 'Member\Client\assetClientController@editvisibleAsset');
-
 });
 
 
