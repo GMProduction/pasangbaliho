@@ -39,14 +39,14 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="">
 
             <span class="menu-collapsed">Advertiser</span>
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class=" navbar-nav">
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link">
+                    <a href="/" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-home fa-fw mr-3"></span>
                             <span class="menu-collapsed">Home</span>

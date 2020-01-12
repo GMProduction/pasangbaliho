@@ -177,11 +177,9 @@
                                 <div class="social-login-buttons">
                                     <a class="btn btn-link-1 btn-link-1-twitter btn-block" href="#!"
                                         onclick="sendRegister()">
-                                        <i class="fas fa-sign-in-alt"></i> Sign Up me !
+                                        <i class="fas fa-sign-in-alt"></i> Daftar
                                     </a>
-                                    <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="#">
-                                        <i class="fab fa-google"></i> Google
-                                    </a>
+                                    
                                 </div>
                             </div>
                         </form>

@@ -1,12 +1,18 @@
-var lok = window.location.pathname.replace('/', '');
+var first = window.location.pathname.split('/');
+var lok = first[1];
+// var lok = window.location.pathname.replace('/', '');
 $(document).ready(function() {
     if(lok === ''){
         $('#navhome').addClass('active');
-    }else if(lok === 'registration-client' || lok === 'registration-advertiser'){
+    }else if(lok === 'registration-client' || lok === 'registration-advertiser' || lok == 'registration'){
         $('#navregistration').addClass('active');
-    }else if(lok === 'detail'){
+    }else if(lok === 'm' || lok == 'product'){
         $('#navproduct').addClass('active');
-    }   
+    }else if(lok == 'news'){
+        $('#navnews').addClass('active');
+    }else if(lok == 'login'){
+        $('#navlogin').addClass('active');
+    }
     else{
       //  $('#nav'+lok).addClass('active');
     }

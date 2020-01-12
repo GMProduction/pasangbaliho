@@ -94,9 +94,12 @@ Route::group(['middleware' => 'advertiser'], function () {
 Route::group(['middleware' => 'client'], function () {
     Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
     Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
-    Route::get('dashboardClient/profile', 'Member\Client\profileController@getDataProfile');
-    Route::get('dashboardClient/disewa', 'Member\Client\disewaController@showDisewa');
-    Route::get('dashboardClient/asset', 'Member\Client\assetClientController@showAsset')->name('asset');
+    Route::group(['prefix' => 'dashboardClient'], function () {
+        Route::get('profile', 'Member\Client\profileController@getDataProfile');
+        Route::get('disewa', 'Member\Client\disewaController@showDisewa');
+        Route::get('asset', 'Member\Client\assetClientController@showAsset')->name('asset');
+    });
+   
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
         Route::get('add', 'Member\Client\assetClientController@showAddAsset');
         Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
