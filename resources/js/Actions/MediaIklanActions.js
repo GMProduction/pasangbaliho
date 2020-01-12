@@ -6,12 +6,21 @@ import {
 } from '../Actions/type';
 
 
-import {mainApi, configJSON, configFORM, configURLEncode} from '../Controller/APIControll';
+import {mainApi} from '../Controller/APIControll';
 
 
 
 export const postMedia = (data, filter) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         let url = '/mediaiklan/addMedia';
         if (filter === 'patch') {url = '/mediaiklan/patchMedia';}
         try{
@@ -31,6 +40,15 @@ export const postMedia = (data, filter) => {
 
 export const uploadImage = (data) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configFORM = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         try{
             let resImg = await mainApi.post('/mediaiklan/uploadImage', data, configFORM)
             if(resImg.status === 200){
@@ -49,6 +67,15 @@ export const uploadImage = (data) => {
 
 export const deleteMedia = (id) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configURLEncode = {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+        }
         try{
             let response = await mainApi.delete('/mediaiklan/delete/'+id, configURLEncode)
             if (response.status === 200) {
@@ -65,6 +92,15 @@ export const deleteMedia = (id) => {
 }
 export const ChangeStatusMedia = (data) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         try{
             let res = await mainApi.post('/mediaiklan/patchStatusMedia', data, configJSON);
             if (res.status === 200) {
@@ -82,6 +118,15 @@ export const ChangeStatusMedia = (data) => {
 
 export const fetchMedia = (status, index) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         let stat = ''
         if (status !== 'all') {
             stat = status
@@ -101,6 +146,15 @@ export const fetchMedia = (status, index) => {
 
 export const fetchMediaByID = (status, id) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         let stat = ''
         if (status !== 'all') {
             stat = status
@@ -122,6 +176,15 @@ export const fetchMediaByID = (status, id) => {
 
 export const fetchQtyMedia = () => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         try{
             let response = await mainApi.get('/mediaiklan/cMedia', configJSON)
             if (response.status === 200) {

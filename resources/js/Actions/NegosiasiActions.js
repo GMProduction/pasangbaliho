@@ -12,7 +12,7 @@ import {
     PAGE_REDIRECT,
 } from './type';
 
-import {mainApi, configJSON} from '../Controller/APIControll';
+import {mainApi} from '../Controller/APIControll';
 
 export const postNegosiasi = (data, data2, filter) => {
     return async (dispatch) => {
@@ -43,6 +43,15 @@ export const postNegosiasi = (data, data2, filter) => {
 
 export const fetchNegosiasi = (status, index) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         let stat = ''
         if (status !== 'all') {stat = status}
         try{
@@ -59,6 +68,15 @@ export const fetchNegosiasi = (status, index) => {
 
 export const fetchNegosiasiById = (status, id) => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         let stat = ''
         if (status !== 'all') {
             stat = status

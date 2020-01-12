@@ -87,7 +87,7 @@ Route::get('logout', 'Auth\Member\LoginController@logout');
     // Route::get('dashboard/addProduk', function () {
     //     return view('advertiser.data.input');
     // });
-}); 
+// }); 
 
 Route::group(['middleware' => 'advertiser'], function () {
     Route::get('logout', 'Auth\Member\LoginController@logout');
