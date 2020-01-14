@@ -60,6 +60,8 @@ Route::get('v1/dataTransaksiClient', 'API\TransaksiController@dataTransaksiClien
 Route::get('v1/allDataTransaksiClient', 'API\TransaksiController@allDataTransaksiClient')->name('allDataTransaksiClient');
 Route::get('v1/countNewTransaksiClient', 'API\TransaksiController@countNewTransaksiClient')->name('countNewTransaksiClient');
 Route::get('v1/detailTransaksiClient/{idTransaksi}', 'API\TransaksiController@detailTransaksiClient')->name('detailTransaksiClient');
+Route::get('v1/iklanBerjalan', 'API\TransaksiController@iklanBerjalan')->name('iklanBerjalan');
+Route::get('v1/historyIklan', 'API\TransaksiController@historyIklan')->name('historyIklan');
 
 
 //Slider
@@ -97,7 +99,7 @@ Route::group(['prefix' => 'admin'], function(){
             Route::group(['prefix' => 'kategori'], function () {
                 Route::get('/request', 'Admin\KategoriControll@getKategori');
             });
-        
+
             Route::group(['prefix' => 'lokasi'], function () {
                 Route::get('/requestProvinsi', 'Admin\LokasiControll@getProvinsi');
                 Route::post('/addProvinsi', 'Admin\LokasiControll@addProvinsi');
@@ -113,7 +115,7 @@ Route::group(['prefix' => 'admin'], function(){
                 Route::post('/edit', 'Admin\MitraControll@editMitra');
                 Route::delete('/delete/{id}', 'Admin\MitraControll@deleteMitra');
             });
-            
+
             Route::group(['prefix' => 'advertiser'], function(){
                 Route::get('/cAdvertiser', 'Admin\AdvertiserControll@getCountAdvertiser');
                 Route::get('/request', 'Admin\AdvertiserControll@getAdvertiser');
@@ -139,7 +141,7 @@ Route::group(['prefix' => 'admin'], function(){
                 Route::get('/requestById', 'Admin\TransaksiControll@getNegosiasiById');
                 Route::post('/patchTransaksi', 'Admin\TransaksiControll@patchTransaksi');
                 Route::post('/sendemail', 'Admin\MailSender@send');
-        
+
                 Route::get('/mediausedon', 'Admin\TransaksiControll@getBalihoOnUsed');
                 Route::get('/sendsms', 'Admin\TransaksiControll@sendSms');
             });

@@ -16,7 +16,7 @@ class BalihoController extends Controller
         try {
             $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -59,7 +59,7 @@ class BalihoController extends Controller
         try {
             $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -109,7 +109,7 @@ class BalihoController extends Controller
     {
         try {
             $baliho = BalihoModel::leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->where('id_baliho', $id)
                 ->first();
@@ -145,7 +145,7 @@ class BalihoController extends Controller
         try {
             $baliho = BalihoModel::leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -153,7 +153,7 @@ class BalihoController extends Controller
                     'balihos.alamat as alamat',
                     'kotas.nama_kota as nama_kota',
                     'kategoris.kategori as kategori',
-                    'provinsis.nama_provinsi as nama_provinsi',
+                    'provinsis.nama_provinsi  as nama_provinsi',
                     'balihos.harga_client as harga_client',
                     'balihos.lebar as lebar',
                     'balihos.status as status',

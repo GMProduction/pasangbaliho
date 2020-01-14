@@ -98,6 +98,15 @@ export const deleteAdvertiser = (id) => {
 
 export const fetchQtyAdvertiser = () => {
     return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
         try{
             let response = await mainApi.get('/advertiser/cAdvertiser', configJSON)
             if (response.status === 200) {

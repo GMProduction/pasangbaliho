@@ -9,30 +9,6 @@ export const genosAPI = axios.create({
     baseURL: 'http://genossys.site/adminapi',
 });
 
-const user = JSON.parse(localStorage.getItem('user'));
-const token = user.api_token;
-export const configJSON = {
-    headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+token
-    }   
-}
-
-export const configURLEncode = {
-    headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+token
-    },
-}
-export const configFORM = {
-    headers: {
-        'content-type': 'multipart/form-data',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+token
-    }   
-}
 
 export async function fetchAPI (apiURL) {
 

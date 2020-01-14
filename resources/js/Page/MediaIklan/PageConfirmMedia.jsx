@@ -506,7 +506,7 @@ export class PageConfirmMedia extends Component {
                                         this.setState({hargaClient: formattedValue})
                                     }
                                 } customInput={TextField} label="Harga Mitra" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
-                        <TextField name='deskripsi' id="deskripsi" label="deskripsi" margin="dense" variant="outlined" fullWidth multiline rows="5"
+                        <TextField name='deskripsi' id="deskripsi" label="Deskripsi" margin="dense" variant="outlined" fullWidth multiline rows="5"
                                 InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.deskripsi} onChange={this.handleChange}/>
                     </BasicPanelContent>
                 </BasicPanel>

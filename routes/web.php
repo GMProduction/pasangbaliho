@@ -70,11 +70,9 @@ Route::group(['middleware' => 'ifNotGuest'], function () {
     Route::get('registration-advertiser', 'Auth\Member\RegisterController@showRegisterAdvertiser');
 
     Route::get('login', 'Auth\Member\LoginClientController@showLoginForm');
-  
+
     Route::post('loginAdvertiser', 'Auth\Member\LoginController@postlogin');
     Route::post('loginClient', 'Auth\Member\LoginClientController@postloginClient');
-
-   
 });
 
 
@@ -104,7 +102,7 @@ Route::group(['middleware' => 'client'], function () {
         Route::get('disewa', 'Member\Client\disewaController@showDisewa');
         Route::get('asset', 'Member\Client\assetClientController@showAsset')->name('asset');
     });
-   
+
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
         Route::get('add', 'Member\Client\assetClientController@showAddAsset');
         Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
