@@ -18,7 +18,7 @@ class TransaksiController extends Controller
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -28,15 +28,13 @@ class TransaksiController extends Controller
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
-                    'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
-                    'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.keterangan_batal as keterangan_batal',
+                    'transaksi.keterangan as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
@@ -72,7 +70,7 @@ class TransaksiController extends Controller
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -82,15 +80,13 @@ class TransaksiController extends Controller
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
-                    'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
-                    'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.keterangan_batal as keterangan_batal',
+                    'transaksi.keterangan as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
@@ -103,6 +99,103 @@ class TransaksiController extends Controller
             return response()->json([
                 'respon' => 'success',
                 'message' => 'fetch detail transaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function iklanBerjalan(Request $request)
+    {
+        try {
+
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan as keterangan_batal',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("transaksi.status", "selesai")
+                ->where("id_advertiser", $request->id_adv)
+                ->where("tanggal_awal" ,"<", Carbon::now())
+                ->where("tanggal_akhir" ,">", Carbon::now())
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch data iklan sedang berjalantransaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function historyIklan(Request $request)
+    {
+        try {
+
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan as keterangan_batal',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("transaksi.status", "selesai")
+                ->where("id_advertiser", $request->id_adv)
+                ->where("tanggal_akhir" ,"<", Carbon::now())
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch history transaksi berhasil',
                 'transaksi' => $transaksi
             ], 200);
         } catch (\Exception $e) {
@@ -253,7 +346,7 @@ class TransaksiController extends Controller
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -264,15 +357,13 @@ class TransaksiController extends Controller
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
-                    'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
-                    'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.terbaca_client as terbaca',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.keterangan_batal as keterangan_batal',
+                    'transaksi.keterangan as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
@@ -303,7 +394,7 @@ class TransaksiController extends Controller
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -314,15 +405,13 @@ class TransaksiController extends Controller
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
-                    'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
-                    'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.terbaca_client as terbaca',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.keterangan_batal as keterangan_batal',
+                    'transaksi.keterangan as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
@@ -406,7 +495,7 @@ class TransaksiController extends Controller
             $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->select(
                     'balihos.id_baliho as id_baliho',
@@ -416,15 +505,13 @@ class TransaksiController extends Controller
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
                     'transaksi.id_transaksi as id_transaksi',
-                    'transaksi.harga_ditawarkan as harga_ditawarkan',
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
-                    'transaksi.status_pembayaran as status_pembayaran',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
                     'transaksi.terbaca_advertiser as terbaca_advertiser',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
-                    'transaksi.keterangan_batal as keterangan_batal',
+                    'transaksi.keterangan as keterangan_batal',
                     'transaksi.created_at as created_at',
                     'transaksi.updated_at as updated_at',
                     'foto_baliho.url_foto as url_foto'
