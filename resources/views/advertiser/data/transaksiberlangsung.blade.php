@@ -54,7 +54,7 @@
                 <td class="text-center border-bottom-0" style="padding-bottom: 0" >{{$d->kategori}}</td>
                 <td class="text-center" rowspan="2" style=" vertical-align: middle" >{{formatDateToSurat($d->tanggal_transaksi)}}</td>
                 <td class="text-center" rowspan="2" style=" vertical-align: middle" >{{$d->status}}</td>
-                <td class="text-center" rowspan="2"   style="width: 50px; vertical-align: middle" ><a href="berlangsung/detail?q={{$d->id_transaksi}}" style="width: 40px" class="btn  btn-sm  btn-info"><i class="fas fa-eye    "></i></a></td>
+                <td class="text-center" rowspan="2"   style="width: 50px; vertical-align: middle" ><a href="berlangsung/detail/{{$d->id_transaksi}}" style="width: 40px" class="btn  btn-sm  btn-info"><i class="fas fa-eye    "></i></a></td>
                 <td class="text-center" rowspan="2"   style="width: 50px; vertical-align: middle"><a href="#!" class="btn btn-sm btn-danger" style="width: 40px"><i class="fas fa-trash    "></i></a></td>
             </tr>
             <tr>

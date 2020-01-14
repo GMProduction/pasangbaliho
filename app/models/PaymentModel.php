@@ -10,6 +10,6 @@ class PaymentModel extends Model
     protected $table = "payment";
 
     protected $fillable = [
-        'id_transaksi', 'type', 'nominal'
+        'id','id_transaksi', 'type', 'nominal','status', 'vendor', 'atas_nama', 'no_rekening', 'url'
     ];
 }

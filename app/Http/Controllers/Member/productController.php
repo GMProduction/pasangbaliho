@@ -9,7 +9,6 @@ use App\Master\transaksiModel;
 use App\models\FotoBalihoModel;
 use App\models\KotaModel;
 use Illuminate\Support\Facades\DB;
-use App\models\NotificationModel;
 use Carbon\Carbon;
 
 
@@ -20,27 +19,7 @@ class productController extends Controller
 {
     //
 
-    public function notif($n)
-    {
-        $c = Carbon::now();
-        # code...
-        $notif = NotificationModel::query()
-            ->where('id_advertiser', '=', $n)
-            ->orderBy('created_at', 'DESC')
-            ->take(5)
-            ->get();
-
-        return $notif;
-    }
-
-    public function getJumlahNotif($id)
-    {
-        $query = DB::table('notifikasi_advertiser')
-            ->select(DB::raw('count(*) as count'))
-            ->where('id_advertiser', '=', $id)
-            ->get();
-        return $query;
-    }
+    
 
     public function detailProduct($url,$id)
     {
@@ -68,7 +47,7 @@ class productController extends Controller
             )
             ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->where('balihos.id_baliho', '=', $id)
             ->orderBy('balihos.created_at','DESC')
@@ -90,17 +69,14 @@ class productController extends Controller
             $idM = auth()->guard('advertiser')->user()->id;
         }
 
-        $notif = $this->notif($id);
-        $getNotif = $this->getJumlahNotif($id);
 
      
 
         $data = [
             'produkDetail' => $product,
             'dipesan' => $dipesan,
-            'foto' => $foto,
-            'notif' => $notif,
-            'jumNotif' => $getNotif
+            'foto' => $foto
+           
         ];
 
        
@@ -151,9 +127,7 @@ class productController extends Controller
             $id = auth()->guard('advertiser')->user()->id;
         }
 
-        $notif = $this->notif($id);
-        $jumNotif = $this->getJumlahNotif($id);
-
+    
         $kota = KotaModel::query()
             ->get();
 
@@ -175,7 +149,7 @@ class productController extends Controller
             )
             ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->where('kategoris.kategori', '=', $r->k)
             ->orwhere('kotas.nama_kota', '=', $r->c)
@@ -210,7 +184,7 @@ class productController extends Controller
                 )
                 ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
                 ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-                ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
                 ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
                 ->groupBy('balihos.id_baliho')
                 ->orderBy('balihos.created_at','DESC')
@@ -219,19 +193,17 @@ class productController extends Controller
 
             $data = [
                 'produk' => $produk,
-                'notif' => $notif,
-                'jumNotif' => $jumNotif,
                 'kota' => $kota
             ];
             $produk->appends($r->all('d'));
             // return view('main/product')->with($data);
 
-            return view('main/product', compact(['produk', 'kota', 'jumNotif', 'notif']));
+            return view('main/product', compact(['produk', 'kota']));
         } else {
             $produk->appends($r->all('k', 'c', 'p', 't', 'd'));
 
 
-            return view('main/product', compact(['produk', 'kota', 'jumNotif', 'notif']));
+            return view('main/product', compact(['produk', 'kota']));
         }
     }
 }

@@ -124,20 +124,26 @@
                     </tr>
 
                 </table>
-                <label style="font-size: 12pt">Baliho Ini Tidak Tersedia Tanggal : </label>
+                @foreach ($dipesan as $d)
+                    @if ($loop->first)
+                    <label style="font-size: 12pt">Baliho Ini Tidak Tersedia Tanggal : </label>
+                    @endif
+                
+               
+                @endforeach
                 <div class="row">
-                    @forelse ($dipesan as $d)
+                    @foreach ($dipesan as $d)
+                    {{-- This is the first iteration --}}
+                   
+
                     {{-- <p>Tanggal {{$d->tanggal_awal}} s/d {{$d->tanggal_akhir}}</p> --}}
                     <div class="col-md-6 col-sm-12">
                         <p>- {{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</p>
                     </div>
 
-                    @empty
-                    <div class="col-md-12">
-                        <p>Available</p>
-                    </div>
 
-                    @endforelse
+
+                    @endforeach
                 </div>
 
 
@@ -154,7 +160,7 @@
                     Penawaran</button>
                 @elseif(auth()->guard('client')->check())
                 <button class="btn btn-primary " type="button" onclick="testClient()"
-                data-target=" #tglPenawaran">Permintaan
+                    data-target=" #tglPenawaran">Permintaan
                     Penawaran</button>
                 @else
 
@@ -180,6 +186,7 @@
                             <form role="form" action="/product/addTransaksi" class="login-form" method="POST">
                                 @csrf
                                 <input type="hidden" name="id_baliho" value="{{$p->id_baliho}}">
+                                <input type="hidden" name="harga" value="{{$p->harga_market}}">
                                 @if (auth()->guard('advertiser')->check())
                                 <input type="hidden" name="id_advertiser"
                                     value="{{auth()->guard('advertiser')->user()->id}}">
@@ -190,7 +197,7 @@
                                     {{-- <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span> --}}
                                     <label for="mulai">Tanggal Mulai</label>
                                     <input type="date" id="mulai" class="form-control" name="mulai"
-                                        placeholder="Tanggal Mulai">
+                                        placeholder="Tanggal Mulai" onchange="tgl()">
                                 </div>
                                 <div class="input-group form-group">
                                     <label for="selesai">Tanggal Selesai</label>
@@ -279,30 +286,49 @@
     // let today = new Date().toISOString().substr(0, 10);
 // document.querySelector("#today").value = today;
 
+function tgl() {
+    var a = $('#mulai').val();
+    var dates = new Date(a);
+    var hs = dates.getDate();
+    var bs = dates.getMonth()+2;
+    var ts = dates.getFullYear();
+    if(bs<10){bs='0'+bs}
+    if(hs<10){hs='0'+hs}
+    var tse = ts+'-'+bs+'-'+hs;
+    dates.setDate(dates.getDate() + 31);
+    document.querySelector("#selesai").valueAsDate = dates;
+    $('#selesai').attr('min',tse);
+}
+
+    var dates = new Date();
+    var hs = dates.getDate();
+    var bs = dates.getMonth()+2;
+    var ts = dates.getFullYear();
+    if(bs<10){bs='0'+bs}
+    if(hs<10){hs='0'+hs}
+    var tse = ts+'-'+bs+'-'+hs;
+    dates.setDate(dates.getDate() + 31);
+    document.querySelector("#selesai").valueAsDate = dates;
+    $('#selesai').attr('min',tse);
+
 var date = new Date();
-var dates = new Date();
+
 var h = date.getDate()+3;
 var b = date.getMonth()+1;
 var t = date.getFullYear();
 
-var hs = dates.getDate();
-var bs = dates.getMonth()+2;
-var ts = dates.getFullYear();
 if(b<10){b='0'+b}
 if(h<10){h='0'+h}
 
-if(bs<10){bs='0'+bs}
-if(hs<10){hs='0'+hs}
+
 
 var te = t+'-'+b+'-'+h;
-var tse = ts+'-'+bs+'-'+hs;
+
 date.setDate(date.getDate() + 3);
 
 document.querySelector("#mulai").valueAsDate = date;
 $('#mulai').attr('min',te);
-dates.setDate(dates.getDate() + 31);
-document.querySelector("#selesai").valueAsDate = dates;
-$('#selesai').attr('min',tse);
+
 // $('#today2').value(d);
 
 function testClient() {

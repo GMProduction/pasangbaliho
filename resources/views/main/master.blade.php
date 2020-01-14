@@ -109,43 +109,7 @@
                                     <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button">
-                                    <i class="fas fa-bell " style="font-size: 15pt"></i>
-                                    @foreach ($jumNotif as $j)
-                                    <span class="label-count"> {{$j->count}}</span>
-                                    @endforeach
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">NOTIFICATIONS</li>
-                                    <li class="body">
-                                        <ul class="menu">
-                                            @foreach ($notif as $n)
-                                            <li style="">
-                                                <a href="javascript:void(0);" style="" class="btn btn-block">
-                                                    <div class="icon-circle bg-light-green">
-                                                        <i class="fas fa-user-alt    "></i>
-                                                    </div>
-                                                    <div class="menu-info">
-                                                        <h4>{{$n->isi}}</h4>
-                                                        <p>
-                                                            <i class="fas fa-clock    "></i>
-                                                            {{berapaMenitSekarang($n->created_at)}}
-                                                        </p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            @endforeach
-
-                                        </ul>
-                                    </li>
-                                    <li class="footer">
-                                        <a href="javascript:void(0);">View All Notifications</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                             <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="/login">Masuk</a></li>

@@ -12,10 +12,10 @@
     // $html = $dom->outerHtml;
 
     @endphp
-    <div>{{!! $b->isi !!}}</div>
+    <div> coba{{!! trim($b->isi,'a') !!}}</div>
     {{-- <div>coba {{ htmlspecialchars_decode($b->isi) }}</div> --}}
     <div>test {{!! parseBerita($b->isi) !!}}</div>
-    <div>control {{!! $isi !!}}</div>
+    {{-- <div>control {{!! $isi !!}}</div> --}}
     {{-- <div></div> --}}
     {{-- <div>garing {{!!  $isi !!}}</div> --}}
     @endforeach

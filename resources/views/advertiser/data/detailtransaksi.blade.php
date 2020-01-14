@@ -119,6 +119,7 @@ body #process .process-border {
             <h4 class="warnaGreen">{{$d->nama_baliho}}</h4>
             <h5>{{$d->alamat}}, {{$d->kota}}, {{$d->provinsi}}</h5>
             <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</h5>
+            <h5 class="pt-3">Harga : Rp. {{formatuang($d->harga_market)}} / Bulan</h5>
         </div>
     </div>
     <div class="body table-responsive table-borderless">
@@ -221,7 +222,7 @@ body #process .process-border {
                             (Jika ingin mengajukan negisiasi harga silahkan chat admin) </span>
                     </td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                   
+
                     <td class="text-center" style="vertical-align: middle"><a href="#!"
                             class="btn btn-sm btn-info">Setuju</a>
                     </td>
@@ -232,52 +233,45 @@ body #process .process-border {
                             class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
+
                 <tr>
 
-                    @if ($d->status == 'negomateri')
-                    <td style="vertical-align: middle">Negosiasi Materi</td>
-                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
-                    <td class="text-center" style="vertical-align: middle" >Proses</td>
-                    @elseif(($d->status == 'pembayaran') || ($d->status == 'selesai'))
-                    <td style="vertical-align: middle">Negosiasi Materi</td>
-                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
-                    <td class="text-center" style="vertical-align: middle" ><i
-                            class="fas fa-check-circle col-green   "></i></td>
+                    @if ($d->status == 'pembayaran')
+                    <td style="vertical-align: middle">Pembayaran</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
+
+                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
+                            class="btn btn-warning btn-sm">Bayar Sekarang </a></td>
+                    @elseif(($d->status == 'negomateri') || ($d->status == 'selesai'))
+                    <td style="vertical-align: middle">Pembayaran</td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
+                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
+                        class="btn btn-warning btn-sm">Bayar Sekarang </a></td>
                     @endif
                 </tr>
                 <tr>
 
-                    @if ($d->status == 'pembayaran')
-                    <td style="vertical-align: middle">Proses Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
-                        <input type="hidden" name="MerchantCode" value="ID01270">
-                        <input type="hidden" name="PaymentId" value="">
-                        <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
-                        <input type="hidden" name="Amount" value="{{$d->harga_deal}}00">
-                        <input type="hidden" name="Currency" value="IDR">
-                        <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
-                        <input type="hidden" name="UserName" value="{{$d->namaAd}}">
-                        <input type="hidden" name="UserEmail" value="{{$d->email}}">
-                        <input type="hidden" name="UserContact" value="{{$d->telp}}">
-                        <input type="hidden" name="Remark" value="">
-                        <input type="hidden" name="Lang" value="UTF-8">
-                        <input type="hidden"  name="Signature" id="Signature" value="">
-                        <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com">
-                        <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com">
-                       
-                    <td class="text-center" style="vertical-align: middle"><input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang"></td>
-                </form>
+                    @if ($d->status == 'negomateri')
+                    <td style="vertical-align: middle">Negosiasi Materi <span
+                            style="font-size: 10pt; font-weight: bold">
+                            (Silahan kirim materi melalui WA admin) </span></td>
+                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
+                    <td class="text-center" style="vertical-align: middle">Proses</td>
                     @elseif(($d->status == 'selesai'))
-                    <td style="vertical-align: middle">Proses Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-                    <td class="text-center" style="vertical-align: middle" ><i
-                            class="fas fa-check-circle col-green   "></td>
+                    <td style="vertical-align: middle">Negosiasi Materi</td>
+                    <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
+                    <td class="text-center" style="vertical-align: middle"><i
+                            class="fas fa-check-circle col-green   "></i></td>
                     @endif
                 </tr>
             </tbody>
 
         </table>
+        @if(($d->status == 'selesai'))
+        <h3 class="text-center pt-3">Iklan anda akan segera kami pasang</h3>
+        <h4 class="text-center">Mohon tunggu beberapa hari</h4>
+        <h4 class="text-center">Terima Kasih</h4>
+        @endif
     </div>
 
     <script>
@@ -304,7 +298,7 @@ body #process .process-border {
             })
     </script>
 
- 
+
     <script src="{{asset('js/font-awesome.min.js')}}"></script>
     <script src="{{asset('js/sha1.js')}}"></script>
     <script>
@@ -313,10 +307,10 @@ body #process .process-border {
         $('#Signature').val(sh);
         })
       
-        </script>
+    </script>
 </section>
 @endforeach
-    
+
 <br>
 <br>
 <br>

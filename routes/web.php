@@ -18,7 +18,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/payment', 'Member\testIpay88@index');
+Route::get('/paymen', 'Member\testIpay88@index');
 Route::get('/test', 'Member\testIpay88@posIpay');
 
 Route::get('/', 'Member\indexController@index');
@@ -29,6 +29,8 @@ Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
 Route::get('news', 'Member\newsController@showNews');
+Route::get('news/{$id}', 'Member\newsController@showNews');
+
 Route::get('kebijakan-privasi', function () {
     return view('main.kebijakan');
 });
@@ -80,7 +82,9 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::get('logout', 'Auth\Member\LoginController@logout');
     Route::get('dashboard', 'Member\advertiserController@showDashboard');
     Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
-    Route::get('/dashboard/berlangsung/detail', 'Member\transaksiController@showDetailTransaksi');
+    Route::get('/dashboard/berlangsung/detail/{id}', 'Member\transaksiController@showDetailTransaksi');
+    Route::get('/dashboard/berlangsung/detail/payment/{id}', 'Member\transaksiController@showpayment');
+    Route::post('/dashboard/berlangsung/detail/payment/bayar', 'Member\paymentController@addPayment');
     Route::get('/dashboard/profile', 'Member\advertiserController@showDetailProfil');
     Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
     Route::get('/dashboard/history', 'Member\historyController@dataHistory');
@@ -89,6 +93,7 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::group(['prefix' => 'dashboard/profile'], function () {
         Route::post('editProfil', 'Member\profileController@editProfile');
     });
+
 });
 // Client Dashboar
 Route::group(['middleware' => 'client'], function () {
