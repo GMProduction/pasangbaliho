@@ -100,13 +100,14 @@ Route::group(['middleware' => 'client'], function () {
     Route::group(['prefix' => 'dashboardClient'], function () {
         Route::get('profile', 'Member\Client\profileController@getDataProfile');
         Route::get('disewa', 'Member\Client\disewaController@showDisewa');
+        Route::get('history', 'Member\Client\historyController@showHistory');
         Route::get('asset', 'Member\Client\assetClientController@showAsset')->name('asset');
     });
 
     Route::group(['prefix' => 'dashboardClient/asset'], function () {
         Route::get('add', 'Member\Client\assetClientController@showAddAsset');
         Route::post('addAsset', 'Member\Client\assetClientController@addAsset');
-        Route::get('info', 'Member\Client\assetClientController@detailAsset');
+        Route::get('info/{id}', 'Member\Client\assetClientController@detailAsset');
     });
     Route::get('dashboardClient/asset/updateVisible', 'Member\Client\assetClientController@editvisibleAsset');
 });

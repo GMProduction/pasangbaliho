@@ -237,16 +237,24 @@ body #process .process-border {
                 <tr>
 
                     @if ($d->status == 'pembayaran')
-                    <td style="vertical-align: middle">Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
-
+                    <td style="vertical-align: middle">Pembayaran (status : <b> {{$d->paymentStatus}} </b>) <a
+                            href="#hisPembayaran" data-toggle="modal" data-target="#hisPembayaran"
+                            class="btn btn-info bt-sm" aria-label="asdasd" alt="asd"
+                            style="border-radius: 50%; width: 34px" data-toggle="tooltip" data-placement="top"
+                            title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a>
+                    </td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
                     <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                            class="btn btn-warning btn-sm">Bayar Sekarang </a></td>
+                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
                     @elseif(($d->status == 'negomateri') || ($d->status == 'selesai'))
-                    <td style="vertical-align: middle">Pembayaran</td>
-                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->harga_deal)}}</td>
+                    <td style="vertical-align: middle">Pembayaran (status : <b>{{$d->paymentStatus}}</b> )<a
+                            href="#hisPembayaran" data-toggle="modal" data-target="#hisPembayaran"
+                            class="btn btn-info bt-sm" aria-label="asdasd" alt="asd"
+                            style="border-radius: 50%; width: 34px" data-toggle="tooltip" data-placement="top"
+                            title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a></td>
+                    <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
                     <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                        class="btn btn-warning btn-sm">Bayar Sekarang </a></td>
+                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
                     @endif
                 </tr>
                 <tr>
@@ -272,6 +280,41 @@ body #process .process-border {
         <h4 class="text-center">Mohon tunggu beberapa hari</h4>
         <h4 class="text-center">Terima Kasih</h4>
         @endif
+    </div>
+
+
+    <div id="hisPembayaran" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <h5>History Pembayaran</h5>
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <td class="text-center">Tanggal</td>
+                                <td class="text-center">Bank</td>
+                                <td class="text-center">Nominal</td>
+                                <td class="text-center">Status</td>
+                                <td class="text-center">Keterangan</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($payment as $p)
+                            <tr>
+                                <td>{{formatDateToSurat($p->created_at)}}</td>
+                                <td class="text-center">{{$p->vendor}}</td>
+                                <td class="text-right">{{formatRupiah($p->nominal)}}</td>
+                                <td class="text-center">{{$p->status}}</td>
+                                <td>{{$p->keterangan}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Master\transaksiModel;
 use App\models\foto_transaksiModel;
+use App\models\PaymentModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Environment\Console;
@@ -71,7 +72,38 @@ class transaksiController extends Controller
             $id = auth()->guard('advertiser')->user()->id;
         }
 
-
+        $transaksi = TransaksiModel::query()
+            ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
+            ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
+            ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
+            ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+            ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
+            ->where('id_transaksi', '=', $r)
+            ->select(
+                'id_transaksi',
+                'advertisers.id as idAdvertiser', 
+                'advertisers.nama as namaAdvertiser', 
+                'advertisers.nama_instansi as namaInstansi', 
+                'transaksi.id_baliho as idBaliho',
+                'balihos.nama_baliho as nama_baliho',
+                'balihos.harga_market as harga_market', 
+                'provinsis.nama_provinsi as provinsi',
+                'balihos.alamat as alamat',
+                'balihos.id_kategori as idKategori', 
+                'kategoris.kategori as kategori', 
+                'foto_baliho.url_foto as url_foto',
+                'kotas.nama_kota as kota',
+                'transaksi.status',
+                'tanggal_transaksi',
+                'tanggal_awal',
+                'tanggal_akhir',
+                'harga_deal',
+                DB::raw('(IFNULL((SELECT SUM(payment.nominal) FROM payment WHERE payment.id_transaksi = transaksi.id_transaksi AND payment.status = "terima") ,0)) as Pembayaran'),
+                DB::raw('transaksi.harga_deal - (IFNULL((SELECT SUM(payment.nominal) FROM payment WHERE payment.id_transaksi = transaksi.id_transaksi AND payment.status = "terima") ,0)) as saldo'),
+                DB::raw('(SELECT IF((transaksi.harga_deal - (IFNULL((SELECT SUM(payment.nominal) FROM payment WHERE payment.id_transaksi = transaksi.id_transaksi AND payment.status = "terima") ,0))) > 0,"Belum Lunas", "Lunas")) as paymentStatus')
+            )
+            ->get();
 
         $data = transaksiModel::query()
             ->select(
@@ -103,8 +135,13 @@ class transaksiController extends Controller
             ->limit(1)
             ->get();
 
+            $pamyent = PaymentModel::query()
+                ->where('id_transaksi','=',$r)
+                ->get();
+
         $trans = [
-            'data' => $data
+            'data' => $transaksi,
+            'payment' => $pamyent
         ];
 
         return view('advertiser/data/detailtransaksi')->with($trans);

@@ -20,7 +20,7 @@
     }
 </style>
 @foreach ($data as $d)
-<a href="/dashboard/berlangsung/detail/{{$d->id_transaksi}}" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Kembali</a>
+<a href="/dashboard/berlangsung/detail/{{$d->id_transaksi}}" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
 <h3>Pembayaran</h3>
 <h4>{{$d->nama_baliho}}</h4>
 <h4>Total Pembayaran : Rp. {{formatuang($d->harga_deal)}}</h4>
@@ -87,6 +87,7 @@
 
                     </div>
                     <div class="col-lg-4 pt-2">
+                        <h4>Bukti Pembayaran Anda</h4>
                         <form action="bayar" method="POST">
                             @csrf
                             <input type="hidden" value="{{$d->id_transaksi}}" name="idTrans" id="id">
@@ -99,8 +100,7 @@
                                 <label for="nama">Atas Nama :</label>
                                 <input type="text" class="form-control" name="nama" id="nama" placeholder="123455678">
                             </div>
-                            <button type="submit">Simpan</button>
-                            <a class="btn btn-primary btn-block" onclick="addTrans()">Simpan</a>
+                            <button class="btn btn-primary btn-block" type="submit">Simpan</button>
                         </form>
                     </div>
                 </div>

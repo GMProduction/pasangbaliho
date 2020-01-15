@@ -4,11 +4,11 @@
 <div class=" contact-page ">
 
     <div class=" backgroundGreen pb-1" style="">
-        <h4 class="text-center pt-1 text-white">Asset Disewa</h4>
+        <h4 class="text-center pt-1 text-white">History</h4>
     </div>
     <div class="backgroundGray">
-        <div class="body table-responsive"  style="min-height: 500px">
-            <table class="table table-sm" >
+        <div class="body table-responsive">
+            <table class="table table-sm">
                 <tr>
                     <th class="text-center">#</th>
                     <th class="text-center" style="width: 50px">Gambar</th>
@@ -20,7 +20,7 @@
                 @forelse ($disewa as $key => $d)
                 {{ csrf_field() }}
                 <tbody>
-                    <tr>
+                    <tr style="min-height: 400px">
                         <td class="text-center" rowspan="2" style=" vertical-align: middle">
                             {{$disewa->firstItem() + $key}}</td>
                         <td class="text-center" rowspan="2"> @if ($d->url_foto == null)
@@ -47,7 +47,7 @@
                 @empty
                 <tbody>
                     <tr style="height: 400px">
-                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan yang disewa</td>
+                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan yang telah selesai disewa</td>
                     </tr>
                 </tbody>
                 @endforelse
