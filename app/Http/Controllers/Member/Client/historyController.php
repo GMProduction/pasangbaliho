@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Member\Client;
 
 use App\Http\Controllers\Controller;
-use App\models\BalihoModel;
 use App\models\TransaksiModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-
-class disewaController extends Controller
+class historyController extends Controller
 {
     //
-    public function showDisewa()
+    public function showHistory()
     {
+        $now = Carbon::now();
+        $sekarang = $now->toDateString();
 
         if (auth()->guard('client')->check()) {
             $id = auth()->guard('client')->user()->id_client;
@@ -55,11 +55,9 @@ class disewaController extends Controller
         // })
         // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('balihos.id_client', '=', $id)
-            ->where('transaksi.status','!=','permintaan')
-            ->where('transaksi.status','!=','pembayaran')
-            ->where('transaksi.status','!=','negoharga')
-            ->where('transaksi.status','!=','batal')
+            ->where('transaksi.tanggal_akhir','<',$sekarang)
             ->paginate(10);
-        return view('client/data/disewa', compact('disewa'));
+        return view('client/data/history', compact('disewa'));
+        // echo $sekarang;
     }
 }

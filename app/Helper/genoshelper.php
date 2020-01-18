@@ -32,6 +32,11 @@ function formatuang($angka)
     return  number_format($angka, 0, '', '.');
 }
 
+function formatkoma($angka)
+{
+    return  number_format($angka, 0, '', ',');
+}
+
 function hargaafterdiskon($diskon, $hargajual)
 {
     $disctemp = ($diskon * $hargajual) / 100;

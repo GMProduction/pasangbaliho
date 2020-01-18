@@ -6,13 +6,13 @@
 
 
 <div class=" contact-page ">
-    <a href="add" class="float">
+    <a href="asset/add" class="float">
         <i class="fa fa-plus my-float"></i>
     </a>
     <div class=" backgroundGreen pb-1 " style="">
         <h4 class="text-center pt-1 text-white">Asset Media</h4>
     </div>
-    <div class="backgroundGray">
+    <div class="backgroundGray"  style="min-height: 500px">
         <div class="body table-responsive">
             <table class="table table-sm">
                 <tr>
@@ -50,7 +50,7 @@
                                     @endif
                                     id="iconVisible{{$product->firstItem() + $key}}" aria-hidden="true"></i></a></td>
                         <td class="text-center" rowspan="2" style=" vertical-align: middle; width: 50px">
-                            <a href="info" class="btn btn-info btn-circle btn-circle-sm"><i class="fas fa-info    "></i></a></td>
+                        <a href="asset/info/{{$d->id_baliho}}" class="btn btn-info btn-circle btn-circle-sm"><i class="fas fa-info    "></i></a></td>
                     </tr>
                     <tr>
                         <td class="border-top-0" style="">{{$d->alamat}}</td>

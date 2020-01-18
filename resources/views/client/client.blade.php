@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
     <link rel="stylesheet" href="{{asset('css/padding.css')}}">
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+
 
     <style>
         @media (max-width : 767px) {
@@ -85,21 +87,14 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link navhistory">
+                    <a href="/dashboardClient/history" class="nav-link navhistory">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-history fa-fw mr-3"></span>
                             <span class="menu-collapsed">History</span>
                         </div>
                     </a>
                 </li>
-                <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="#" class="nav-link navhistory">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-history fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Notifikasi</span>
-                        </div>
-                    </a>
-                </li>
+             
                 <li class="nav-item dropdown d-sm-block d-md-none">
                     <a href="/logoutClient" class="nav-link navhistory">
                         <div class="d-flex w-100 justify-content-start align-items-center">
@@ -165,7 +160,7 @@
                         <span class="menu-collapsed">Disewa</span>
                     </div>
                 </a>
-                <a href="#" class="bg-dark list-group-item list-group-item-action navhistory">
+                <a href="/dashboardClient/history" class="bg-dark list-group-item list-group-item-action navhistory">
                     <div class="d-flex w-100 justify-content-start align-items-center ">
                         <span class="fa fa-history fa-fw mr-3"></span>
                         <span class="menu-collapsed">History</span>
@@ -177,15 +172,9 @@
                 </li>
                 <!-- /END Separator -->
 
-                <a href="/dashboardClient/notifikasi" class="bg-dark list-group-item list-group-item-action novnotifikasi">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                        <span class="menu-collapsed">Notifikasi <span
-                                class="badge badge-pill badge-primary ml-2">0</span></span>
-                    </div>
-                </a>
+               
                 <!-- Separator without title -->
-                <li class="list-group-item sidebar-separator menu-collapsed"></li>
+                {{-- <li class="list-group-item sidebar-separator menu-collapsed"></li> --}}
                 <!-- /END Separator -->
                 <a href="/logoutClient" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
@@ -210,7 +199,6 @@
 
     </div><!-- body-row END -->
 
-    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>

@@ -63,7 +63,7 @@ class assetClientController extends Controller
             )
             ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->where('id_client', '=', $id)
             ->orderBy('balihos.created_at', 'DESC')
@@ -111,10 +111,9 @@ class assetClientController extends Controller
         $data->lebar = $r->lebar;
         $data->tinggi = $r->tinggi;
         $data->luas = $luas;
-        $data->id_provinsi = $r->prov;
         $data->id_kota = $r->kota;
         $data->alamat = $r->alamat;
-        $data->harga_client = str_replace(',','',$r->harga);
+        $data->harga_client = str_replace(',', '', $r->harga);
         $data->orientasi = $r->orientasi;
         $data->posisi = $r->posisi;
         $data->tampilan = $r->tampil;
@@ -134,13 +133,37 @@ class assetClientController extends Controller
         $data = [
             'status' => $r->status
         ];
-       BalihoModel::query()
-        ->where('id_baliho','=',$r->id)
-        ->update($data);
-
+        BalihoModel::query()
+            ->where('id_baliho', '=', $r->id)
+            ->update($data);
     }
 
-    public function detailAsset(){
-        return view('client.data.sub.detailAsset');
+    public function detailAsset($id)
+    {
+        $aset = BalihoModel::query()
+            ->select(
+                    'balihos.*',
+                    'kotas.nama_kota as kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as provinsi'
+                    
+            )
+            ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+            ->where('id_baliho', '=', $id)
+            ->get();
+
+        $kota = $this->getKota();
+        $kategori = $this->getKategori();
+        $provinsi = $this->getProvinsi();
+        $data = [
+            'kota' => $kota,
+            'provinsi' => $provinsi,
+            'kategori' => $kategori,
+            'asset' => $aset
+        ];
+        // return $aset;
+        return view('client.data.sub.detailAsset')->with($data);
     }
 }

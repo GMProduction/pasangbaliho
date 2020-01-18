@@ -2,54 +2,12 @@
 
 @section('content')
 
-{{-- <div id="login-reg" style="padding-top: 0px">
-    <div class="form-box">
-        <div class="form-top">
-            <div class="form-top-left">
-                <h3>Login to our site</h3>
-                <p>Enter username and password to log on:</p>
-            </div>
-            <div class="form-top-right">
-                <i class="fa fa-key"></i>
-            </div>
-        </div>
-        <div class="form-bottom">
-            <form role="form" action="login" class="login-form" method="POST">
-                @csrf
-                <div class="input-group form-group">
-                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control" name="email" placeholder="email"
-                        aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group form-group">
-                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i></span>
-                    <input type="password" class="form-control" name="password" placeholder="Password"
-                        aria-describedby="basic-addon1">
-                </div>
-                <button type="submit" class="btn">Sign in!</button>
-            </form>
-        </div>
-    </div>
-</div> --}}
-
 
 <div class="row">
 
+    
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box-3 bg-pink hover-zoom-effect">
-            <div class="icon">
-                <i class="fas fa-bell    "></i>
-            </div>
-            <div class="content">
-                <div class="text">NOTIFICATION</div>
-                @foreach ($jumNotif as $n)
-                <div class="number">{{$n->count}}</div>
-                @endforeach
-            </div>
-        </div>
-
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="/dashboard/berlangsung" style="text-decoration: none;">
         <div class="info-box-3 bg-red hover-zoom-effect">
             <div class="icon">
                 <i class="fas fa-file-invoice-dollar"></i>
@@ -59,11 +17,13 @@
                 @foreach ($jumTrans as $n)
                 <div class="number">{{$n->count}}</div>
                 @endforeach
-               
+
             </div>
         </div>
+        </a>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="/dashboard/berjalan" style="text-decoration: none;">
         <div class="info-box-3 bg-blue hover-zoom-effect">
             <div class="icon">
                 <i class="fa fa-check-square" aria-hidden="true"></i>
@@ -75,6 +35,7 @@
                 @endforeach
             </div>
         </div>
+        </a>
     </div>
     {{-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="info-box-3 bg-light-blue hover-zoom-effect">
@@ -114,10 +75,12 @@
         @foreach ($trans as $d)
         <tbody>
             <tr>
-            <td class="text-center" style=" vertical-align: middle">{{$loop->iteration }}</td>
-                <td class="text-center" style=" vertical-align: middle"><img src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
+                <td class="text-center" style=" vertical-align: middle">{{$loop->iteration }}</td>
+                <td class="text-center" style=" vertical-align: middle"><img
+                        src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
                 <td class="text-center " style=" vertical-align: middle">{{$d->nama_baliho}}</td>
-                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_transaksi)}}</td>
+                <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_transaksi)}}
+                </td>
                 <td class="text-center" style=" vertical-align: middle">{{$d->status}}</td>
                 <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_awal)}}</td>
                 <td class="text-center" style=" vertical-align: middle">{{formatDateToSurat($d->tanggal_akhir)}}</td>

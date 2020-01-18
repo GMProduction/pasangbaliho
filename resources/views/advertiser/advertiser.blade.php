@@ -83,7 +83,7 @@
                     <a href="/dashboard/berjalan" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-file-invoice-dollar fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Berjalan</span>
+                            <span class="menu-collapsed">Iklan Terpasang</span>
                         </div>
                     </a>
                 </li>
@@ -95,18 +95,9 @@
                         </div>
                     </a>
                 </li>
+               
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="/dashboard/notifikasi" class="nav-link">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
-                                    class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
-                            @endforeach
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="/dashboard/notifikasi" class="nav-link">
+                    <a href="/dashboard/logout" class="nav-link">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-sign-out-alt fa-fw mr-3"></span>
                             <span class="menu-collapsed">Logout</span>
@@ -171,7 +162,7 @@
                 <a href="/dashboard/berjalan" class="bg-dark list-group-item list-group-item-action navberjalan">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-ad fa-fw mr-3"></span>
-                        <span class="menu-collapsed">Berjalan</span>
+                        <span class="menu-collapsed">Iklan Terpasang</span>
                     </div>
                 </a>
                 <a href="/dashboard/history" class="bg-dark list-group-item list-group-item-action navhistory">
@@ -186,14 +177,7 @@
                 </li>
                 <!-- /END Separator -->
 
-                <a href="/dashboard/notifikasi" class="bg-dark list-group-item list-group-item-action navnotifikasi">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                        <span class="menu-collapsed">Notifikasi <span @foreach ($jumNotif as $j)
-                                class="badge badge-pill badge-primary ml-2">{{$j->count}}</span></span>
-                        @endforeach
-                    </div>
-                </a>
+               
                 <!-- Separator without title -->
                 <li class="list-group-item sidebar-separator menu-collapsed"></li>
                 <!-- /END Separator -->
@@ -231,7 +215,17 @@
 
     </div><!-- body-row END -->
 
-
+    <script>
+        if('{{session("status")}}'){
+                // alert('{{session("status")}}');
+                Swal.fire({
+     title: '{{session("status")}}',
+     text: '{{session("text")}}',
+     icon: '{{session("icon")}}'
+     
+    })
+            }
+    </script>
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>
 
