@@ -139,8 +139,8 @@ class TransaksiController extends Controller
                 )
                 ->where("transaksi.status", "selesai")
                 ->where("id_advertiser", $request->id_adv)
-                ->where("tanggal_awal" ,"<", Carbon::now())
-                ->where("tanggal_akhir" ,">", Carbon::now())
+                ->where("tanggal_awal", "<", Carbon::now())
+                ->where("tanggal_akhir", ">", Carbon::now())
                 ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
@@ -188,7 +188,7 @@ class TransaksiController extends Controller
                 )
                 ->where("transaksi.status", "selesai")
                 ->where("id_advertiser", $request->id_adv)
-                ->where("tanggal_akhir" ,"<", Carbon::now())
+                ->where("tanggal_akhir", "<", Carbon::now())
                 ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
                 ->orderBy("created_at", "DESC")
                 ->paginate(20);
@@ -501,6 +501,7 @@ class TransaksiController extends Controller
                     'balihos.id_baliho as id_baliho',
                     'balihos.nama_baliho as nama_baliho',
                     'balihos.alamat as alamat',
+                    'balihos.harga_client as harga_client',
                     'kotas.nama_kota as nama_kota',
                     'kategoris.kategori as kategori',
                     'provinsis.nama_provinsi as nama_provinsi',
@@ -534,5 +535,157 @@ class TransaksiController extends Controller
         }
     }
 
+    public function iklanBerjalanClient(Request $request)
+    {
+        try {
 
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
+                ->leftjoin('clients', 'balihos.id_client', 'clients.id_client')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan as keterangan_batal',
+                    'advertisers.nama_instansi as nama_instansi',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("transaksi.status", "selesai")
+                ->where("clients.id_client", $request->idClient)
+                ->where("tanggal_awal", "<", Carbon::now())
+                ->where("tanggal_akhir", ">", Carbon::now())
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch data iklan sedang berjalantransaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function historyIklanClient(Request $request)
+    {
+        try {
+
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
+                ->leftjoin('clients', 'balihos.id_client', 'clients.id_client')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan as keterangan_batal',
+                    'advertisers.nama_instansi as nama_instansi',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("transaksi.status", "selesai")
+                ->where("clients.id_client", $request->idClient)
+                ->where("tanggal_akhir", "<", Carbon::now())
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch history transaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
+
+    public function IklanAkanDipasangClient(Request $request)
+    {
+        try {
+
+            $transaksi = TransaksiModel::leftjoin('balihos', 'balihos.id_baliho', 'transaksi.id_baliho')
+                ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
+                ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+                ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
+                ->leftjoin('clients', 'balihos.id_client', 'clients.id_client')
+                ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+                ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+                ->select(
+                    'balihos.id_baliho as id_baliho',
+                    'balihos.nama_baliho as nama_baliho',
+                    'balihos.alamat as alamat',
+                    'kotas.nama_kota as nama_kota',
+                    'kategoris.kategori as kategori',
+                    'provinsis.nama_provinsi as nama_provinsi',
+                    'transaksi.id_transaksi as id_transaksi',
+                    'transaksi.harga_deal as harga_deal',
+                    'transaksi.status as status',
+                    'transaksi.tanggal_transaksi as tanggal_transaksi',
+                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.tanggal_awal as tanggal_awal',
+                    'transaksi.tanggal_akhir as tanggal_akhir',
+                    'transaksi.keterangan as keterangan_batal',
+                    'advertisers.nama_instansi as nama_instansi',
+                    'transaksi.created_at as created_at',
+                    'transaksi.updated_at as updated_at',
+                    'foto_baliho.url_foto as url_foto'
+                )
+                ->where("transaksi.status", "selesai")
+                ->where("clients.id_client", $request->idClient)
+                ->where("tanggal_awal", ">", Carbon::now())
+                ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
+                ->orderBy("created_at", "DESC")
+                ->paginate(20);
+
+            return response()->json([
+                'respon' => 'success',
+                'message' => 'fetch history transaksi berhasil',
+                'transaksi' => $transaksi
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'respon' => 'failure',
+                'message' => 'terjadi kesalahan ' . $e
+            ], 500);
+        }
+    }
 }
