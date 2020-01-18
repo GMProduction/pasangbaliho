@@ -1,10 +1,13 @@
 FETCH_PAYMENT
 import {
-    FETCH_PAYMENT
+    FETCH_PAYMENT,
+    FETCH_PAYMENT_BY_ID
 } from '../Actions/type';
 
 const initialState = {
-    dataPayment: []
+    dataPayment: [],
+    dataPaymentById: null,
+    dataPaymentByIdFound: false,
 }
 
 export default function PaymentReducer (state = initialState, action) {
@@ -14,6 +17,12 @@ export default function PaymentReducer (state = initialState, action) {
             return {
                 ...state,
                 dataPayment: action.data
+            }
+        case FETCH_PAYMENT_BY_ID:
+            return {
+                ...state,
+                dataPaymentById: action.data,
+                dataPaymentByIdFound: action.dataFound
             }
         default:
             return state;

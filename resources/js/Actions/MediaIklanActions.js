@@ -27,7 +27,7 @@ export const postMedia = (data, filter) => {
             
             let response = await mainApi.post(url, data, configJSON)
             if (response.status === 200) {
-                return {status: 'success', data: response.data.data}
+                return {status: 'success', data: response.data}
             }else{
                 return {status: 'failed', message: response.data}
             }

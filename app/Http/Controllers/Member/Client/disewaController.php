@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class disewaController extends Controller
 {
     //
-    public function showDisewa(Request $req)
+    public function showDisewa()
     {
 
         if (auth()->guard('client')->check()) {
@@ -43,7 +43,7 @@ class disewaController extends Controller
             // ->leftjoin('foto_baliho', 'balihos.id_baliho', 'foto_baliho.id_baliho')
             ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
@@ -55,12 +55,11 @@ class disewaController extends Controller
         // })
         // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('balihos.id_client', '=', $id)
-            ->where('transaksi.status','!=','selesai')
+            ->where('transaksi.status','!=','permintaan')
+            ->where('transaksi.status','!=','pembayaran')
+            ->where('transaksi.status','!=','negoharga')
+            ->where('transaksi.status','!=','batal')
             ->paginate(10);
-            
-
-
-
         return view('client/data/disewa', compact('disewa'));
     }
 }

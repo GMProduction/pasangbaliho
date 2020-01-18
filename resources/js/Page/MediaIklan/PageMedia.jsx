@@ -32,7 +32,6 @@ export class PageMedia extends Component {
         await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.onMounted('Media Iklan')
-        
     }
 
     render() {

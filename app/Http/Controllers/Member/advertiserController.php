@@ -5,7 +5,6 @@ namespace App\Http\Controllers\member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Master\advertiserModel;
-use App\models\NotificationModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Master\transaksiModel;
@@ -16,27 +15,7 @@ class advertiserController extends Controller
 
 
 
-    public function notif($n)
-    {
-        $c = Carbon::now();
-        # code...
-        $notif = NotificationModel::query()
-            ->where('id_advertiser', '=', $n)
-            ->orderBy('created_at', 'DESC')
-            ->take(5)
-            ->get();
-
-        return $notif;
-    }
-
-    public function getJumlahNotif($id)
-    {
-        $query = DB::table('notifikasi_advertiser')
-            ->select(DB::raw('count(*) as count'))
-            ->where('id_advertiser', '=', $id)
-            ->get();
-        return $query;
-    }
+   
 
     public function showDashboard()
     {
@@ -64,7 +43,7 @@ class advertiserController extends Controller
             // DB::raw('(select url_foto from foto_baliho, transaksi where foto_baliho.id_baliho = transaksi.id_baliho limit 1) as url_foto'))
             ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-            ->leftjoin('provinsis', 'balihos.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
             ->groupBy('transaksi.id_transaksi', 'balihos.id_baliho')
@@ -89,9 +68,7 @@ class advertiserController extends Controller
             ->where('status', '=', 'selesai')
             ->get();
 
-        $getNotif = $this->getJumlahNotif($id);
         $data = [
-            'jumNotif' => $getNotif,
             'trans' => $query,
             'jumTrans' => $jumTrans,
             'jumIklan' => $jumIklan
@@ -107,7 +84,6 @@ class advertiserController extends Controller
             $id = auth()->guard('advertiser')->user()->id;
         }
 
-        $getNotif = $this->getJumlahNotif($id);
 
 
         $query = advertiserModel::query()
@@ -115,8 +91,7 @@ class advertiserController extends Controller
             ->get();
 
         $data = [
-            'profile' => $query,
-            'jumNotif' => $getNotif
+            'profile' => $query
         ];
 
         return view('advertiser.data.profil')->with($data);
@@ -125,18 +100,5 @@ class advertiserController extends Controller
 
 
 
-    public function showNotif()
-    {
-        $id = auth()->guard('advertiser')->user()->id;
-        $notif = NotificationModel::query()
-            ->where('id_advertiser', '=', $id)
-            ->orderBy('created_at', 'DESC')
-            ->paginate(10);
-        $getNotif = $this->getJumlahNotif($id);
-        $data = [
-            'notif' => $notif,
-            'jumNotif' => $getNotif
-        ];
-        return view('advertiser.data.notif')->with($data);
-    }
+    
 }

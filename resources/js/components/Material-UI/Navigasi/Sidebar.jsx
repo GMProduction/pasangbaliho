@@ -119,7 +119,7 @@ export class Sidebar extends Component {
                     </li>
                     <li>
                         <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/dasboard/laporan'
+                        component={NavLink} to='/dashboard/laporan'
                         >
                             <Icon>pie_chart</Icon>Laporan
                         </ListItem>

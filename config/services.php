@@ -38,4 +38,10 @@ return [
 
     'server_key' => env('FCM_SERVER_KEY', ''),
 
+    'nexmo' => [
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
+        'sms_from' => '+6288221181800',
+    ],
+
 ];

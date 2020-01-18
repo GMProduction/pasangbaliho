@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
 Route::group(['prefix' => 'admin'], function(){
-
+    Route::post('/sms', 'Admin\smsControll@sms');
     Route::group(['prefix' => 'v1'], function(){
         Route::post('/register', 'Admin\AdminControll@register');
         Route::post('/login', 'Admin\AdminControll@login');
@@ -107,8 +107,10 @@ Route::group(['prefix' => 'admin'], function(){
 
             Route::group(['prefix' => 'lokasi'], function () {
                 Route::get('/requestProvinsi', 'Admin\LokasiControll@getProvinsi');
-                Route::post('/addProvinsi', 'Admin\LokasiControll@addProvinsi');
+                Route::get('/requestProvinsiById', 'Admin\LokasiControll@getProvinsiById');
                 Route::get('/requestKota', 'Admin\LokasiControll@getKota');
+                Route::get('/requestKotaById', 'Admin\LokasiControll@getKotaById');
+                Route::post('/addProvinsi', 'Admin\LokasiControll@addProvinsi');
                 Route::post('/addKota', 'Admin\LokasiControll@addKota');
             });
 
@@ -133,6 +135,7 @@ Route::group(['prefix' => 'admin'], function(){
             Route::group(['prefix' => 'mediaiklan'], function () {
                 Route::get('/cMedia', 'Admin\MediaControll@getCountMedia');
                 Route::get('/request', 'Admin\MediaControll@getMedia');
+                Route::get('/requestExceptPending', 'Admin\MediaControll@getMediaExceptPending');
                 Route::get('/requestById', 'Admin\MediaControll@getMediaById');
                 Route::post('/addMedia', 'Admin\MediaControll@addMedia');
                 Route::post('/patchMedia', 'Admin\MediaControll@patchMedia');
@@ -153,10 +156,15 @@ Route::group(['prefix' => 'admin'], function(){
 
             Route::group(['prefix' => 'news'], function (){
                 Route::post('/addNews', 'Admin\NewsControll@addNews');
+                Route::post('/patchNews', 'Admin\NewsControll@patchNews');
             });
 
             Route::group(['prefix' => 'payment'], function (){
                 Route::get('/getPayment', 'Admin\PaymentControll@getPayment');
+                Route::post('/patchPayment', 'Admin\PaymentControll@patchPayment');
+                Route::get('/requestPaymentById', 'Admin\PaymentControll@getPaymentById');
+                Route::get('/requestSaldo', 'Admin\PaymentControll@getSaldoPayment');
+                Route::get('/requestSaldoById', 'Admin\PaymentControll@getSaldoPaymentById');
             });
 
         });

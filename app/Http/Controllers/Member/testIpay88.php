@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Master\transaksiModel;
 use Illuminate\Support\Carbon;
-use App\models\NotificationModel;
 use Illuminate\Support\Facades\DB;
 
 class testIpay88 extends Controller

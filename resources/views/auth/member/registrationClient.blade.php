@@ -101,9 +101,10 @@
                                     <div class="input-group form-group">
                                         <span class="input-group-addon " id="basic-addon1"><i
                                                 class="fa fa-phone"></i></span>
-                                        <input type="tel" name="telp"
+                                                <span class="input-group-addon " id="basic-addon1" style="border-right: 0;">62</i></span>
+                                        <input type="number" name="telp"
                                             class="form-control  @error('telp') is-invalid @enderror"
-                                            value="{{old('telp')}}" placeholder="Phone No."
+                                            value="{{old('telp')}}" placeholder="87812345678"
                                             aria-describedby="basic-addon1">
 
                                     </div>

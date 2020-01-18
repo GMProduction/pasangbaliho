@@ -21,14 +21,13 @@ class MediaControll extends Controller
 
     public function getMedia(Request $r){
         try {
-            //code...
             $id = [['id_baliho', 'LIKE', '%' .$r->index . '%']];
         $nama = [['clients.nama', 'LIKE', '%' .$r->index . '%']];
         $nama_baliho = [['nama_baliho', 'LIKE', '%' .$r->index . '%']];
         $kategori = [['kategoris.kategori', 'LIKE', '%' .$r->index . '%']];
         $permintaan = BalihoModel::query()
-            ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
             ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
+            ->join('provinsis', 'kotas.id_provinsi', '=', 'provinsis.id_provinsi')
             ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
             ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
             ->select(
@@ -39,7 +38,7 @@ class MediaControll extends Controller
                 'kategoris.kategori',
                 'nama_baliho', 
                 'lebar', 'tinggi' , 'luas',
-                'balihos.id_provinsi',
+                'provinsis.id_provinsi',
                 'provinsis.nama_provinsi',
                 'balihos.id_kota',
                 'kotas.nama_kota',
@@ -61,7 +60,49 @@ class MediaControll extends Controller
             $exData = explode('(', $e->getMessage());
             return response()->json(['message' => $exData[0]],500);
         }
-        
+    }
+    public function getMediaExceptPending(Request $r){
+        try {
+            $id = [['id_baliho', 'LIKE', '%' .$r->index . '%']];
+        $nama = [['clients.nama', 'LIKE', '%' .$r->index . '%']];
+        $nama_baliho = [['nama_baliho', 'LIKE', '%' .$r->index . '%']];
+        $kategori = [['kategoris.kategori', 'LIKE', '%' .$r->index . '%']];
+        $permintaan = BalihoModel::query()
+            ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
+            ->join('provinsis', 'kotas.id_provinsi', '=', 'provinsis.id_provinsi')
+            ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
+            ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
+            ->select(
+                'id_baliho',
+                'balihos.id_client',
+                'clients.nama',
+                'balihos.id_kategori', 
+                'kategoris.kategori',
+                'nama_baliho', 
+                'lebar', 'tinggi' , 'luas',
+                'provinsis.id_provinsi',
+                'provinsis.nama_provinsi',
+                'balihos.id_kota',
+                'kotas.nama_kota',
+                'balihos.alamat', 'latitude', 'longitude',
+                'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360'
+            )
+            ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
+                $query->where($id)
+                    ->orWhere($nama)
+                    ->orWhere($nama_baliho)
+                    ->orWhere($kategori);
+            })
+            ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
+            ->where('balihos.status', '!=', 'pending')
+            ->orderBy('id_baliho', 'ASC')
+            ->get();
+        $qty = $permintaan->count();
+        return response()->json(['qty' => $qty, 'result' => $permintaan], 200);
+        } catch (\Exception $e) {
+            $exData = explode('(', $e->getMessage());
+            return response()->json(['message' => $exData[0]],500);
+        }
     }
     
 
@@ -76,8 +117,8 @@ class MediaControll extends Controller
         }
         try {
             $permintaan = BalihoModel::query()
-                ->join('provinsis', 'balihos.id_provinsi', '=', 'provinsis.id_provinsi')
                 ->join('kotas', 'balihos.id_kota', '=', 'kotas.id_kota')
+                ->join('provinsis', 'kotas.id_provinsi', '=', 'provinsis.id_provinsi')
                 ->join('kategoris', 'balihos.id_kategori', '=','kategoris.id_kategori')
                 ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
                 ->select(
@@ -88,7 +129,7 @@ class MediaControll extends Controller
                     'kategoris.kategori',
                     'nama_baliho', 
                     'lebar', 'tinggi' , 'luas',
-                    'balihos.id_provinsi',
+                    'provinsis.id_provinsi',
                     'provinsis.nama_provinsi',
                     'balihos.id_kota',
                     'kotas.nama_kota',
@@ -122,7 +163,6 @@ class MediaControll extends Controller
             'namaMedia' => 'required',
             'lebar' => 'required',
             'tinggi' => 'required',
-            'idProvinsi' => 'required',
             'idKota' => 'required',
             'alamat' => 'required',
             'latitude' => 'required',
@@ -152,7 +192,6 @@ class MediaControll extends Controller
                 'lebar' => $lebar,
                 'tinggi' => $tinggi,
                 'luas' => ($lebar * $tinggi),
-                'id_provinsi' => $r->idProvinsi,
                 'id_kota' => $r->idKota,
                 'alamat' => $r->alamat,
                 'harga_client' => $hargaClient,
@@ -184,7 +223,6 @@ class MediaControll extends Controller
             'namaMedia' => 'required',
             'lebar' => 'required',
             'tinggi' => 'required',
-            'idProvinsi' => 'required',
             'idKota' => 'required',
             'alamat' => 'required',
             'latitude' => 'required',
@@ -215,7 +253,6 @@ class MediaControll extends Controller
             $baliho->tinggi = $tinggi;
             $baliho->orientasi = $r->orientasi;
             $baliho->luas = ($lebar * $tinggi);
-            $baliho->id_provinsi = $r->idProvinsi;
             $baliho->id_kota = $r->idKota;
             $baliho->alamat = $r->alamat;
             $baliho->latitude = $r->latitude;

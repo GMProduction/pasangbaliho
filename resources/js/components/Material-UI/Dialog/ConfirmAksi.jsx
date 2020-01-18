@@ -2,12 +2,24 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { NavLink } from 'react-router-dom';
+import {withStyles} from '@material-ui/core';
+import compose from 'recompose/compose';
+
+const useStyles = theme => ({
+    iconButton: {
+        color: '#555555',
+        marginLeft: '5px'
+    }
+});
 
 export class ConfirmAksi extends Component {
 
@@ -44,12 +56,12 @@ export class ConfirmAksi extends Component {
                     component={NavLink} 
                     to={this.props.url}
                 >
-                    <Icon>edit</Icon>
+                    <EditIcon/>
                 </IconButton >
                 <IconButton  size='small' color="primary" 
                     onClick={this.handleOpen}
                 >
-                    <Icon>delete</Icon>
+                    <CloseIcon/>
                 </IconButton >
                 <Dialog
                     open={this.state.open}
@@ -72,4 +84,6 @@ export class ConfirmAksi extends Component {
     }
 }
 
-export default ConfirmAksi;
+export default compose(
+    withStyles(useStyles))
+    (ConfirmAksi);

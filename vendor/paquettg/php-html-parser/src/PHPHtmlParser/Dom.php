@@ -191,7 +191,7 @@ class Dom
             // use the default curl interface
             $curl = new Curl;
         }
-        $content = $curl->get($url);
+        $content = $curl->get($url, $options);
 
         return $this->loadStr($content, $options);
     }
@@ -252,7 +252,14 @@ class Dom
     {
         $this->isLoaded();
 
-        return $this->root->find($selector, $nth, $this->options->get('depthFirstSearch'));
+        $depthFirstSearch = $this->options->get('depthFirstSearch');
+        if (is_bool($depthFirstSearch)) {
+            $result = $this->root->find($selector, $nth, $depthFirstSearch);
+        } else {
+            $result = $this->root->find($selector, $nth);
+        }
+
+        return $result;
     }
 
     /**
@@ -506,6 +513,11 @@ class Dom
             return $str;
         }
 
+        $is_gzip = 0 === mb_strpos($str, "\x1f" . "\x8b" . "\x08", 0, "US-ASCII");
+        if ($is_gzip) {
+            $str = gzdecode($str);
+        }
+
         // remove white space before closing tags
         $str = mb_eregi_replace("'\s+>", "'>", $str);
         $str = mb_eregi_replace('"\s+>', '">', $str);
@@ -741,6 +753,7 @@ class Dom
         }
 
         $this->content->skipByToken('blank');
+        $tag = strtolower($tag);
         if ($this->content->char() == '/') {
             // self closing tag
             $node->getTag()->selfClosing();
@@ -793,6 +806,7 @@ class Dom
             return false;
         }
 
+        /** @var AbstractNode $meta */
         $meta = $this->root->find('meta[http-equiv=Content-Type]', 0);
         if (is_null($meta)) {
             // could not find meta tag
@@ -800,8 +814,8 @@ class Dom
 
             return false;
         }
-        $content = $meta->content;
-        if (empty($content)) {
+        $content = $meta->getAttribute('content');
+        if (is_null($content)) {
             // could not find content
             $this->root->propagateEncoding($encode);
 

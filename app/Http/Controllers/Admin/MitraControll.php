@@ -83,9 +83,6 @@ class MitraControll extends Controller
             'nama' => 'required',
             'namaInstansi' => 'required',
             'password' => 'required',
-            'noKtp' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
             'telp' => 'required',
             'alamat' => 'required',
         ]);
@@ -125,9 +122,6 @@ class MitraControll extends Controller
                 'nama' => 'required',
                 'namaInstansi' => 'required',
                 'password' => 'required',
-                'noKtp' => 'required',
-                'npwp' => 'required',
-                'nib' => 'required',
                 'telp' => 'required',
                 'alamat' => 'required',
             ]);

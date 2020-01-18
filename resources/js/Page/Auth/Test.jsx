@@ -10,9 +10,17 @@ import {mainApi} from '../../Controller/APIControll';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {withStyles} from '@material-ui/core';
-import compose from 'recompose/compose';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+
+import compose from 'recompose/compose';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Preloading from '../../components/Material-UI/Preloading/Preloading';
+import {prepareMount, pageOnProgress, onMounted } from '../../Actions/pageActions';
+import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+import LoadingBar  from 'react-top-loading-bar';
+import Fade from 'react-reveal/Fade';
 
 const style = {
     paper: {
@@ -26,6 +34,12 @@ const useStyles = theme => ({
         color: '#fff',
         },
 });
+
+const breadcumbItems = [
+    {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
+    {title: 'Media Iklan', icon: 'desktop_mac', active: true},
+];
+
 export class Test extends Component {
 
     constructor(props) {
@@ -79,9 +93,11 @@ export class Test extends Component {
         data.append('isi', this.state.text)
         data.append('status', 'publish')
         try{
+
             let response = await mainApi.post('/news/addNews', data, configJSON)
             console.log(response)
             if (response.status === 200) {
+                this.clearField()
                 this.setState({error: false,success: true})
             }
         }catch (e){
@@ -94,6 +110,18 @@ export class Test extends Component {
         }
     }
 
+    clearField = () => {
+            this.setState({
+                text: '', judul: '', files:[]
+            })
+    }
+
+    async componentDidMount(){
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.onMounted('Berita')
+        
+    }
     handleChangeBerita(value) {
         this.setState({ text: value })
     }
@@ -104,11 +132,18 @@ export class Test extends Component {
         })
     }
 
-    testlink = () => {
-        window.open('http://www.genossys.site', '_blank')
-    }
+    
     render(){
         const { classes } = this.props;
+        const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
+        if (pageLoading === true) {
+            return(
+                <div>
+                    <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                    <Preloading textloading={pageLoadingStatus}/>
+                </div>
+            )
+        }
         const files = this.state.files.map(file => (
             <li key={file.name}>
               {file.name}
@@ -116,16 +151,19 @@ export class Test extends Component {
           ));
         return(
             <div>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={6000} onClose={() => this.handleCloseSnackBar('error')}>
+                <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                <MBreadcumb items={breadcumbItems}/>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
                     <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
                         Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
                     </Alert>
                 </Snackbar>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={6000} onClose={() => this.handleCloseSnackBar('success')}>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
                     <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
                         Berhasil Menyimpan Data.
                     </Alert>
                 </Snackbar>
+            <Fade bottom>
             <Paper style={style.paper}>
                 <TextField name='judul' id="judul" label="Judul Berita" margin="dense" variant="outlined" fullWidth 
                     value={this.state.judul} onChange={this.handleChange}/>
@@ -158,12 +196,9 @@ export class Test extends Component {
                         Publish
                     </Button>
                 </Box>
-                {/* <Box display="flex" justifyContent='flex-end' alignItems="center">
-                    <Button variant="contained" color="primary" onClick={this.testlink}>
-                        test
-                    </Button>
-                </Box> */}
             </Paper>
+            </Fade>
+            
 
             <Backdrop
                     className={classes.backdrop}
@@ -186,8 +221,23 @@ export class Test extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return{
+        page: state.PageReducer
+    }
+}
+
+function mapDispatcToProps (dispatch) {
+    return {
+        prepareMount: bindActionCreators(prepareMount, dispatch),
+        onMounted: bindActionCreators(onMounted, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
+    }
+}
+
 export default compose(
     withStyles(useStyles),
+    connect(mapStateToProps, mapDispatcToProps)
     )(Test);
 
 function Alert(props) {

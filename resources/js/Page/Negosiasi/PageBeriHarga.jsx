@@ -271,9 +271,7 @@ export class PageBeriHarga extends Component {
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box><a target='_blank' href={`https://api.whatsapp.com/send?phone=${dataNegosiasiById.telp}&text=Terima Kasih Telah Menggunakan Jasa pasangbaliho.com. Berikut Kami Kirimkan Lampiran Penawaran Harga Media Iklan yang Anda Inginkan.`}>{dataNegosiasiById.telp}</a>
-                                    <i>(* Klik pada No. Hp Untuk Memberikan pemberitahuan dan Mengirimkan Penawaran Kepada Advertiser)</i>
-                                </Box>
+                                <Box>{dataNegosiasiById.telp}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -298,6 +296,8 @@ export class PageBeriHarga extends Component {
                                 <Box>{dataNegosiasiById.kategori}</Box>
                             </Grid>
                         </Grid>
+                        
+                        
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={4}>
                                 <Box display='flex'>
@@ -309,6 +309,21 @@ export class PageBeriHarga extends Component {
                                 <Box>{dataNegosiasiById.namaBaliho}</Box>
                             </Grid>
                         </Grid>
+                        {
+                            this.props.filter === 'negoharga' ?
+                            <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                                <Box display='flex'>
+                                    <Box flexGrow={1} display='flex'>Harga Media Iklan</Box>
+                                    <Box>:</Box>
+                                </Box>
+                            </Grid>
+                                <Grid item xs={12} sm={12} md={12} lg={8}>
+                                    <Box>{dataNegosiasiById.hargaMarket}</Box>
+                                </Grid>
+                            </Grid>
+                            : ''
+                        }
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                         {
                             filter === 'permintaan' ?

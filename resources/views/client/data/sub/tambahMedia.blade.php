@@ -167,8 +167,8 @@
                                 <label for="tampil">Tampil Muka :</label>
                                 <select name="tampil" id="tampil" class="form-control">
                                     <option value="">- Pilih Tampil Muka -</option>
-                                    <option value="1 Muka">1 Muka</option>
-                                    <option value="2 Muka">2 Muka</option>
+                                    <option value="1">1 Muka</option>
+                                    <option value="2">2 Muka</option>
                                 </select>
                             </div>
                         </div>

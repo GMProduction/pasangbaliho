@@ -16,9 +16,17 @@ import PageAdvertiser from './Advertiser/PageAdvertiser';
 import PageAddAdvertiser from './Advertiser/PageAddAdvertiser';
 import Test from './Auth/Test'
 import PagePembayaran from './Pembayaran/PagePembayaran';
+import PageListPembayaran from './Pembayaran/PageListPembayaran';
+import PageConfirmPayment from './Pembayaran/PageConfirmPayment';
 import pageManualPayment from './Pembayaran/pageManualPayment';
 import PagePaymentConfirm from './Pembayaran/PagePaymentConfirm';
+
+import PageListMateri from './Materi/PageListMateri';
+import PageConfirmMateri from './Materi/PageConfirmMateri';
+
 import Perlengkapan from './Perlengkapan/Perlengkapan';
+import PageLaporan from './Laporan/PageLaporan';
+import PageLaporanTransaksi from './Laporan/PageLaporanTransaksi';
 
 export class PageRouter extends Component {
     render() {
@@ -51,12 +59,20 @@ export class PageRouter extends Component {
                     <Route exact path='/dashboard/negosiasi/negoharga/:id' render={(props) => <PageBeriHarga {...props} filter='negoharga'/>}/>
 
                     <Route exact path='/dashboard/pembayaran' component={PagePembayaran}/>
+                    <Route exact path='/dashboard/pembayaran/list' component={PageListPembayaran}/>
+                    <Route exact path='/dashboard/pembayaran/list/:id' component={PageConfirmPayment}/>
                     <Route exact path='/dashboard/pembayaran/manual' component={pageManualPayment}/>
                     <Route exact path='/dashboard/pembayaran/manual/:id' component={PagePaymentConfirm}/>
+
+                    <Route exact path='/dashboard/materi' component={PageListMateri}/>
+                    <Route exact path='/dashboard/materi/:id' component={PageConfirmMateri}/>
                     
                     <Route exact path='/dashboard/perlengkapan' component={Perlengkapan}/>
 
                     <Route exact path='/dashboard/berita' component={Test}/>
+
+                    <Route exact path='/dashboard/laporan' component={PageLaporan}/>
+                    <Route exact path='/dashboard/laporan/proses' component={PageLaporanTransaksi}/>
 
             </div>
         );

@@ -7,8 +7,8 @@
         <h4 class="text-center pt-1 text-white">Asset Disewa</h4>
     </div>
     <div class="backgroundGray">
-        <div class="body table-responsive">
-            <table class="table table-sm">
+        <div class="body table-responsive"  style="min-height: 500px">
+            <table class="table table-sm" >
                 <tr>
                     <th class="text-center">#</th>
                     <th class="text-center" style="width: 50px">Gambar</th>
@@ -47,7 +47,7 @@
                 @empty
                 <tbody>
                     <tr style="height: 400px">
-                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan</td>
+                        <td colspan="8" class="text-center" style="padding: 20%" >Anda belum mempunyai asset media iklan yang disewa</td>
                     </tr>
                 </tbody>
                 @endforelse
