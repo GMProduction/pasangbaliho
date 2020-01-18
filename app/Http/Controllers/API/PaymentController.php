@@ -73,7 +73,7 @@ class PaymentController extends Controller
                 $payment->nominal = $request->nominal;
                 $payment->vendor = $request->vendor;
                 $payment->atas_nama = $request->atasNama;
-                $payment->nomor_rekening = $request->nomorRekening;
+                $payment->no_rekening = $request->nomorRekening;
                 $payment->save();
 
                 return response()->json([
