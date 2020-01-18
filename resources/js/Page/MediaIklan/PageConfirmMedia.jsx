@@ -84,7 +84,7 @@ export class PageConfirmMedia extends Component {
             this.setState({files})
         };
         this.state = {
-            idBaliho: '',idClient : '',namaClient : '',idKategori : '',namaMedia: '',lebar: 0,tinggi: '0', orientasi: 'potrait', alamat: '',idProvinsi: '', idKota: '',
+            idBaliho: '',idClient : '',namaClient : '',idKategori : '',namaMedia: '',lebar: 0,tinggi: '0', orientasi: 'potrait', alamat: '', idKota: '',
             posisi:'Stand Alone', tampilan: '1', alamat: '', hargaClient: '0', deskripsi: '', 
             hargaMarket: 0,latitude: '',longitude: '',url360: '', files: [], submitProses: false, error: false, succes: false,
             redirect: false
@@ -109,6 +109,7 @@ export class PageConfirmMedia extends Component {
     }
 
     selectChange = (value) => {
+        console.log(value)
         if (value === null) {
             this.setState({
                 namaClient: '',
@@ -133,7 +134,6 @@ export class PageConfirmMedia extends Component {
             lebar: data.lebar,
             tinggi: data.tinggi,
             orientasi: data.orientasi,
-            idProvinsi: data.id_provinsi,
             idKota: data.id_kota,
             alamat: data.alamat,
             tampilan: data.tampilan,
@@ -177,13 +177,14 @@ export class PageConfirmMedia extends Component {
         
         this.setState({submitProses: true,})
         let res = await this.props.postMedia(data, param)
+        console.log(res)
         if (res.status !== 'success'){
             this.setState({error: false,success: true})
             this.setState({submitProses: false})
         }else{
             if((filter === 'add') || (filter === 'pending')){
                 if(this.state.files.length > 0){
-                    await this.handleUpload(res.id)
+                    await this.handleUpload(res.data.id)
                 }else{
                     this.setState({error: false,success: true})
                 }
@@ -220,11 +221,11 @@ export class PageConfirmMedia extends Component {
                 idKategori: this.props.utility.dataKategori[0].id_kategori
             })
         }
-        let firstProv = this.props.utility.dataProvinsi[0]
-        this.setState({
-            idProvinsi: this.props.utility.dataProvinsi[0].id_provinsi
-        })
-        await this.props.fetchKota(firstProv.id_provinsi)
+        // let firstProv = this.props.utility.dataProvinsi[0]
+        // this.setState({
+        //     idProvinsi: this.props.utility.dataProvinsi[0].id_provinsi
+        // })
+        await this.props.fetchKota()
         this.setState({
             idKota: this.props.utility.dataKota[0].id_kota
         })
@@ -245,7 +246,7 @@ export class PageConfirmMedia extends Component {
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         this.props.fetchMitra('')
         this.props.fetchKategori()
-        await this.props.fetchProvinsi()
+        // await this.props.fetchProvinsi()
         if(filter !== 'add'){
             await this.patchProperti('')
         }else{
@@ -392,7 +393,10 @@ export class PageConfirmMedia extends Component {
                                 } customInput={TextField} label="Tinggi" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
                             </Grid>
                         </Grid>
-                        <FormControl variant='outlined' margin='dense' fullWidth>
+                        
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12} md={12} lg={6}>
+                            <FormControl variant='outlined' margin='dense' fullWidth>
                                 <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
                                     Orientasi
                                 </InputLabel>
@@ -408,31 +412,6 @@ export class PageConfirmMedia extends Component {
                                         <MenuItem value='landscape' style={style.resize}>Landscape</MenuItem>
                                 </Select>
                             </FormControl>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <FormControl variant='outlined' margin='dense' fullWidth>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                        Provinsi
-                                    </InputLabel>
-                                    <Select
-                                        id="demo-simple-select-outlined"
-                                        value={this.state.idProvinsi}
-                                        onChange={this.handleChange}
-                                        labelWidth={80}
-                                        style={style.resize}
-                                        name='idProvinsi'
-                                        >
-                                        {
-                                            dataProvinsi !== null ?
-                                            dataProvinsi.map( (row, id) => {
-                                                return (
-                                                    <MenuItem key={id} value={row.id_provinsi} style={style.resize}>{row.nama_provinsi}</MenuItem>
-                                                )
-                                            } )
-                                            : <MenuItem value='' style={style.resize}>---</MenuItem>
-                                        }
-                                    </Select>
-                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
                             <FormControl variant='outlined' margin='dense' fullWidth>
@@ -451,7 +430,7 @@ export class PageConfirmMedia extends Component {
                                             dataKota !== null ?
                                             dataKota.map( (row, id) => {
                                                 return (
-                                                    <MenuItem key={id} value={row.id_kota} style={style.resize}>{row.nama_kota}</MenuItem>
+                                                    <MenuItem key={id} value={row.id_kota} style={style.resize}>{`${row.nama_kota} ( ${row.nama_provinsi} )`}</MenuItem>
                                                 )
                                             } )
                                             : <MenuItem value='' style={style.resize}>---</MenuItem>

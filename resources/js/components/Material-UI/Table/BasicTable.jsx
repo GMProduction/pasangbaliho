@@ -4,7 +4,7 @@ import MaterialTable from 'material-table';
 export class BasicTable extends Component {
     render() {
         return (
-            <div>
+            <div style={{overflow: 'auto'}}>
                 <MaterialTable
                     columns={this.props.columns}
                     data={this.props.data}
@@ -15,7 +15,7 @@ export class BasicTable extends Component {
                             fontFamily: 'Roboto'
                         },
                         rowStyle:{
-                            fontFamily: 'Roboto'
+                            fontFamily: 'Roboto',
                         }
                     }}
                     style={{boxShadow: 'none'}}
@@ -24,6 +24,7 @@ export class BasicTable extends Component {
                             </div>
                         )
                     }}
+                    // onRowClick={this.props.onRowClick}
                     isLoading={this.props.loading === null ? false : this.props.loading}
                 />
             </div>

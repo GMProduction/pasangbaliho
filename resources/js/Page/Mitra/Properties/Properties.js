@@ -1,27 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-
 
 export const columns = [
-    {title: '#',cellStyle:{textAlign: 'center'},headerStyle:{textAlign: 'center', width: '5%'},sorting: false,
+    {title: '#',cellStyle:{textAlign: 'center', fontSize: 12},headerStyle:{textAlign: 'center', minWidth: '50px'},sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>},
-    {title: 'Nama Mitra',field: 'nama',cellStyle:{textAlign: 'left',width: '20%'}},
-    {title: 'Email',field: 'email',headerStyle:{textAlign: 'center', width: '15%'},cellStyle: {textAlign: 'center',width: '15%'}},
-    {title: 'Telp.', field: 'telp',headerStyle:{textAlign: 'center', width: '15%'},cellStyle: {textAlign: 'center', width: '15%'}},
-    {
-        title: 'Alamat', 
-        field: 'alamat',
-        headerStyle:
-            {
-                textAlign: 'left', 
-                width: '30%'
-            },
-        cellStyle: 
-            {
-                textAlign: 'left', 
-                width: '30%'
-            }
-    },
-    
+    {title: 'Nama Mitra',field: 'nama',headerStyle:{textAlign: 'center', minWidth: '180px'},cellStyle:{textAlign: 'left', fontSize: 12}},
+    {title: 'Nama Instansi',field: 'nama_instansi',headerStyle:{textAlign: 'center', minWidth: '180px'},cellStyle:{textAlign: 'left', fontSize: 12}},
+    {title: 'Email',field: 'email',headerStyle:{textAlign: 'center', minWidth: '100px'},cellStyle: {textAlign: 'center', fontSize: 12}},
+    {title: 'Telp.', field: 'telp',headerStyle:{textAlign: 'center', minWidth: '100'},cellStyle: {textAlign: 'center', fontSize: 12}},
+    {title: 'Alamat', field: 'alamat',headerStyle:{textAlign: 'left', minWidth: '300px',},cellStyle: {textAlign: 'left', fontSize: 12}},
 ];

@@ -167,6 +167,8 @@ return [
         Emotality\TawkTo\TawkToServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        
+        
         /*
          * Package Service Providers...
          */

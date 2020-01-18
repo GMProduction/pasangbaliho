@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { NavLink } from 'react-router-dom';
-import { columns } from './Properties/Properties';
+import { columnsPayment } from './Properties/Properties';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -54,15 +54,7 @@ export class PageManualPayment extends Component {
     }
     
     async componentDidMount(){
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.api_token;
-        const configJSON = {
-            headers: {
-                'content-type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+token
-            }   
-        }
+        
         const aksi = {
             title: 'Aksi',
             headerStyle:
@@ -88,17 +80,16 @@ export class PageManualPayment extends Component {
         await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.fetchPayment('pending', '', 'Manual Payment')
-        columns.push(aksi)
+        columnsPayment.push(aksi)
         await this.props.onMounted('Pembayaran')
     }
 
     componentWillUnmount () {
-        columns.pop()
+        columnsPayment.pop()
     }
     render(){
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
         const {dataPayment} = this.props.payment;
-
         if (pageLoading === true) {
             return(
                 <div>
@@ -131,7 +122,7 @@ export class PageManualPayment extends Component {
                                     />
                                 </Box>
                             </Box>
-                            <BasicTable columns={columns} data={dataPayment} loading={dataLoading}/>
+                            <BasicTable columns={columnsPayment} data={dataPayment} loading={dataLoading}/>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>

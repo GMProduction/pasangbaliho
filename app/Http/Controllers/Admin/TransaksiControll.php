@@ -30,10 +30,8 @@ class TransaksiControll extends Controller
                 'balihos.nama_baliho as namaMedia', 
                 'balihos.id_kategori as idKategori', 
                 'kategoris.kategori as kategori', 
-                'harga_ditawarkan',
                 'harga_deal',
                 'transaksi.status',
-                'status_pembayaran',
                 'tanggal_transaksi',
                 'tanggal_awal',
                 'tanggal_akhir'
@@ -66,11 +64,10 @@ class TransaksiControll extends Controller
                     'balihos.nama_baliho as namaBaliho', 
                     'balihos.id_client as idClient', 
                     'balihos.id_kategori as idKategori', 
+                    'balihos.harga_market as hargaMarket', 
                     'kategoris.kategori as kategori', 
-                    'harga_ditawarkan',
                     'harga_deal',
                     'transaksi.status',
-                    'status_pembayaran',
                     'tanggal_transaksi',
                     'tanggal_awal',
                     'tanggal_akhir'
@@ -98,6 +95,10 @@ class TransaksiControll extends Controller
                     break;
                 case 'pembayaran':
                     $status = 'negomateri';
+                    $body = 'Penawaran Materi Anda telah kami terima dan setujui';
+                    break;
+                case 'negomateri':
+                    $status = 'selesai';
                     $body = 'Penawaran Materi Anda telah kami terima dan setujui';
                     break;
                 default:
@@ -149,5 +150,31 @@ class TransaksiControll extends Controller
     public function sendSms () {
          
 
+    }
+
+    public function getSaldoPayment(){
+        $transaksi = TransaksiModel::query()
+            ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
+            ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
+            ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
+            ->select(
+                'id_transaksi',
+                'advertisers.id as idAdvertiser', 
+                'advertisers.nama as namaAdvertiser', 
+                'advertisers.nama_instansi as namaInstansi', 
+                'transaksi.id_baliho as idBaliho',
+                'balihos.nama_baliho as namaMedia', 
+                'balihos.id_kategori as idKategori', 
+                'kategoris.kategori as kategori', 
+                'harga_deal',
+                'transaksi.status',
+                'tanggal_transaksi',
+                'tanggal_awal',
+                'tanggal_akhir'
+            )
+            ->where('transaksi.status', '=', 'pembayaran')
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+        return response()->json($transaksi, 200);
     }
 }

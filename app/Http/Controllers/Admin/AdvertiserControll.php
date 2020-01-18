@@ -19,14 +19,7 @@ class AdvertiserControll extends Controller
         $email = [['email', 'LIKE', '%' .$r->index . '%']];
         $alamat = [['alamat', 'LIKE', '%' .$r->index . '%']];
         $advertiser = AdvertiserModel::query()
-            ->select(
-                'id', 
-                'email', 
-                'nama', 
-                'password', 
-                'telp', 
-                'alamat',
-                'nama_instansi')
+            ->select('id', 'email', 'nama', 'nama_instansi', 'password', 'telp', 'alamat', 'api_token')
             ->where(function ($query) use ($id, $nama, $email, $alamat, $namaInstansi) {
                 $query->where($id)
                     ->orWhere($nama)
@@ -69,7 +62,7 @@ class AdvertiserControll extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errorType' => 'validation','error' => $validator->errors()], 202);           
+            return response()->json(['errorType' => 'validation', 'error' => $validator->errors()], 202);           
         }
 
         try {
@@ -139,14 +132,14 @@ class AdvertiserControll extends Controller
                 AdvertiserModel::query()
                 ->where('id', '=', $id)
                 ->delete();
-                return response()->json(['Succes' => 'Advertiser Deleted !', 'data' => $advertiser], 201);
+                return response()->json(['Succes' => 'Advertiser Deleted !', 'data' => $advertiser], 200);
             } catch (\Exception $e) {
                 $exData = explode('(', $e->getMessage());
                 return response()->json(['errorType' => 'exception', 'error' =>  $exData[0]], 500);
             }
         }
 
-        return response()->json(['message' => 'No Data Found'], 200);
+        return response()->json(['message' => 'No Data Found'], 202);
     }
 
     public function getCountAdvertiser(){

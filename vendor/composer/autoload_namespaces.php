@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'stringEncode' => array($vendorDir . '/paquettg/string-encode/src'),
     'Rize\\UriTemplate' => array($vendorDir . '/rize/uri-template/src'),
-    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'Highlight\\' => array($vendorDir . '/scrivo/highlight.php'),
     'HighlightUtilities\\' => array($vendorDir . '/scrivo/highlight.php'),

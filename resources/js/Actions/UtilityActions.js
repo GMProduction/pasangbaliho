@@ -52,7 +52,7 @@ export const fetchProvinsi = () => {
     }
 }
 
-export const fetchKota = (id) => {
+export const fetchKota = () => {
     return async (dispatch) => {
         const user = JSON.parse(localStorage.getItem('user'));
         const token = user.api_token;
@@ -64,7 +64,30 @@ export const fetchKota = (id) => {
             }   
         }
         try{
-            let resKota = await mainApi.get('/lokasi/requestKota?id='+id, configJSON)
+            let resKota = await mainApi.get('/lokasi/requestKota', configJSON)
+            if (resKota.status === 200) {
+                await dispatch({type: FETCH_KOTA, data: resKota.data})
+            }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            await dispatch({type: FETCH_KOTA, data: []})
+        }
+        
+    }
+}
+export const fetchKotaById = (id) => {
+    return async (dispatch) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try{
+            let resKota = await mainApi.get('/lokasi/requestKotaById?id='+id, configJSON)
             if (resKota.status === 200) {
                 await dispatch({type: FETCH_KOTA, data: resKota.data})
             }

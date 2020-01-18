@@ -11,10 +11,10 @@ class BalihoModel extends Model
     protected $primaryKey  = 'id_baliho';
 
     protected $fillable = [
+        'id_baliho',
         'id_client',
         'id_kategori',
         'nama_baliho', 
-        'id_provinsi', 
         'id_kota', 
         'lebar', 
         'tinggi' , 
@@ -25,8 +25,8 @@ class BalihoModel extends Model
         'harga_client', 
         'harga_market', 
         'orientasi', 
-        'posisi', 
         'tampilan', 
+        'posisi', 
         'deskripsi', 
         'url_360',
         'status',

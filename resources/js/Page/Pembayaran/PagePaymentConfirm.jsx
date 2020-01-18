@@ -14,7 +14,7 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {fetchPaymentById, postNegosiasi} from '../../Actions/PaymentActions'; 
 import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched} from '../../Actions/pageActions';
 import {redirectPage } from '../../Actions/pageActions';
 import {withStyles} from '@material-ui/core';
@@ -47,17 +47,54 @@ export class PagePaymentConfirm extends Component{
         }
     }
 
+    handleSave = async (status) =>{
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+        }
+        let data = new FormData();
+        data.append('id', this.props.payment.dataPaymentById.id)
+        data.append('status', status)
+        
+        this.setState({submitProses: true,})
+        try{
+            let response = await mainApi.post('/payment/patchPayment', data, configJSON)
+            if (response.status === 200) {
+                
+                window.open('https://api.whatsapp.com/send?phone='+this.props.payment.dataPaymentById.telp+
+                '&text=Terima Kasih '+this.props.payment.dataPaymentById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com. Pembayaran Dengan No. Rekening '+this.props.payment.dataPaymentById.no_rekening+' Atas Nama '+this.props.payment.dataPaymentById.atas_nama+' Sudah Kami Konfirmasi', '_blank')
+                
+                this.setState({submitProses: false,})
+                this.setState({error: false,success: true})
+                this.setState({
+                    redirect: true
+                })
+            }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            this.setState({submitProses: false,})
+            this.setState({error: true,success: false})
+        }
+    }
+
     async componentDidMount () {
         let id = this.props.match.params.id;
         let filter = this.props.filter;
         await this.props.prepareMount()
-        // await this.props.fetchNegosiasiById(filter, id)
+        await this.props.fetchPaymentById('pending','Manual Payment', id)
         await this.props.onMounted()
     }
 
     render(){
         const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
+        const {dataPaymentById, dataPaymentByIdFound} = this.props.payment;
+        console.log(dataPaymentById);
         if (pageLoading === true) {
             return(
                 <div>
@@ -65,6 +102,19 @@ export class PagePaymentConfirm extends Component{
                     <Preloading textloading={pageLoadingStatus}/>
                 </div>
             )
+        }
+
+        if (dataPaymentByIdFound !== true) {
+            return(
+                <div>
+                    <h1>DATA NOT FOUND</h1>
+                </div>
+            )
+        }
+
+        if (this.state.redirect === true) {
+            let url = '/dashboard/pembayaran/manual';
+            return <Redirect to={url} />
         }
         return(
             <div>
@@ -92,10 +142,11 @@ export class PagePaymentConfirm extends Component{
                                 <Box display='flex'>
                                     <Box flexGrow={1} display='flex'>No. Transaksi</Box>
                                     <Box>:</Box>
+                                    
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.idTransaksi}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -103,10 +154,11 @@ export class PagePaymentConfirm extends Component{
                                 <Box display='flex'>
                                     <Box flexGrow={1} display='flex'>Advertiser</Box>
                                     <Box>:</Box>
+                                    
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.namaAdvertiser}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -114,10 +166,11 @@ export class PagePaymentConfirm extends Component{
                                 <Box display='flex'>
                                     <Box flexGrow={1} display='flex'>Instansi</Box>
                                     <Box>:</Box>
+                                    
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.namaInstansi}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -125,10 +178,11 @@ export class PagePaymentConfirm extends Component{
                                 <Box display='flex'>
                                     <Box flexGrow={1} display='flex'>Email</Box>
                                     <Box>:</Box>
+                                    
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.email}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
@@ -136,50 +190,87 @@ export class PagePaymentConfirm extends Component{
                                 <Box display='flex'>
                                     <Box flexGrow={1} display='flex'>No. Hp</Box>
                                     <Box>:</Box>
+                                    
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.telp}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={4}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Nama Baliho</Box>
+                                    <Box flexGrow={1} display='flex'>Vendor</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.vendor}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={4}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Harga Sewa</Box>
+                                    <Box flexGrow={1} display='flex'>No. Rekening</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>Rp.</Box>
+                            <Box>{dataPaymentById.no_rekening}</Box>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={4}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Nominal Pembayaran</Box>
+                                    <Box flexGrow={1} display='flex'>Atas Nama</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box></Box>
+                            <Box>{dataPaymentById.atas_nama}</Box>
                             </Grid>
                         </Grid>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                                <Box display='flex'>
+                                    <Box flexGrow={1} display='flex'>Nominal Transfer</Box>
+                                    <Box>:</Box>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12} lg={8}>
+                            <Box>{dataPaymentById.nominal}</Box>
+                            </Grid>
+                        </Grid>
+                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                        <Box display="flex" justifyContent='flex-end' alignItems="center">
+                            <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={() => this.handleSave('tolak')}>
+                                Cancel
+                            </Button>
+                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={() => this.handleSave('terima')}>
+                                Submit
+                            </Button>
+                        </Box>
                         </BasicPanelContent>
                     </BasicPanel>
                     </Grid>
                     </Grid>
                 </Fade>
+                <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.submitProses}
+                >
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Box>
+                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
+                                <CircularProgress color="inherit" />
+                            </Box>
+                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                </Backdrop>
             </div>
         );
     }
@@ -188,6 +279,7 @@ export class PagePaymentConfirm extends Component{
 function mapStateToProps(state) {
     return{
         page: state.PageReducer,
+        payment: state.PaymentReducer
     }
 }
 
@@ -197,6 +289,7 @@ function mapDispatcToProps (dispatch) {
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
+        fetchPaymentById: bindActionCreators(fetchPaymentById, dispatch),
     }
 }
 
