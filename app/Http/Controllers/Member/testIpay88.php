@@ -26,8 +26,8 @@ class testIpay88 extends Controller
         //create array of data to be posted
         $post_data['MerchantCode'] = 'ID01270';
         $post_data['PaymentId'] = 26;
-        $post_data['RefNo'] = '10000124';
-        $post_data['Amount'] = 1000000;
+        $post_data['RefNo'] = '10000125';
+        $post_data['Amount'] = 2000000;
         $post_data['Currency'] = 'IDR';
         $post_data['ProdDesc'] = 'Pasang Baliho';
         $post_data['UserName'] = 'Taufik';
@@ -35,9 +35,9 @@ class testIpay88 extends Controller
         $post_data['UserContact'] = '08975552512';
         $post_data['Remark'] = '';
         $post_data['Lang'] = 'UTF-8';
-        $post_data['Signature'] = 'uBdSzNbroZTUo9BK1S5DAgtXGsc=';
+        $post_data['Signature'] = 'B6UH+uouC+zg4ppkY/YwE8Ij5EQ=';
         $post_data['ResponseURL'] = "https://www.pasangbaliho.com";
-        $post_data['BackendURL'] = "https://www.pasangbaliho.com";
+        $post_data['BackendURL'] = "https://www.pasangbaliho.com/testIpay";
 
         //traverse array and prepare data for posting (key1=value1)
         foreach ($post_data as $key => $value) {

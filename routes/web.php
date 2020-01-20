@@ -18,8 +18,10 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/paymen', 'Member\testIpay88@index');
-Route::get('/test', 'Member\testIpay88@posIpay');
+Route::post('/testIpay', 'Member\testIpay88@index');
+Route::post('/thankyou', 'Member\testIpay88@index');
+// Route::get('/payment', 'Member\testIpay88@posIpay');
+Route::post('/payment', 'Member\transaksiController@showpayment');
 
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
@@ -91,7 +93,6 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::group(['prefix' => 'dashboard/profile'], function () {
         Route::post('editProfil', 'Member\profileController@editProfile');
     });
-
 });
 // Client Dashboar
 Route::group(['middleware' => 'client'], function () {

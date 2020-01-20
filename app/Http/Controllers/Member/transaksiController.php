@@ -15,14 +15,12 @@ use Image;
 class transaksiController extends Controller
 {
 
-    
+
 
     //
     public function showBerlangsung()
     {
         $id = auth()->guard('advertiser')->user()->id;
-
-
 
         $query = transaksiModel::query()
             ->select(
@@ -54,7 +52,7 @@ class transaksiController extends Controller
             // })
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
-            ->where('transaksi.status','!=','selesai')
+            ->where('transaksi.status', '!=', 'selesai')
             ->get();
 
         $data = [
@@ -73,7 +71,7 @@ class transaksiController extends Controller
         }
 
         $transaksi = TransaksiModel::query()
-            ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
+            ->join('advertisers', 'transaksi.id_advertiser', '=', 'advertisers.id')
             ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
             ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
@@ -82,16 +80,16 @@ class transaksiController extends Controller
             ->where('id_transaksi', '=', $r)
             ->select(
                 'id_transaksi',
-                'advertisers.id as idAdvertiser', 
-                'advertisers.nama as namaAdvertiser', 
-                'advertisers.nama_instansi as namaInstansi', 
+                'advertisers.id as idAdvertiser',
+                'advertisers.nama as namaAdvertiser',
+                'advertisers.nama_instansi as namaInstansi',
                 'transaksi.id_baliho as idBaliho',
                 'balihos.nama_baliho as nama_baliho',
-                'balihos.harga_market as harga_market', 
+                'balihos.harga_market as harga_market',
                 'provinsis.nama_provinsi as provinsi',
                 'balihos.alamat as alamat',
-                'balihos.id_kategori as idKategori', 
-                'kategoris.kategori as kategori', 
+                'balihos.id_kategori as idKategori',
+                'kategoris.kategori as kategori',
                 'foto_baliho.url_foto as url_foto',
                 'kotas.nama_kota as kota',
                 'transaksi.status',
@@ -130,14 +128,14 @@ class transaksiController extends Controller
             ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
-            ->leftjoin('advertisers','transaksi.id_advertiser','advertisers.id')
+            ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
             ->where('id_transaksi', '=', $r)
             ->limit(1)
             ->get();
 
-            $pamyent = PaymentModel::query()
-                ->where('id_transaksi','=',$r)
-                ->get();
+        $pamyent = PaymentModel::query()
+            ->where('id_transaksi', '=', $r)
+            ->get();
 
         $trans = [
             'data' => $transaksi,
@@ -145,14 +143,14 @@ class transaksiController extends Controller
         ];
 
         return view('advertiser/data/detailtransaksi')->with($trans);
-        // echo $data; 
+        // echo $data;
     }
 
     public function addTransaksi(Request $r)
     {
         $mytime = Carbon::now();
         $hariini = $mytime->toDateString();
-        
+
         try {
             //code...
             $messege = [
@@ -169,7 +167,7 @@ class transaksiController extends Controller
             $data->tanggal_akhir = $r->selesai;
             $data->save();
             return redirect()->back()->withInput()
-            ->with($messege);
+                ->with($messege);
         } catch (\Throwable $e) {
             $messege = [
                 'status' => 'Pemesanan anda gagal kami proses',
@@ -181,56 +179,57 @@ class transaksiController extends Controller
             echo 'Gagal \n' . $exData[0], 'Ooops';
             // return redirect()->back()->withInput();
             return redirect()->back()->withInput()
-            ->with($data);
+                ->with($data);
         }
     }
 
-    public function showpayment($id){
+    public function showpayment(Request $request)
+    {
         $data = transaksiModel::query()
-        ->select(
-            'transaksi.*',
-            'balihos.id_baliho as id_baliho',
-            'balihos.nama_baliho as nama_baliho',
-            'balihos.alamat as alamat',
-            'kotas.nama_kota as kota',
-            'kategoris.kategori as kategori',
-            'provinsis.nama_provinsi as provinsi',
-            'balihos.harga_client as harga_client',
-            'balihos.lebar as lebar',
-            'balihos.tinggi as tinggi',
-            'balihos.orientasi as orientasi',
-            'balihos.harga_market as harga_market',
-            'balihos.deskripsi as deskripsi',
-            'foto_baliho.url_foto as url_foto',
-            'advertisers.nama as namaAd',
-            'advertisers.email as email',
-            'advertisers.telp as telp'
-        )
-        ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
-        ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
-        ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
-        ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
-        ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
-        ->leftjoin('advertisers','transaksi.id_advertiser','advertisers.id')
-        ->where('id_transaksi', '=', $id)
-        ->limit(1)
-        ->get();
+            ->select(
+                'transaksi.*',
+                'balihos.id_baliho as id_baliho',
+                'balihos.nama_baliho as nama_baliho',
+                'balihos.alamat as alamat',
+                'kotas.nama_kota as kota',
+                'kategoris.kategori as kategori',
+                'provinsis.nama_provinsi as provinsi',
+                'balihos.harga_client as harga_client',
+                'balihos.lebar as lebar',
+                'balihos.tinggi as tinggi',
+                'balihos.orientasi as orientasi',
+                'balihos.harga_market as harga_market',
+                'balihos.deskripsi as deskripsi',
+                'foto_baliho.url_foto as url_foto',
+                'advertisers.nama as namaAd',
+                'advertisers.email as email',
+                'advertisers.telp as telp'
+            )
+            ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
+            ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
+            ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
+            ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
+            ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
+            ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
+            ->where('id_transaksi', '=', $request->request)
+            ->limit(1)
+            ->get();
 
-    $trans = [
-        'data' => $data
-    ];
+        $trans = [
+            'data' => $data
+        ];
 
-    return view('advertiser/data/payment')->with($trans);
-
+        return view('advertiser/data/payment')->with($trans);
     }
 
-    public function editFoto(Request $r){
-        if($r->hasFile('foto')){
+    public function editFoto(Request $r)
+    {
+        if ($r->hasFile('foto')) {
             $image = $r->file('foto');
-            $imageName = $r->id.'.'.$image->getClientOriginalExtension();
+            $imageName = $r->id . '.' . $image->getClientOriginalExtension();
             $imageSave = Image::make($image->getRealPath());
             $imageSave->save(public_path('assets/img/buktiTrans/' . $imageName));
-        }else{
+        } else {
             $imageName = '';
         }
 
@@ -240,19 +239,19 @@ class transaksiController extends Controller
                 'img' => $imageName
             ];
             foto_transaksiModel::updateOrCreate(
-               [
-                   'img' => $imageName,
-                   
-               ],
-               [
-                   'id_transaksi' => $id,
-                   'img' => $imageName
-               ]
+                [
+                    'img' => $imageName,
+
+                ],
+                [
+                    'id_transaksi' => $id,
+                    'img' => $imageName
+                ]
             );
-            return view('dashboard/berlangsung/detail/payment/'.$id);
+            return view('dashboard/berlangsung/detail/payment/' . $id);
         } catch (\Throwable $th) {
             //throw $th;
-            echo 'sad'.$th;
+            echo 'sad' . $th;
         }
     }
 }
