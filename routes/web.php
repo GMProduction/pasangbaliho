@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/testIpay', 'Member\testIpay88@index');
 Route::post('/thankyou', 'Member\testIpay88@index');
+Route::post('/getResponse', 'Member\paymentController@getResponse');
 // Route::get('/payment', 'Member\testIpay88@posIpay');
 Route::post('/payment', 'Member\transaksiController@showpayment');
 

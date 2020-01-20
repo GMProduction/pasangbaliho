@@ -38,8 +38,62 @@ class paymentController extends Controller
                 'icon' => 'warning'
             ];
             //throw $th;
-           //return redirect()->back()->with($data);
+            //return redirect()->back()->with($data);
             echo $th;
+        }
+    }
+
+    public function getResponse(Request $r)
+    {
+
+        $merchantcode     = $_REQUEST["MerchantCode"];
+        $paymentid     = $_REQUEST["PaymentId"];
+        $refno         = $_REQUEST["RefNo"];
+        $amount     = $_REQUEST["Amount"];
+        $ecurrency     = $_REQUEST["Currency"];
+        $remark     = $_REQUEST["Remark"];
+        $transid     = $_REQUEST["TransId"];
+        $authcode     = $_REQUEST["AuthCode"];
+        $estatus     = $_REQUEST["Status"];
+        $errdesc     = $_REQUEST["ErrDesc"];
+        $signature    = $_REQUEST["Signature"];
+
+        switch ($estatus) {
+            case "6":
+                try {
+                    $payment = new PaymentModel;
+                    $payment->id_transaksi = $refno;
+                    $payment->vendor = "Gateway";
+                    $payment->status = "pending";
+                    $payment->nominal = $amount;
+                    $payment->type = "payment Gateway";
+                    $payment->save();
+                    // return redirect()->back()->with($data);
+                } catch (\Throwable $th) {
+
+                    //throw $th;
+                    //return redirect()->back()->with($data);
+                    echo $th;
+                }
+                break;
+            case "1":
+                try {
+                    $data = [
+                        "status" => "terima"
+                    ];
+                    PaymentModel::query()->where("id_transaksi", $refno)->update($data);
+                    echo "RECEIVEOK";
+                    // return redirect()->back()->with($data);
+                } catch (\Throwable $th) {
+
+                    //throw $th;
+                    //return redirect()->back()->with($data);
+                    echo $th;
+                }
+                break;
+                break;
+            default:
+                break;
         }
     }
 }

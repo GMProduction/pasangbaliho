@@ -211,7 +211,7 @@ class transaksiController extends Controller
             ->leftjoin('kategoris', 'balihos.id_kategori', 'kategoris.id_kategori')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
             ->leftjoin('advertisers', 'transaksi.id_advertiser', 'advertisers.id')
-            ->where('id_transaksi', '=', $request->request)
+            ->where('id_transaksi', '=', $request->id_transaksi)
             ->limit(1)
             ->get();
 
