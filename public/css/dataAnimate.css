@@ -1,0 +1,39 @@
+@import 'animate.min.css';
+
+.zominright{
+    animation: zoomInRight 1.5s;
+}
+
+.bounce{
+    animation: bounce 1.5s;
+}
+
+.flash{
+    animation: flash 1.5s;
+}
+
+.pulse{
+    animation: pulse 1.5s;
+}
+.fadeIn{
+    animation: fadeIn 5s;
+}
+
+.slideInDown{
+    animation: slideInDown 1.5s;
+}
+
+.rollIn{
+    animation: rollIn 2s;
+}
+
+.zoomIn{
+    animation: zoomIn 2s;
+}
+
+.bounceInRight{
+    animation: bounceInRight 2s;
+}
+.bounceInLeft{
+    animation: bounceInLeft 2s;
+}

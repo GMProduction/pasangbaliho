@@ -31,11 +31,6 @@
         text-transform: uppercase;
 
     }
-
-
-
-
-
     .captionSLider .des {
         font-size: 14px;
         font-weight: bolder;
@@ -87,7 +82,7 @@
         <div>
             <img src="{{asset('assets/img/slider/'.$s->url_fotoWeb)}}" style="width: 100%" alt="">
             <div style="" class="captionSLider slide-up">
-                <p class="judul"><span>{{$s->title}}</span></p>
+                <p class="judul" ><span>{{$s->title}}</span></p>
                 <p class="des " style="">{{$s->deskripsi}}</p>
             </div>
         </div>

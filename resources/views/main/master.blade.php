@@ -21,10 +21,12 @@
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/carouselbot.css')}}">
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
     <script src="{{asset('js/index.js')}}"></script>
+    <script src="{{asset('js/slick.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 
     <style>

@@ -15,9 +15,10 @@
 //     return view('main.index');
 // });
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
+// Auth::routes(['verify' => true]);
 Route::get('/paymen', 'Member\testIpay88@index');
 Route::get('/test', 'Member\testIpay88@posIpay');
 
@@ -25,6 +26,7 @@ Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
 Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
+Route::get('corus', 'Member\indexController@showCorus');
 
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');

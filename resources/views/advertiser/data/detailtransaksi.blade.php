@@ -118,7 +118,7 @@ body #process .process-border {
         <div class="col-lg-8">
             <h4 class="warnaGreen">{{$d->nama_baliho}}</h4>
             <h5>{{$d->alamat}}, {{$d->kota}}, {{$d->provinsi}}</h5>
-            <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</h5>
+            <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}} ({{ $selisih }})</h5>
             <h5 class="pt-3">Harga : Rp. {{formatuang($d->harga_market)}} / Bulan</h5>
         </div>
     </div>
@@ -281,6 +281,7 @@ body #process .process-border {
         <h4 class="text-center">Terima Kasih</h4>
         @endif
     </div>
+   
 
 
     <div id="hisPembayaran" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
