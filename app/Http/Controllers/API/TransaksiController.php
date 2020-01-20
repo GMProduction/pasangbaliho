@@ -447,6 +447,8 @@ class TransaksiController extends Controller
                     )
                     ->where("terbaca_client", "0")
                     ->where("id_client", $request->idClient)
+                ->where("tanggal_awal", "<", Carbon::now())
+                ->where("tanggal_akhir", ">", Carbon::now())
                     ->count();
 
                 return response()->json([
@@ -557,7 +559,7 @@ class TransaksiController extends Controller
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
-                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.terbaca_client as terbaca_client',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.keterangan as keterangan_batal',
@@ -609,7 +611,7 @@ class TransaksiController extends Controller
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
-                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.terbaca_client as terbaca_client',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.keterangan as keterangan_batal',
@@ -660,7 +662,7 @@ class TransaksiController extends Controller
                     'transaksi.harga_deal as harga_deal',
                     'transaksi.status as status',
                     'transaksi.tanggal_transaksi as tanggal_transaksi',
-                    'transaksi.terbaca_advertiser as terbaca_advertiser',
+                    'transaksi.terbaca_client as terbaca_client',
                     'transaksi.tanggal_awal as tanggal_awal',
                     'transaksi.tanggal_akhir as tanggal_akhir',
                     'transaksi.keterangan as keterangan_batal',

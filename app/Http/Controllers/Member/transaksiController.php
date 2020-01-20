@@ -22,8 +22,6 @@ class transaksiController extends Controller
     {
         $id = auth()->guard('advertiser')->user()->id;
 
-
-
         $query = transaksiModel::query()
             ->select(
                 'transaksi.*',
@@ -244,36 +242,5 @@ class transaksiController extends Controller
         return view('advertiser/data/payment')->with($trans);
     }
 
-    public function editFoto(Request $r)
-    {
-        if ($r->hasFile('foto')) {
-            $image = $r->file('foto');
-            $imageName = $r->id . '.' . $image->getClientOriginalExtension();
-            $imageSave = Image::make($image->getRealPath());
-            $imageSave->save(public_path('assets/img/buktiTrans/' . $imageName));
-        } else {
-            $imageName = '';
-        }
-
-        try {
-            $id = $r->id;
-            $data = [
-                'img' => $imageName
-            ];
-            foto_transaksiModel::updateOrCreate(
-                [
-                    'img' => $imageName,
-
-                ],
-                [
-                    'id_transaksi' => $id,
-                    'img' => $imageName
-                ]
-            );
-            return view('dashboard/berlangsung/detail/payment/' . $id);
-        } catch (\Throwable $th) {
-            //throw $th;
-            echo 'sad' . $th;
-        }
-    }
+   
 }

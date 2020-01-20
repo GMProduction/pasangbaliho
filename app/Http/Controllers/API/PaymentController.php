@@ -13,6 +13,11 @@ class PaymentController extends Controller
 {
     public function getSaldoPayment(Request $request)
     {
+
+        $transTable = TransaksiModel::find($request->idTransaksi);
+        $transTable->terbaca_advertiser = '1';
+        $transTable->save();
+
         $transaksi = TransaksiModel::query()
             ->join('advertisers', 'transaksi.id_advertiser', '=', 'advertisers.id')
             ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
@@ -23,7 +28,6 @@ class PaymentController extends Controller
             ->select(
                 'id_transaksi',
                 'advertisers.id as advertisers',
-
                 'kotas.nama_kota as nama_kota',
                 'foto_baliho.url_foto as url_foto',
                 'kategoris.kategori as kategori',

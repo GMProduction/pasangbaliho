@@ -159,6 +159,25 @@
                         <input type="submit" name="Submit" onclick="" class="btn btn-warning" value="Bayar Sekarang">
                     </form>
                 </div>
+{{--                 
+                <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
+                    <input type="hidden" name="MerchantCode" value="ID01270">
+                    <input type="hidden" name="PaymentId" value="">
+                    <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
+                    <input type="hidden" name="Amount" value="{{$d->harga_deal}}00">
+                    <input type="hidden" name="Currency" value="IDR">
+                    <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
+                    <input type="hidden" name="UserName" value="{{$d->namaAd}}">
+                    <input type="hidden" name="UserEmail" value="{{$d->email}}">
+                    <input type="hidden" name="UserContact" value="{{$d->telp}}">
+                    <input type="hidden" name="Remark" value="">
+                    <input type="hidden" name="Lang" value="UTF-8">
+                    <input type="hidden" name="Signature"  value="HeiX0YsM8e8+VqRB0qsa5hI9mEs=">
+                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/testIpay">
+                    <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
+
+                    <input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang">
+                </form> --}}
             </div>
         </div>
     </div>

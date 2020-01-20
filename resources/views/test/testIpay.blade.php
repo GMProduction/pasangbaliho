@@ -16,6 +16,7 @@
 <input type="text" name="Lang" value="UTF-8">
 <input type="text" name="Signature" value="AhPXTShKKmxiVpOYTydUqKMXYLY=">
 <input type="text" name="ResponseURL" value="https://www.pasangbaliho.com/testResponse">
-<input type="text" name="BackendURL" value="https://www.pasangbaliho.com/testBackend">
+<input type="text" name="BackendURL" value="https://www.pasangbaliho.com/testBackend
+">
 <input type="submit" value="Proceed with Payment" name="Submit">
 </form>

@@ -65,7 +65,7 @@
         border-bottom: 0px;
     }
 
-    /* 
+    /*
 @media screen and (max-width: 1024px) {
 body #process .process-border {
 	top: 27%;
@@ -244,8 +244,14 @@ body #process .process-border {
                             title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a>
                     </td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
-                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
+                    <td class="text-center" style="vertical-align: middle">
+                    {{--  <a href="payment/{{$d->id_transaksi}}"
+                            class="btn btn-warning btn-sm">Bayar Sekarang</a> --}}
+                            </td>
+                            <form method="post" action="https://www.pasangbaliho.com/payment">
+                            <input type="hidden"  name="id_transaksi" value={{$d->id_transaksi}}/>
+<input type="submit" value="Proceed with Payment" name="Submit">
+                            </form>
                     @elseif(($d->status == 'negomateri') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Pembayaran (status : <b>{{$d->paymentStatus}}</b> )<a
                             href="#hisPembayaran" data-toggle="modal" data-target="#hisPembayaran"
@@ -253,8 +259,14 @@ body #process .process-border {
                             style="border-radius: 50%; width: 34px" data-toggle="tooltip" data-placement="top"
                             title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a></td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
-                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
+                    <td class="text-center" style="vertical-align: middle">
+                    <form method="post" action="https://www.pasangbaliho.com/payment">
+                            <input type="hidden"  name="id_transaksi" value={{$d->id_transaksi}}/>
+<input type="submit" value="Proceed with Payment" name="Submit">
+                            </form>
+                    {{--  <a href="payment/{{$d->id_transaksi}}"
+                            class="btn btn-warning btn-sm">Bayar Sekarang</a>  --}}
+                            </td>
                     @endif
                 </tr>
                 <tr>
@@ -350,7 +362,7 @@ body #process .process-border {
             var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+{{$d->harga_deal}}+"00IDR");
         $('#Signature').val(sh);
         })
-      
+
     </script>
 </section>
 @endforeach
