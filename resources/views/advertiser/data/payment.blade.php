@@ -130,7 +130,7 @@
                     <input type="hidden" name="Remark" value="">
                     <input type="hidden" name="Lang" value="UTF-8">
                     <input type="hidden" name="Signature"  value="HeiX0YsM8e8+VqRB0qsa5hI9mEs=">
-                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/testIpay">
+                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
                     <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
 
                     <input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang">
