@@ -130,13 +130,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
-                <div class="col-4 pb-3">
-                    <label for="nominalCek">Nominal :</label>
-                    <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" name="nominalCek"
-                        class="form-control" id="nominalCek" placeholder="contoh : 60000000" onchange="gantiValue()" value="{{formatkoma($d->saldo)}}"
-                        oninvalid="this.setCustomValidity('Not Valid')" onchange="try{setCustomValidity('')}catch(e){}"
-                        oninput="setCustomValidity(' ')">
-                </div>
+               
                 <div class="col-4">
 
 
@@ -145,7 +139,7 @@
                         <input type="hidden" name="MerchantCode" value="ID01270">
                         <input type="hidden" name="PaymentId" value="">
                         <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
-                        <input type="hidden" name="Amount" id="nominalKirim" value="">
+                        <input type="hidden" name="Amount" value="{{$d->saldo}}00">
                         <input type="hidden" name="Currency" value="IDR">
                         <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
                         <input type="hidden" name="UserName" value="{{$d->namaAd}}">
@@ -154,8 +148,8 @@
                         <input type="hidden" name="Remark" value="">
                         <input type="hidden" name="Lang" value="UTF-8">
                         <input type="hidden" name="Signature" id="Signature" value="">
-                        <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/test">
-                        <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/eror">
+                        <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
+                        <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
                         <input type="submit" name="Submit" onclick="" class="btn btn-warning" value="Bayar Sekarang">
                     </form>
                 </div>
@@ -192,13 +186,7 @@
         $('#Signature').val(sh);
     })
        
-    function gantiValue(){
-        var s = $('#nominalCek').val();
-        var a = s.split(',').join('');
-        $('#nominalKirim').val(a+'00');
-        var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+a+"00IDR");
-        $('#Signature').val(sh);
-    }
+    
 
     function bayarCek(){
         // var s = document.forms["ePayment"]["Amount"].value;

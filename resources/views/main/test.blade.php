@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{{asset('css/dataAnimate.css')}}">
 
 <style>
-    .coruselKecil {}
 
     .captionSLider {
         position: absolute;
@@ -56,11 +55,10 @@
         .captionSLider {
             position: unset !important;
             padding-top: 0px !important;
-
         }
-
         .sliderup{
-            height: 230px !important;
+            min-height: 180px !important;
+            max-height: 200px !important;
         }
         .carousel-caption{
             margin-bottom: 0px !important;
@@ -69,7 +67,8 @@
         }
 
         .slider {
-            height: 150px !important;
+            min-height: 100px !important;
+            max-height: 130px !important;
         }
 
         #portfolio {

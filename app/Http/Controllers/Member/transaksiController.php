@@ -53,6 +53,7 @@ class transaksiController extends Controller
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status', '!=', 'selesai')
+            ->orderBy('transaksi.tanggal_transaksi', 'desc')
             ->get();
 
         $data = [
@@ -197,7 +198,7 @@ class transaksiController extends Controller
         }
     }
 
-    public function showpayment($id)
+    public function showpayment(Request $r)
     {
         $data = transaksiModel::query()
             ->join('advertisers', 'transaksi.id_advertiser', '=', 'advertisers.id')
@@ -206,7 +207,7 @@ class transaksiController extends Controller
             ->leftjoin('kotas', 'balihos.id_kota', 'kotas.id_kota')
             ->leftjoin('provinsis', 'kotas.id_provinsi', 'provinsis.id_provinsi')
             ->leftJoin('foto_baliho', 'transaksi.id_baliho', 'foto_baliho.id_baliho')
-            ->where('id_transaksi', '=', $id)
+            ->where('id_transaksi', '=', $r->id_transaksi)
             ->select(
                 'id_transaksi',
                 'advertisers.id as idAdvertiser',
@@ -238,7 +239,7 @@ class transaksiController extends Controller
         $trans = [
             'data' => $data
         ];
-
+        error_log('asd');
         return view('advertiser/data/payment')->with($trans);
     }
 
