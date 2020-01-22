@@ -54,7 +54,7 @@ class advertiserController extends Controller
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status','!=','selesai')
-            ->orderBy('transaksi.tanggal_transaksi', 'desc')
+            ->orderBy('transaksi.created_at', 'desc')
             ->get();
 
         $jumTrans = DB::table('transaksi')

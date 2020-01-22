@@ -114,7 +114,7 @@
                             <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="/login">Masuk</a></li>
-                            <li id="navregistration"><a href="/registration">Pendaftaran</a></li>
+                            <li id="navregistration"><a href="/registration">Daftar</a></li>
                             @endif
 
 

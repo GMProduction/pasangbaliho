@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/testIpay', 'Member\testIpay88@index');
-Route::post('/thankyou', 'Member\testIpay88@thx');
+Route::post('/thankyou', 'Member\testIpay88@index');
 
 Route::post('/getResponse', 'Member\paymentController@getResponse');
 
@@ -34,7 +34,9 @@ Route::get('corus', 'Member\indexController@showCorus');
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
 Route::get('news', 'Member\newsController@showNews');
-Route::get('news/{$id}', 'Member\newsController@showNews');
+Route::get('news/details/{judul}/{id}', 'Member\newsController@showdetailNews');
+
+Route::get('news/details/{id}', 'Member\newsController@detailNews');
 
 Route::get('kebijakan-privasi', function () {
     return view('main.kebijakan');

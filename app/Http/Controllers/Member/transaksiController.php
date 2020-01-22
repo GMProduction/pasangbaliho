@@ -20,6 +20,8 @@ class transaksiController extends Controller
     //
     public function showBerlangsung()
     {
+        $mytime = Carbon::now();
+        $hariini = $mytime->toDateString();
         $id = auth()->guard('advertiser')->user()->id;
 
         $query = transaksiModel::query()
@@ -37,7 +39,8 @@ class transaksiController extends Controller
                 'balihos.orientasi as orientasi',
                 'balihos.harga_market as harga_market',
                 'balihos.deskripsi as deskripsi',
-                'foto_baliho.url_foto as url_foto'
+                'foto_baliho.url_foto as url_foto',
+                'transaksi.tanggal_awal as awal'
             )
             // DB::raw('(select url_foto from foto_baliho, transaksi where foto_baliho.id_baliho = transaksi.id_baliho limit 1) as url_foto'))
             ->leftJoin('balihos', 'transaksi.id_baliho', 'balihos.id_baliho')
@@ -53,7 +56,13 @@ class transaksiController extends Controller
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status', '!=', 'selesai')
-            ->orderBy('transaksi.tanggal_transaksi', 'desc')
+            ->orwhere(
+                [
+                    ['transaksi.tanggal_awal', '>=', $hariini],
+                    // ['transaksi.status', '!=', 'selesai'],
+                ]
+            )
+            ->orderBy('transaksi.created_at', 'desc')
             ->get();
 
         $data = [
@@ -61,7 +70,8 @@ class transaksiController extends Controller
         ];
 
         return view('advertiser/data/transaksiberlangsung')->with($data);
-        // echo $data;
+        // echo $query[0]->awal;
+        // echo $hariini;
     }
 
     public function showDetailTransaksi($r)
@@ -142,8 +152,8 @@ class transaksiController extends Controller
         $jumHari = $awal->diffInDays($akhir);
         $div = $jumHari % 30;
         $bagi =  (int) ($jumHari / 30);
-
-        if ($div > 0) {
+        $selisih = 1;
+        if ($div >= 0) {
             $selisih = ($bagi + 1) . ' Bulan';
         }
         $trans = [
@@ -171,7 +181,7 @@ class transaksiController extends Controller
                 'status' => 'Pemesanan anda akan segera kami proses, Silahkan cek dashboard anda',
                 'icon' => 'success'
             ];
-            
+
             $data = new transaksiModel();
             $data->id_baliho = $r->id_baliho;
             $data->id_advertiser = $r->id_advertiser;
@@ -242,6 +252,4 @@ class transaksiController extends Controller
         error_log('asd');
         return view('advertiser/data/payment')->with($trans);
     }
-
-   
 }
