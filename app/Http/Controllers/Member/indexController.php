@@ -79,24 +79,23 @@ class indexController extends Controller
             ->orderBy('balihos.created_at','DESC')
             ->take(8)
             ->get();
-
-
-           
-
         $data = [
             'produk' => $product,
             'kota' => $kota,
            
             'slider' => $slider
         ];
-
-       
-
         return view('main/index')->with($data);
+    }
 
+    public function showCorus(){
+        $slider = $this->getSlider();
+        $data = [
+           
+            'slider' => $slider
+        ];
 
-
-
+        return view('main/test')->with($data);    
     }
 
     public function showNews()

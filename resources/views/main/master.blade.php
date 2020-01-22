@@ -23,8 +23,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}" />
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
     <script src="{{asset('js/index.js')}}"></script>
+    <script src="{{asset('js/slick.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 
     <style>

@@ -24,6 +24,8 @@ class RegisterController extends Controller
             $this->middleware('guest');
             $this->middleware('guest:advertiser');
             $this->middleware('guest:client');
+            // $this->middleware(['guest:advertiser','verified']);
+
         }
 
     public function showOptionRegister()
@@ -63,7 +65,8 @@ class RegisterController extends Controller
 
         } else {
             $masage = [
-                'status' => 'Pendaftaran Advertiser Berhasil, Silahkan Login kembali',
+                'status' => 'Selamat datang '.$req->nama,
+                'text' => 'Anda login sebagai advertiser',
                 'icon' => 'success'
             ];
             $data = new advertiserModel();
@@ -76,6 +79,7 @@ class RegisterController extends Controller
             $data->telp = $req->telp;
             $data->api_token = Hash::make($req->email);
             $data->save();
+            Auth::guard('advertiser')->login($data, true);
             return redirect('/')->with($masage);
         }
     }

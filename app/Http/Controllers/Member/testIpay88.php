@@ -17,6 +17,13 @@ class testIpay88 extends Controller
         return view('test.testIpay');
     }
 
+    public function thx()
+    {
+        
+
+        return view('main.thank');
+    }
+
 
     public function posIpay()
     {

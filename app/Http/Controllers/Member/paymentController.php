@@ -15,16 +15,25 @@ class paymentController extends Controller
         $bank = $r->bank;
         $rek = $r->rekening;
         $nama = $r->nama;
+        $nom = str_replace(',', '', $r->nominal);
         try {
             //code...
-            PaymentModel::insert(
-                [
-                    'id_transaksi' => $id,
-                    'vendor' => $bank,
-                    'atas_nama' => $nama,
-                    'no_rekening' => $rek
-                ]
-            );
+            // PaymentModel::insert(
+            //     [
+            //         'id_transaksi' => $id,
+            //         'vendor' => $bank,
+            //         'atas_nama' => $nama,
+            //         'no_rekening' => $rek,
+            //         'nominal' => $nom
+            //     ]
+            // );
+            $insert = new PaymentModel();
+            $insert->id_transaksi = $id;
+            $insert->vendor = $bank;
+            $insert->atas_nama = $nama;
+            $insert->no_rekening = $rek;
+            $insert->nominal = $nom;
+            $insert->save();
             $data = [
                 'status' => 'berhasil',
                 'text' => 'Berhasil',
@@ -43,6 +52,23 @@ class paymentController extends Controller
         }
     }
 
+
+
+
+    function iPay88_signature($source)
+    {
+        return base64_encode(hex2bin(sha1($source)));
+    }
+
+    function hex2bin($hexSource)
+    {
+        for ($i = 0; $i < strlen($hexSource); $i = $i + 2) {
+            $bin .= chr(hexdec(substr($hexSource, $i, 2)));
+        }
+
+        return $bin;
+    }
+
     public function getResponse(Request $r)
     {
 
@@ -57,6 +83,12 @@ class paymentController extends Controller
         $estatus     = $_REQUEST["Status"];
         $errdesc     = $_REQUEST["ErrDesc"];
         $signature    = $_REQUEST["Signature"];
+
+        $encrip = $merchantcode . '' . $paymentid . '' . $refno . '' . $amount . 'IDR' . $estatus;
+
+        $signatureBaru = $this->iPay88_signature($encrip);
+        error_log('signature baru '.$signatureBaru);
+        error_log('signature lama '.$signature);
 
         switch ($estatus) {
             case "6":
@@ -74,15 +106,17 @@ class paymentController extends Controller
                     //throw $th;
                     //return redirect()->back()->with($data);
                     echo $th;
+                    error_log($th);
                 }
                 break;
             case "1":
                 try {
-                    $data = [
-                        "status" => "terima"
-                    ];
-                    PaymentModel::query()->where("id_transaksi", $refno)->update($data);
-                    echo "RECEIVEOK";
+                        $data = [
+                            "status" => "terima",
+                        ];
+                        PaymentModel::query()->where("id_transaksi", $refno)->update($data);
+                        echo "RECEIVEOK";
+
                     // return redirect()->back()->with($data);
                 } catch (\Throwable $th) {
 

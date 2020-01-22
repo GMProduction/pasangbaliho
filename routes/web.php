@@ -15,19 +15,21 @@
 //     return view('main.index');
 // });
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 Route::post('/testIpay', 'Member\testIpay88@index');
-Route::post('/thankyou', 'Member\testIpay88@index');
+Route::post('/thankyou', 'Member\testIpay88@thx');
+
 Route::post('/getResponse', 'Member\paymentController@getResponse');
-// Route::get('/payment', 'Member\testIpay88@posIpay');
-Route::post('/payment', 'Member\transaksiController@showpayment');
+
 
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
 Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
+Route::get('corus', 'Member\indexController@showCorus');
 
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
@@ -94,6 +96,8 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::group(['prefix' => 'dashboard/profile'], function () {
         Route::post('editProfil', 'Member\profileController@editProfile');
     });
+    // Route::get('/payment', 'Member\testIpay88@posIpay');
+    Route::post('/payment', 'Member\transaksiController@showpayment');
 });
 // Client Dashboar
 Route::group(['middleware' => 'client'], function () {

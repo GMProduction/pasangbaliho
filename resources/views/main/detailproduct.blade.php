@@ -217,7 +217,7 @@
             <div class="  ">
                 <div class="text-block p-4">
                     <p style="font-size: 14pt">Deskripsi</p>
-                    <p class="">{{$p->deskripsi}}</p>
+                    <p class="" style="text-transform: uppercase; font-synthesis: weight">{{$p->deskripsi}}</p>
                 </div>
             </div>
         </div>

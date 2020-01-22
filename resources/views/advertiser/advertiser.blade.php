@@ -228,6 +228,7 @@
     </script>
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>
+    <script src="{{asset('js/currency.js')}}"></script>
 
     <script src="{{asset('js/jquery.countTo.js')}}"></script>
 
