@@ -125,7 +125,6 @@ class paymentController extends Controller
                     echo $th;
                 }
                 break;
-                break;
             default:
                 break;
         }
