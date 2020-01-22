@@ -87,17 +87,22 @@ class paymentController extends Controller
         $encrip = $merchantcode . '' . $paymentid . '' . $refno . '' . $amount . 'IDR' . $estatus;
 
         $signatureBaru = $this->iPay88_signature($encrip);
-        error_log('signature baru '.$signatureBaru);
-        error_log('signature lama '.$signature);
+        error_log('signature baru ' . $signatureBaru);
+        error_log('signature lama ' . $signature);
 
         switch ($estatus) {
             case "6":
+                $nomleng = strlen($amount);
+                $subs = substr($amount, 0, $nomleng -2);
+
                 try {
                     $payment = new PaymentModel;
                     $payment->id_transaksi = $refno;
                     $payment->vendor = "Gateway";
                     $payment->status = "pending";
-                    $payment->nominal = $amount;
+
+                    $payment->nominal = $subs;
+                    $payment->keterangan = $errdesc;
                     $payment->type = "payment Gateway";
                     $payment->save();
                     // return redirect()->back()->with($data);
@@ -111,11 +116,12 @@ class paymentController extends Controller
                 break;
             case "1":
                 try {
-                        $data = [
-                            "status" => "terima",
-                        ];
-                        PaymentModel::query()->where("id_transaksi", $refno)->update($data);
-                        echo "RECEIVEOK";
+                    $data = [
+                        "status" => "terima",
+                        "keterangan" => $errdesc,
+                    ];
+                    PaymentModel::query()->where("id_transaksi", $refno)->update($data);
+                    echo "RECEIVEOK";
 
                     // return redirect()->back()->with($data);
                 } catch (\Throwable $th) {
@@ -124,7 +130,6 @@ class paymentController extends Controller
                     //return redirect()->back()->with($data);
                     echo $th;
                 }
-                break;
                 break;
             default:
                 break;

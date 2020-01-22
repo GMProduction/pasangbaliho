@@ -130,7 +130,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
-               
+
                 <div class="col-4">
 
 
@@ -153,7 +153,7 @@
                         <input type="submit" name="Submit" onclick="" class="btn btn-warning" value="Bayar Sekarang">
                     </form>
                 </div>
-{{--                 
+{{--
                 <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
                     <input type="hidden" name="MerchantCode" value="ID01270">
                     <input type="hidden" name="PaymentId" value="">
@@ -167,7 +167,7 @@
                     <input type="hidden" name="Remark" value="">
                     <input type="hidden" name="Lang" value="UTF-8">
                     <input type="hidden" name="Signature"  value="HeiX0YsM8e8+VqRB0qsa5hI9mEs=">
-                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/testIpay">
+                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
                     <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
 
                     <input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang">
@@ -185,8 +185,8 @@
        var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+{{$d->saldo}}+"00IDR");
         $('#Signature').val(sh);
     })
-       
-    
+
+
 
     function bayarCek(){
         // var s = document.forms["ePayment"]["Amount"].value;
@@ -213,7 +213,7 @@
             }
         }
     }
-      
+
 
 function showRec(params) {
 if(document.getElementById("bca").checked == true){
@@ -249,7 +249,7 @@ function addBuktiTraks(){
     var nom = $('#nominal').val();
 
     swal.fire(
-        
+
     )
 }
 
@@ -269,7 +269,7 @@ swal.fire({
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if(result.value){
-                   
+
                             document.getElementById('formTrans').action = 'bayar';
                             document.getElementById('formTrans').method = 'POST';
                             document.getElementById('formTrans').submit();

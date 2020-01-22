@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
         //
         "payment",
         "testIpay",
-        "getResponse"
+        "getResponse",
+        "thankyou"
     ];
 }
