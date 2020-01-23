@@ -24,6 +24,7 @@ class BalihoModel extends Model
         'longitude',
         'harga_client', 
         'harga_market', 
+        'harga_terlihat', 
         'orientasi', 
         'tampilan', 
         'posisi', 
