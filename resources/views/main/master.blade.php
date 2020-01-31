@@ -224,6 +224,7 @@
 
 
     <script>
+
         if('{{session("status")}}'){
                 // alert('{{session("status")}}');
                 Swal.fire({
@@ -233,6 +234,7 @@
      
     })
             }
+          
     </script>
 
 

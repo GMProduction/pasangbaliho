@@ -1,5 +1,6 @@
 var first = window.location.pathname.split('/');
 var lok = first[2];
+var lok1 = first[1];
 // var lok = window.location.pathname.replace('/', '');
 $(document).ready(function() {
     if(lok === ''){
@@ -14,6 +15,8 @@ $(document).ready(function() {
         $('.navhistory').addClass('active');
     }else if(lok == 'notifikasi'){
         $('.navnotifikasi').addClass('active');
+    }else if(lok1 == 'payment'){
+        $('.navberlangsung').addClass('active');
     }
     else{
         $('.navdashboard').addClass('active');

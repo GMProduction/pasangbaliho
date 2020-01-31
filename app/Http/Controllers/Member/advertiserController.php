@@ -19,6 +19,11 @@ class advertiserController extends Controller
 
     public function showDashboard()
     {
+        $mytime = Carbon::now();
+        $hariini = $mytime->toDateString();
+ 
+
+
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
         }
@@ -54,6 +59,7 @@ class advertiserController extends Controller
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status','!=','selesai')
+            ->orwhere('transaksi.tanggal_awal', '>=', $hariini)
             ->orderBy('transaksi.created_at', 'desc')
             ->get();
 

@@ -42,6 +42,8 @@
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
+                <h5>Pilih Bank yang anda inginkan</h5>
+
                 <div class="row">
 
                     <div class="col-lg-3 pt-2">
@@ -130,14 +132,54 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
+<h5>Pilih Bank yang anda inginkan</h5>
+                <div class="row">
+                    <div class="col-lg-12 pt-2  justify-content-center">
+                        <div class="row otomatis">
+                            
+                            <div class="col-lg-2 col-sm-6 col-6 offset-lg-1">
+                                <label>
+                                    <input type="radio" name="banko" id="bnio" value="BNI" onclick="showRecOtomatis()">
+                                    <img src="{{asset('assets/img/bank/bni.webp')}}">
+                                </label>
+                            </div>
+                            
+                            <div class="col-lg-2 col-sm-6 col-6">
+                                <label>
+                                    <input type="radio" name="banko" id="mandirio" value="Mandiri" onclick="showRecOtomatis()">
+                                    <img src="{{asset('assets/img/bank/mandiri.webp')}}">
+                                </label>
+                            </div>
+                            <div class="col-lg-2 col-sm-6 col-6">
+                                <label>
+                                    <input type="radio" name="banko" id="maybanko" value="Maybank" onclick="showRecOtomatis()">
+                                    <img src="{{asset('assets/img/bank/maybank.webp')}}">
+                                </label>
+                            </div>
+                            <div class="col-lg-2 col-sm-6 col-6">
+                                <label>
+                                    <input type="radio" name="banko" id="permatao" value="Permata" onclick="showRecOtomatis()">
+                                    <img src="{{asset('assets/img/bank/permata.webp')}}">
+                                </label>
+                            </div>
+                            <div class="col-lg-2 col-sm-6 col-6">
+                                <label>
+                                    <input type="radio" name="banko" id="bersamao" value="bersama" onclick="showRecOtomatis()">
+                                    <img src="{{asset('assets/img/bank/bersama.webp')}}">
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                
+                <div class="col-lg-12 pt-3 d-flex justify-content-center align-items-center">
 
-                <div class="col-4">
 
-
-                    <form name="ePayment" method="POST" action="https://payment.ipay88.co.id/epayment/entry.asp" onsubmit="return bayarCek()">
+                    <form name="ePayment" method="POST" action="https://payment.ipay88.co.id/epayment/entry.asp"
+                        onsubmit="return bayarCek()">
                         @csrf
                         <input type="hidden" name="MerchantCode" value="ID00958_S0001">
-                        <input type="hidden" name="PaymentId" value="">
+                        <input type="hidden" name="PaymentId" id="PaymentId" value="">
                         <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
                         <input type="hidden" name="Amount" value="{{$d->saldo}}00">
                         <input type="hidden" name="Currency" value="IDR">
@@ -150,27 +192,28 @@
                         <input type="hidden" name="Signature" id="Signature" value="">
                         <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
                         <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
-                        <input type="submit" name="Submit" onclick="" class="btn btn-warning" value="Bayar Sekarang">
+                        <input type="submit" name="Submit" onclick="" class="btn btn-primary" value="Bayar Sekarang" style="font-size: 150%; font-weight: bolder">
                     </form>
                 </div>
-{{--
+            </div>
+                {{--
                 <form method="post" name="ePayment" action="https://sandbox.ipay88.co.id/epayment/entry.asp">
                     <input type="hidden" name="MerchantCode" value="ID01270">
                     <input type="hidden" name="PaymentId" value="">
                     <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
-                    <input type="hidden" name="Amount" value="{{$d->harga_deal}}00">
-                    <input type="hidden" name="Currency" value="IDR">
-                    <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
-                    <input type="hidden" name="UserName" value="{{$d->namaAd}}">
-                    <input type="hidden" name="UserEmail" value="{{$d->email}}">
-                    <input type="hidden" name="UserContact" value="{{$d->telp}}">
-                    <input type="hidden" name="Remark" value="">
-                    <input type="hidden" name="Lang" value="UTF-8">
-                    <input type="hidden" name="Signature"  value="HeiX0YsM8e8+VqRB0qsa5hI9mEs=">
-                    <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
-                    <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
+                <input type="hidden" name="Amount" value="{{$d->harga_deal}}00">
+                <input type="hidden" name="Currency" value="IDR">
+                <input type="hidden" name="ProdDesc" value="{{$d->kategori}}, {{$d->nama_baliho}}">
+                <input type="hidden" name="UserName" value="{{$d->namaAd}}">
+                <input type="hidden" name="UserEmail" value="{{$d->email}}">
+                <input type="hidden" name="UserContact" value="{{$d->telp}}">
+                <input type="hidden" name="Remark" value="">
+                <input type="hidden" name="Lang" value="UTF-8">
+                <input type="hidden" name="Signature" value="HeiX0YsM8e8+VqRB0qsa5hI9mEs=">
+                <input type="hidden" name="ResponseURL" value="https://www.pasangbaliho.com/thankyou">
+                <input type="hidden" name="BackendURL" value="https://www.pasangbaliho.com/getResponse">
 
-                    <input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang">
+                <input type="submit" name="Submit" class="btn btn-warning btn-sm" value="Bayar Sekarang">
                 </form> --}}
             </div>
         </div>
@@ -190,28 +233,29 @@
 
     function bayarCek(){
         // var s = document.forms["ePayment"]["Amount"].value;
-        var s = $('#nominalCek').val();
-        var h = s.split(',').join('');
+        var s = $('#PaymentId').val();
+     
         if (s === '' || s === '0') {
             swal.fire({
-                text : 'Silahkan masukkan nominal pembayaran !',
+                text : 'Silahkan pilih Bank yang anda inginkan !',
                 icon : 'warning'
             });
             return false;
-        }else{
-            if(h === '{{$d->saldo}}'){
-            swal.fire({
-                icon: 'info',
-                text: 'Apakah anda akan membayar senilai '+s+' ?',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Simpan',
-                cancelButtonText: 'Batal'
-            })
-            return false;
-            }
         }
+        // else{
+        //     if(h === '{{$d->saldo}}'){
+        //     swal.fire({
+        //         icon: 'info',
+        //         text: 'Apakah anda akan membayar senilai '+s+' ?',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Simpan',
+        //         cancelButtonText: 'Batal'
+        //     })
+        //     return false;
+        //     }
+        // }
     }
 
 
@@ -240,6 +284,21 @@ $('#bank').val('Danamon');
 $('#noRek').html('1-002-00841-2');
 $('#cabang').html('Cabang Surakarta');
 $('#bank').val('Bank Jateng');
+}
+}
+
+
+function showRecOtomatis(params) {
+if(document.getElementById("bersamao").checked == true){
+    $('#PaymentId').val('31');
+}else if(document.getElementById("bnio").checked == true){
+    $('#PaymentId').val('26');
+}else if(document.getElementById("maybanko").checked == true){
+    $('#PaymentId').val('9');
+}else if(document.getElementById("mandirio").checked == true){
+    $('#PaymentId').val('17');
+}else if(document.getElementById("permatao").checked == true){
+    $('#PaymentId').val('31');
 }
 }
 
