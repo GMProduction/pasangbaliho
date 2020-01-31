@@ -1,38 +1,8 @@
 @extends('main.master')
 
 @section('content')
+<link rel="stylesheet" href="{{asset('css/news.css')}}">
 
-<style>
-    p {
-        /* width: 200px;
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis; */
-
-        /* overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        max-height: 3.6em; */
-    }
-
-    .text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        line-height: 16px;
-        max-height: 50px;
-
-        /* The number of lines to be displayed */
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-
-    .isiBerita p {
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-    }
-</style>
 
 <div id="portfolio" class="container">
     <div class="row">
@@ -50,18 +20,11 @@
                         @if ($b->gambar == null)
                         <img alt="" src="{{asset('assets/noimage.jpg')}}" height="250" style="width: 100%">
                         @else
-                        <img src="{{asset('assets/img/slider/.$b->gambar')}}" style="width: 100%" height="250" alt="">
+                        <img src="{{asset('assets/img/news/'.$b->gambar)}}" style="width: 100%" height="250" alt="">
                         @endif
-                        <div class="pr-3 pl-3">
-                            <h4 style="margin-bottom: 0px">{{$b->judul}}</h4>
-                            <div style="" class="">
-                                <div class="text " style=""><span>
-                                        @php
-                                        echo htmlspecialchars_decode($b->isi);
-                                        @endphp
-                                    </span>
-                                </div>
-                            </div>
+                        {{-- <h3 class="P-3" style="">{{$b->judul}} S</h3> --}}
+                        <div class="p-3 " title="{{$b->judul}}">
+                            <h3 class="judulOver">{{$b->judul}}</h3>
                         </div>
                     </a>
                     @endforeach
@@ -87,14 +50,14 @@
         @endphp
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pb-2 ">
             <a href="/news/details/{{$urlweb}}/{{$b->id_news}}" style="" class="">
-                <div class="p-2 border" style="height: 163px">
+                <div class="p-2 border" style="height: 152px">
                     @if ($b->gambar == null)
                     <img alt="" src="{{asset('assets/noimage.jpg')}}" height="120" style="width: 100%">
                     @else
-                    <img src="{{asset('assets/img/slider/.$b->gambar')}}" style="width: 100%" height="120px" alt="">
+                    <img src="{{asset('assets/img/news/'.$b->gambar)}}" style="width: 100%" height="115px" alt="">
                     @endif
 
-                    <label style="margin-bottom: 0px" class="pt-2">{{$b->judul}}</label>
+                    <label style="margin-bottom: 0px" class="judulOverKecil" title="{{$b->judul}}">{{$b->judul}}</label>
                 </div>
             </a>
         </div>
@@ -106,7 +69,7 @@
 <div class="row">
     <div class="col-12 col-lg-9  mt-4 ">
         <div style="" class="mb-3 backgroundGreen">
-           <h3 class="p-3 " style="color: white">Berita Terkini</h3>
+            <h3 class="p-3 " style="color: white">Berita Terkini</h3>
         </div>
         @foreach ($berita as $b)
         @php
@@ -116,11 +79,11 @@
 
         @endphp
         <div class="row  p-4">
-            <div class="col-lg-3  img-fluid">
+            <div class="col-lg-3 col-md-3 col-sm-3 img-fluid">
                 @if ($b->gambar == null)
                 <img alt="" src="{{asset('assets/noimage.jpg')}}" height="120" style="width: 100%">
                 @else
-                <img src="{{asset('assets/img/slider/.$b->gambar')}}" style="width: 100%" height="120" alt="">
+                <img src="{{asset('assets/img/news/'.$b->gambar)}}" style="width: 100%" height="120" alt="">
                 @endif
             </div>
             <div class="col-lg-9 ">

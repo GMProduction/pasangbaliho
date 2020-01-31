@@ -3,6 +3,8 @@
 @section('content')
 
 <link rel="stylesheet" href="{{asset('css/product.css')}}">
+<link rel="stylesheet" href="{{asset('css/icon.css')}}">
+
 <section id="about-page-section-3">
 
 
@@ -125,16 +127,16 @@
 
                 </table>
                 @foreach ($dipesan as $d)
-                    @if ($loop->first)
-                    <label style="font-size: 12pt">Baliho Ini Tidak Tersedia Tanggal : </label>
-                    @endif
-                
-               
+                @if ($loop->first)
+                <label style="font-size: 12pt">Baliho Ini Tidak Tersedia Tanggal : </label>
+                @endif
+
+
                 @endforeach
                 <div class="row">
                     @foreach ($dipesan as $d)
                     {{-- This is the first iteration --}}
-                   
+
 
                     {{-- <p>Tanggal {{$d->tanggal_awal}} s/d {{$d->tanggal_akhir}}</p> --}}
                     <div class="col-md-6 col-sm-12">
@@ -243,6 +245,16 @@
                 height: 500px;
                 width: 100%;
             }
+
+            .object-fit_contain {
+                object-fit: cover
+            }
+
+            .showmore:hover {
+                background-color: black !important;
+
+
+            }
         </style>
         <div class="row p-4 pt-5">
             <div class="col-lg-6 col-md-12">
@@ -271,16 +283,220 @@
             </div>
         </div>
 
-    </div>
+        <div class="mt-5 ">
+            <h5><span>Kota Serupa</span></h5>
+            <div class="mt-0 pt-0" id="portfolio" style="width: 100%;">
+                <div class="slider related-media " id="">
+                    @foreach ($related as $p)
+                    <div class="p-2">
+                        <div class="portfolio-item">
+                         
+                                <input type="hidden" name="id" value="{{$p->id_baliho}}">
+                                <div class="portfolio-one">
+                                    <div class="portfolio-head">
+                                        <div class="portfolio-img" style="">
+                                            @if ($p->url_foto == null)
+                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                                style="">
+                                            @else
+                                            <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
+                                                class="object-fit_contain">
+                                            @endif
+                                        </div>
+                                        @php
+                                        $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                                        $gantiTitik = str_replace('.','',$uri);
+                                        $urlweb = str_replace(' ', '-', $gantiTitik);
+                                        $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
+                                        @endphp
 
-    <script>
-        $(document).ready(function () {
+
+
+                                    </div>
+                                   
+
+                                    <div class="portfolio-content">
+                                        <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
+                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
+                                            {{$p->provinsi}}</h6>
+                                        <p class="pb-1"><span>{{$p->kategori}}, {{$p->orientasi}} </span>
+                                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                                            <br><b>Kisaran Harga :
+                                                <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
+                                        </p>
+                                        <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                    </div>
+                                    <!-- End portfolio-content -->
+                                </div>
+                                <!-- End portfolio-item -->
+                            </div>
+                            {{-- @endfor --}}
+                        </div>
+                        
+
+                        @endforeach
+                        <div class="p-2">
+                            <div class="portfolio-item">
+                                <input type="hidden" name="id" value="">
+                                <div class="portfolio-one" style="box-shadow: none">
+                                    <div class="portfolio-head">
+                                        <div class="portfolio-img hidden" style="">
+                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                                style="">
+
+                                        </div>
+                                       
+
+
+
+                                    </div>
+                                    @if ($loop->last)
+                                    <h2 style="" class="text-center">
+                                    <a href="/product/search?c={{$p->kota}}" style="" class="btn" style=""><i class="fa fa-forward fa-4x"
+                                                aria-hidden="true"></i></a>
+                                                <h4 class="text-center">Tampilkan Semua</h4>
+                                        {{-- asda --}}
+                                    </h2>
+
+                                    @endif
+
+                                    <div class="portfolio-content hidden">
+                                        <h6 class="title" title="" style="font-size: 12pt"></h6>
+                                        <p class="pb-1"><span></span>
+                                            <br><span>Ukuran :cm</span>
+                                            <br><b>Kisaran Harga :
+                                                <br>Rp. / Bulan</b>
+                                        </p>
+                                        <a href=""
+                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                    </div>
+                                    <!-- End portfolio-content -->
+                                </div>
+                                <!-- End portfolio-item -->
+                            </div>
+                            {{-- @endfor --}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+      
+
+        <div class="mt-5 ">
+            <h5><span>Kategori Serupa</span></h5>
+            <div class="mt-0 pt-0" id="portfolio" style="width: 100%;">
+                <div class="slider related-media " id="">
+                    @foreach ($kategori as $p)
+                    <div class="p-2">
+                        <div class="portfolio-item">
+                         
+                                <input type="hidden" name="id" value="{{$p->id_baliho}}">
+                                <div class="portfolio-one">
+                                    <div class="portfolio-head">
+                                        <div class="portfolio-img" style="">
+                                            @if ($p->url_foto == null)
+                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                                style="">
+                                            @else
+                                            <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
+                                                class="object-fit_contain">
+                                            @endif
+                                        </div>
+                                        @php
+                                        $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                                        $gantiTitik = str_replace('.','',$uri);
+                                        $urlweb = str_replace(' ', '-', $gantiTitik);
+                                        $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
+                                        @endphp
+
+
+
+                                    </div>
+                                   
+
+                                    <div class="portfolio-content">
+                                        <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
+                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
+                                            {{$p->provinsi}}</h6>
+                                        <p class="pb-1"><span>{{$p->kategori}}, {{$p->orientasi}} </span>
+                                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                                            <br><b>Kisaran Harga :
+                                                <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
+                                        </p>
+                                        <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                    </div>
+                                    <!-- End portfolio-content -->
+                                </div>
+                                <!-- End portfolio-item -->
+                            </div>
+                            {{-- @endfor --}}
+                        </div>
+                        
+
+                        @endforeach
+                        <div class="p-2">
+                            <div class="portfolio-item">
+                                <input type="hidden" name="id" value="">
+                                <div class="portfolio-one" style="box-shadow: none">
+                                    <div class="portfolio-head">
+                                        <div class="portfolio-img hidden" style="">
+                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                                style="">
+
+                                        </div>
+                                       
+
+
+
+                                    </div>
+                                    @if ($loop->last)
+                                    <h2 style="" class="text-center">
+                                    <a href="/product/search?k={{$p->kategori}}" style="" class="btn" style=""><i class="fa fa-forward fa-4x"
+                                                aria-hidden="true"></i></a>
+                                                <h4 class="text-center">Tampilkan Semua</h4>
+                                        {{-- asda --}}
+                                    </h2>
+
+                                    @endif
+
+                                    <div class="portfolio-content hidden">
+                                        <h6 class="title" title="" style="font-size: 12pt"></h6>
+                                        <p class="pb-1"><span></span>
+                                            <br><span>Ukuran :cm</span>
+                                            <br><b>Kisaran Harga :
+                                                <br>Rp. / Bulan</b>
+                                        </p>
+                                        <a href=""
+                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                    </div>
+                                    <!-- End portfolio-content -->
+                                </div>
+                                <!-- End portfolio-item -->
+                            </div>
+                            {{-- @endfor --}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
         $('#street').load('/showStreetView/{{$p->id_baliho}}');
     })
 
-    </script>
+        </script>
 
-    @endforeach
+        @endforeach
+
 </section>
 <script>
     // let today = new Date().toISOString().substr(0, 10);
@@ -361,4 +577,6 @@ function testClient() {
 })
         }
 </script>
+<script src="{{asset('js/slider.js')}}"></script>
+
 @endsection

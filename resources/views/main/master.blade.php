@@ -65,6 +65,8 @@
         </div>
 
     </section>
+        
+
 
     <header>
         <nav class="navbar navbar-inverse" style="">
@@ -242,7 +244,12 @@
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
+    if ('{{auth()->guard("advertiser")->check()}}' === '1') {
+        var nama = '{{auth()->guard("advertiser")->user()}}';
+        var email = '{{auth()->guard("advertiser")->user()}}';
+    
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+     
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
@@ -251,10 +258,21 @@
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
-   
+    var Tawk_API=Tawk_API||{};
+        var Tawk_LoadStart=new Date();
+  
+        Tawk_API.onLoad = function(){
+        Tawk_API.setAttributes({
+        'name' : nama,
+        'email': email,
+        'hash' : 'hash-value'
+        }, function (error) {});
+        
+        };
+}
     </script>
-    <!--End of Tawk.to Script-->
-
+  
+        
 
 </body>
 

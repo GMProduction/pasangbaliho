@@ -56,12 +56,7 @@ class transaksiController extends Controller
             // ->leftJoin('foto_baliho','transaksi.id_baliho','foto_baliho.id_baliho')
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status', '!=', 'selesai')
-            ->orwhere(
-                [
-                    ['transaksi.tanggal_awal', '>=', $hariini],
-                    // ['transaksi.status', '!=', 'selesai'],
-                ]
-            )
+            ->where('transaksi.tanggal_awal', '>=', $hariini)
             ->orderBy('transaksi.created_at', 'desc')
             ->get();
 

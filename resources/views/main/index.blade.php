@@ -137,7 +137,7 @@
                 </div>
                 <div class="carousel-caption captionSLider " >
                     <h1 class="judul bounceInLeft"><span>{{$s->title}}</span></h1>
-                    <p class="des bounceInRight">{{$s->deskripsi}}</p>
+                    <p class="des bounceInRight" style="color: black">{{$s->deskripsi}}</p>
                    
                 </div>
             </div>

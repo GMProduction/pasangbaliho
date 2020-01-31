@@ -43,7 +43,7 @@ function cariProduk() {
         t = '&&t='+t;
     }
     if(s !== ''){
-        s = '&&p='+s
+        s = '&&s='+s
     }
     
     var data = k+s+ko+t;
