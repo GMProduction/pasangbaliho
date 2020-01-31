@@ -134,9 +134,9 @@
                 <div class="col-4">
 
 
-                    <form name="ePayment" method="POST" action="https://sandbox.ipay88.co.id/epayment/entry.asp" onsubmit="return bayarCek()">
+                    <form name="ePayment" method="POST" action="https://payment.ipay88.co.id/epayment/entry.asp" onsubmit="return bayarCek()">
                         @csrf
-                        <input type="hidden" name="MerchantCode" value="ID01270">
+                        <input type="hidden" name="MerchantCode" value="ID00958_S0001">
                         <input type="hidden" name="PaymentId" value="">
                         <input type="hidden" hidden name="RefNo" value="{{$d->id_transaksi}}">
                         <input type="hidden" name="Amount" value="{{$d->saldo}}00">
@@ -182,7 +182,7 @@
 <script>
     $(document).ready(function () {
        showRec();
-       var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+{{$d->saldo}}+"00IDR");
+       var sh = iPay88Signature("xEXx3CJsGJID00958_S0001"+{{$d->id_transaksi}}+""+{{$d->saldo}}+"00IDR");
         $('#Signature').val(sh);
     })
 

@@ -11,7 +11,7 @@ class PaymentModel extends Model
 
     protected $fillable = [
 
-        'id_transaksi', 'type', 'nominal', 'status', 'url', 'keterangan', 'vendor', 'atas_nama', 'no_rekening'
+        'id_transaksi', 'type', 'nominal', 'status', 'url', 'keterangan', 'vendor', 'atas_nama', 'no_rekening', 'id_reff'
 
     ];
 }
