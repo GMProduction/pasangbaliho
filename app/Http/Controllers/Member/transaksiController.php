@@ -158,7 +158,7 @@ class transaksiController extends Controller
         ];
 
         return view('advertiser/data/detailtransaksi')->with($trans);
-        // echo $data; 
+        // echo $data;
         //    $day = Carbon::parse($data[0]->tanggal_akhir)->diffForHumans($data[0]->tanggal_awal);
 
         // echo $jumHari .  ' ' . $kk;

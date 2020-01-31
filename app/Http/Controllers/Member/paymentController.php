@@ -69,9 +69,8 @@ class paymentController extends Controller
         return $bin;
     }
 
-    public function getResponse(Request $r)
+    public function getResponse()
     {
-
         $merchantcode     = $_REQUEST["MerchantCode"];
         $paymentid     = $_REQUEST["PaymentId"];
         $refno         = $_REQUEST["RefNo"];
@@ -84,55 +83,67 @@ class paymentController extends Controller
         $errdesc     = $_REQUEST["ErrDesc"];
         $signature    = $_REQUEST["Signature"];
 
-        $encrip = $merchantcode . '' . $paymentid . '' . $refno . '' . $amount . 'IDR' . $estatus;
+        $nomleng = strlen($amount);
+        $subs = substr($amount, 0, $nomleng - 2);
+
+        $merchankeySandbox = "5Z1cr9UxDk";
+        $merhankeyProduksi = "xEXx3CJsGJ";
+        $encrip = $merhankeyProduksi . $merchantcode . '' . $paymentid . '' . $refno . '' . $amount . $ecurrency . $estatus;
 
         $signatureBaru = $this->iPay88_signature($encrip);
-        error_log('signature baru ' . $signatureBaru);
-        error_log('signature lama ' . $signature);
 
-        switch ($estatus) {
-            case "6":
-                $nomleng = strlen($amount);
-                $subs = substr($amount, 0, $nomleng -2);
 
-                try {
-                    $payment = new PaymentModel;
-                    $payment->id_transaksi = $refno;
-                    $payment->vendor = "Gateway";
-                    $payment->status = "pending";
+        if ($signature == $signatureBaru) {
 
-                    $payment->nominal = $subs;
-                    $payment->keterangan = $errdesc;
-                    $payment->type = "payment Gateway";
-                    $payment->save();
-                    // return redirect()->back()->with($data);
-                } catch (\Throwable $th) {
+            switch ($estatus) {
+                case "6":
 
-                    //throw $th;
-                    //return redirect()->back()->with($data);
-                    echo $th;
-                    error_log($th);
-                }
-                break;
-            case "1":
-                try {
-                    $data = [
-                        "status" => "terima",
-                        "keterangan" => $errdesc,
-                    ];
-                    PaymentModel::query()->where("id_transaksi", $refno)->update($data);
-                    echo "RECEIVEOK";
 
-                    // return redirect()->back()->with($data);
-                } catch (\Throwable $th) {
+                    try {
+                        $payment = new PaymentModel;
+                        $payment->id_transaksi = $refno;
+                        $payment->vendor = "Gateway";
+                        $payment->status = "pending";
+                        $payment->id_reff = $transid;
 
-                    //throw $th;
-                    //return redirect()->back()->with($data);
-                    echo $th;
-                }
-                break;
-            default:
-                break;
+                        $payment->nominal = $subs;
+                        $payment->keterangan = $errdesc;
+                        $payment->type = "payment Gateway";
+                        $payment->save();
+                        // return redirect()->back()->with($data);
+                    } catch (\Throwable $th) {
+
+                        //throw $th;
+                        //return redirect()->back()->with($data);
+                        echo $th;
+                        error_log($th);
+                    }
+                    break;
+                case "1":
+                    try {
+                        PaymentModel::updateOrCreate(
+                            ["id_reff" => $transid],
+                            ['keterangan' => $errdesc,
+                            'id_transaksi' => $refno,
+                            'vendor' => "Gateway",
+                            'nominal' => $subs,
+                            'status' => "terima",
+                            'type' => "payment Gateway"
+                            ]
+                        );
+                            echo "RECEIVEOK";
+
+                        // return redirect()->back()->with($data);
+                    } catch (\Throwable $th) {
+
+                        //throw $th;
+                        //return redirect()->back()->with($data);
+                        echo $th;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
