@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
-import BasicTable from '../../components/Material-UI/Table/BasicTable';
-import TextField from '@material-ui/core/TextField';
+import CustomTable from '../../components/Material-UI/Table/CustomTable';
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
-import ConfirmAksiMedia from '../../components/Material-UI/Dialog/ConfirmAksiMedia';
+import KelolaAction from '../../components/Material-UI/Dialog/KelolaAction';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import { columns } from './Properties/Properties';
@@ -14,14 +14,11 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchMedia, ChangeStatusMedia, deleteMedia} from '../../Actions/MediaIklanActions';
-import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
+import {fetchMedia, deleteMedia} from '../../Actions/MediaIklanActions';
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched, onSubmit, onNotify } from '../../Actions/pageActions';
 
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {withStyles} from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+
 
 
 const breadcumbItems = [
@@ -43,7 +40,6 @@ export class PageListMedia extends Component {
         super(props);
         this.state = {
             searchKey: '',
-            submitProses: false, error: false, succes: false,
         }
     }
 
@@ -54,22 +50,6 @@ export class PageListMedia extends Component {
         await this.props.onSearched()
     }
 
-    onSearch = async (e) => {
-        let key = e.target.value;
-        if (e.keyCode === 13) {
-            this.handleSearch(key);
-        }        
-    }
-
-    handleChange = async (e) => {
-        let v = e.target.value;
-        if (v === '') {
-            this.handleSearch(v);
-        }
-        this.setState({
-            searchKey: e.target.value
-        })
-    }
 
     handlePublish = async (a) => {
         let filter = this.props.filter;
@@ -122,32 +102,22 @@ export class PageListMedia extends Component {
         if (this.props.filter === 'pending') {
             link = 'permintaan'
         }
-        const aksi = {title: 'Aksi',headerStyle:{textAlign: 'center',width: '15%'},cellStyle:{textAlign: 'center',width: '15%'},sorting: false,
+        const aksi = {title: 'Aksi',headerStyle:{textAlign: 'center',minWidth: '150px'},cellStyle:{textAlign: 'center'},sorting: false,
                 render: rowData => 
                 <div>
                     {
                         this.props.filter !== 'pending' ?
-                        this.props.filter === 'publish' ?
-                        <ConfirmAksiMedia 
-                            url={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
-                            id={rowData.id_baliho}
-                            dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
-                            dialogTitleBlock={`Apakah Anda Yakin Ingin Memblokir Media Iklan ${rowData.nama_baliho}`}
-                            iconStatus='block'
-                            onSubmit={this.handleDelete}
-                            onSubmitStatus={this.handleBlock}
-                            />
+                        
+                        <Box display='flex' justifyContent='coenter'>
+                            <KelolaAction 
+                                editUrl={`/dashboard/mediaiklan/detail/${rowData.id_baliho}`}
+                                id={rowData.id_baliho}
+                                message={`Apakah Anda Yakin Ingin Menghapus Baliho ${rowData.nama_baliho}`}
+                                onDelete={this.handleDelete}/>
+                        </Box>
+                        
                         :
-                        <ConfirmAksiMedia 
-                            url={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
-                            id={rowData.id_baliho}
-                            dialogTitle={`Apakah Anda Yakin Ingin Menghapus Media Iklan ${rowData.nama_baliho}`}
-                            dialogTitleBlock={`Apakah Anda Yakin Ingin Mempublish Media Iklan ${rowData.nama_baliho}`}
-                            iconStatus='visibility'
-                            onSubmit={this.handleDelete}
-                            onSubmitStatus={this.handlePublish}
-                            />
-                        :
+                        
                         <Button variant="outlined" size='small' color="primary" 
                             component={NavLink} 
                             to={`/dashboard/mediaiklan/${link}/${rowData.id_baliho}`}
@@ -170,18 +140,6 @@ export class PageListMedia extends Component {
         columns.pop()
     }
 
-    handleCloseSnackBar = (param) => {
-        if(param === 'error'){
-            this.setState({
-                error: false
-            })
-        }else{
-            this.setState({
-                success: false
-            })
-        }
-    }
-
     render() {
         const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
@@ -190,7 +148,7 @@ export class PageListMedia extends Component {
         let title = 'Semua Media Iklan';
         switch (filter) {
             case 'pending':
-                title = 'Permintaan Penambahan Media Iklan'
+                title = 'Tabel Daftar Permintaan Penambahan Media Iklan'
                 break;
             case 'publish':
                 title = 'Media Iklan Terpublikasi'
@@ -215,58 +173,22 @@ export class PageListMedia extends Component {
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946'/>
                 <MBreadcumb items= {breadcumbItems}/>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
-                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
-                    </Alert>
-                </Snackbar>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
-                        Berhasil Menyimpan Data.
-                    </Alert>
-                </Snackbar>
                 <Fade bottom>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                            <Box flexGrow={1}>
-                                Daftar {title}
-                            </Box>
+                            <Box flexGrow={1}>Daftar {title}</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar {title}</Box>
-                                <Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Cari"
-                                        margin="dense"
-                                        variant="outlined"
-                                        value={this.state.searchKey}
-                                        onChange={this.handleChange}
-                                        onKeyUp={this.onSearch}
-                                    />
-                                </Box>
-                            </Box>
-                            <BasicTable columns={columns} data={dataMedia} loading={dataLoading}/>
+                        <CustomTable 
+                                title={title}
+                                onSearch={ (value) => {this.handleSearch(value)}} 
+                                columns={columns}
+                                data={dataMedia}
+                                loading={dataLoading}
+                                />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
-                <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.submitProses}
-                >
-                    <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
-                                <CircularProgress color="inherit" />
-                            </Box>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
-                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                </Backdrop>
             </div>
         );
     }
@@ -282,13 +204,14 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         fetchMedia: bindActionCreators(fetchMedia, dispatch),
-        ChangeStatusMedia: bindActionCreators(ChangeStatusMedia, dispatch),
         deleteMedia: bindActionCreators(deleteMedia, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
+        onNotify: bindActionCreators(onNotify, dispatch),
     }
 }
 
@@ -296,7 +219,3 @@ export default compose(
     withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps) 
     )(PageListMedia);
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}

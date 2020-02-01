@@ -6,18 +6,25 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import MenuIcon from '@material-ui/icons/Menu';
+import LoadingScreen from '../Dialog/LoadingScreen';
 import {withStyles} from '@material-ui/core';
 import Sidebar from './Sidebar';
 import Box from '@material-ui/core/Box';
-import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
-import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router'
+import { bindActionCreators } from 'redux';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import {onNotify} from '../../../Actions/pageActions';
+import Cookies from 'js-cookie'
 
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const drawerWidth = 250;
 const urlimg = '/assets/properties/cloud.jpg';
 const useStyles = theme => ({
@@ -65,32 +72,44 @@ export class Navigasi extends Component {
         super(props);
         this.state = {
             openSidebar: false,
-            isLogout: false
+            isLogout: false,
         } 
         this.handleSidebar = this.handleSidebar.bind(this);
     }
     
     handleLogout = () => {
-      localStorage.removeItem("user");
+      Cookies.remove('user');
       this.setState({
         isLogout: true
       })
   }
+  
+  handleCloseSnackbar = () => {
+    this.props.onNotify(false, this.props.page.typeNotify, '')
+  }
 
-    handleSidebar () {
-        this.setState({
-          openSidebar: !this.state.openSidebar
-        })
-      }
+  handleSidebar () {
+      this.setState({
+        openSidebar: !this.state.openSidebar
+      })
+  }
 
     render() {
         const { classes } = this.props;
-        const user = localStorage.getItem('user');
-          if(user === null || this.state.isLogout === true){
-            return <Redirect to='/'/>
-          }
+        const {pageSubmit, pageSubmitText, pageNotify, textNotify, typeNotify} = this.props.page
+        const user = Cookies.get('user');
+        
+        if(user === undefined){
+          return <Redirect to='/'/>
+        }
+
         return (
             <div className={classes.root}>
+              <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} open={pageNotify} autoHideDuration={6000} onClose={this.handleCloseSnackbar}>
+                <Alert onClose={this.handleCloseSnackbar} severity={typeNotify}>
+                  {textNotify}
+                </Alert>
+              </Snackbar>
                 <AppBar className={classes.navbar} elevation={0}>
                     <Toolbar variant='dense'>
                         <Box display="flex" p={1} style={{ width: '100%'}} alignItems='center'>
@@ -148,6 +167,7 @@ export class Navigasi extends Component {
                   </Drawer>
                 </Hidden>
                 </nav>
+                <LoadingScreen open={pageSubmit} text={pageSubmitText}/>
             </div>
         );
     }
@@ -159,8 +179,13 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatcToProps (dispatch) {
+  return {
+      onNotify: bindActionCreators(onNotify, dispatch),
+  }
+}
 
 export default compose(
   withStyles(useStyles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatcToProps)
   )(Navigasi);

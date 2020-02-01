@@ -6,6 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import {withStyles} from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import Cookies from 'js-cookie'
 
 const useStyles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -60,8 +61,7 @@ export class Sidebar extends Component {
     
     render() {
         const { classes } = this.props;
-        const user = JSON.parse(localStorage.getItem('user'));
-        const username = user.username;
+        const user = JSON.parse(Cookies.get('user'));
         const role = user.role;
         
         return (
@@ -74,8 +74,8 @@ export class Sidebar extends Component {
                 }}/>
                 <Box className={classes.userInfo} fontSize={14} fontFamily='Roboto' display='flex' alignItems='center' justifyContent='center'>
                     <Box>
-                        <Box>{username}</Box>
-                        <Box>{role}</Box>
+                        <Box>{user.username}</Box>
+                        <Box>{user.role}</Box>
                     </Box>
                 </Box>
                 <Divider variant='middle' classes={{
@@ -89,6 +89,8 @@ export class Sidebar extends Component {
                             <Icon>dashboard</Icon>Dashboard
                         </ListItem>
                     </li>
+                    {role === 'admin' ? 
+                    <React.Fragment>
                     <li>
                         <ListItem button classes={{button: classes.item}}
                         component={NavLink} to='/dashboard/mediaiklan'
@@ -117,13 +119,23 @@ export class Sidebar extends Component {
                             <Icon>library_books</Icon>Proses Materi Iklan
                         </ListItem>
                     </li>
-                    <li>
-                        <ListItem button classes={{button: classes.item}}
-                        component={NavLink} to='/dashboard/laporan'
-                        >
-                            <Icon>pie_chart</Icon>Laporan
-                        </ListItem>
-                    </li>
+                    </React.Fragment>
+                    :
+                    ''
+                    }
+                    {role !== 'redaksi' ?
+                        <li>
+                            <ListItem button classes={{button: classes.item}}
+                            component={NavLink} to='/dashboard/laporan'
+                            >
+                                <Icon>pie_chart</Icon>Laporan
+                            </ListItem>
+                        </li>
+                        :
+                        ''
+                    }
+                    
+                    {role === 'admin' ? 
                     <li>
                         <ListItem button classes={{button: classes.item}}
                         component={NavLink} to='/dashboard/perlengkapan'
@@ -131,13 +143,22 @@ export class Sidebar extends Component {
                             <Icon>extension</Icon>Perlengkapan
                         </ListItem>
                     </li>
-                    <li>
+                    :
+                    ''
+                    }
+                    
+                    {
+                        role === 'redaksi' ? 
+                        <li>
                         <ListItem button classes={{button: classes.item}}
                         component={NavLink} to='/dashboard/berita'
                         >
                             <Icon>language</Icon>Berita
                         </ListItem>
-                    </li>
+                    </li>:
+                    ''
+                    }
+                    
                 </List>
             </div>
         );

@@ -5,16 +5,22 @@ import {
     PREPARE_SEARCH,
     ON_SEARCHED,
     PREPARE_SUBMIT,
-    ON_SUBMITED,
+    ON_SUBMIT,
     PAGE_REDIRECT,
+    ON_NOTIFY
 } from '../Actions/type';
 
 const initialState = {
     pageTitle: '',
     pageLoading: true,
+    pageSubmit: false,
+    pageSubmitText: '',
     pageProgress: 0,
     pageLoadingStatus: '',
     dataLoading: false,
+    pageNotify: false,
+    textNotify: '',
+    typeNotify: 'success',
     redirect: false
 }
 
@@ -60,12 +66,18 @@ export default function PageReducer (state = initialState, action) {
                 pageLoadingStatus: action.status,
                 pageProgress: 30,
             }
-        case ON_SUBMITED :
+        case ON_SUBMIT :
             return {
                 ...state,
-                pageLoading: false,
-                pageLoadingStatus: '',
-                pageProgress: 100,
+                pageSubmit: action.submit,
+                pageSubmitText: action.text,
+            }
+        case ON_NOTIFY :
+            return {
+                ...state,
+                pageNotify: action.notify,
+                textNotify: action.text,
+                typeNotify: action.tipe,
             }
         case PAGE_REDIRECT:
             return {

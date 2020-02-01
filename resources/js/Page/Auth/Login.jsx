@@ -2,35 +2,28 @@ import React, { Component } from 'react';
 
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import LoadingBar  from 'react-top-loading-bar';
-import Backdrop from '@material-ui/core/Backdrop';
 import {withStyles} from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LoadingScreen from '../../components/Material-UI/Dialog/LoadingScreen';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import FilledInput from '@material-ui/core/FilledInput';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Box from '@material-ui/core/Box';
 import Fade from 'react-reveal/Fade';
-import { NavLink } from 'react-router-dom';
-import {mainApi, configJSON} from '../../Controller/APIControll';
 import { Redirect } from 'react-router';
 import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
+import {prepareMount, pageOnProgress, onMounted } from '../../Actions/pageActions';
 import {isAuth} from '../../Actions/AuthActions';
+import Cookies from 'js-cookie'
 
 const urlimg = '/assets/img/pasangbaliho.png';
 const style = {
@@ -89,7 +82,7 @@ export class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this)
     }
     
-    
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -108,21 +101,16 @@ export class Login extends Component {
         }
     }
     handleLogin = async () => {
-
         const data = {
             username: this.state.username,
             password: this.state.password
         }
-        this.setState({
-            loginProses: true
-        })
+        this.setState({loginProses: true})
         let res = await this.props.isAuth(data);
         if(res.status === 200){
-            this.setState({isLogin: true, loginProses: false,})
-        } else if (res.status === 202){
-            this.setState({loginProses: false, loginNotif: res.message})
-        }else{
             this.setState({loginProses: false})
+        } else if (res.status === 202){
+            this.setState({loginNotif: res.message, loginProses: false})
         }
     }
     
@@ -136,11 +124,11 @@ export class Login extends Component {
         );
     }
     render() {
-          const user = localStorage.getItem('user');
-          const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
+          const user = Cookies.get('user');
+          const {pageProgress, pageLoadingStatus, pageLoading} = this.props.page;
           const { classes } = this.props;
 
-          if(user !== null || this.state.isLogin === true){
+          if(user !== undefined ){
             return <Redirect to='/dashboard' />
           }
 
@@ -229,22 +217,7 @@ export class Login extends Component {
                     </Grid>
                 </Grid>
                 </Box>
-                <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.loginProses}
-                >
-                    <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
-                                <CircularProgress color="inherit" />
-                            </Box>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
-                            Autentikasi Akun...
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                </Backdrop>
+                <LoadingScreen open={this.state.loginProses} text='Sedang Autentikasi Akun...'/>
             </div>
         );
     }

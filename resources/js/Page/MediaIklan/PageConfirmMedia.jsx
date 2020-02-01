@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
+import BasicTextfield from '../../components/Material-UI/Textfield/BasicTextfield';
+import Combobox from '../../components/Material-UI/Combobox/Combobox';
+import NumberTextfield from '../../components/Material-UI/Textfield/NumberTextfield';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardMedia from '@material-ui/core/CardMedia';
+
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {withStyles} from '@material-ui/core';
-import NumberFormat from 'react-number-format';
 import Dropzone from 'react-dropzone';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+
 
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+import RadioButton from '../../components/Material-UI/Radio/RadioButton';
+import Question from '../../components/Material-UI/Dialog/Question';
 import { Redirect } from 'react-router'
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
@@ -30,10 +36,10 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 
-import {fetchMediaByID, postMedia, uploadImage} from '../../Actions/MediaIklanActions';
-import {fetchKategori, fetchProvinsi, fetchKota} from '../../Actions/UtilityActions';
+import {fetchMediaByID, postMedia, uploadImage, fetchImageById, deleteImage} from '../../Actions/MediaIklanActions';
+import {fetchKategori, fetchKota} from '../../Actions/UtilityActions';
 import {fetchMitra} from '../../Actions/MitraActions';
-import {prepareMount, pageOnProgress, onMounted, redirectPage } from '../../Actions/pageActions';
+import {prepareMount, pageOnProgress, onMounted, onSubmit, onNotify} from '../../Actions/pageActions';
 
 
 const breadcumbItems = [
@@ -42,39 +48,27 @@ const breadcumbItems = [
     {title: 'Form Media', icon: 'note',  active: true},
 ];
 
-const style = {
-    resize: {
-        fontSize: 14, 
-        fontFamily: 'Roboto Regular'
-    },
-    adornment:{
-        marginRight: '-12px'
-    },
-    resizeautocomplete: {
-        fontSize: 14, 
-        fontFamily: 'Roboto Regular',
-        height: 18
-    },
-    resizeselect: {
-        fontSize: 14, 
-        fontFamily: 'Roboto Regular',
-        height: 45
-    },
-    alert: {
-        borderStyle: 'solid',
-        backgroundColor: '#F2DEDE',
-        borderWidth: '1px',
-        borderColor: '#EBCCD1',
-        borderRadius: '5px',
-        color: '#B94442', padding: '20px', marginBottom: '20px'
-    }
-}
+const radioItems = [
+    {label: 'Publish', value: 'publish'},
+    {label: 'Block', value: 'block'}
+];
+const radioHargaItems = [
+    {label: 'Terlihat', value: 'ya'},
+    {label: 'Tidak terlihat', value: 'tidak'}
+];
 
 const useStyles = theme => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
         },
+    media: {
+        height: 140,
+        },
+        iconButton: {
+            color: '#555555',
+            marginLeft: '5px'
+        }
 });
 export class PageConfirmMedia extends Component {
 
@@ -85,27 +79,17 @@ export class PageConfirmMedia extends Component {
         };
         this.state = {
             idBaliho: '',idClient : '',namaClient : '',idKategori : '',namaMedia: '',lebar: 0,tinggi: '0', orientasi: 'potrait', alamat: '', idKota: '',
-            posisi:'Stand Alone', tampilan: '1', alamat: '', hargaClient: '0', deskripsi: '', 
-            hargaMarket: 0,latitude: '',longitude: '',url360: '', files: [], submitProses: false, error: false, succes: false,
-            redirect: false
+            posisi:'Stand Alone', tampilan: '1', alamat: '', hargaClient: '0', deskripsi: '', statusHarga: 'tidak terlihat',
+            hargaMarket: 0, hargaMax: 0, latitude: '',longitude: '',url360: '', files: [], status: 'publish', redirect: false, dialogOpen: false, dialogTitle: '',
+            dialogMessage: '', idgambar: ''
         }
     }
 
 
     handleChange = async (e) => {
-        let value = e.target.value;
         this.setState({
             [e.target.name]: e.target.value
         })
-        if (e.target.name === 'idProvinsi') {
-            this.setState({
-                idKota: ''
-            })
-            await this.props.fetchKota(value)
-            this.setState({
-                idKota: this.props.utility.dataKota[0].id_kota
-            })
-        }
     }
 
     selectChange = (value) => {
@@ -141,65 +125,53 @@ export class PageConfirmMedia extends Component {
             hargaClient: data.harga_client,
             deskripsi: data.deskripsi,
             hargaMarket: data.harga_market,
+            hargaMax: data.harga_max,
+            statusHarga: data.tampil_harga,
             latitude: data.latitude,
             longitude: data.longitude,
-            url360: data.url_360
+            url360: data.url_360,
+            status: data.status
         })
     }
 
     handleUpload = async (id) => {
+        this.props.onSubmit(true, 'Sedang Upload Gambar...')
         let dataUpload = new FormData();
         if(this.state.files.length > 0){
             this.state.files.forEach((image_file) => {
                 dataUpload.append('gambar[]', image_file);
             });
-        }
-        let idBaliho = id;
-        dataUpload.append('idBaliho', idBaliho)
-        let resUpload = await this.props.uploadImage(dataUpload)
-        if(resUpload.status !== 'success'){
-            this.setState({error: true,success: false})
+            dataUpload.append('idBaliho', id)
+            let res = await this.props.uploadImage(dataUpload)
+            if(res.status === 'success'){
+                this.props.onNotify(true, 'success', 'Berhasil Menyimpan Data dan Berhasil Upload Gambar')
+            }else{
+                this.props.onNotify(true, 'success', 'Berhasil Menyimpan Data dan Gambar '+res.message)
+            }
         }else{
-            this.setState({error: false,success: true})
+            this.props.onNotify(true, 'success', 'Berhasil Menyimpan Data. Tidak Ada Gambar Yang Di Upload')
         }
     }
 
-    handleSave = async (status) => {
+    handleSave = async () => {
         let filter = this.props.filter
         let data = new FormData();
-        
         let param = '';
+
         if(filter !== 'add'){param = 'patch';}
         Object.keys(this.state).map( row => {
             data.append(row, this.state[row])
         })
-        data.append('status', status)
         
-        this.setState({submitProses: true,})
+        this.props.onSubmit(true, 'Sedang Menyimpan Data...')
         let res = await this.props.postMedia(data, param)
-        console.log(res)
         if (res.status !== 'success'){
-            this.setState({error: false,success: true})
-            this.setState({submitProses: false})
+            this.props.onSubmit(false, '')
+            this.props.onNotify(true, 'error', 'Gagal Menyimpan Data '+res.message)
         }else{
-            if((filter === 'add') || (filter === 'pending')){
-                if(this.state.files.length > 0){
-                    await this.handleUpload(res.data.id)
-                }else{
-                    this.setState({error: false,success: true})
-                }
-                if(filter === 'pending'){
-                    this.setState({
-                        redirect: true
-                    })
-                }else{
-                    this.clearField('add')
-                    this.setState({submitProses: false})
-                }
-            }else{
-                this.setState({error: false,success: true})
-                this.setState({submitProses: false})
-            }
+            await this.handleUpload(res.data.id)
+            await this.props.onSubmit(false, '')
+            await this.clearField(filter) //redirect or clear field
         }
         
     }
@@ -209,22 +181,20 @@ export class PageConfirmMedia extends Component {
             this.setState({
                 namaMedia: '',lebar: 0,tinggi: 0, orientasi: 'potrait', alamat: '',
                 posisi:'Stand Alone', tampilan: '1', alamat: '', hargaClient: '0', deskripsi: '', 
-                hargaMarket: 0,latitude: '',longitude: '',url360: '', files: []
+                hargaMarket: 0, hargaMax: 0, statusHarga: 'tidak terlihat', latitude: '',longitude: '',url360: '', files: [], status: 'publish'
             })
             this.addProperti()
+        }else{
+            this.setState({redirect: true})
         }
-        
     }
+
     addProperti = async () => {
         if(this.props.utility.dataKategori.length > 0){
             this.setState({
                 idKategori: this.props.utility.dataKategori[0].id_kategori
             })
         }
-        // let firstProv = this.props.utility.dataProvinsi[0]
-        // this.setState({
-        //     idProvinsi: this.props.utility.dataProvinsi[0].id_provinsi
-        // })
         await this.props.fetchKota()
         this.setState({
             idKota: this.props.utility.dataKota[0].id_kota
@@ -234,6 +204,7 @@ export class PageConfirmMedia extends Component {
     patchProperti = async (param) => {
         let id = this.props.match.params.id;
         await this.props.fetchMediaByID('', id)
+        await this.props.fetchImageById(id)
         if (this.props.mediaiklan.dataMediaByIdFound === true) {
             let idProv = this.props.mediaiklan.dataMediaById.id_provinsi
             await this.props.fetchKota(idProv)
@@ -246,7 +217,6 @@ export class PageConfirmMedia extends Component {
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         this.props.fetchMitra('')
         this.props.fetchKategori()
-        // await this.props.fetchProvinsi()
         if(filter !== 'add'){
             await this.patchProperti('')
         }else{
@@ -256,27 +226,43 @@ export class PageConfirmMedia extends Component {
         
     }
 
-    componentWillUnmount () {
-        this.props.redirectPage(false)
+    openDialog = (id, nama) =>{
+        this.setState({
+            dialogTitle: 'Hapus Data?',
+            dialogMessage: 'Apa Anda Yakin Menghapus Gambar '+nama+' ?',
+            dialogOpen: true,
+            idGambar: id
+        })
     }
 
-    handleCloseSnackBar = (param) => {
-        if(param === 'error'){
-            this.setState({
-                error: false
-            })
-        }else{
-            this.setState({
-                success: false
-            })
-        }
+    closeDialog = () => {
+        this.setState({
+            dialogOpen: false,
+            idGambar: ''
+        })
     }
+
+    confirmDialog = async () => {
+        let id = this.props.match.params.id;
+        this.closeDialog()
+        this.props.onSubmit(true, 'Sedang Menyimpan Data...')
+        
+        let res = await this.props.deleteImage(this.state.idGambar)
+        if(res.status === 'success'){
+            this.props.onNotify(true, 'success', 'Behasil Menghapus Data ')
+            await this.props.fetchImageById(id)
+        }else{
+            this.props.onNotify(true, 'error', 'Gagal Menghapus Data ')
+        }
+        this.props.onSubmit(false, '')
+    }
+    
     render() {
         const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
-        const {dataMediaByIdFound} = this.props.mediaiklan;
+        const {dataMediaByIdFound, dataImage} = this.props.mediaiklan;
         const {dataMitra} = this.props.mitra;
-        const {dataKategori, dataProvinsi, dataKota} = this.props.utility;
+        const {dataKategori, dataKota} = this.props.utility;
         const files = this.state.files.map(file => (
             <li key={file.name}>
               {file.name}
@@ -300,23 +286,13 @@ export class PageConfirmMedia extends Component {
         }
 
         if (this.state.redirect === true) {
-            let url = '/dashboard/mediaiklan/permintaan';
+            let url = '/dashboard/mediaiklan';
             return <Redirect to={url} />
         }
         return (
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
                 <MBreadcumb items={breadcumbItems}/>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
-                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
-                    </Alert>
-                </Snackbar>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
-                        Berhasil Menyimpan Data.
-                    </Alert>
-                </Snackbar>
                 <Fade bottom>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={12} lg={7}>
@@ -342,151 +318,91 @@ export class PageConfirmMedia extends Component {
                                             )}
                                             onChange={(event, value) => this.selectChange(value)} />
                                 :
-                                <TextField disabled name='namaClient' id="namaClient" label="Nama mitra" margin="dense" variant="outlined" fullWidth
-                                    InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.namaClient} onChange={this.handleChange}/>
+                                <BasicTextfield name='namaClient' placeholder='Nama Mitra' value={this.state.namaClient} onChange={this.handleChange}/>
                             }
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                                <FormControl variant='outlined' margin='dense' fullWidth>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                        Jenis Media
-                                    </InputLabel>
-                                    <Select
-                                        id="demo-simple-select-outlined"
-                                        value={this.state.idKategori}
-                                        onChange={this.handleChange}
-                                        labelWidth={80}
-                                        style={style.resize}
-                                        name='idKategori'
-                                        >
+                                <Combobox label='Jenis Media' name='idKategori' value={this.state.idKategori} onChange={this.handleChange}>
                                         {
                                             dataKategori !== null ?
                                             dataKategori.map( (row, id) => {
                                                 return (
-                                                    <MenuItem key={id} value={row.id_kategori} style={style.resize}>{row.kategori}</MenuItem>
+                                                    <MenuItem key={id} value={row.id_kategori}>{row.kategori}</MenuItem>
                                                 )
                                             } )
-                                            : <MenuItem value='' style={style.resize}>---</MenuItem>
+                                            : <MenuItem value=''>---</MenuItem>
                                         }
-                                    </Select>
-                                </FormControl>
+                                </Combobox>
                             </Grid>
                         </Grid>
+                        <BasicTextfield placeholder='Nama Media' name='namaMedia' value={this.state.namaMedia} onChange={this.handleChange}/>
                         
-                        <TextField name='namaMedia' id="namaMedia" label="Nama Media" margin="dense" variant="outlined" fullWidth 
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.namaMedia} onChange={this.handleChange}/>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                                <NumberFormat fullWidth InputProps={{style: style.resize, endAdornment: <InputAdornment position="end">Cm</InputAdornment>}} InputLabelProps={{style: style.resize}} value={this.state.lebar} onValueChange={
+                                <NumberTextfield InputProps={{endAdornment: <InputAdornment position="end">Cm</InputAdornment>}} value={this.state.lebar} onChange={
                                     (values) => {
                                         const {formattedValue, value} = values;
                                         this.setState({lebar: formattedValue})
                                     }
-                                } customInput={TextField} label="Lebar" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
+                                }/>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                                <NumberFormat fullWidth InputProps={{style: style.resize, endAdornment: <InputAdornment position="end">Cm</InputAdornment>}} InputLabelProps={{style: style.resize}} value={this.state.tinggi} onValueChange={
+                            <NumberTextfield InputProps={{endAdornment: <InputAdornment position="end">Cm</InputAdornment>}} value={this.state.tinggi} onChange={
                                     (values) => {
                                         const {formattedValue, value} = values;
                                         this.setState({tinggi: formattedValue})
                                     }
-                                } customInput={TextField} label="Tinggi" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
+                                }/>
                             </Grid>
                         </Grid>
                         
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <FormControl variant='outlined' margin='dense' fullWidth>
-                                <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                    Orientasi
-                                </InputLabel>
-                                <Select
-                                    id="demo-simple-select-outlined"
-                                    value={this.state.orientasi}
-                                    onChange={this.handleChange}
-                                    labelWidth={80}
-                                    style={style.resize}
-                                    name='orientasi'
-                                    >
-                                        <MenuItem value='potrait' style={style.resize}>Potrait</MenuItem>
-                                        <MenuItem value='landscape' style={style.resize}>Landscape</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <Combobox name='orientasi' label='Orientasi' value={this.state.orientasi}
+                                    onChange={this.handleChange} >
+                                <MenuItem value='potrait' >Potrait</MenuItem>
+                                <MenuItem value='landscape' >Landscape</MenuItem>
+                            </Combobox>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <FormControl variant='outlined' margin='dense' fullWidth>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                        Kota
-                                    </InputLabel>
-                                    <Select
-                                        id="demo-simple-select-outlined"
-                                        value={this.state.idKota}
-                                        onChange={this.handleChange}
-                                        labelWidth={80}
-                                        style={style.resize}
-                                        name='idKota'
-                                        >
+                            <Combobox name='kota' label='Kota' value={this.state.idKota}
+                                    onChange={this.handleChange} >
                                         {
                                             dataKota !== null ?
                                             dataKota.map( (row, id) => {
                                                 return (
-                                                    <MenuItem key={id} value={row.id_kota} style={style.resize}>{`${row.nama_kota} ( ${row.nama_provinsi} )`}</MenuItem>
+                                                    <MenuItem key={id} value={row.id_kota}>{`${row.nama_kota} ( ${row.nama_provinsi} )`}</MenuItem>
                                                 )
                                             } )
-                                            : <MenuItem value='' style={style.resize}>---</MenuItem>
+                                            : <MenuItem value=''>---</MenuItem>
                                         }
-                                    </Select>
-                                </FormControl>
+                            </Combobox>
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <FormControl variant='outlined' margin='dense' fullWidth>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                        Posisi
-                                    </InputLabel>
-                                    <Select
-                                        id="demo-simple-select-outlined"
-                                        value={this.state.posisi}
-                                        onChange={this.handleChange}
-                                        labelWidth={80}
-                                        style={style.resize}
-                                        name='posisi'
-                                        >
-                                            <MenuItem value='Stand Alone' style={style.resize}>Stand Alone</MenuItem>
-                                            <MenuItem value='Attach By Building' style={style.resize}>Attach By Building</MenuItem>
-                                    </Select>
-                                </FormControl>
+                            <Combobox name='posisi' label='Posisi' value={this.state.posisi} onChange={this.handleChange} >
+                                    <MenuItem value='Stand Alone'>Stand Alone</MenuItem>
+                                    <MenuItem value='Attach By Building'>Attach By Building</MenuItem>
+                            </Combobox>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <FormControl variant='outlined' margin='dense' fullWidth>
-                                <InputLabel id="demo-simple-select-outlined-label" style={style.resize}>
-                                    Tampilan Muka
-                                </InputLabel>
-                                <Select
-                                    id="demo-simple-select-outlined"
-                                    value={this.state.tampilan}
-                                    onChange={this.handleChange}
-                                    labelWidth={80}
-                                    style={style.resize}
-                                    name='tampilan'
-                                    >
-                                        <MenuItem value='1' style={style.resize}>1 Muka</MenuItem>
-                                        <MenuItem value='2' style={style.resize}>2 Muka</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <Combobox name='tampilan' label='Tampilan Muka' value={this.state.tampilan} onChange={this.handleChange} >
+                                <MenuItem value='1'>1 Muka</MenuItem>
+                                <MenuItem value='2'>2 Muka</MenuItem>
+                            </Combobox>
                             </Grid>
                         </Grid>
                         <TextField name='alamat' id="alamat" label="Alamat" margin="dense" variant="outlined" fullWidth multiline rows="3"
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.alamat} onChange={this.handleChange}/>
-                        <NumberFormat fullWidth InputProps={{style: style.resize, startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} InputLabelProps={{style: style.resize}} value={this.state.hargaClient} onValueChange={
+                                value={this.state.alamat} onChange={this.handleChange}/>
+                        <NumberTextfield InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaClient} onChange={
                                     (values) => {
                                         const {formattedValue, value} = values;
                                         this.setState({hargaClient: formattedValue})
                                     }
-                                } customInput={TextField} label="Harga Mitra" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
+                                }/>
                         <TextField name='deskripsi' id="deskripsi" label="Deskripsi" margin="dense" variant="outlined" fullWidth multiline rows="5"
-                                InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} value={this.state.deskripsi} onChange={this.handleChange}/>
+                            value={this.state.deskripsi} onChange={this.handleChange}/>
                     </BasicPanelContent>
                 </BasicPanel>
                         </Grid>
@@ -497,77 +413,123 @@ export class PageConfirmMedia extends Component {
                         <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Umum</Box>
                     </BasicPanelHeader>
                     <BasicPanelContent>
-                    <NumberFormat fullWidth InputProps={{style: style.resize, startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} InputLabelProps={{style: style.resize}} value={this.state.hargaMarket} onValueChange={
+                    <Combobox name='statusHarga' label='Status harga' value={this.state.statusHarga} onChange={this.handleChange} >
+                            <MenuItem value='tidak terlihat'>Tidak Terlihat</MenuItem>
+                            <MenuItem value='range'>Kisaran</MenuItem>
+                            <MenuItem value='satu harga'>Minimum</MenuItem>
+                    </Combobox>
+                    {this.state.statusHarga !== 'tidak terlihat' ?
+                        <Grid container spacing={2}>
+                            <Grid item item xs={12} sm={12} md={12} lg={this.state.statusHarga === 'satu harga' ? 12 : 6}>
+                            <NumberTextfield label='Harga Minimum' InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaMarket} onChange={
                                     (values) => {
                                         const {formattedValue, value} = values;
                                         this.setState({hargaMarket: formattedValue})
                                     }
-                                } customInput={TextField} label="Harga Market" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
-                    <TextField name='latitude' id="latitude" label="Latitude" margin="dense" variant="outlined" fullWidth
-                                    InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} 
-                                    onChange={this.handleChange} value={this.state.latitude}/>
-                    <TextField name='longitude' id="longitude" label="Longitude" margin="dense" variant="outlined" fullWidth
-                                    InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} 
-                                    onChange={this.handleChange} value={this.state.longitude}/>
-                    <TextField name='url360' id="url360" label="URL 360" margin="dense" variant="outlined" fullWidth 
-                                    InputProps={{style: style.resize}} InputLabelProps={{style: style.resize}} 
-                                    onChange={this.handleChange} value={this.state.url360}/>
-                    {
-                        this.props.filter !== 'update' ?
-                        <Box style={{borderStyle: 'solid', borderColor: '#eeeeee', borderWidth: '2px', borderRadius: '2px', padding: '10px'}}>
-                            <Dropzone onDrop={this.onDrop} accept='image/jpeg, image/png, image/jpg' multiple>
-                                {({getRootProps, getInputProps}) => (
-                                <section className="container" >
-                                    <Box {...getRootProps({className: 'dropzone'})} display='flex' alignItems='center' justifyContent='center' style={{minHeight: '100px', borderStyle: 'dashed', backgroundColor: '#fafafa', borderColor: '#eeeeee', padding: '10px'}}>
-                                        <input {...getInputProps()} multiple />
-                                        <p style={{color: 'black'}}>Geser dan Letakkan Gambar Di Sini, Atau Klik Untuk Memilih Gambar</p>
-                                    </Box>
-                                    <aside>
-                                    <h4>Files</h4>
-                                    <ul>{files}</ul>
-                                    </aside>
-                                </section>
-                                )}
-                            </Dropzone>
-                        </Box>
-                        :
-                        ''
-                    }
+                            }/>
+                            </Grid>
+                            {this.state.statusHarga === 'range' ? 
+                            <Grid item item xs={12} sm={12} md={12} lg={6}>
+                                <NumberTextfield label='Harga Maximum' InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaMax} onChange={
+                                    (values) => {
+                                        const {formattedValue, value} = values;
+                                        this.setState({hargaMax: formattedValue})
+                                    }
+                                }/>
+                            </Grid>
+                        : ''}
+
+                    </Grid>
+                    :''}
                     
                     
+                    <BasicTextfield name='latitude' placeholder='Latitude' onChange={this.handleChange} value={this.state.latitude}/>
+                    <BasicTextfield name='longitude' placeholder='Longitude' onChange={this.handleChange} value={this.state.longitude}/>
+                    <BasicTextfield name='url360' placeholder='URL 360' onChange={this.handleChange} value={this.state.url360}/>
+                    <RadioButton  label='Publikasi' items={radioItems} value={this.state.status} name='status' onChange={this.handleChange}/>
+                    <Box style={{borderStyle: 'solid', borderColor: '#eeeeee', borderWidth: '2px', borderRadius: '2px', padding: '10px'}}>
+                        <Dropzone onDrop={this.onDrop} accept='image/jpeg, image/png, image/jpg' multiple>
+                            {({getRootProps, getInputProps}) => (
+                            <section className="container" >
+                                <Box {...getRootProps({className: 'dropzone'})} display='flex' alignItems='center' justifyContent='center' style={{minHeight: '100px', borderStyle: 'dashed', backgroundColor: '#fafafa', borderColor: '#eeeeee', padding: '10px'}}>
+                                    <input {...getInputProps()} multiple />
+                                    <p style={{color: 'black'}}>Geser dan Letakkan Gambar Di Sini, Atau Klik Untuk Memilih Gambar</p>
+                                </Box>
+                                <aside>
+                                <h4>Files</h4>
+                                <ul>{files}</ul>
+                                </aside>
+                            </section>
+                            )}
+                        </Dropzone>
+                    </Box>
                     <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
-                            {this.props.filter !== 'add' ?
-                            <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={() => this.handleSave('block')}>
-                                Block
-                            </Button>
-                            : ''}
-                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={() => this.handleSave('publish')}>
-                                {this.props.filter === 'add' ? 'Simpan' : 'Publish'}
+                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={this.handleSave}>
+                                Simpan
                             </Button>
                         </Box>
                     </BasicPanelContent>
                 </BasicPanel>
                         </Grid>
                     </Grid>
-                    
+
+                {this.props.filter === 'patch' ? 
+                    <React.Fragment>
+                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                            <BasicPanel>
+                            <BasicPanelHeader color='#9129AC'>
+                                <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Gambar Media Tersedia</Box>
+                            </BasicPanelHeader>
+                            <BasicPanelContent>
+                            <Grid container spacing={1}>
+                                
+                                {
+                                    dataImage.length > 0 ?
+                                    dataImage.map( (row, i) => {
+                                        return (
+                                            <Grid key={i} item xs={12} sm={12} md={4} lg={2}>
+                                            <Card >
+                                                <CardActionArea>
+                                                <CardMedia
+                                                    className={classes.media}
+                                                    image={`/assets/thumbnails/${row.url_foto}`}
+                                                    title={row.url_foto}
+                                                    />
+                                                </CardActionArea>
+                                                <CardActions>
+                                                    <IconButton size='small' color="primary" 
+                                                                classes={{
+                                                                    colorPrimary: classes.iconButton
+                                                                }}
+                                                                onClick={() => this.openDialog(row.id_foto, row.url_foto)}
+                                                    >
+                                                        <DeleteIcon/>
+                                                    </IconButton >
+                                                </CardActions>
+                                            </Card>
+                                            </Grid>
+                                        )
+                                    }) :
+                                    <Box display='flex' justifyContent='center'>
+                                        <h4>Tidak Ada Media</h4>
+                                    </Box>
+                                }
+                                
+                                
+                            </Grid>
+                            </BasicPanelContent>
+                            </BasicPanel>
+                        </Grid>
+                    </Grid>
+                    </React.Fragment>
+                :
+                ''
+                }    
                 </Fade>
-                <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.submitProses}
-                >
-                    <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
-                                <CircularProgress color="inherit" />
-                            </Box>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
-                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                </Backdrop>
+                <Question title={this.state.dialogTitle} message={this.state.dialogMessage} open={this.state.dialogOpen} onClose={this.closeDialog} onConfirm={this.confirmDialog}/>
             </div>
         );
     }
@@ -585,16 +547,18 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         fetchMediaByID: bindActionCreators(fetchMediaByID, dispatch),
+        fetchImageById: bindActionCreators(fetchImageById, dispatch),
         fetchMitra: bindActionCreators(fetchMitra, dispatch),
         fetchKategori: bindActionCreators(fetchKategori, dispatch),
-        fetchProvinsi: bindActionCreators(fetchProvinsi, dispatch),
         fetchKota: bindActionCreators(fetchKota, dispatch),
         prepareMount: bindActionCreators(prepareMount, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
-        redirectPage: bindActionCreators(redirectPage, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
+        onNotify: bindActionCreators(onNotify, dispatch),
         postMedia: bindActionCreators(postMedia, dispatch),
         uploadImage: bindActionCreators(uploadImage, dispatch),
+        deleteImage: bindActionCreators(deleteImage, dispatch),
     }
 }
 
@@ -603,6 +567,3 @@ export default compose(
     connect(mapStateToProps, mapDispatcToProps)
     )(PageConfirmMedia);
 
-function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-}

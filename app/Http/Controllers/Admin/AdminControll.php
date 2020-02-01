@@ -28,6 +28,14 @@ class AdminControll extends Controller
         return response()->json(['message' => 'Ooops, User Tidak Di Temukan!'], 202);
     }
 
+    public function cekRole (Request $r) {
+        $admin = AdminModel::where('id', $r->id)->first();
+        if ($admin != null) {
+            return response()->json(['role' => $admin->role], 200);
+        }
+        return response()->json(['message' => 'Ooops, User Tidak Di Temukan!'], 202);
+    }
+
     public function register (Request $r) {
 
         $validator = Validator::make($r->all(),[

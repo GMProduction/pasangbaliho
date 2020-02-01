@@ -6,44 +6,38 @@ import {
     PAGE_PROGRESS,
     PREPARE_SEARCH,
     ON_SEARCHED,
-    ON_CHANGE,
-    PREPARE_SUBMIT,
-    ON_SUBMITED,
-    PAGE_REDIRECT,
 } from './type';
 
 import {mainApi} from '../Controller/APIControll';
+import Cookies from 'js-cookie'
 
-export const postNegosiasi = (data, data2, filter) => {
+export const patchNegosiasi = (data) => {
     return async (dispatch) => {
-        const config = {
+        const user = JSON.parse(Cookies.get('user'));
+        const token = user.api_token;
+        const configJSON = {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try{
+            let response = await mainApi.post('/negosiasi/patchTransaksi', data, configJSON)
+            if (response.status === 200) {
+                return {status: 'success'}
             }
-          }
-          let url = '/negosiasi/postPrice'
-        let res = await postAPI(url, data, config);
-        if (res.status === 'success') {
-            if (res.data.data.status === 'ok') {
-                if(filter === 'permintaan'){
-                    let reslampiran = await postAPI('/negosiasi/sendemail', data2, config);
-                    console.log(reslampiran.data);
-                }
-                dispatch({type: PAGE_REDIRECT, redirect: true})
-                console.log(res.data)
-            }else{
-                dispatch({type: PAGE_REDIRECT, redirect: true})
-                console.log(res.data);
-            }
-        }else{
-            dispatch({type: PAGE_REDIRECT, redirect: false})
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+
+            return {status: 'failed'}
         }
     }
 }
 
 export const fetchNegosiasi = (status, index) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -68,7 +62,7 @@ export const fetchNegosiasi = (status, index) => {
 
 export const fetchNegosiasiById = (status, id) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -97,7 +91,7 @@ export const fetchNegosiasiById = (status, id) => {
 }
 export const fetchNegosiasiAndSaldoById = (id) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {

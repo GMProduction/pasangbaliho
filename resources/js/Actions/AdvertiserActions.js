@@ -5,11 +5,12 @@ import {
     PAGE_REDIRECT,
 } from '../Actions/type';
 
-import {mainApi, configJSON} from '../Controller/APIControll';
+import {mainApi} from '../Controller/APIControll';
+import Cookies from 'js-cookie'
 
 export const fetchAdvertiser = (index) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -32,7 +33,7 @@ export const fetchAdvertiser = (index) => {
 
 export const fetchAdvertiserById = (id) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -55,9 +56,32 @@ export const fetchAdvertiserById = (id) => {
     }
 }
 
+export const fetchQtyAdvertiser = () => {
+    return async (dispatch) => {
+        const user = JSON.parse(Cookies.get('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+        try{
+            let response = await mainApi.get('/advertiser/cAdvertiser', configJSON)
+            if (response.status === 200) {
+                dispatch({type: FETCH_QTY_ADVERTISER, data: response.data});
+            }
+        }catch (e){
+            alert('Terjadi Kesalahan /n'+e);
+            dispatch({type: FETCH_QTY_ADVERTISER, data: 0});
+        }
+    }
+}
+
 export const postAdvertiser = (data, filter) =>{
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -96,26 +120,5 @@ export const deleteAdvertiser = (id) => {
     }
 }
 
-export const fetchQtyAdvertiser = () => {
-    return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.api_token;
-        const configJSON = {
-            headers: {
-                'content-type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+token
-            }   
-        }
-        try{
-            let response = await mainApi.get('/advertiser/cAdvertiser', configJSON)
-            if (response.status === 200) {
-                dispatch({type: FETCH_QTY_ADVERTISER, data: response.data});
-            }
-        }catch (e){
-            alert('Terjadi Kesalahan /n'+e);
-            dispatch({type: FETCH_QTY_ADVERTISER, data: 0});
-        }
-    }
-}
+
 

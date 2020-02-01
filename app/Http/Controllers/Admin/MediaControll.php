@@ -85,7 +85,8 @@ class MediaControll extends Controller
                 'balihos.id_kota',
                 'kotas.nama_kota',
                 'balihos.alamat', 'latitude', 'longitude',
-                'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360'
+                'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360',
+                'baliho.status'
             )
             ->where(function ($query) use ($id, $nama, $nama_baliho, $kategori) {
                 $query->where($id)
@@ -134,7 +135,8 @@ class MediaControll extends Controller
                     'balihos.id_kota',
                     'kotas.nama_kota',
                     'balihos.alamat', 'latitude', 'longitude',
-                    'harga_client', 'harga_market', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360'
+                    'harga_client', 'harga_market', 'harga_max', 'tampil_harga', 'orientasi', 'posisi', 'tampilan','deskripsi', 'url_360',
+                    'balihos.status as status'
                 )
                 
                 ->where('balihos.status', 'LIKE', '%'.$r->status.'%')
@@ -168,12 +170,13 @@ class MediaControll extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'hargaClient' => 'required',
-            'hargaMarket' => 'required',
+            'statusHarga' => 'required',
             'tampilan' => 'required',
             'posisi' => 'required',
             'posisi' => 'required',
             'deskripsi' => 'required',
             'url360' => 'required',
+            'status' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -185,6 +188,7 @@ class MediaControll extends Controller
             $tinggi = str_replace('.','',$r->tinggi);
             $hargaClient = str_replace('.','',$r->hargaClient);
             $hargaMarket = str_replace('.','',$r->hargaMarket);
+            $hargaMax = str_replace('.','',$r->hargaMax);
             $data = [
                 'id_client' => $r->idClient,
                 'id_kategori' => $r->idKategori,
@@ -199,6 +203,8 @@ class MediaControll extends Controller
                 'tampilan' => $r->tampilan,
                 'posisi' => $r->posisi,
                 'harga_market' => $hargaMarket,
+                'harga_max' => $hargaMax,
+                'tampil_harga' => $r->statusHarga,
                 'latitude' => $r->latitude,
                 'longitude' => $r->longitude,
                 'url_360' => $r->url360,
@@ -228,7 +234,7 @@ class MediaControll extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'hargaClient' => 'required',
-            'hargaMarket' => 'required',
+            'statusHarga' => 'required',
             'tampilan' => 'required',
             'posisi' => 'required',
             'posisi' => 'required',
@@ -245,6 +251,7 @@ class MediaControll extends Controller
             $tinggi = str_replace('.','',$r->tinggi);
             $hargaClient = str_replace('.','',$r->hargaClient);
             $hargaMarket = str_replace('.','',$r->hargaMarket);
+            $hargaMax = str_replace('.','',$r->hargaMax);
             $baliho = new BalihoModel;
             $baliho->id_client = $r->idClient;
             $baliho->id_kategori = $r->idKategori;
@@ -259,6 +266,8 @@ class MediaControll extends Controller
             $baliho->longitude = $r->longitude;
             $baliho->harga_client = $hargaClient;
             $baliho->harga_market = $hargaMarket;
+            $baliho->harga_max = $hargaMax;
+            $baliho->tampil_harga = $r->statusHarga;
             $baliho->tampilan = $r->tampilan;
             $baliho->posisi = $r->posisi;
             $baliho->deskripsi = $r->deskripsi;
@@ -276,11 +285,10 @@ class MediaControll extends Controller
         
         $validator = Validator::make($r->all(),[
             'idBaliho' => 'required',
-            'gambar' =>'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 202); 
+            return response()->json(['message' => $validator->errors()], 202); 
         }
 
         try {
@@ -289,7 +297,7 @@ class MediaControll extends Controller
                     $now = Carbon::now()->format('YmdHisu');
                     $name = 'img_'.$now.'_'.($key+1).'.'.$files->getClientOriginalExtension();
                     $image_resize = Image::make($files);
-                    $image_resize->resize(300, 300);
+                    $image_resize->resize(300, 150);
                     $image_resize->save(public_path('assets/thumbnails/' . $name));
                     $files->move(public_path('assets/original'), $name);
                     $foto = new FotoBalihoModel;
@@ -303,6 +311,33 @@ class MediaControll extends Controller
             }
         } catch (\Exception $th) {
             return response()->json(['message' => $th], 500);
+        }
+    }
+
+    public function getImageById (Request $r) {
+        try {
+            $image = FotoBalihoModel::query()
+            ->select(
+                'id_foto', 'id_baliho', 'url_foto'
+            )
+            ->where('id_baliho' , '=', $r->id)
+            ->get();
+        return response()->json($image, 200);
+        } catch (\Exception $th) {
+            return response()->json(['message' => $th], 500);
+        }
+    }
+
+    public function deleteImage ($id) {
+        try {
+            FotoBalihoModel::query()
+            ->where('id_foto', '=', $id)
+            ->delete();
+            return response()->json(['message' => 'success'], 200);
+
+        } catch (\Exception $e) {
+            $exData = explode('(', $e->getMessage());
+            return response()->json(['message' => $exData[0]],500);
         }
     }
 

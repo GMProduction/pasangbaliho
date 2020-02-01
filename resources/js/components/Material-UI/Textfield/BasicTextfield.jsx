@@ -12,9 +12,10 @@ export class BasicTextfield extends Component {
                     variant="outlined" 
                     size="small" 
                     fullWidth
+                    label={this.props.label}
                     placeholder={this.props.placeholder}
                     name={this.props.name} 
-                    inputProps={this.props.inputProps}
+                    inputProps={this.props.InputProps}
                     id={this.props.id} 
                     value={this.props.value} 
                     onChange={this.props.onChange}/>

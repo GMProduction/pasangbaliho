@@ -93,6 +93,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::group(['prefix' => 'v1'], function(){
         Route::post('/register', 'Admin\AdminControll@register');
         Route::post('/login', 'Admin\AdminControll@login');
+        Route::get('/cekrole', 'Admin\AdminControll@cekRole');
 
         Route::group(['middleware' => 'auth:admin-api'], function(){
 
@@ -112,6 +113,7 @@ Route::group(['prefix' => 'admin'], function(){
             Route::group(['prefix' => 'mitra'], function () {
                 Route::get('/cMitra', 'Admin\MitraControll@getCountMitra');
                 Route::get('/request', 'Admin\MitraControll@getMitra');
+                Route::get('/requestPending', 'Admin\MitraControll@getRequestMitra');
                 Route::get('/requestById', 'Admin\MitraControll@getMitraById');
                 Route::post('/add', 'Admin\MitraControll@addMitra');
                 Route::post('/edit', 'Admin\MitraControll@editMitra');
@@ -130,13 +132,16 @@ Route::group(['prefix' => 'admin'], function(){
             Route::group(['prefix' => 'mediaiklan'], function () {
                 Route::get('/cMedia', 'Admin\MediaControll@getCountMedia');
                 Route::get('/request', 'Admin\MediaControll@getMedia');
+                Route::get('/requestMediaUsedById', 'Admin\TransaksiControll@getMediaUsedOn');
                 Route::get('/requestExceptPending', 'Admin\MediaControll@getMediaExceptPending');
                 Route::get('/requestById', 'Admin\MediaControll@getMediaById');
+                Route::get('/requestImageById', 'Admin\MediaControll@getImageById');
                 Route::post('/addMedia', 'Admin\MediaControll@addMedia');
                 Route::post('/patchMedia', 'Admin\MediaControll@patchMedia');
                 Route::post('/uploadImage', 'Admin\MediaControll@multipleUpload');
                 Route::post('/patchStatusMedia', 'Admin\MediaControll@patchStatusMedia');
                 Route::delete('/delete/{id}', 'Admin\MediaControll@delete');
+                Route::delete('/deleteImage/{id}', 'Admin\MediaControll@deleteImage');
             });
 
             Route::group(['prefix' => 'negosiasi'], function () {
@@ -150,6 +155,7 @@ Route::group(['prefix' => 'admin'], function(){
             });
 
             Route::group(['prefix' => 'news'], function (){
+                Route::get('/getNews', 'Admin\NewsControll@getNews');
                 Route::post('/addNews', 'Admin\NewsControll@addNews');
                 Route::post('/patchNews', 'Admin\NewsControll@patchNews');
             });

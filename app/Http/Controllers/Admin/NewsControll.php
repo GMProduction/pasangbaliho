@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\models\NewsModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Intervention\Image\Facades\Image as Image;
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Validator;
 class NewsControll extends Controller
 {
     //
+    public function getNews(Request $r){
+        $news = NewsModel::query()
+            ->select('id_news', 'judul', 'isi', 'gambar', 'link', 'status')
+            ->where('judul', 'LIKE', '%'.$r->index.'%')
+            ->where('status', 'LIKE', '%'.$r->status.'%')
+            ->get();
+        return response()->json($news, 200);
+    }
     public function addNews(Request $r){
         $validator = Validator::make($r->all(),[
             'judul' => 'required',
@@ -27,7 +36,8 @@ class NewsControll extends Controller
             $name = '';
             if ($r->hasFile('gambar')) {
                 $image = $r->file('gambar');
-                $name = $image->getClientOriginalName();
+                $now = Carbon::now()->format('YmdHisu');
+                $name = $now.'.'.$image->getClientOriginalExtension();
                 $image_resize = Image::make($image);
                 $image_resize->resize(300, 300);
                 $image_resize->save(public_path('assets/img/news/' . $name));
@@ -65,8 +75,9 @@ class NewsControll extends Controller
             $name = '';
             if ($r->hasFile('gambar')) {
                 $image = $r->file('gambar');
-                $name = $image->getClientOriginalName();
-                $data = Arr::add($data, 'harga_deal', $name);
+                $now = Carbon::now()->format('YmdHisu');
+                $name = $now.'.'.$image->getClientOriginalExtension();
+                $data = Arr::add($data, 'gambar', $name);
                 $image_resize = Image::make($image);
                 $image_resize->resize(300, 300);
                 $image_resize->save(public_path('assets/img/news/' . $name));

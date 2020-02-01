@@ -14,7 +14,7 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchNegosiasiAndSaldoById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {fetchNegosiasiAndSaldoById} from '../../Actions/NegosiasiActions'; 
 import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched} from '../../Actions/pageActions';
 import {redirectPage } from '../../Actions/pageActions';
 import {withStyles} from '@material-ui/core';
@@ -325,7 +325,6 @@ function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
         fetchNegosiasiAndSaldoById: bindActionCreators(fetchNegosiasiAndSaldoById, dispatch),
-        postNegosiasi: bindActionCreators(postNegosiasi, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),

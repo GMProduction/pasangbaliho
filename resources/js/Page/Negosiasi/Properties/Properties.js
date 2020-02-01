@@ -6,18 +6,19 @@ import {dateFormater} from '../../../Controller/Helper'
 export const columns = [
     { 
         title: '#', 
-        cellStyle:{textAlign: 'center'},
-        headerStyle:{textAlign: 'center', width: '5%'},
+        cellStyle:{textAlign: 'center', fontSize: 12},
+        headerStyle:{textAlign: 'center', minWidth: '50px'},
         sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>
     },
     {
         title: 'ID Transaksi',
         field: 'id_transaksi',
+        headerStyle:{textAlign: 'center', minWidth: '100px'},
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '20%'
+                textAlign: 'center', 
+                fontSize: 12
             }
     },
     {
@@ -26,8 +27,13 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'left', 
-                width: '20%'
-            }
+                fontSize: 12
+            },
+        headerStyle:
+        {
+            textAlign: 'left', 
+            minWidth: '120px'
+        },
     },
     {
         title: 'Nama Media', 
@@ -35,12 +41,12 @@ export const columns = [
         headerStyle:
             {
                 textAlign: 'center', 
-                width: '15%'
+                minWidth: '180px'
             },
         cellStyle: 
             {
                 textAlign: 'center', 
-                width: '15%'
+                fontSize: 12
             }
     },
     {
@@ -49,12 +55,12 @@ export const columns = [
         headerStyle:
             {
                 textAlign: 'left', 
-                width: '30%'
+                minWidth: '200px'
             },
         cellStyle: 
             {
                 textAlign: 'left', 
-                width: '30%'
+                fontSize: 12
             }
     },
     {
@@ -62,12 +68,12 @@ export const columns = [
         headerStyle:
             {
                 textAlign: 'center', 
-                width: '20%'
+                minWidth: '180px'
             },
         cellStyle: 
             {
                 textAlign: 'center', 
-                width: '20%'
+                fontSize: 12
             },
         render: rowData => 
                 <div>
