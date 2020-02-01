@@ -28,6 +28,9 @@ Route::post('v1/loginAdvertiser', 'API\AdvertiserController@loginAdvertiser')->n
 Route::post('v1/loginByGoogle', 'API\AdvertiserController@loginByGoogle')->name('loginByGoogle');
 Route::post('v1/registerAdvertiser', 'API\AdvertiserController@registerAdvertiser')->name('registerAdvertiser');
 
+Route::get('v1/iklanBerjalanClient', 'API\TransaksiController@iklanBerjalanClient')->name('iklanBerjalanClient');
+Route::get('v1/historyIklanClient', 'API\TransaksiController@historyIklanClient')->name('historyIklanClient');
+Route::get('v1/IklanAkanDipasangClient', 'API\TransaksiController@IklanAkanDipasangClient')->name('IklanAkanDipasangClient');
 //CLient
 Route::get('v1/cekLoginClient', 'API\ClientController@cekLoginClient')->name('cekLoginClient');
 Route::post('v1/loginClient', 'API\ClientController@loginClient')->name('loginClient');
@@ -62,6 +65,8 @@ Route::get('v1/countNewTransaksiClient', 'API\TransaksiController@countNewTransa
 Route::get('v1/detailTransaksiClient/{idTransaksi}', 'API\TransaksiController@detailTransaksiClient')->name('detailTransaksiClient');
 Route::get('v1/iklanBerjalan', 'API\TransaksiController@iklanBerjalan')->name('iklanBerjalan');
 Route::get('v1/historyIklan', 'API\TransaksiController@historyIklan')->name('historyIklan');
+Route::post('v1/konfirmasiPembayaran', 'API\PaymentController@konfirmasiPembayaran')->name('konfirmasiPembayaran');
+Route::get('v1/getSaldoPayment', 'API\PaymentController@getSaldoPayment')->name('getSaldoPayment');
 
 
 //Slider

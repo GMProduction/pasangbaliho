@@ -15,21 +15,28 @@
 //     return view('main.index');
 // });
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/paymen', 'Member\testIpay88@index');
-Route::get('/test', 'Member\testIpay88@posIpay');
+Route::post('/testIpay', 'Member\testIpay88@index');
+Route::post('/thankyou', 'Member\testIpay88@index');
+
+Route::post('/getResponse', 'Member\paymentController@getResponse');
+
 
 Route::get('/', 'Member\indexController@index');
 Route::get('product', 'Member\productController@cariProduk');
 Route::get('product/search', 'Member\productController@cariProduk');
 Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
+Route::get('corus', 'Member\indexController@showCorus');
 
 
 Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
 Route::get('news', 'Member\newsController@showNews');
-Route::get('news/{$id}', 'Member\newsController@showNews');
+Route::get('news/details/{judul}/{id}', 'Member\newsController@showdetailNews');
+
+Route::get('news/details/{id}', 'Member\newsController@detailNews');
 
 Route::get('kebijakan-privasi', function () {
     return view('main.kebijakan');
@@ -91,7 +98,8 @@ Route::group(['middleware' => 'advertiser'], function () {
     Route::group(['prefix' => 'dashboard/profile'], function () {
         Route::post('editProfil', 'Member\profileController@editProfile');
     });
-
+    // Route::get('/payment', 'Member\testIpay88@posIpay');
+    Route::post('/payment', 'Member\transaksiController@showpayment');
 });
 // Client Dashboar
 Route::group(['middleware' => 'client'], function () {

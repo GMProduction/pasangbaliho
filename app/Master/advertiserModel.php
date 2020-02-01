@@ -2,12 +2,12 @@
 
 namespace App\Master;
 
-
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class advertiserModel extends Authenticatable
+class advertiserModel extends Authenticatable implements MustVerifyEmail
 {
     //
     use Notifiable;
@@ -22,5 +22,9 @@ class advertiserModel extends Authenticatable
 
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 }

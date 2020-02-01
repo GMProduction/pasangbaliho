@@ -5571,14 +5571,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', en
 .carousel-caption {
 	position: absolute;
 	/* left: 15%; */
-	right: 70%;
+	right: 15%;
 	bottom: 20px;
 	z-index: 10;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 50px;
+	/* padding-bottom: 20px; */
 	color: #fff;
 	text-align: left;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+	/* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); */
 }
 .carousel-caption .btn {
 	text-shadow: none;
@@ -5588,7 +5588,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', en
 	.carousel-caption {
 		left: 20%;
 		right: 20%;
-		padding-bottom: 30px;
+		/* padding-bottom: 30px; */
 	}
 }
  @media screen and (min-width: 768px) {
@@ -5607,7 +5607,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', en
 .carousel-caption {
 	/* left: 20%; */
 	/* right: 20%; */
-	padding-bottom: 30px;
+	/* padding-bottom: 30px; */
 }
 .carousel-indicators {
 	bottom: 20px;
@@ -6203,8 +6203,8 @@ body #myCarousel .fill {
 	-o-background-size: cover;
 }
 body #myCarousel .carousel-caption {
-	padding-bottom: 30px;
-	margin-bottom: 65px;
+	/* padding-bottom: 30px; */
+	/* margin-bottom: 65px; */
 	top: 1%;
 	left: 20px;
 }
@@ -6215,40 +6215,41 @@ body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 45px;
 	font-weight: bolder;
 	padding-left: 0px;
-	margin-top: 60px;
+	/* margin-top: 60px; */
 	text-transform: uppercase;
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 20px;
-	line-height: 36px;
+	/* line-height: 36px; */
 }
 @media screen and (max-width: 1024px) {
 body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 40px;
 	font-weight: bolder;
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 18px;
-	line-height: 36px;
+	line-height: 20px;
 }
 }
 @media screen and (max-width: 768px) {
+	
 body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 36px;
 	font-weight: bolder;
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 18px;
-	line-height: 36px;
+	/* line-height: 36px; */
 }
 }
 @media screen and (max-width: 640px) {
 body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 36px;
 	font-weight: bolder;
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 16px;
@@ -6264,7 +6265,7 @@ body #myCarousel .carousel-caption .btn {
 body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 30px;
 	font-weight: bolder;
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 16px;
@@ -6281,7 +6282,7 @@ body #myCarousel .carousel-caption .carousel-caption {
 body #myCarousel .carousel-caption h1.banner_heading {
 	font-size: 26px;
 	font-weight: bolder;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 body #myCarousel .carousel-caption p.banner_txt {
 	font-size: 16px;
@@ -6294,7 +6295,7 @@ body #myCarousel .carousel-caption .btn {
 }
 @keyframes slide-up {
 from {
-padding-top: 150px;
+padding-top: 0px;
 opacity: .25;
 line-height: 80px;
 }

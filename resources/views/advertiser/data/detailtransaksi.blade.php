@@ -65,7 +65,7 @@
         border-bottom: 0px;
     }
 
-    /* 
+    /*
 @media screen and (max-width: 1024px) {
 body #process .process-border {
 	top: 27%;
@@ -118,7 +118,8 @@ body #process .process-border {
         <div class="col-lg-8">
             <h4 class="warnaGreen">{{$d->nama_baliho}}</h4>
             <h5>{{$d->alamat}}, {{$d->kota}}, {{$d->provinsi}}</h5>
-            <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}}</h5>
+            <h5>{{formatDateToSurat($d->tanggal_awal)}} s/d {{formatDateToSurat($d->tanggal_akhir)}} ({{ $selisih }})
+            </h5>
             <h5 class="pt-3">Harga : Rp. {{formatuang($d->harga_market)}} / Bulan</h5>
         </div>
     </div>
@@ -244,8 +245,15 @@ body #process .process-border {
                             title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a>
                     </td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
-                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
+                    <td class="text-center" style="vertical-align: middle">
+                        {{--  <a href="payment/{{$d->id_transaksi}}"
+                        class="btn btn-warning btn-sm">Bayar Sekarang</a> --}}
+                        <form method="post" action="/payment">
+                            <input type="hidden" name="id_transaksi" value={{$d->id_transaksi}} />
+                            <input type="submit" class="btn btn-warning" value="Bayar Sekarang" name="Submit">
+                        </form>
+                    </td>
+                   
                     @elseif(($d->status == 'negomateri') || ($d->status == 'selesai'))
                     <td style="vertical-align: middle">Pembayaran (status : <b>{{$d->paymentStatus}}</b> )<a
                             href="#hisPembayaran" data-toggle="modal" data-target="#hisPembayaran"
@@ -253,8 +261,14 @@ body #process .process-border {
                             style="border-radius: 50%; width: 34px" data-toggle="tooltip" data-placement="top"
                             title="History Pembayaran"><i class="fa fa-history" aria-hidden="true"></i></a></td>
                     <td class="text-center" style="vertical-align: middle">Rp. {{formatuang($d->saldo)}}</td>
-                    <td class="text-center" style="vertical-align: middle"><a href="payment/{{$d->id_transaksi}}"
-                            class="btn btn-warning btn-sm">Bayar Sekarang</a></td>
+                    <td class="text-center" style="vertical-align: middle">
+                        <form method="post" action="/payment">
+                            <input type="hidden" name="id_transaksi" value={{$d->id_transaksi}} />
+                            <input type="submit" class="btn btn-warning" value="Bayar Sekarang" name="Submit">
+                        </form>
+                        {{--  <a href="payment/{{$d->id_transaksi}}"
+                        class="btn btn-warning btn-sm">Bayar Sekarang</a> --}}
+                    </td>
                     @endif
                 </tr>
                 <tr>
@@ -281,6 +295,7 @@ body #process .process-border {
         <h4 class="text-center">Terima Kasih</h4>
         @endif
     </div>
+
 
 
     <div id="hisPembayaran" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -349,7 +364,7 @@ body #process .process-border {
             var sh = iPay88Signature("5Z1cr9UxDkID01270"+{{$d->id_transaksi}}+""+{{$d->harga_deal}}+"00IDR");
         $('#Signature').val(sh);
         })
-      
+
     </script>
 </section>
 @endforeach

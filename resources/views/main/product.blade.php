@@ -31,10 +31,9 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
                     <label for="sort">Sort By</label>
                     <select name="sort" id="sort" class="form-control">
-                        <option value="">Sort By</option>
-                        <option value="">Termurah</option>
-                        <option value="">Terkecil</option>
-                        <option value="">Terbesar</option>
+                        <option value="">Urutkan</option>
+                        <option value="ASC">Termurah</option>
+                        <option value="DESC">Termahal</option>
 
                     </select>
                 </div>
@@ -79,6 +78,7 @@
                             $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
                             $gantiTitik = str_replace('.','',$uri);
                             $urlweb = str_replace(' ', '-', $gantiTitik);
+                        $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                            
                            @endphp
 
@@ -101,8 +101,8 @@
                                     </div>
                                     <!-- End portfolio-head -->
                                     <div class="portfolio-content">
-                                        <h6 class="title">{{$p->alamat}}</h6>
-                                        <h6 class="title">{{$p->kota}}, {{$p->provinsi}}</h6>
+                                        <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
+                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}}, {{$p->provinsi}}</h6>
                                         <p class="pb-1">
                                             <span>{{$p->kategori}}, {{$p->orientasi}}</span>
                                             <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
@@ -143,33 +143,29 @@
     </div>
 
     <script>
-        // function cariProduk() {
-        //     var k = $('#kategori').val();
-        //     var ko = $('#kota').val();
-        //     var p = $('#prov').val();
-        //     var t = $('#txtCari').val();
-        //     var kota = "";
-        //     var kate = "";
-            
+       $(document).ready(function(){
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const kategori = urlParams.get('k');
+    const city = urlParams.get('c');
+    const text = urlParams.get('t');
+    const sort = urlParams.get('s');
 
-        //     if(ko !== ""){
-        //         ko = '&&c='+ko;
-        //     }
-        //     if(k !== ''){
-        //         k = 'k='+k;
-        //     }
-        //     if(t !== ''){
-        //         t = '&&t='+t;
-        //     }
-        //     if(p !== ''){
-        //         p = '&&p='+p
-        //     }
+    if(kategori != null){
+        $('#kategori').val(kategori);
+    }
+    if(city != null){
+        $('#kota').val(city);
+    }
+    if(text != null){
+        $('#txtCari').val(text);
+    }
+    if(sort != null){
+        $('#sort').val(sort);
+    }
 
-        //         document.location = '/product/search?'+k+p+ko+t;
-           
-        //     // alert(ko)
-           
-        // }
+});
+
     </script>
 
 

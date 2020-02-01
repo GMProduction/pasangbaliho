@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\ClientModel;
 use Illuminate\Support\Facades\Hash;
@@ -64,13 +64,19 @@ class ClientController extends Controller
             $password = $client->password;
 
             if (Hash::check($request->password, $password)) {
-                return response()->json([
-                    'respon' => 'success',
-                    'message' => 'login sukses',
-                    'client' => $client
-                ]);
+                if($client->status == "terima"){
+                    return response()->json([
+                        'respon' => 'success',
+                        'message' => 'login sukses',
+                        'client' => $client
+                    ]);
+                }else{
+                    return response()->json([
+                        'respon' => 'failure',
+                        'message' => 'Akun anda belum di konfirmasi oleh admin',
+                    ]);
+                }
             } else {
-
                 return response()->json([
                     'respon' => 'failure',
                     'message' => 'user tidak terdaftar'
@@ -92,12 +98,10 @@ class ClientController extends Controller
                 $input = new ClientModel();
                 $input->email = $request->email;
                 $input->nama = $request->nama;
+                $input->nama_instansi = $request->namaInstansi;
                 $input->telp = $request->telp;
-                $input->password = $request->password;
+                $input->password = Hash::make($request->password);
                 $input->alamat = $request->alamat;
-                $input->mib = $request->mib;
-                $input->npwp = $request->npwp;
-                $input->no_ktp = $request->no_ktp;
                 $input->api_token = Hash::make($request->email);
                 $input->save();
 

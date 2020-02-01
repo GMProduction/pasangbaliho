@@ -23,8 +23,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/slick/slick-theme.css')}}" />
 
     <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
     <script src="{{asset('js/index.js')}}"></script>
+    <script src="{{asset('js/slick.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 
     <style>
@@ -64,6 +65,8 @@
         </div>
 
     </section>
+        
+
 
     <header>
         <nav class="navbar navbar-inverse" style="">
@@ -113,7 +116,7 @@
                             <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="/login">Masuk</a></li>
-                            <li id="navregistration"><a href="/registration">Pendaftaran</a></li>
+                            <li id="navregistration"><a href="/registration">Daftar</a></li>
                             @endif
 
 
@@ -221,6 +224,7 @@
 
 
     <script>
+
         if('{{session("status")}}'){
                 // alert('{{session("status")}}');
                 Swal.fire({
@@ -230,6 +234,7 @@
      
     })
             }
+          
     </script>
 
 
@@ -241,7 +246,12 @@
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
+    if ('{{auth()->guard("advertiser")->check()}}' === '1') {
+        var nama = '{{auth()->guard("advertiser")->user()}}';
+        var email = '{{auth()->guard("advertiser")->user()}}';
+    
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+     
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
@@ -250,10 +260,21 @@
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
-   
+    var Tawk_API=Tawk_API||{};
+        var Tawk_LoadStart=new Date();
+  
+        Tawk_API.onLoad = function(){
+        Tawk_API.setAttributes({
+        'name' : nama,
+        'email': email,
+        'hash' : 'hash-value'
+        }, function (error) {});
+        
+        };
+}
     </script>
-    <!--End of Tawk.to Script-->
-
+  
+        
 
 </body>
 
