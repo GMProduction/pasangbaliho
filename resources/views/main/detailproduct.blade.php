@@ -196,7 +196,7 @@
                 <button class="btn btn-primary " type="button" onclick="test()">Permintaan
                     Penawaran</button>
                 @endif
-                <a href="https://wa.me/628975050520?text=Saya ingin menanyakan harga {{$title}}" target="_blank" class="btn btn-primary" style="padding: 11px 11px 10px 10px" ><i class="fa fa-comment fa-2x"
+                <a href="https://wa.me/62817724811?text=Saya ingin menanyakan harga {{$title}}" target="_blank" class="btn btn-primary" style="padding: 11px 11px 10px 10px" ><i class="fa fa-comment fa-2x"
                         aria-hidden="true" ></i></a>
                         {{-- <a href="#!" onclick="cha()"  class="btn btn-primary" style="padding: 11px 11px 10px 10px" >asd<i class="fa fa-comment fa-2x"
                             aria-hidden="true" ></i></a> --}}
