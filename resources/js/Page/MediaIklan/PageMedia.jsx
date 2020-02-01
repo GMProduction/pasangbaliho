@@ -97,7 +97,7 @@ export class PageMedia extends Component {
                     
                     <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '15px'}}>
                         <PanelMenu
-                                link='/dashboard/mediaiklan/daftar'
+                                link='/dashboard/mediaiklan/all'
                                 color='#9128AC'
                                 icon='list'
                                 title={`Daftar Semua Media iklan (${this.state.dataSemua.length})`}

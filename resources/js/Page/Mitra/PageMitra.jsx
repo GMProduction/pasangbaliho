@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import {BasicPanel, BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import CustomTable from '../../components/Material-UI/Table/CustomTable';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
-import ConfirmAksi from '../../components/Material-UI/Dialog/ConfirmAksi';
 import KelolaAction from '../../components/Material-UI/Dialog/KelolaAction';
-import LoadingScreen from '../../components/Material-UI/Dialog/LoadingScreen';
-import {withStyles} from '@material-ui/core';
 
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
@@ -21,24 +16,9 @@ import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 
 import {fetchMitra, deleteMitra} from '../../Actions/MitraActions';
-import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched } from '../../Actions/pageActions';
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched, onSubmit, onNotify} from '../../Actions/pageActions';
 
 
-const useStyles = theme => ({
-    indicator: {
-        backgroundColor: 'inherit',
-        color: 'inherits'
-    },
-    label:{
-        textTransform: 'capitalize',
-        color: 'white'
-    },
-    root:{
-        borderWidth: '0px',
-        marginLeft: '10px'
-
-    },
-});
 
 const breadcumbItems = [
     {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
@@ -51,11 +31,7 @@ export class PageMitra extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonOn: 0,
             redirect : false,
-            notif: false,
-            submitProses: false, error: false, succes: false,
-            tab: 0
         }
     }
 
@@ -66,20 +42,19 @@ export class PageMitra extends Component {
     }
     
     handleDelete = async (id) => {
-        alert(id)
-        // this.setState({submitProses: true,})
-        // let res = await this.props.deleteMitra(a)
-        // if (res.status !== 'success'){
-        //     this.setState({error: true,success: false})
-        // }else{
-        //     this.setState({error: false,success: true})
-        // }
-        // await this.props.fetchMitra('')
-        // this.setState({submitProses: false,})
+        this.props.onSubmit(true, 'Sedang Menghapus Data...')
+        let res = await this.props.deleteMitra(id)
+        if (res.status === 'success'){
+            await this.props.fetchMitra('')
+            this.props.onNotify(true, 'success', 'Berhasil Menghapus Data Mitra')
+        }else{
+            this.props.onNotify(true, 'error', 'Gagal Menghapus Data Mitra')
+        }
+        this.props.onSubmit(false, '')
     }
 
    async componentDidMount () {
-        const aksi = {title: 'Kelola',headerStyle:{textAlign: 'center',minWidth: '100px'},cellStyle:{textAlign: 'center',fontSize: 12},
+        const aksi = {title: 'Kelola',headerStyle:{textAlign: 'center',minWidth: '120px'},cellStyle:{textAlign: 'center',fontSize: 12},
             sorting: false,
             render: rowData => 
                         <KelolaAction 
@@ -91,7 +66,7 @@ export class PageMitra extends Component {
         
         await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
-        await this.props.fetchMitra('')
+        await this.props.fetchMitra('') 
         columns.push(aksi)
         await this.props.onMounted('Mitra')
     }
@@ -106,9 +81,6 @@ export class PageMitra extends Component {
         columns.pop()
     }
 
-    handleChangeToggle = (e, value) => {
-        this.setState({buttonOn: value})
-    }
     render() {
         const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
@@ -134,46 +106,20 @@ export class PageMitra extends Component {
                         <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1}>DAFTAR MITRA IKLAN</Box>
-                            <Box>
-                            <ToggleButtonGroup
-                                value={this.state.buttonOn}
-                                exclusive
-                                onChange={this.handleChangeToggle}
-                                className={classes.indicator}
-                                aria-label="text alignment"
-                                size='small'
-                                classes={{
-                                    root: classes.root
-                                }}
-                            >
-                                <ToggleButton classes={{
-                                    root: classes.root,
-                                    label: classes.label,
-                                }} value={0} aria-label="left aligned">
-                                Daftar Mitra
-                                </ToggleButton>
-                                <ToggleButton classes={{
-                                    root: classes.root,
-                                    label: classes.label,
-                                }} value={1} aria-label="centered">
-                                permintan Mitra
-                                </ToggleButton>
-                                
-                            </ToggleButtonGroup>
-                            </Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <CustomTable 
-                                title='Coba' 
+                                <CustomTable 
+                                title='Tabel Daftar Mitra Iklan' 
                                 onSearch={ (value) => {this.handleSearch(value)}} 
                                 columns={columns}
                                 data={dataMitra}
                                 loading={dataLoading}
+                                button={['add']}
+                                onAddClicked={this.handleClick}
                                 />
                         </BasicPanelContent>
                     </BasicPanel>
                     </Fade>
-                <LoadingScreen open={this.state.submitProses} text='Sedang Loading'/>
             </div>
         );
     }
@@ -195,10 +141,11 @@ function mapDispatcToProps (dispatch) {
         pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
+        onNotify: bindActionCreators(onNotify, dispatch),
     }
 }
 
 export default compose(
-    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps)
     )(PageMitra);

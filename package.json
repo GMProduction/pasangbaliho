@@ -37,6 +37,7 @@
         "gulp": "^4.0.2",
         "gulp-typescript": "^6.0.0-alpha.1",
         "jodit-react": "^1.0.35",
+        "js-cookie": "^2.2.1",
         "material-table": "^1.54.2",
         "react-animations": "^1.0.0",
         "react-dropzone": "^10.2.1",

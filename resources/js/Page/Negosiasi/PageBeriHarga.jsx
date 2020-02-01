@@ -3,7 +3,9 @@ import { Redirect } from 'react-router'
 import Icon from '@material-ui/core/Icon';
 import Box from '@material-ui/core/Box';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
+import NumberTextfield from '../../components/Material-UI/Textfield/NumberTextfield';
 import TextField from '@material-ui/core/TextField';
+
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import Grid from '@material-ui/core/Grid';
@@ -14,38 +16,13 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchNegosiasiById, postNegosiasi} from '../../Actions/NegosiasiActions'; 
-import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched} from '../../Actions/pageActions';
-import {redirectPage } from '../../Actions/pageActions';
+import {fetchNegosiasiById, patchNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {fetchMediaUsedById} from '../../Actions/MediaIklanActions'; 
+import {prepareMount, pageOnProgress, onMounted, onSubmit, onNotify} from '../../Actions/pageActions';
 import {withStyles} from '@material-ui/core';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+
 import {mainApi} from '../../Controller/APIControll';
-import NumberFormat from 'react-number-format';
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
-
-
-const style = {
-    resize2: {
-        fontSize: 14, 
-        fontFamily: 'Roboto',
-        height: 0
-    },
-    resize: {
-        fontSize: 14, 
-        fontFamily: 'Roboto Regular',
-    },
-    resize3: {
-        fontSize: 14, 
-        fontFamily: 'Roboto',
-        height: 45
-    },
-    adornment:{
-        marginRight: '-12px'
-    },
-}
 
 const useStyles = theme => ({
     backdrop: {
@@ -65,75 +42,70 @@ export class PageBeriHarga extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lampiran: null,
             hargaDeal: 0,
-            submitProses: false,
-            redirect: false
+            redirect: false,
+            batal: false,
+            keterangan: ''
         }
     }
     
-    handleChangeLampiran = (e) => {
-        if (e.target.files[0] !== undefined) {
-            this.setState({
-                [e.target.name]: e.target.files[0],
-            }, () => {
-                console.log(this.state.lampiran);
-            })
-            
-        }else {
-            this.setState({
-                [e.target.name]: null
-            })
-        }
-    }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-     handleSave = async () =>{
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.api_token;
-        const configJSON = {
-            headers: {
-                'content-type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+token
-            }
-        }
+
+    handleCancel = () => {
+        this.setState({batal: !this.state.batal})
+    }
+
+     handleSave = async (cancel) =>{
         let data = new FormData();
         let filter = this.props.filter;
         data.append('idTransaksi', this.props.negosiasi.dataNegosiasiById.id_transaksi)
-        data.append('status', filter)
+        if (cancel) {
+            data.append('status', 'batal')
+            data.append('keterangan', this.state.keterangan)
+        }else{
+            data.append('status', filter)
+        }
         data.append('idAdvertiser', this.props.negosiasi.dataNegosiasiById.idAdvertiser)
         data.append('idClient', this.props.negosiasi.dataNegosiasiById.idClient)
         if (filter === 'negoharga') {
             data.append('hargaDeal', this.state.hargaDeal)
         }
-        this.setState({submitProses: true,})
-        try{
-            let response = await mainApi.post('/negosiasi/patchTransaksi', data, configJSON)
-            if (response.status === 200) {
-                if(this.props.filter === 'permintaan'){
+        this.props.onSubmit(true, 'Mohon Tunggu sSebentar....')
+            let response = await this.props.patchNegosiasi(data)
+            if (response.status === 'success') {
+                let text = ''
+                if (this.props.filter === 'permintaan') {
+                    if(cancel){
+                        text = 'Mohon Maaf Permintaan Penawaran Anda Kami Batalkan. Di Karenakan' + this.state.keterangan;
+                    }else{
+                        text = 'Permintaan Penawaran Anda Telah Kami Terima, berikut kami Kirimkan Lampiran Penawaran Media Iklan yang Anda Inginkan. '
+                    }
+                }
+
+                if (this.props.filter === 'negoharga') {
+                    if(cancel){
+                        text = 'Mohon Maaf Negosiasi Harga Kami Batalkan. Di Karenakan' + this.state.keterangan
+                    }else{
+                        text = 'Permintaan Negosiasi Harga Anda Telah Kami Terima. Berikut Adalah Harga Yang Telah Di Sepakati Rp. '+this.state.hargaDeal +' dari Media Iklan yang Anda Inginkan.'
+                    }
+                }
+                
                 window.open('https://api.whatsapp.com/send?phone='+this.props.negosiasi.dataNegosiasiById.telp+
-                '&text=Terima Kasih '+this.props.negosiasi.dataNegosiasiById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com.Berikut Kami Kirimkan Lampiran Penawaran Harga Media Iklan yang Anda Inginkan.', '_blank')
-                }
-                if(this.props.filter === 'negoharga'){
-                    window.open('https://api.whatsapp.com/send?phone='+this.props.negosiasi.dataNegosiasiById.telp+
-                '&text=Terima Kasih '+this.props.negosiasi.dataNegosiasiById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com.Berikut Adalah Harga Yang Telah Di Sepakati Rp. '+this.state.hargaDeal +' Media Iklan yang Anda Inginkan.', '_blank')
-                }
-                this.setState({submitProses: false,})
-                this.setState({error: false,success: true})
+                '&text='+text+'. Terima Kasih '+this.props.negosiasi.dataNegosiasiById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com.', '_blank')
+                
+                this.props.onNotify(true, 'success', 'Berhasail Dalam proses Penyimpanan Data')
                 this.setState({
                     redirect: true
                 })
+            }else{
+                this.props.onNotify(true, 'error', 'Gagal Dalam proses Penyimpanan Data')
             }
-        }catch(e){
-            alert('Terjadi Kesalahan /n'+e);
-            this.setState({submitProses: false,})
-            this.setState({error: true,success: false})
-        }
+        this.props.onSubmit(false, '')
     }
 
     async componentDidMount () {
@@ -141,29 +113,16 @@ export class PageBeriHarga extends Component {
         let filter = this.props.filter;
         await this.props.prepareMount()
         await this.props.fetchNegosiasiById(filter, id)
+        await this.props.fetchMediaUsedById(this.props.negosiasi.dataNegosiasiById.idBaliho)
         await this.props.onMounted('Negosiasi')
     }
 
-    componentWillUnmount () {
-        this.props.redirectPage(false)
-    }
-
-    handleCloseSnackBar = (param) => {
-        if(param === 'error'){
-            this.setState({
-                error: false
-            })
-        }else{
-            this.setState({
-                success: false
-            })
-        }
-    }
 
     render() {
         const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
         const {dataNegosiasiByIdFound, dataNegosiasiById} = this.props.negosiasi;
+        const {dataMediaUsage} = this.props.media;
         const filter = this.props.filter;
         let btnTitle = '', title = '';
         switch(filter){
@@ -212,16 +171,6 @@ export class PageBeriHarga extends Component {
             <div>
                  <LoadingBar progress={pageProgress} height={3} color='#f11946' />
                  <MBreadcumb items={breadcumbItems}/>
-                 <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
-                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
-                    </Alert>
-                </Snackbar>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
-                        Berhasil Menyimpan Data.
-                    </Alert>
-                </Snackbar>
                 <Fade bottom>
                 <Grid container justify='center' spacing={2}>
                 <Grid item xs={12} sm={12} md={12} lg={8}>
@@ -331,26 +280,34 @@ export class PageBeriHarga extends Component {
                                 <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                             </React.Fragment>
                             :
-                            <NumberFormat fullWidth InputProps={{style: style.resize, startAdornment: <InputAdornment position="start">Rp. </InputAdornment>}} InputLabelProps={{style: style.resize}} value={this.state.lebar} onValueChange={
+                            <NumberTextfield InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaClient} onChange={
                                 (values) => {
                                     const {formattedValue, value} = values;
                                     this.setState({hargaDeal: formattedValue})
                                 }
-                            } customInput={TextField} label="Harga kesepakatan" margin="dense" variant="outlined" thousandSeparator={'.'} decimalSeparator=','/>
+                            }/>
+                        }
+
+                        {
+                            this.state.batal ? 
+                            <TextField name='keterangan' id="keterangan" label="Keterangan Pembatalan" margin="dense" variant="outlined" fullWidth multiline rows="5"
+                            value={this.state.keterangan} onChange={this.handleChange}/>
+                            :
+                            ''
                         }
                         
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
-                            <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleSave}>
-                                Tolak
+                            <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleCancel}>
+                                {this.state.batal ? 'Batal' : 'Tolak'}
                             </Button>
-                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={this.handleSave}>
-                                {btnTitle}
+                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={() => this.handleSave(this.state.batal)}>
+                                {this.state.batal ? 'Tolak' : btnTitle }
                             </Button>
                         </Box>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Grid>
-                    {/* <Grid item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={4}>
                         <BasicPanel>
                             <BasicPanelHeader color='#9129AC'>
                             <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Ketersediaan Media</Box>
@@ -359,37 +316,21 @@ export class PageBeriHarga extends Component {
                             
                             <Box fontSize={18} display='flex' justifyContent='center'>Baliho Ini Tersewa Pada Tanggal</Box>
                             <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                            {/* {
-                                this.state.usedon.length > 0 ?
-                            this.state.usedon.map((row, id) => {
+                             {
+                                dataMediaUsage.length > 0 ?
+                                dataMediaUsage.map((row, id) => {
                                 return (
                                     <Box key={id} fontSize={14} fontWeight='bold'>{`- ${row.tanggal_awal} s/d ${row.tanggal_akhir}`}</Box>
                                 )
                             }) : 
                                 <Box display='flex' fontSize={14} justifyContent='center' fontWeight='bold'>Tidak Ada Penyewa</Box>
-                            } */}
-                            {/* <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                            } 
+                             <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                             </BasicPanelContent>
                         </BasicPanel>
-                    </Grid> */} 
+                    </Grid>
                 </Grid>
                 </Fade>
-                <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.submitProses}
-                >
-                    <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
-                                <CircularProgress color="inherit" />
-                            </Box>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
-                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                </Backdrop>
             </div>
         );
     }
@@ -398,7 +339,8 @@ export class PageBeriHarga extends Component {
 function mapStateToProps(state) {
     return{
         page: state.PageReducer,
-        negosiasi: state.NegosiasiReducer
+        negosiasi: state.NegosiasiReducer,
+        media: state.MediaIklanReducer
     }
 }
 
@@ -406,11 +348,11 @@ function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
         fetchNegosiasiById: bindActionCreators(fetchNegosiasiById, dispatch),
-        postNegosiasi: bindActionCreators(postNegosiasi, dispatch),
+        patchNegosiasi: bindActionCreators(patchNegosiasi, dispatch),
+        fetchMediaUsedById: bindActionCreators(fetchMediaUsedById, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
-        prepareSearch: bindActionCreators(prepareSearch, dispatch),
-        onSearched: bindActionCreators(onSearched, dispatch),
-        redirectPage: bindActionCreators(redirectPage, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
+        onNotify: bindActionCreators(onNotify, dispatch),
     }
 }
 

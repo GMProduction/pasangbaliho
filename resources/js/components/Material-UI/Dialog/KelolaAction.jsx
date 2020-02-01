@@ -81,7 +81,12 @@ export class KelolaAction extends Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{message}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">Hapus Data</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {message}
+                        </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                     <Button onClick={this.handleClose} color="primary">
                         Tidak

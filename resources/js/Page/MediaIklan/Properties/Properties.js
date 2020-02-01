@@ -1,10 +1,26 @@
 import React from 'react';
 
 export const columns = [
-    {title: '#',cellStyle:{textAlign: 'center'},headerStyle:{textAlign: 'center', width: '5%'},sorting: false,
+    {title: '#',cellStyle:{textAlign: 'center', fontSize: 12},headerStyle:{textAlign: 'center', minWidth: '50px'},sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>},
-    {title: 'Nama Mitra',field: 'nama',headerStyle:{textAlign: 'left', width: '20%'},cellStyle:{textAlign: 'left', width: '20%'}},
-    {title: 'Jenis Media',field: 'kategori',headerStyle:{textAlign: 'center',width: '15%'},cellStyle:{textAlign: 'center',width: '15%'}},
-    {title: 'Kota',field: 'nama_kota',headerStyle:{textAlign: 'center', width: '15%'},cellStyle:{textAlign: 'center', width: '15%'}},
-    {title: 'Alamat',field: 'alamat', headerStyle:{textAlign: 'left', width: '30%'}, cellStyle:{textAlign: 'left',width: '30%'}},
+    {title: 'Nama Mitra',field: 'nama',headerStyle:{textAlign: 'center', minWidth: '180px'},cellStyle:{textAlign: 'center', fontSize: 12}},
+    {title: 'Jenis Media',field: 'kategori',headerStyle:{textAlign: 'center',minWidth: '180px'},cellStyle:{textAlign: 'center',fontSize: 12}},
+    {title: 'Nama Media',field: 'nama_baliho',headerStyle:{textAlign: 'left',minWidth: '250px'},cellStyle:{textAlign: 'left',fontSize: 12}},
+    {title: 'Kota',
+        headerStyle:
+            {textAlign: 'center', minWidth: '200px'},
+        cellStyle:
+            {textAlign: 'center', fontSize: 12},
+        render: rowData =>
+            <div>
+                {`${rowData.nama_kota} (${rowData.nama_provinsi})`}
+            </div>
+    },
+    {title: 'Alamat',
+        field: 'alamat', 
+        headerStyle:
+            {textAlign: 'left', minWidth: '250px'}, 
+        cellStyle:
+            {textAlign: 'left', fontSize: 12}
+    },
 ];

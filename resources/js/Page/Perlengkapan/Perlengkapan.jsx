@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PanelMenu from '../../components/Material-UI/Panel/PanelMenu/PanelMenu';
+import CenterPanel from '../../components/Material-UI/Panel/CenteredPanel/CenterPanel';
 import Fade from 'react-reveal/Fade';
 import {withStyles} from '@material-ui/core';
 import { breadcumbStyle } from '../../Style/Breadcumb';
@@ -55,73 +56,62 @@ export class Perlengkapan extends Component {
                 <MBreadcumb items={breadcumbItems}/>
                 <Fade right>
                 <Grid container justify='center' spacing={3} style={{marginBottom: '15px'}}>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
                                 link='/dashboard/perlengkapan/mitra'
                                 color='#20C1D5'
                                 icon='assignment_ind'
                                 title={`Mitra`}
-                                subTitle='Mitra Media Iklan Pasang Baliho'
                             />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
+                                link='/dashboard/perlengkapan/requestmitra'
+                                color='#0d47a1'
+                                icon='group_add'
+                                title={`Permintaan Mitra`}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
                                 link='/dashboard/perlengkapan/advertiser'
                                 color='#FC9007'
                                 icon='face'
                                 title={`Advertiser`}
-                                subTitle='Pemasang Iklan Pasang Baliho'
                             />
                         </Grid>
-                </Grid>
-                <Grid container justify='center' spacing={3} style={{marginBottom: '15px'}}>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
-                                link='/dashboard/perlengkapan/mitra'
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
+                                link='/dashboard/perlengkapan/kategori'
                                 color='#56AE5A'
-                                icon='assignment_ind'
+                                icon='group_work'
                                 title={`Kategori Media`}
-                                subTitle='Mitra Media Iklan Pasang Baliho'
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
-                                link='/dashboard/perlengkapan/mitra'
-                                color='#EB4A47'
-                                icon='assignment_ind'
-                                title={`Slide Banner`}
-                                subTitle='Mitra Media Iklan Pasang Baliho'
                             />
                         </Grid>
                 </Grid>
-                <Grid container justify='center' spacing={3} style={{marginBottom: '15px'}}>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
+                <Grid container spacing={3} style={{marginBottom: '15px'}}>
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
                                 link='/dashboard/perlengkapan/mitra'
                                 color='#9129AC'
-                                icon='assignment_ind'
+                                icon='place'
                                 title={`Provinsi`}
-                                subTitle='Mitra Media Iklan Pasang Baliho'
                             />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <PanelMenu
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
                                 link='/dashboard/perlengkapan/advertiser'
                                 color='#E91E63'
-                                icon='face'
+                                icon='location_city'
                                 title={`Kota`}
-                                subTitle='Pemasang Iklan Pasang Baliho'
                             />
                         </Grid>
-                </Grid>
-                <Grid container justify='center' spacing={3} style={{marginBottom: '15px'}}>
-                        <Grid item xs={12} sm={12} md={6} lg={12}>
-                            <PanelMenu
-                                link='/dashboard/perlengkapan/advertiser'
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <CenterPanel
+                                link='/dashboard/perlengkapan/mitra'
                                 color='#EB4A47'
-                                icon='face'
-                                title={`Admin`}
-                                subTitle='Pemasang Iklan Pasang Baliho'
+                                icon='desktop_windows'
+                                title={`Slide Banner`}
                             />
                         </Grid>
                 </Grid>

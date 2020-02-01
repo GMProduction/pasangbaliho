@@ -35,7 +35,7 @@ class MitraControll extends Controller
                 'email_verifed_at', 
                 'remember_token'
             )
-            ->where('status', 'LIKE', '%'. $r->status .'%')
+            ->where('status', '=', 'terima')
             ->where(function ($query) use ($idmitra, $namamitra, $email, $alamat, $namaInstansi) {
                 $query->where($idmitra)
                     ->orWhere($namamitra)
@@ -47,6 +47,40 @@ class MitraControll extends Controller
         return response()->json($mitra, 200);
     }
 
+    public function getRequestMitra(Request $r){
+        $idmitra = [['id_client', 'LIKE', '%' .$r->index . '%']];
+        $namamitra = [['nama', 'LIKE', '%' .$r->index . '%']];
+        $namaInstansi = [['nama_instansi', 'LIKE', '%' .$r->index . '%']];
+        $email = [['email', 'LIKE', '%' .$r->index . '%']];
+        $alamat = [['alamat', 'LIKE', '%' .$r->index . '%']];
+        $mitra = ClientModel::query()
+            ->select(
+                'id_client',
+                'email',
+                'nama', 
+                'nama_instansi',
+                'password',
+                'no_ktp', 
+                'npwp', 
+                'nib', 
+                'telp',
+                'alamat',
+                'status',
+                'api_token',
+                'email_verifed_at', 
+                'remember_token'
+            )
+            ->where('status', '=', 'pending')
+            ->where(function ($query) use ($idmitra, $namamitra, $email, $alamat, $namaInstansi) {
+                $query->where($idmitra)
+                    ->orWhere($namamitra)
+                    ->orWhere($namaInstansi)
+                    ->orWhere($email)
+                    ->orWhere($alamat);
+            })
+            ->get();
+        return response()->json($mitra, 200);
+    }
 
     public function getMitraById(Request $r){
         $mitra = ClientModel::query()
@@ -66,7 +100,6 @@ class MitraControll extends Controller
                 'email_verifed_at', 
                 'remember_token'
             )
-            ->where('status', 'LIKE', '%'. $r->status .'%')
             ->where('id_client', '=', $r->id)
             ->first();
             
@@ -97,9 +130,6 @@ class MitraControll extends Controller
             $mitra->nama = $r->nama;
             $mitra->nama_instansi = $r->namaInstansi;
             $mitra->password = Hash::make($r->password);
-            $mitra->no_ktp = $r->noKtp;
-            $mitra->npwp = $r->npwp;
-            $mitra->nib = $r->nib;
             $mitra->telp = $r->telp;
             $mitra->alamat = $r->alamat;
             $mitra->status = 'terima';
@@ -121,7 +151,6 @@ class MitraControll extends Controller
                 'email' => 'required|unique:clients,email,' .$r->email. ',email',
                 'nama' => 'required',
                 'namaInstansi' => 'required',
-                'password' => 'required',
                 'telp' => 'required',
                 'alamat' => 'required',
             ]);

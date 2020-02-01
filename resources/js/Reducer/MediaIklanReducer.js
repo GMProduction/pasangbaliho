@@ -2,6 +2,8 @@ import {
     FETCH_MEDIA_IKLAN,
     FETCH_QTY_MEDIA_IKLAN,
     FETCH_MEDIA_IKLAN_BY_ID,
+    FETCH_IMAGE_BY_ID,
+    FETCH_MEDIA_USED,
     FETCH_KATEGORI,
     FETCH_MITRA,
     FETCH_PROVINSI,
@@ -11,6 +13,8 @@ import {
 
 const initialState = {
     dataMedia: [],
+    dataImage: [],
+    dataMediaUsage: [],
     dataMediaById: null,
     qtyMedia: 0,
     dataMediaByIdFound: false,
@@ -33,35 +37,20 @@ export default function MediaIklanReducer (state = initialState, action) {
                 dataMediaById: action.data,
                 dataMediaByIdFound: action.dataFound
             }
+        case FETCH_IMAGE_BY_ID:
+            return {
+                ...state,
+                dataImage: action.data,
+            }
         case FETCH_QTY_MEDIA_IKLAN:
             return {
                 ...state,
                 qtyMedia: action.data,
             }
-        case FETCH_MITRA:
+        case FETCH_MEDIA_USED:
             return {
                 ...state,
-                dataMitra: action.data,
-            }
-        case FETCH_KATEGORI:
-            return {
-                ...state,
-                dataKategori: action.data,
-            }
-        case FETCH_PROVINSI:
-            return {
-                ...state,
-                dataProvinsi: action.data,
-            }
-        case FETCH_KOTA:
-            return {
-                ...state,
-                dataKota: action.data
-            }
-        case ON_CHANGE: 
-            return {
-                ...state,
-                formMedia: {...state.formMedia,[action.name] : action.value}
+                dataMediaUsage: action.data,
             }
         default:
             return state;

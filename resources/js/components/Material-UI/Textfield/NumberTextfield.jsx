@@ -13,7 +13,7 @@ export class NumberTextfield extends Component{
                     fullWidth 
                     label={this.props.label}
                     placeholder={this.props.placeholder} 
-                    InputProps={this.props.inputProps} 
+                    InputProps={this.props.InputProps} 
                     value={this.props.value} 
                     onValueChange={this.props.onChange} 
                     customInput={TextField} 

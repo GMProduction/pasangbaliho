@@ -101,6 +101,10 @@ class TransaksiControll extends Controller
                     $status = 'selesai';
                     $body = 'Penawaran Materi Anda telah kami terima dan setujui';
                     break;
+                case 'batal':
+                    $status = 'batal';
+                    $body = 'Mohon Maaf Penawaran Anda Kami Batalkan';
+                    break;
                 default:
                     break;
             }
@@ -108,7 +112,8 @@ class TransaksiControll extends Controller
             $data = [
                 'status' => $status,
                 'terbaca_client' => 0,
-                'terbaca_advertiser' => 0
+                'terbaca_advertiser' => 0,
+                'keterangan' => $r->keterangan
             ];
             
             if ($r->status == 'negoharga') {
@@ -130,7 +135,7 @@ class TransaksiControll extends Controller
     }
 
 
-    public function getBalihoOnUsed (Request $r) {
+    public function getMediaUsedOn (Request $r) {
         $now = Carbon::now()->format('Y-m-d');
         $transaksi = TransaksiModel::query()
             ->select(
@@ -144,7 +149,7 @@ class TransaksiControll extends Controller
             ->where('status', '=' ,'selesai')
             ->where('id_baliho', '=', $r->id)
             ->get();
-        return response()->json($transaksi);
+        return response()->json($transaksi, 200);
     }
 
     public function sendSms () {

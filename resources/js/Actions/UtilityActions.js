@@ -5,10 +5,11 @@ import {
 } from '../Actions/type';
 
 import {mainApi} from '../Controller/APIControll';
+import Cookies from 'js-cookie'
 
 export const fetchKategori = () => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -31,7 +32,7 @@ export const fetchKategori = () => {
 
 export const fetchProvinsi = () => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -54,7 +55,7 @@ export const fetchProvinsi = () => {
 
 export const fetchKota = () => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -77,7 +78,7 @@ export const fetchKota = () => {
 }
 export const fetchKotaById = (id) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {

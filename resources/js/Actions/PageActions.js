@@ -5,6 +5,8 @@ import {
     PREPARE_SEARCH,
     ON_SEARCHED,
     PAGE_REDIRECT,
+    ON_SUBMIT,
+    ON_NOTIFY
 } from './type';
 
 export const prepareMount = (status) => {
@@ -39,5 +41,17 @@ export const prepareSearch = () => {
 export const onSearched = () => {
     return (dispatch) => {
         dispatch({type: ON_SEARCHED})
+    }
+}
+
+export const onSubmit = (status, text) => {
+    return (dispatch) => {
+        dispatch({type: ON_SUBMIT, submit: status, text: text})
+    }
+}
+
+export const onNotify = (notify, tipe, text) => {
+    return (dispatch) => {
+        dispatch({type: ON_NOTIFY, notify: notify, tipe: tipe, text: text})
     }
 }

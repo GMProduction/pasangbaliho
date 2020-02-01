@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import BasicTable from './BasicTable';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -55,7 +56,7 @@ export class CustomTable extends Component{
                 if( button.includes('add') ){
                     btnAdd = 
                     <Box>
-                        <Tooltip TransitionComponent={Zoom} title="Tambah Mitra">
+                        <Tooltip TransitionComponent={Zoom} title="Tambah Daftar">
                             <IconButton classes={{
                                 colorPrimary: classes.iconButton
                             }} size='small'  color="primary" aria-label="Add"
@@ -69,7 +70,7 @@ export class CustomTable extends Component{
                 if(button.includes('print')){
                     btnPrint = 
                     <Box>
-                        <Tooltip TransitionComponent={Zoom} title="Cetak Daftar Mitra">
+                        <Tooltip TransitionComponent={Zoom} title="Cetak Daftar">
                             <IconButton classes={{
                                 colorPrimary: classes.iconButton
                             }} size='small'  color="primary" aria-label="Add"
@@ -86,7 +87,11 @@ export class CustomTable extends Component{
             <div>
                 <Box display='flex' alignItems='center'>
                     <Box display='flex' flexGrow={1}>
-                        {title}
+                        <Typography component="div">
+                            <Box fontWeight={500}>
+                            {title}
+                            </Box>    
+                        </Typography>
                     </Box>
                     <Box>
                         <TextField name='search' id="outlined-basic" placeholder="Cari..." margin="dense" variant="outlined" size="small"

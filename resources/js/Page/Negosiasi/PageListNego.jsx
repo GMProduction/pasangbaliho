@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
+import CustomTable from '../../components/Material-UI/Table/CustomTable';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import BCPageListNego from '../../components/Material-UI/Breadcumbs/BCPageListNego';
-import BasicTable from '../../components/Material-UI/Table/BasicTable';
+
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import compose from 'recompose/compose';
@@ -39,22 +38,6 @@ export class PageListNego extends Component {
         await this.props.onSearched()
     }
 
-    onSearch = async (e) => {
-        let key = e.target.value;
-        if (e.keyCode === 13) {
-            this.handleSearch(key);
-        }        
-    }
-
-    handleChange = async (e) => {
-        let v = e.target.value;
-        if (v === '') {
-            this.handleSearch(v);
-        }
-        this.setState({
-            searchKey: e.target.value
-        })
-    }
 
     async componentDidMount () {
         let filter = this.props.filter;
@@ -119,21 +102,13 @@ export class PageListNego extends Component {
                             </Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar {title}</Box>
-                                <Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Cari"
-                                        margin="dense"
-                                        variant="outlined"
-                                        value={this.state.searchKey}
-                                        onChange={this.handleChange}
-                                        onKeyUp={this.onSearch}
-                                    />
-                                </Box>
-                            </Box>
-                            <BasicTable columns={columns} data={dataNegosiasi} loading={dataLoading}/>
+                            <CustomTable 
+                                title={title} 
+                                onSearch={ (value) => {this.handleSearch(value)}} 
+                                columns={columns}
+                                data={dataNegosiasi}
+                                loading={dataLoading}
+                                />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
