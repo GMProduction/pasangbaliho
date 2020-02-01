@@ -4,11 +4,24 @@
 
 <link rel="stylesheet" href="{{asset('css/product.css')}}">
 <link rel="stylesheet" href="{{asset('css/icon.css')}}">
+<link rel="stylesheet" href="{{asset('css/loading.css')}}">
 
-<section id="about-page-section-3">
-
-
-
+<div class="" id="loading" style="height: 120%; width:100%; position: absolute; z-index: 99; background-color: white" >
+    <div class="d-flex justify-content-center align-items-center" style="margin-top: 20%;  left: 50%; top: 50%">
+        <div id="fountainG" class="">
+            <div id="fountainG_1" class="fountainG"></div>
+            <div id="fountainG_2" class="fountainG"></div>
+            <div id="fountainG_3" class="fountainG"></div>
+            <div id="fountainG_4" class="fountainG"></div>
+            <div id="fountainG_5" class="fountainG"></div>
+            <div id="fountainG_6" class="fountainG"></div>
+            <div id="fountainG_7" class="fountainG"></div>
+            <div id="fountainG_8" class="fountainG"></div>
+        </div>
+    </div>
+</div>
+<section id="about-page-section-3" class="" >
+<div id="detailSH" class="">
 
     <div class="container">
         <div class="row">
@@ -103,8 +116,20 @@
 
 
                 </div>
-                <label style="font-size: 14pt" class="pb-1">Kisaran Harga Rp. {{formatuang($p->harga_market)}} /
-                    Bulan</label><br>
+                <label style="font-size: 14pt" class="pb-1">Kisaran Harga :
+                    @if ($p->tampil_harga == 'satu harga')
+                    Rp. {{formatuang($p->harga_market)}} / Bulan
+
+                    @elseif($p->tampil_harga == 'range')
+                    Rp. {{formatuang($p->harga_market)}} s/d
+                    Rp. {{formatuang($p->harga_max)}} / Bulan
+                    @elseif($p->tampil_harga == 'tidak terlihat')
+
+                    Hubungi admin
+
+                    @endif
+                </label>
+                <br>
                 <label style="font-size: 12pt">Spesifikasi</label>
                 <table class="table table-noborder" style="max-width: 300px; border: 0">
                     <tr>
@@ -154,7 +179,9 @@
                 {{-- <a type="button" class="btn btn-primary slide" href="#tglPenawaran">Ajukan Penawaran <i
                         class="fa fa-caret-right"></i></a> --}}
 
-
+                @php
+                    $title =$p->kategori.', '.$p->alamat.', '.$p->kota.', '.$p->provinsi
+                @endphp
 
                 @if(auth()->guard('advertiser')->check())
                 <button class="btn btn-primary " type="button" data-toggle="modal"
@@ -169,10 +196,28 @@
                 <button class="btn btn-primary " type="button" onclick="test()">Permintaan
                     Penawaran</button>
                 @endif
+                <a href="https://wa.me/628975050520?text=Saya ingin menanyakan harga {{$title}}" target="_blank" class="btn btn-primary" style="padding: 11px 11px 10px 10px" ><i class="fa fa-comment fa-2x"
+                        aria-hidden="true" ></i></a>
+                        {{-- <a href="#!" onclick="cha()"  class="btn btn-primary" style="padding: 11px 11px 10px 10px" >asd<i class="fa fa-comment fa-2x"
+                            aria-hidden="true" ></i></a> --}}
             </div>
 
         </div>
 
+        <script>
+            function cha(){
+                Tawk_API.toggle();
+                Tawk_API.onLoad = function(){
+    Tawk_API.toggle();
+    Tawk_API.addTags(tags, callback);
+
+Tawk_API.onLoad = function(){
+    Tawk_API.addTags(['hello', 'world'], function(error){});
+};
+};
+            }
+            
+            </script>
 
 
         <div id="tglPenawaran" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
@@ -290,100 +335,115 @@
                     @foreach ($related as $p)
                     <div class="p-2">
                         <div class="portfolio-item">
-                         
-                                <input type="hidden" name="id" value="{{$p->id_baliho}}">
-                                <div class="portfolio-one">
-                                    <div class="portfolio-head">
-                                        <div class="portfolio-img" style="">
-                                            @if ($p->url_foto == null)
-                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
-                                                style="">
-                                            @else
-                                            <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
-                                                class="object-fit_contain">
-                                            @endif
-                                        </div>
-                                        @php
-                                        $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                                        $gantiTitik = str_replace('.','',$uri);
-                                        $urlweb = str_replace(' ', '-', $gantiTitik);
-                                        $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
-                                        @endphp
-
-
-
+                            <input type="hidden" name="id" value="{{$p->id_baliho}}">
+                            <div class="portfolio-one">
+                                <div class="portfolio-head">
+                                    <div class="portfolio-img containerImg" style="">
+                                        @if ($p->url_foto == null)
+                                        <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                            style="" height="129">
+                                        @else
+                                        <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
+                                            class="object-fit_contain"  height="129">
+                                        @endif
+                                        <div class="bottom-left pr-2 pl-2 "
+                                            style=";background-color: green; font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
+                                            {{$p->kategori}}, {{$p->orientasi}}</div>
                                     </div>
-                                   
+                                    @php
+                                    $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                                    $gantiTitik = str_replace('.','',$uri);
+                                    $urlweb = str_replace(' ', '-', $gantiTitik);
+                                    $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
+                                    @endphp
 
-                                    <div class="portfolio-content">
-                                        <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
-                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
-                                            {{$p->provinsi}}</h6>
-                                        <p class="pb-1"><span>{{$p->kategori}}, {{$p->orientasi}} </span>
-                                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
-                                            <br><b>Kisaran Harga :
-                                                <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
-                                        </p>
-                                        <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
-                                            class="btn btn-block btn-primary btn-sm">Detail</a>
 
-                                    </div>
-                                    <!-- End portfolio-content -->
+
                                 </div>
-                                <!-- End portfolio-item -->
-                            </div>
-                            {{-- @endfor --}}
-                        </div>
-                        
-
-                        @endforeach
-                        <div class="p-2">
-                            <div class="portfolio-item">
-                                <input type="hidden" name="id" value="">
-                                <div class="portfolio-one" style="box-shadow: none">
-                                    <div class="portfolio-head">
-                                        <div class="portfolio-img hidden" style="">
-                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
-                                                style="">
-
-                                        </div>
-                                       
 
 
+                                <div class="portfolio-content">
+                                    <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
+                                    {{-- <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
+                                    {{$p->provinsi}}
+                                    </h6> --}}
+                                    <p class="" style="min-height: 96px">
+                                        {{-- <span>{{$p->kategori}}, {{$p->orientasi}} </span> --}}
+                                        <span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                                        <br><b>Kisaran Harga :
+                                            <br>
+                                            @if ($p->tampil_harga == 'satu harga')
+                                            Rp. {{formatuang($p->harga_market)}} / Bulan</b>
 
-                                    </div>
-                                    @if ($loop->last)
-                                    <h2 style="" class="text-center">
-                                    <a href="/product/search?c={{$p->kota}}" style="" class="btn" style=""><i class="fa fa-forward fa-4x"
-                                                aria-hidden="true"></i></a>
-                                                <h4 class="text-center">Tampilkan Semua</h4>
-                                        {{-- asda --}}
-                                    </h2>
+                                        @elseif($p->tampil_harga == 'range')
+                                        Rp. {{formatuang($p->harga_market)}} s/d
+                                        <br> Rp. {{formatuang($p->harga_max)}} / Bulan</b>
+                                        @elseif($p->tampil_harga == 'tidak terlihat')
 
-                                    @endif
+                                        Hubungi admin</b>
 
-                                    <div class="portfolio-content hidden">
-                                        <h6 class="title" title="" style="font-size: 12pt"></h6>
-                                        <p class="pb-1"><span></span>
-                                            <br><span>Ukuran :cm</span>
-                                            <br><b>Kisaran Harga :
-                                                <br>Rp. / Bulan</b>
-                                        </p>
-                                        <a href=""
-                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+                                        @endif
 
-                                    </div>
-                                    <!-- End portfolio-content -->
+                                    </p>
+                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                        class="btn btn-block btn-primary btn-sm">Detail</a>
+
                                 </div>
-                                <!-- End portfolio-item -->
+                                <!-- End portfolio-content -->
                             </div>
-                            {{-- @endfor --}}
+                            <!-- End portfolio-item -->
                         </div>
+                        {{-- @endfor --}}
                     </div>
 
+
+                    @endforeach
+                    <div class="p-2">
+                        <div class="portfolio-item">
+                            <input type="hidden" name="id" value="">
+                            <div class="portfolio-one" style="box-shadow: none">
+                                <div class="portfolio-head">
+                                    <div class="portfolio-img hidden" style="">
+                                        <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                            style="">
+
+                                    </div>
+
+
+
+
+                                </div>
+                                @if ($loop->last)
+                                <h2 style="" class="text-center">
+                                    <a href="/product/search?c={{$p->kota}}" style="" class="btn" style=""><i
+                                            class="fa fa-forward fa-4x" aria-hidden="true"></i></a>
+                                    <h4 class="text-center">Tampilkan Semua</h4>
+                                    {{-- asda --}}
+                                </h2>
+
+                                @endif
+
+                                <div class="portfolio-content hidden">
+                                    <h6 class="title" title="" style="font-size: 12pt"></h6>
+                                    <p class="pb-1"><span></span>
+                                        <br><span>Ukuran :cm</span>
+                                        <br><b>Kisaran Harga :
+                                            <br>Rp. / Bulan</b>
+                                    </p>
+                                    <a href="" class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                </div>
+                                <!-- End portfolio-content -->
+                            </div>
+                            <!-- End portfolio-item -->
+                        </div>
+                        {{-- @endfor --}}
+                    </div>
                 </div>
+
             </div>
-      
+        </div>
+
 
         <div class="mt-5 ">
             <h5><span>Kategori Serupa</span></h5>
@@ -392,191 +452,130 @@
                     @foreach ($kategori as $p)
                     <div class="p-2">
                         <div class="portfolio-item">
-                         
-                                <input type="hidden" name="id" value="{{$p->id_baliho}}">
-                                <div class="portfolio-one">
-                                    <div class="portfolio-head">
-                                        <div class="portfolio-img" style="">
-                                            @if ($p->url_foto == null)
-                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
-                                                style="">
-                                            @else
-                                            <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
-                                                class="object-fit_contain">
-                                            @endif
-                                        </div>
-                                        @php
-                                        $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                                        $gantiTitik = str_replace('.','',$uri);
-                                        $urlweb = str_replace(' ', '-', $gantiTitik);
-                                        $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
-                                        @endphp
 
-
-
+                            <input type="hidden" name="id" value="{{$p->id_baliho}}">
+                            <div class="portfolio-one">
+                                <div class="portfolio-head">
+                                    <div class="portfolio-img containerImg" style="">
+                                        @if ($p->url_foto == null)
+                                        <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                            style="">
+                                        @else
+                                        <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}"
+                                            class="object-fit_contain">
+                                        @endif
+                                        <div class="bottom-left pr-2 pl-2 "
+                                            style=";background-color: green; font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
+                                            {{$p->kategori}}, {{$p->orientasi}}</div>
                                     </div>
-                                   
+                                    @php
+                                    $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
+                                    $gantiTitik = str_replace('.','',$uri);
+                                    $urlweb = str_replace(' ', '-', $gantiTitik);
+                                    $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
+                                    @endphp
 
-                                    <div class="portfolio-content">
-                                        <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
-                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
-                                            {{$p->provinsi}}</h6>
-                                        <p class="pb-1"><span>{{$p->kategori}}, {{$p->orientasi}} </span>
-                                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
-                                            <br><b>Kisaran Harga :
-                                                <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
-                                        </p>
-                                        <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
-                                            class="btn btn-block btn-primary btn-sm">Detail</a>
 
-                                    </div>
-                                    <!-- End portfolio-content -->
+
                                 </div>
-                                <!-- End portfolio-item -->
-                            </div>
-                            {{-- @endfor --}}
-                        </div>
-                        
-
-                        @endforeach
-                        <div class="p-2">
-                            <div class="portfolio-item">
-                                <input type="hidden" name="id" value="">
-                                <div class="portfolio-one" style="box-shadow: none">
-                                    <div class="portfolio-head">
-                                        <div class="portfolio-img hidden" style="">
-                                            <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
-                                                style="">
-
-                                        </div>
-                                       
 
 
+                                <div class="portfolio-content">
+                                    <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
+                                    {{-- <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}},
+                                    {{$p->provinsi}}
+                                    </h6> --}}
+                                    <p class="" style="min-height: 96px">
+                                        {{-- <span>{{$p->kategori}}, {{$p->orientasi}} </span> --}}
+                                        <span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                                        <br><b>Kisaran Harga :
+                                            <br>
+                                            @if ($p->tampil_harga == 'satu harga')
+                                            Rp. {{formatuang($p->harga_market)}} / Bulan</b>
 
-                                    </div>
-                                    @if ($loop->last)
-                                    <h2 style="" class="text-center">
-                                    <a href="/product/search?k={{$p->kategori}}" style="" class="btn" style=""><i class="fa fa-forward fa-4x"
-                                                aria-hidden="true"></i></a>
-                                                <h4 class="text-center">Tampilkan Semua</h4>
-                                        {{-- asda --}}
-                                    </h2>
+                                        @elseif($p->tampil_harga == 'range')
+                                        Rp. {{formatuang($p->harga_market)}} s/d
+                                        <br> Rp. {{formatuang($p->harga_max)}} / Bulan</b>
+                                        @elseif($p->tampil_harga == 'tidak terlihat')
 
-                                    @endif
+                                        Hubungi admin</b>
 
-                                    <div class="portfolio-content hidden">
-                                        <h6 class="title" title="" style="font-size: 12pt"></h6>
-                                        <p class="pb-1"><span></span>
-                                            <br><span>Ukuran :cm</span>
-                                            <br><b>Kisaran Harga :
-                                                <br>Rp. / Bulan</b>
-                                        </p>
-                                        <a href=""
-                                            class="btn btn-block btn-primary btn-sm">Detail</a>
+                                        @endif
 
-                                    </div>
-                                    <!-- End portfolio-content -->
+                                    </p>
+                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                        class="btn btn-block btn-primary btn-sm">Detail</a>
+
                                 </div>
-                                <!-- End portfolio-item -->
+                                <!-- End portfolio-content -->
                             </div>
-                            {{-- @endfor --}}
+                            <!-- End portfolio-item -->
                         </div>
+                        {{-- @endfor --}}
                     </div>
 
+
+                    @endforeach
+                    <div class="p-2">
+                        <div class="portfolio-item">
+                            <input type="hidden" name="id" value="">
+                            <div class="portfolio-one" style="box-shadow: none">
+                                <div class="portfolio-head">
+                                    <div class="portfolio-img hidden" style="">
+                                        <img alt="" src="{{asset('assets/noimage.jpg')}}" class="object-fit_contain"
+                                            style="">
+
+                                    </div>
+
+
+
+
+                                </div>
+                                @if ($loop->last)
+                                <h2 style="" class="text-center">
+                                    <a href="/product/search?k={{$p->kategori}}" style="" class="btn" style=""><i
+                                            class="fa fa-forward fa-4x" aria-hidden="true"></i></a>
+                                    <h4 class="text-center">Tampilkan Semua</h4>
+                                    {{-- asda --}}
+                                </h2>
+
+                                @endif
+
+                                <div class="portfolio-content hidden">
+                                    <h6 class="title" title="" style="font-size: 12pt"></h6>
+                                    <p class="pb-1"><span></span>
+                                        <br><span>Ukuran :cm</span>
+                                        <br><b>Kisaran Harga :
+                                            <br>Rp. / Bulan</b>
+                                    </p>
+                                    <a href="" class="btn btn-block btn-primary btn-sm">Detail</a>
+
+                                </div>
+                                <!-- End portfolio-content -->
+                            </div>
+                            <!-- End portfolio-item -->
+                        </div>
+                        {{-- @endfor --}}
+                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
 
 
-        <script>
-            $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
         $('#street').load('/showStreetView/{{$p->id_baliho}}');
     })
 
-        </script>
+    </script>
 
-        @endforeach
-
+    @endforeach
+    </div>
 </section>
-<script>
-    // let today = new Date().toISOString().substr(0, 10);
-// document.querySelector("#today").value = today;
 
-function tgl() {
-    var a = $('#mulai').val();
-    var dates = new Date(a);
-    var hs = dates.getDate();
-    var bs = dates.getMonth()+2;
-    var ts = dates.getFullYear();
-    if(bs<10){bs='0'+bs}
-    if(hs<10){hs='0'+hs}
-    var tse = ts+'-'+bs+'-'+hs;
-    dates.setDate(dates.getDate() + 31);
-    document.querySelector("#selesai").valueAsDate = dates;
-    $('#selesai').attr('min',tse);
-}
+<script src="{{asset('js/detailProduk.js')}}"></script>
 
-    var dates = new Date();
-    var hs = dates.getDate();
-    var bs = dates.getMonth()+2;
-    var ts = dates.getFullYear();
-    if(bs<10){bs='0'+bs}
-    if(hs<10){hs='0'+hs}
-    var tse = ts+'-'+bs+'-'+hs;
-    dates.setDate(dates.getDate() + 31);
-    document.querySelector("#selesai").valueAsDate = dates;
-    $('#selesai').attr('min',tse);
-
-var date = new Date();
-
-var h = date.getDate()+3;
-var b = date.getMonth()+1;
-var t = date.getFullYear();
-
-if(b<10){b='0'+b}
-if(h<10){h='0'+h}
-
-
-
-var te = t+'-'+b+'-'+h;
-
-date.setDate(date.getDate() + 3);
-
-document.querySelector("#mulai").valueAsDate = date;
-$('#mulai').attr('min',te);
-
-// $('#today2').value(d);
-
-function testClient() {
-    Swal.fire({
-  title: 'Peringatan !',
-  text: "Client tidak dapat melakukan permintaan penawaran",
-  icon: 'warning',
- 
-})
-}
-    function test() {
-           
-            Swal.fire({
-  title: 'Peringatan !',
-  text: "Silahkan Login / Register sebagai Advertiser untuk meminta penawaran harga",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  cancelButtonText: 'Register',
-  confirmButtonText: 'Login'
-}).then((result) => {
-  if (result.value) {
-    window.location = '/login'
-  }else if(
-    result.dismiss === Swal.DismissReason.cancel
-  ){
-    window.location = '/registration'
-  }
-})
-        }
-</script>
-<script src="{{asset('js/slider.js')}}"></script>
 
 @endsection

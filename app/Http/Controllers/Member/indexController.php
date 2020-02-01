@@ -59,6 +59,8 @@ class indexController extends Controller
                 'balihos.id_baliho as id_baliho',
                 'balihos.nama_baliho as nama_baliho',
                 'balihos.alamat as alamat',
+                'balihos.harga_max as harga_max',
+                'balihos.tampil_harga as tampil_harga',
                 'kotas.nama_kota as kota',
                 'kategoris.kategori as kategori',
                 'provinsis.nama_provinsi as provinsi',

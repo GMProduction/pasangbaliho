@@ -245,7 +245,8 @@
    
         Tawk_API.visitor = {
         name : '{{auth()->guard("advertiser")->user()->nama}}',
-        email : '{{auth()->guard("advertiser")->user()->email}}'
+        email : '{{auth()->guard("advertiser")->user()->email}}',
+        hash : '{{hash_hmac("sha256",'.auth()->guard("advertiser")->user()->email.','+Tawk_API')}}'
         };
     
         

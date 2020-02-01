@@ -49,6 +49,8 @@ class newsController extends Controller
             'balihos.tinggi as tinggi',
             'balihos.orientasi as orientasi',
             'balihos.harga_market as harga_market',
+            'balihos.harga_max as harga_max',
+            'balihos.tampil_harga as tampil_harga',
             'balihos.deskripsi as deskripsi',
             'foto_baliho.url_foto as url_foto'
         )

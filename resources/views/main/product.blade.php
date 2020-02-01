@@ -87,12 +87,15 @@
                             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 portfolio-item">
                                 <div class="portfolio-one" style="">
                                     <div class="portfolio-head">
-                                        <div class="portfolio-img">
+                                        <div class="portfolio-img containerImg">
                                             @if ($p->url_foto == null)
                                             <img alt="" src="{{asset('assets/noimage.jpg')}}">
                                             @else
                                             <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}">
                                             @endif
+                                            <div class="bottom-left pr-2 pl-2 "
+                                style=";background-color: green; font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
+                                {{$p->kategori}}, {{$p->orientasi}}</div>
                                         </div>
                                         {{-- <div class="portfolio-hover">
                                                 <a class="portfolio-link" href="#"><i class="fa fa-link"></i></a>
@@ -102,16 +105,29 @@
                                     <!-- End portfolio-head -->
                                     <div class="portfolio-content">
                                         <h6 class="title" title="{{$title}}">{{$p->alamat}} </h6>
-                                        <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}}, {{$p->provinsi}}</h6>
-                                        <p class="pb-1">
-                                            <span>{{$p->kategori}}, {{$p->orientasi}}</span>
-                                            <br><span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
+                                        {{-- <h6 class="title" title="{{$title}}" style="font-size: 12pt">{{$p->kota}}, {{$p->provinsi}}
+                                        </h6> --}}
+                                        <p class=""   style="min-height: 96px">
+                                            {{-- <span>{{$p->kategori}}, {{$p->orientasi}} </span> --}}
+                                            <span>Ukuran : {{$p->lebar}} cm x {{$p->tinggi}} cm</span>
                                             <br><b>Kisaran Harga :
-                                                <br>Rp. {{formatuang($p->harga_market)}} / Bulan</b>
+                                                <br>
+                                                @if ($p->tampil_harga == 'satu harga')
+                                                Rp. {{formatuang($p->harga_market)}} / Bulan</b>
+                                            
+                                            @elseif($p->tampil_harga == 'range')
+                                            Rp. {{formatuang($p->harga_market)}} s/d
+                                            <br> Rp. {{formatuang($p->harga_max)}} / Bulan</b>
+                                            @elseif($p->tampil_harga == 'tidak terlihat')
+                
+                                            Hubungi admin</b>
+                                            
+                                            @endif
+                
                                         </p>
-                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
-                                                class="btn btn-block btn-primary btn-sm">Detail</a>
-
+                                                <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                                    class="btn btn-block btn-primary btn-sm">Detail</a>
+                                            
                                     </div>
                                     <!-- End portfolio-content -->
                                 </div>
