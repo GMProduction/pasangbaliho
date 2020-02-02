@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Master\productModel;
 use App\Master\transaksiModel;
 use App\models\FotoBalihoModel;
+use App\models\KategoriModel;
 use App\models\KotaModel;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -19,7 +20,11 @@ class productController extends Controller
 {
     //
 
-
+    public function getKategori(){
+        $query = KategoriModel::query()
+            ->get();
+        return $query;
+    }
 
     public function detailProduct($url, $id)
     {
@@ -188,7 +193,8 @@ class productController extends Controller
 
     public function cariProduk(Request $r)
     {
-        $kategori = $r->kategori;
+        $kategori = $this->getKategori();
+       
         $id = "";
         if (auth()->guard('advertiser')->check()) {
             $id = auth()->guard('advertiser')->user()->id;
@@ -300,12 +306,12 @@ class productController extends Controller
             $produk->appends($r->all('d'));
             // return view('main/product')->with($data);
 
-            return view('main/product', compact(['produk', 'kota']));
+            return view('main/product', compact(['produk', 'kota','kategori']));
         } else {
-            $produk->appends($r->all('k', 'c', 'p', 't', 'd'));
+            $produk->appends($r->all('k', 'c', 'p', 't', 'd','s'));
 
 
-            return view('main/product', compact(['produk', 'kota']));
+            return view('main/product', compact(['produk', 'kota','kategori']));
         }
     }
 }

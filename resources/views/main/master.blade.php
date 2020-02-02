@@ -41,6 +41,11 @@
                 zoom: 1.5;
             }
         }
+
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+            top: 100%;
+        }
     </style>
 </head>
 
@@ -51,15 +56,28 @@
             <div class="row">
                 <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
                     <ul class="contact_links">
-                        <li><i class="fa fa-phone"></i><a href="#">+62271 724 811</a></li>
-                        <li><i class="fa fa-envelope"></i><a href="#">info@pasangbaliho.com</a></li>
+                        <li><i class="fa fa-phone"></i><a href="#!">+62271 724 811</a></li>
+                        <li><i class="fa fa-envelope"></i><a href="#!">info@pasangbaliho.com</a></li>
                     </ul>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-5 social">
+                    <ul class="contact_links">
+                        <li><i class="fa fa-phone"></i><a href="#!">+62271 724 811</a></li>
+                    </ul>
                     <ul class="social_links">
-                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="dropdown"><a href="https://play.google.com/store/apps/details?id=com.projects.pasBal&hl=en" target="_blank" id="nafdownload" class="" role="button"
+                                data-toggle="" aria-haspopup="true" aria-expanded="false"><i
+                                    class="fab fa-android"></i> </a>
+                            <ul class="dropdown-menu" aria-labelledby="nafdownload" style="top: 65px">
+                            <img src="{{asset('assets/qrcode.png')}}" alt="">
+
+                            </ul>
+
+                        </li>
+                        <li><i class="fas fa-grip-lines-vertical    "></i></li>
+                        <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -67,7 +85,7 @@
         </div>
 
     </section>
-        
+
 
 
     <header>
@@ -90,7 +108,7 @@
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
                             <li id="navhome" class=""><a href="/">Beranda</a></li>
-                            <li id="navproduct" class=""><a href="/product?d=all">Produk</a></li>
+                            <li id="navproduct" class=""><a href="/produk?d=all">Produk</a></li>
                             <li id="navnews" class=""><a href="/news">News</a></li>
 
                             @if (auth()->guard('client')->check())
@@ -99,15 +117,18 @@
                                     aria-expanded="false">{{auth()->guard('client')->user()->nama}} <i
                                         class="fas fa-chevron-down    "></i></a>
                                 <ul class="dropdown-menu nav navbar-nav" aria-labelledby="navbarDropdown">
-                                    <li id="dashboard" class=""><a href="/dashboardClient" class="drop">Dashboard</a></li>
+                                    <li id="dashboard" class=""><a href="/dashboardClient" class="drop">Dashboard</a>
+                                    </li>
                                     <li id="navlogout"><a href="/logoutClient" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
 
                             @elseif (auth()->guard('advertiser')->check())
-                            <input type="hidden" name="nama" id="nama" value="{{auth()->guard('advertiser')->user()->nama}}">
-                            <input type="hidden" name="email" id="email" value="{{auth()->guard('advertiser')->user()->email}}">
-                            
+                            <input type="hidden" name="nama" id="nama"
+                                value="{{auth()->guard('advertiser')->user()->nama}}">
+                            <input type="hidden" name="email" id="email"
+                                value="{{auth()->guard('advertiser')->user()->email}}">
+
                             <li id="" class="nav-item dropdown"><a href="#!" id="navbarDropdown" class="dropdown-toggle"
                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">{{auth()->guard('advertiser')->user()->nama}} <i
@@ -117,7 +138,7 @@
                                     <li id="navlogout"><a href="/logout" class="drop">Keluar</a></li>
                                 </ul>
                             </li>
-                            
+
                             <!-- #END# Notifications -->
                             @else
                             <li id="navlogin"><a href="/login">Masuk</a></li>
@@ -134,10 +155,10 @@
     </header>
     <!--/.nav-ends -->
 
-   
-    
 
-    <div id="content">  
+
+
+    <div id="content">
         @yield('content')
     </div>
 
@@ -151,7 +172,7 @@
     <section id="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12 <block></block>">
+                <div class="col-md-3 col-sm-3 col-xs-12 block">
                     <div class="footer-block">
                         <h4>Pasang Baliho </h4>
                         <hr />
@@ -229,7 +250,6 @@
 
 
     <script>
-
         if('{{session("status")}}'){
                 // alert('{{session("status")}}');
                 Swal.fire({
@@ -251,7 +271,7 @@
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-    if ('{{auth()->guard("advertiser")->check()}}') {
+        if ('{{auth()->guard("advertiser")->check()}}') {
         var nama = $('#nama').val();
         var email1 = $('#email').val();
         
@@ -273,13 +293,11 @@
    
 }
     </script>
-  <script type="text/javascript">
-    
-    
-    // var Tawk_LoadStart=new Date();
+    <script type="text/javascript">
+        // var Tawk_LoadStart=new Date();
     <!-- rest of the tawk.to widget code -->
     </script>
-        
+
 
 </body>
 

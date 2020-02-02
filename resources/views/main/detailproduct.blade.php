@@ -4,19 +4,26 @@
 
 <link rel="stylesheet" href="{{asset('css/product.css')}}">
 <link rel="stylesheet" href="{{asset('css/icon.css')}}">
-<link rel="stylesheet" href="{{asset('css/loading.css')}}">
+<link rel="stylesheet" href="{{asset('css/loadingPutar.css')}}">
 
 <div class="" id="loading" style="height: 120%; width:100%; position: absolute; z-index: 99; background-color: white" >
     <div class="d-flex justify-content-center align-items-center" style="margin-top: 20%;  left: 50%; top: 50%">
-        <div id="fountainG" class="">
-            <div id="fountainG_1" class="fountainG"></div>
-            <div id="fountainG_2" class="fountainG"></div>
-            <div id="fountainG_3" class="fountainG"></div>
-            <div id="fountainG_4" class="fountainG"></div>
-            <div id="fountainG_5" class="fountainG"></div>
-            <div id="fountainG_6" class="fountainG"></div>
-            <div id="fountainG_7" class="fountainG"></div>
-            <div id="fountainG_8" class="fountainG"></div>
+        <div class="windows8">
+            <div class="wBall" id="wBall_1">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_2">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_3">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_4">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_5">
+                <div class="wInnerBall"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -230,7 +237,7 @@ Tawk_API.onLoad = function(){
                     </div>
                     <div class="modal-body">
                         <div class="form-bottom">
-                            <form role="form" action="/product/addTransaksi" class="login-form" method="POST">
+                            <form role="form" action="/produk/addTransaksi" class="login-form" method="POST">
                                 @csrf
                                 <input type="hidden" name="id_baliho" value="{{$p->id_baliho}}">
                                 <input type="hidden" name="harga" value="{{$p->harga_market}}">
@@ -385,7 +392,7 @@ Tawk_API.onLoad = function(){
                                         @endif
 
                                     </p>
-                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                    <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                         class="btn btn-block btn-primary btn-sm">Detail</a>
 
                                 </div>
@@ -415,7 +422,7 @@ Tawk_API.onLoad = function(){
                                 </div>
                                 @if ($loop->last)
                                 <h2 style="" class="text-center">
-                                    <a href="/product/search?c={{$p->kota}}" style="" class="btn" style=""><i
+                                    <a href="/produk/search?c={{$p->kota}}" style="" class="btn" style=""><i
                                             class="fa fa-forward fa-4x" aria-hidden="true"></i></a>
                                     <h4 class="text-center">Tampilkan Semua</h4>
                                     {{-- asda --}}
@@ -503,7 +510,7 @@ Tawk_API.onLoad = function(){
                                         @endif
 
                                     </p>
-                                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                    <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                         class="btn btn-block btn-primary btn-sm">Detail</a>
 
                                 </div>
@@ -533,7 +540,7 @@ Tawk_API.onLoad = function(){
                                 </div>
                                 @if ($loop->last)
                                 <h2 style="" class="text-center">
-                                    <a href="/product/search?k={{$p->kategori}}" style="" class="btn" style=""><i
+                                    <a href="/produk/search?k={{$p->kategori}}" style="" class="btn" style=""><i
                                             class="fa fa-forward fa-4x" aria-hidden="true"></i></a>
                                     <h4 class="text-center">Tampilkan Semua</h4>
                                     {{-- asda --}}

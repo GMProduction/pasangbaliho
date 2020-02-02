@@ -51,7 +51,7 @@ function cariProduk() {
         data = 'd=all'
     }
 
-        document.location = '/product/search?'+data;
+        document.location = '/produk/search?'+data;
    
     // alert(s)
    
@@ -82,7 +82,7 @@ function cariProdukIndex() {
         data = 'd=all'
     }
 
-        document.location = '/product/search?'+data;
+        document.location = '/produk/search?'+data;
  
    
 }

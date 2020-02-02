@@ -26,9 +26,9 @@ Route::post('/getResponse', 'Member\paymentController@getResponse');
 
 
 Route::get('/', 'Member\indexController@index');
-Route::get('product', 'Member\productController@cariProduk');
-Route::get('product/search', 'Member\productController@cariProduk');
-Route::get('m/{url}/{id}', 'Member\productController@detailProduct');
+Route::get('produk', 'Member\productController@cariProduk');
+Route::get('produk/search', 'Member\productController@cariProduk');
+Route::get('produk/{url}/{id}', 'Member\productController@detailProduct');
 Route::get('corus', 'Member\indexController@showCorus');
 
 
