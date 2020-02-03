@@ -446,9 +446,10 @@ class TransaksiController extends Controller
                         'transaksi.terbaca_client as terbaca_client'
                     )
                     ->where("terbaca_client", "0")
+                    ->where("transaksi.status", "selesai")
                     ->where("id_client", $request->idClient)
-                ->where("tanggal_awal", "<", Carbon::now())
-                ->where("tanggal_akhir", ">", Carbon::now())
+                    ->where("tanggal_awal", "<", Carbon::now())
+                    ->where("tanggal_akhir", ">", Carbon::now())
                     ->count();
 
                 return response()->json([
