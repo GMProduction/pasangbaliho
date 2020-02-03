@@ -67,7 +67,7 @@
                             @endif
 
                         </p>
-                                <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                     class="btn btn-block btn-primary btn-sm">Detail</a>
                             
                     </div>

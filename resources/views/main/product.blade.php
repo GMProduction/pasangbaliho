@@ -1,6 +1,7 @@
 @extends('main.master')
 
 @section('content')
+<link rel="stylesheet" href="{{asset('css/loadingPutar.css')}}">
 
 <div class="flash-data" data-flashdata=""></div>
 <section id="portfolio">
@@ -11,12 +12,10 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
                     <label for="kategori">Kategori</label>
                     <select name="kategori" id="kategori" class="form-control" value="{{old('kategori')}}">
-                        <option value="">Kategori</option>
-                        <option value="Videotron">Videotron</option>
-                        <option value="Baliho">Baliho</option>
-                        <option value="Billboard">Billboard</option>
-                        <option value="Neon Box">Neon Box</option>
-                        <option value="Banner">Banner</option>
+                        <option value="">Semua Kategori</option>
+                        @foreach ($kategori as $k)
+                        <option value="{{$k->kategori}}">{{$k->kategori}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
@@ -39,20 +38,49 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
                     <label for="">Text</label>
-                    <input type="text" name="txtCari" id="txtCari" class="form-control" value="{{old('txtCari')}}">
+                    <input type="text" name="txtCari" id="txtCari" class="form-control" placeholder="Masukkan kata kunci" value="{{old('txtCari')}}">
+                </div>
+            
+            </div>
+            <div class=" justify-content-center">
+                <div class="col-lg-6 col-md-6 col-sm-12  pt-3">
+                    <button type="submit" id="btn-cari" class="btn btn-sm btn-block btn-primary  "
+                        onclick="cariProduk()"><i class="fas fa-search"></i> Cari</button>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12  pt-3">
+                    <a type="submit" href="/produk?d=all" id="btn-cari" class="btn btn-sm btn-block btn-primary "
+                       ><i class="fas fa-sync"></i> Reset</a>
                 </div>
             </div>
             <div class="row justify-content-center p-3">
                 <div>
-                    <button type="submit" id="btn-cari" class="btn btn-sm btn-block btn-primary"
-                        onclick="cariProduk()">Cari</button>
+                    
                 </div>
-
             </div>
         </div>
     </div>
-    <div class="pt-5 container">
-        <div class="row p-4">
+    <div class="pt-5 container" style="min-height: 400px">
+        <div id="loading" class="" style="padding-top: 120px">
+            <div class="windows8">
+                <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row p-4 hide" id="produkIsi">
 
             <div class="">
                 {{-- @include('item.productindex') --}}
@@ -125,7 +153,7 @@
                                             @endif
                 
                                         </p>
-                                                <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                                <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                                     class="btn btn-block btn-primary btn-sm">Detail</a>
                                             
                                     </div>
@@ -135,9 +163,9 @@
                             </div>
                             {{-- @endfor --}}
                             @empty
-                            <div style="min-height: 300px">
-                                    <h1 class="text-center"><i class="fa fa-search fa-3x" aria-hidden="true"></i></h1>
-                                    <h2 class="text-center">No result Found </h2>
+                            <div style="min-height: 400px">
+                                    <h1 class="text-center"  style="padding-top: 120px"><i class="fa fa-search fa-3x" aria-hidden="true"></i></h1>
+                                    <h2 class="text-center">Hasil Tidak Ditemukan </h2>
 
                             </div>
                             @endforelse
@@ -160,6 +188,7 @@
 
     <script>
        $(document).ready(function(){
+        setInterval( hideLoading, 3000);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const kategori = urlParams.get('k');
@@ -181,6 +210,13 @@
     }
 
 });
+
+
+function hideLoading() {
+    $('#loading').addClass('hide');
+    $('#produkIsi').removeClass('hide');
+    // Remove listener to re-enable scroll
+}
 
     </script>
 

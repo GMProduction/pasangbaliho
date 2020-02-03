@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Master\productModel;
 use App\models\KotaModel;
 use App\models\SliderModel;
+use App\models\KategoriModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 
 
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -25,6 +27,12 @@ class indexController extends Controller
         $query = SliderModel::query()
             ->get();
 
+        return $query;
+    }
+
+    public function getKategori(){
+        $query = KategoriModel::query()
+            ->get();
         return $query;
     }
 
@@ -51,7 +59,7 @@ class indexController extends Controller
 
     
         $slider = $this->getSlider();
-
+        $kategori = $this->getKategori();
         $kota = KotaModel::query()
             ->get();
         $product = productModel::query()
@@ -84,7 +92,7 @@ class indexController extends Controller
         $data = [
             'produk' => $product,
             'kota' => $kota,
-           
+            'kategori' => $kategori,
             'slider' => $slider
         ];
         return view('main/index')->with($data);

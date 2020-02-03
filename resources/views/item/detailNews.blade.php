@@ -28,7 +28,7 @@
                     $urlweb = str_replace(' ', '-', $gantiTitik);
                     $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                     @endphp
-                    <a href="/m/{{$urlweb}}/{{$p->id_baliho}}">
+                    <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}">
                         <div class="row p-2" style="height: 100px">
                             <div class="col-lg-4">
                                 @if ($p->url_foto == null)
