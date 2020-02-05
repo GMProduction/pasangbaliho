@@ -36,10 +36,6 @@ class indexController extends Controller
         return $query;
     }
 
-
-
-
-
     public function index()
     {
 

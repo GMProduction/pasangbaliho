@@ -6709,6 +6709,12 @@ body .text-center {
 	display: inline-block;
 	width: 100%;
 }
+
+body .text-right {
+	text-align: right;
+	display: inline-block;
+	width: 100%;
+}
 body .text-white {
 	color: #fff;
 }

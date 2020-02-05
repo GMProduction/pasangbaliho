@@ -61,9 +61,7 @@
                     </ul>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-5 social">
-                    <ul class="contact_links">
-                        <li><i class="fa fa-phone"></i><a href="#!">+62271 724 811</a></li>
-                    </ul>
+                   
                     <ul class="social_links">
                         <li class="dropdown"><a href="https://play.google.com/store/apps/details?id=com.projects.pasBal&hl=en" target="_blank" id="nafdownload" class="" role="button"
                                 data-toggle="" aria-haspopup="true" aria-expanded="false"><i
@@ -221,8 +219,8 @@
                         <h4>Media Partner</h4>
                         <hr />
                         <ul class="footer-links">
-                            <li><a href="solopos.com">Solopos.com</a></li>
-                            <li><a href="jeda.id">Jeda.id</a></li>
+                            <li><a href="http://www.solopos.com">Solopos.com</a></li>
+                            <li><a href="http://www.jeda.id">Jeda.id</a></li>
                         </ul>
                     </div>
                 </div>

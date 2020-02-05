@@ -18,10 +18,15 @@ class newsController extends Controller
         ->limit(4)
         ->get();
 
-        $berita = NewsModel::query()
-        ->orderBy('created_at', 'desc')
-        ->where('id_news','>', $beritaCorusel[3]->id_news)
-        ->paginate(10);
+
+      
+        
+            $berita = NewsModel::query()
+            ->orderBy('created_at', 'desc')
+            // ->where('id_news','>', $beritaCorusel[3]->id_news)
+            ->paginate(10);
+      
+        
 
         
 
@@ -33,6 +38,7 @@ class newsController extends Controller
         // $isi = $dom->outerHtml; 
         
         return view('main/news', compact(['berita','beritaCorusel']));
+        // echo $beritaCorusel[3]->id_news;
     }
 
     public function showdetailNews($judul,$id){

@@ -134,6 +134,10 @@
     @endforeach
 </div> --}}
 
+<script>
+   
+</script>
+
 <script src="{{asset('js/slider.js')}}"></script>
 
 
