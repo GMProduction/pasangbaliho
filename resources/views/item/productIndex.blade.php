@@ -27,8 +27,8 @@
                             @else
                             <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}">
                             @endif
-                            <div class="bottom-left pr-2 pl-2 "
-                                style=";background-color: green; font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
+                            <div class="bottom-left pr-2 pl-2 backgroundGreen "
+                                style=" font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
                                 {{$p->kategori}}, {{$p->orientasi}}</div>
                         </div>
                         @php
@@ -67,7 +67,7 @@
                             @endif
 
                         </p>
-                                <a href="/m/{{$urlweb}}/{{$p->id_baliho}}"
+                                <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                     class="btn btn-block btn-primary btn-sm">Detail</a>
                             
                     </div>

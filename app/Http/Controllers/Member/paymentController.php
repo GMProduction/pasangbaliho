@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\models\PaymentModel;
+use App\models\TransaksiModel;
 use Illuminate\Http\Request;
 
 class paymentController extends Controller
@@ -131,6 +132,10 @@ class paymentController extends Controller
                             'type' => "payment Gateway"
                             ]
                         );
+
+                        $data = ['status' => 'negomateri'];
+                        TransaksiModel::query()->where('id_transaksi', $refno)->update($data);
+
                             echo "RECEIVEOK";
 
                         // return redirect()->back()->with($data);

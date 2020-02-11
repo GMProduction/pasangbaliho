@@ -136,14 +136,14 @@
                 <div class="row">
                     <div class="col-lg-12 pt-2  justify-content-center">
                         <div class="row otomatis">
-                            
+
                             <div class="col-lg-2 col-sm-6 col-6 offset-lg-1">
                                 <label>
                                     <input type="radio" name="banko" id="bnio" value="BNI" onclick="showRecOtomatis()">
                                     <img src="{{asset('assets/img/bank/bni.webp')}}">
                                 </label>
                             </div>
-                            
+
                             <div class="col-lg-2 col-sm-6 col-6">
                                 <label>
                                     <input type="radio" name="banko" id="mandirio" value="Mandiri" onclick="showRecOtomatis()">
@@ -168,10 +168,10 @@
                                     <img src="{{asset('assets/img/bank/bersama.webp')}}">
                                 </label>
                             </div>
-                            
+
                         </div>
                     </div>
-                
+
                 <div class="col-lg-12 pt-3 d-flex justify-content-center align-items-center">
 
 
@@ -234,7 +234,7 @@
     function bayarCek(){
         // var s = document.forms["ePayment"]["Amount"].value;
         var s = $('#PaymentId').val();
-     
+
         if (s === '' || s === '0') {
             swal.fire({
                 text : 'Silahkan pilih Bank yang anda inginkan !',
