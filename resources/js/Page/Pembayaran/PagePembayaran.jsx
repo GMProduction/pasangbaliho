@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
-import PanelMenu from '../../components/Material-UI/Panel/PanelMenu/PanelMenu';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
+import CenterPanel from '../../components/Material-UI/Panel/CenteredPanel/CenterPanel';
 
-import {withStyles} from '@material-ui/core';
-import { breadcumbStyle } from '../../Style/Breadcumb';
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
 
 import compose from 'recompose/compose';
@@ -52,39 +50,22 @@ export class PagePembayaran extends Component {
                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
                 <MBreadcumb items={breadcumbItems}/>
                 <Fade right>
-                <Grid container justify='center'>
-                    <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '25px'}}>
-                            <PanelMenu
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={3} lg={3} style={{marginBottom: '25px'}}>
+                            <CenterPanel
                                 link='/dashboard/pembayaran/list'
                                 color='#20C1D5'
                                 icon='list'
-                                title={`Daftar Proses Pembayaran`}
-                                subTitle='Daftar Advertiser yang sedang dalam proses Pembayaran.'
+                                title={`Proses Pembayaran`}
                             />
                     </Grid>
-                </Grid>
-                <Grid container justify='center'>
-                    <Grid item xs={12} sm={12} md={12} lg={12} style={{marginBottom: '25px'}}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <PanelMenu
-                                    link='/dashboard/pembayaran/manual'
-                                    color='#20C1D5'
-                                    icon='monetization_on'
-                                    title={`Manual Transfer`}
-                                    subTitle='Pembayaran Masuk Melalui Proses Manual Transfer.'
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <PanelMenu
-                                    link='/dashboard/pembayaran/gateway'
-                                    color='#FC9007'
-                                    icon='payment'
-                                    title='Payment Gateway'
-                                    subTitle='Pembayaran Masuk Melalui Payment Gateway iPay88.'
-                                />
-                            </Grid>
-                        </Grid>
+                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                        <CenterPanel
+                            link='/dashboard/pembayaran/manual'
+                            color='#FC9007'
+                            icon='monetization_on'
+                            title={`Manual Transfer`}
+                        />
                     </Grid>
                 </Grid>
                 </Fade>

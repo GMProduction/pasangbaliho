@@ -1,14 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import {dateFormater} from '../../../Controller/Helper'
+import {dateFormater, formatAngka} from '../../../Controller/Helper'
 
 
 export const columns = [
     { 
         title: '#', 
-        cellStyle:{textAlign: 'center'},
-        headerStyle:{textAlign: 'center', width: '5%'},
+        cellStyle:{textAlign: 'center', fontSize: 12},
+        headerStyle:{textAlign: 'center', minWidth: '50px'},
         sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>
     },
@@ -17,9 +15,10 @@ export const columns = [
         field: 'id_transaksi',
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '20%'
-            }
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '150px'},
     },
     {
         title: 'Nama Advertiser',
@@ -27,48 +26,48 @@ export const columns = [
         cellStyle: 
             {
                 textAlign: 'left', 
-                width: '20%'
-            }
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '120px'},
     },
     {
         title: 'Nama Media', 
         field: 'namaMedia',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
         cellStyle: 
             {
                 textAlign: 'center', 
-                width: '15%'
-            }
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '180px'},
     },
     {
-        title: 'Nama Media', 
-        field: 'namaMedia',
+        title: 'Harga (Rp.)', 
         headerStyle:
             {
-                textAlign: 'left', 
-                width: '30%'
+                textAlign: 'right', 
+                minWidth: '120px'
             },
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '30%'
-            }
+                textAlign: 'right', 
+                fontSize: 12
+            },
+        render: rowData => 
+            <div>
+                {formatAngka(rowData.harga_deal)}
+            </div>
     },
     {
         title: 'Tanggal Penyewaan', 
         headerStyle:
             {
                 textAlign: 'center', 
-                width: '20%'
+                minWidth: '180px'
             },
         cellStyle: 
             {
                 textAlign: 'center', 
-                width: '20%'
+                fontSize: 12
             },
         render: rowData => 
                 <div>
@@ -79,55 +78,62 @@ export const columns = [
 export const columnsPayment = [
     { 
         title: '#', 
-        cellStyle:{textAlign: 'center'},
-        headerStyle:{textAlign: 'center', width: '5%'},
+        cellStyle:{textAlign: 'center', fontSize: 12},
+        headerStyle:{textAlign: 'center', minWidth: '50px'},
         sorting: false,
         render: rowData => <div>{rowData.tableData.id + 1}</div>
     },
     {
-        title: 'ID Transaksi',
+        title: 'No. Transaksi',
         field: 'idTransaksi',
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '20%'
-            }
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '80px'},
+    },
+    {
+        title: 'Atas Nama', 
+        field: 'atas_nama',
+        cellStyle: 
+            {
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '180px'},
     },
     {
         title: 'Vendor',
         field: 'vendor',
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '20%'
-            }
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '150px'},
     },
     {
         title: 'No. Rekening', 
         field: 'no_rekening',
-        headerStyle:
-            {
-                textAlign: 'center', 
-                width: '15%'
-            },
         cellStyle: 
             {
                 textAlign: 'center', 
-                width: '15%'
-            }
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '150px'},
     },
     {
-        title: 'Atas Nama', 
-        field: 'atas_nama',
-        headerStyle:
-            {
-                textAlign: 'left', 
-                width: '30%'
-            },
+        title: 'Nominal (Rp.)', 
         cellStyle: 
             {
-                textAlign: 'left', 
-                width: '30%'
-            }
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '150px'},
+        render: rowData => 
+        <div>
+            {`${formatAngka(rowData.nominal)}`}
+        </div>
     }
 ];

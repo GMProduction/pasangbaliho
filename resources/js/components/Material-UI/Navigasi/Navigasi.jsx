@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import LoadingScreen from '../Dialog/LoadingScreen';
 import {withStyles} from '@material-ui/core';
 import Sidebar from './Sidebar';
+import Footer from './Footer';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';

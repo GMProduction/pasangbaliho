@@ -53,18 +53,27 @@ class TransaksiControll extends Controller
                 ->join('advertisers','transaksi.id_advertiser', '=', 'advertisers.id')
                 ->join('balihos', 'transaksi.id_baliho', '=', 'balihos.id_baliho')
                 ->join('kategoris', 'balihos.id_kategori', '=', 'kategoris.id_kategori')
+                ->join('clients', 'balihos.id_client', '=', 'clients.id_client')
                 ->select(
                     'id_transaksi',
                     'advertisers.id as idAdvertiser', 
                     'advertisers.nama as namaAdvertiser', 
                     'advertisers.telp as telp', 
                     'advertisers.email as email', 
+                    'advertisers.alamat as alamat', 
                     'advertisers.nama_instansi as namaInstansi', 
                     'transaksi.id_baliho as idBaliho',
                     'balihos.nama_baliho as namaBaliho', 
                     'balihos.id_client as idClient', 
+                    'clients.nama as namaClient', 
+                    'clients.nama_instansi as instansiClient', 
+                    'clients.email as emailClient', 
+                    'clients.telp as telpClient', 
+                    'clients.alamat as alamatClient', 
                     'balihos.id_kategori as idKategori', 
                     'balihos.harga_market as hargaMarket', 
+                    'balihos.harga_max as hargaMax', 
+                    'balihos.tampil_harga as tampilHarga', 
                     'kategoris.kategori as kategori', 
                     'harga_deal',
                     'transaksi.status',
@@ -170,6 +179,9 @@ class TransaksiControll extends Controller
                 'transaksi.id_baliho as idBaliho',
                 'balihos.nama_baliho as namaMedia', 
                 'balihos.id_kategori as idKategori', 
+                'balihos.harga_market as hargaMarket', 
+                'balihos.harga_max as hargaMax', 
+                'balihos.tampil_harga as tampilHarga',  
                 'kategoris.kategori as kategori', 
                 'harga_deal',
                 'transaksi.status',

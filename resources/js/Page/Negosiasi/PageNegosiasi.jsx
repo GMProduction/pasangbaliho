@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import PanelMenu from '../../components/Material-UI/Panel/PanelMenu/PanelMenu';
+import CenterPanel from '../../components/Material-UI/Panel/CenteredPanel/CenterPanel';
 import Fade from 'react-reveal/Fade';
-import {withStyles} from '@material-ui/core';
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
 import LoadingBar  from 'react-top-loading-bar';
 import Paper from '@material-ui/core/Paper';
@@ -53,23 +52,21 @@ export class PageNegosiasi extends Component {
                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
                 <MBreadcumb items={breadcumbItems}/>
                 <Fade right>
-                <Grid container justify='center' spacing={3}>
-                    <Grid item xs={12} sm={12} md={6} lg={6} >
-                        <PanelMenu
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={3} lg={3} >
+                        <CenterPanel
                                 link='/dashboard/negosiasi/permintaan'
                                 color='#20C1D5'
                                 icon='local_offer'
                                 title={`Permintaan Harga`}
-                                subTitle='Permintaan Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
                             />
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6} >
-                        <PanelMenu
+                    <Grid item xs={12} sm={12} md={3} lg={3} >
+                        <CenterPanel
                             link='/dashboard/negosiasi/negoharga'
                             color='#FC9007'
                             icon='monetization_on'
                             title={`Negosiasi Harga`}
-                            subTitle='Proses Negosiasi Harga Media Iklan Oleh Advertiser Untuk Memasang Iklan.'
                         />
                     </Grid>
                 </Grid>
