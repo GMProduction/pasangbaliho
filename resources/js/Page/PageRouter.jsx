@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import Testing from './Testing';
+import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../page/Dashboard/Dashboard';
 import PageMedia from './MediaIklan/PageMedia';
 import PageConfirmMedia from './MediaIklan/PageConfirmMedia';
@@ -16,12 +15,11 @@ import PageConfirmMitra from './Mitra/PageConfirmMitra';
 import PageAddMitra from './Mitra/PageAddMitra';
 import PageAdvertiser from './Advertiser/PageAdvertiser';
 import PageAddAdvertiser from './Advertiser/PageAddAdvertiser';
-import Test from './Auth/Test'
 import PagePembayaran from './Pembayaran/PagePembayaran';
 import PageListPembayaran from './Pembayaran/PageListPembayaran';
 import PageConfirmPayment from './Pembayaran/PageConfirmPayment';
 import pageManualPayment from './Pembayaran/pageManualPayment';
-import PagePaymentConfirm from './Pembayaran/PagePaymentConfirm';
+import PageManualConfirm from './Pembayaran/PageManualConfirm';
 
 import News from './News/News';
 import NewsForm from './News/NewsForm';
@@ -33,6 +31,8 @@ import PageConfirmMateri from './Materi/PageConfirmMateri';
 import Perlengkapan from './Perlengkapan/Perlengkapan';
 import PageLaporan from './Laporan/PageLaporan';
 import PageLaporanTransaksi from './Laporan/PageLaporanTransaksi';
+import PageNotFound from '../components/Material-UI/PageInfo/PageNotFound'
+import PageForbidden from '../components/Material-UI/PageInfo/PageForbidden'
 import Cookies from 'js-cookie'
 
 
@@ -45,9 +45,7 @@ const AdminRoute = ({role, component: Component, ...rest}) => {
                 props => role === 'admin' ? 
                 <Component  {...props} {...rest}/>
                 :
-                (<h1>
-                    Forbiden To Access
-                </h1>)
+                (<PageForbidden/>)
             }
 
         />
@@ -62,9 +60,7 @@ const RedaksiRoute = ({role, component: Component, ...rest}) => {
                 props => role === 'redaksi' ? 
                 <Component  {...props} {...rest}/>
                 :
-                (<h1>
-                    Forbiden To Access
-                </h1>)
+                (<PageForbidden/>)
             }
         />
     );
@@ -78,9 +74,7 @@ const MarketingRoute = ({role, component: Component, ...rest}) => {
                 props => role === 'marketing' ?
                 <Component  {...props} {...rest}/>
                 :
-                (<h1>
-                    Forbiden To Access
-                </h1>)
+                (<PageForbidden/>)
             }
         />
     );
@@ -97,7 +91,8 @@ export class PageRouter extends Component {
         const user = JSON.parse(Cookies.get('user'));
         const role = user.role;
         return (
-            <div>
+            <div >
+                <Switch>
                     <Route exact path='/dashboard' render={ props => <Dashboard {...props} role={role}/>}/>
 
                     <AdminRoute component={PageMitra} exact path='/dashboard/perlengkapan/mitra' role={role}/>
@@ -129,7 +124,7 @@ export class PageRouter extends Component {
                     <AdminRoute component={PageListPembayaran} exact path='/dashboard/pembayaran/list' role={role}/>
                     <AdminRoute component={PageConfirmPayment} exact path='/dashboard/pembayaran/list/:id' role={role}/>
                     <AdminRoute component={pageManualPayment} exact path='/dashboard/pembayaran/manual' role={role}/>
-                    <AdminRoute component={PagePaymentConfirm} exact path='/dashboard/pembayaran/manual:id' role={role}/>
+                    <AdminRoute component={PageManualConfirm} exact path='/dashboard/pembayaran/manual/:id' role={role}/>
                     
                     <AdminRoute component={PageListMateri} exact path='/dashboard/materi' role={role}/>
                     <AdminRoute component={PageConfirmMateri} exact path='/dashboard/materi/:id' role={role}/>
@@ -140,7 +135,8 @@ export class PageRouter extends Component {
 
                     <Route exact path='/dashboard/laporan' component={PageLaporan} />
                     <Route exact path='/dashboard/laporan/proses' component={PageLaporanTransaksi} />
-
+                    <Route component={PageNotFound}/>
+                </Switch>
             </div>
         );
     }

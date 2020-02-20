@@ -18,7 +18,7 @@ import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
 
 const breadcumbItems = [
     {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
-    {title: 'Daftar Proses Materi', icon: 'list',  active: true},
+    {title: 'Proses Materi', icon: 'library_books',  active: true},
 ];
 
 export class PageListMateri extends Component {
@@ -68,6 +68,7 @@ export class PageListMateri extends Component {
             }
         columns.push(aksi)
         await this.props.prepareMount()
+        await this.props.pageOnProgress(30, 'Sedang Melakukan Fetch Data...')
         await this.props.fetchNegosiasi('negomateri', '')
         await this.props.onMounted('Materi Iklan')
     }
@@ -135,6 +136,7 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),

@@ -5,10 +5,11 @@ import {
 } from '../Actions/type';
 
 import {mainApi} from '../Controller/APIControll';
+import Cookies from 'js-cookie'
 
 export const fetchPayment = (status, index, type) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -31,7 +32,7 @@ export const fetchPayment = (status, index, type) => {
 
 export const fetchPaymentById = (status, type, id) => {
     return async (dispatch) => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(Cookies.get('user'));
         const token = user.api_token;
         const configJSON = {
             headers: {
@@ -56,5 +57,30 @@ export const fetchPaymentById = (status, type, id) => {
             dispatch({type: FETCH_PAYMENT_BY_ID, data: null, dataFound: false})
         }
         
+    }
+}
+
+export const patchPayment = (data) => {
+    return async (dispatch) => {
+        const user = JSON.parse(Cookies.get('user'));
+        const token = user.api_token;
+        const configJSON = {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+token
+            }   
+        }
+
+        try{
+            let response = await mainApi.post('/payment/patchPayment', data, configJSON)
+            if (response.status === 200) {
+                return {status: 'success'}                
+            }
+        }catch(e){
+            alert('Terjadi Kesalahan /n'+e);
+            return {status: 'fail'}   
+        }
+
     }
 }

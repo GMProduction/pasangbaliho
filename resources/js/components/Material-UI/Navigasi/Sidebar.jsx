@@ -116,7 +116,7 @@ export class Sidebar extends Component {
                         <ListItem button classes={{button: classes.item}}
                         component={NavLink} to='/dashboard/materi'
                         >
-                            <Icon>library_books</Icon>Proses Materi Iklan
+                            <Icon>library_books</Icon>Materi
                         </ListItem>
                     </li>
                     </React.Fragment>

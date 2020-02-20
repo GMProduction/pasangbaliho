@@ -4,7 +4,6 @@ import LoadingBar  from 'react-top-loading-bar';
 import StatusBox from './Component/StatusBox';
 import Grid from '@material-ui/core/Grid';
 import PermintaanHarga from './Component/PermintaanHarga';
-import PermintaanPenambahanAsset from './Component/PermintaanPenambahanAsset';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
