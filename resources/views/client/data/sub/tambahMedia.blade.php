@@ -22,7 +22,7 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12">
 
-            <div class="card" style="height: 760px">
+            <div class="card" style="height: 660px">
                 <div class="header">
                     <h2 class="pb-2">
                         Informasi Media Iklan
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="card" style="height: 760px">
+            <div class="card" style="height: 660px">
                 <div class="header">
                     <h2 class="pb-2">
                         Informasi Umum
@@ -142,18 +142,6 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="venue">Venue :</label>
-                                <select name="venue" id="venue" class="form-control">
-                                    <option value="">- Pilih Venue -</option>
-                                    <option value="Street">Street</option>
-                                    <option value="Mall">Mall</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <div class="form-group">
                                 <label for="posisi">Posisi :</label>
                                 <select name="posisi" id="posisi" class="form-control">
                                     <option value="">- Pilih Posisi -</option>
@@ -162,6 +150,9 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-row">
+                       
                         <div class="col">
                             <div class="form-group">
                                 <label for="tampil">Tampil Muka :</label>
@@ -173,7 +164,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+
+                    {{-- <div class="form-group">
                         <label for="gambar1">Gambar 1 :</label>
                         <input type="file" class="form-control-file" name="gambar1" id="gambar1" placeholder="">
                     </div>
@@ -184,7 +176,7 @@
                     <div class="form-group">
                         <label for="gambar3">Gambar 3 :</label>
                         <input type="file" class="form-control-file" name="gambar3" id="gambar3" placeholder="">
-                    </div>
+                    </div> --}}
 
                     <div class="form-row">
                         <div class="col">

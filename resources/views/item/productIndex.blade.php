@@ -33,8 +33,7 @@
                         </div>
                         @php
                         $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                        $gantiTitik = str_replace('.','',$uri);
-                        $urlweb = str_replace(' ', '-', $gantiTitik);
+                        $urlweb = setUrl($uri);
                         $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                         @endphp
 

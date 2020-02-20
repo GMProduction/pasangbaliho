@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Master\productModel;
 use App\models\BalihoModel;
+use App\models\FotoBalihoModel;
 use App\models\KotaModel;
 use App\models\KategoriModel;
 use App\models\ProvinsiModel;
@@ -157,10 +158,14 @@ class assetClientController extends Controller
         $kota = $this->getKota();
         $kategori = $this->getKategori();
         $provinsi = $this->getProvinsi();
+        $foto = FotoBalihoModel::query()
+            ->where('id_baliho', '=', $id)
+            ->get();
         $data = [
             'kota' => $kota,
             'provinsi' => $provinsi,
             'kategori' => $kategori,
+            'foto' => $foto,
             'asset' => $aset
         ];
         // return $aset;

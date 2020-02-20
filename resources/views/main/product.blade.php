@@ -37,7 +37,7 @@
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
-                    <label for="">Text</label>
+                    <label for="">Pencarian</label>
                     <input type="text" name="txtCari" id="txtCari" class="form-control" placeholder="Masukkan kata kunci" value="{{old('txtCari')}}">
                 </div>
             
@@ -104,8 +104,7 @@
                             @forelse ($produk as $p)
                             @php
                             $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                            $gantiTitik = str_replace('.','',$uri);
-                            $urlweb = str_replace(' ', '-', $gantiTitik);
+                            $urlweb = setUrl($uri);
                         $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                            
                            @endphp

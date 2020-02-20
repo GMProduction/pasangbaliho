@@ -18,6 +18,11 @@
     .borderEdit {
         border-bottom: 4px solid #26A69A;
     }
+    img {
+  width:200px;
+  height:400px;
+  object-fit:cover;
+}
 </style>
 
 <script>
@@ -47,17 +52,19 @@
                     <div class="portlet light profile-sidebar-portlet bordered">
 
                         <div class="profile-userpic">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-responsive" alt="">
+                            <img id="imgAccount" src="https://bootdey.com/img/Content/avatar/avatar6.png" height="200" width="200" class="img-responsive" alt="">
                         </div>
                         <div class="profile-usertitle">
                             <div class="profile-usertitle-name"> {{$p->nama}} </div>
                             <div class="profile-usertitle-job"> Advertiser </div>
                         </div>
+                        <form action="updateImg" method="POST"  enctype="multipart/form-data">
                         <div class="profile-userbuttons pb-4">
-                            <input type="file" class="small">
+                        <input type="hidden" name="id" value="{{auth()->guard('advertiser')->user()->id}}">
+                            <input type="file" name="foto" id="poto" class="small"  onchange="showImgAccount(this)">
                             <button type="submit" class="btn btn-sm btn-info">Save</button>
                         </div>
-
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -151,7 +158,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Ya'
             }).then((result) => {
                 if(result.value){
                     // swal.fire({

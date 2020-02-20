@@ -6,12 +6,23 @@ use Illuminate\Support\Facades\DB;
 use App\models\FcmModel;
 use PHPHtmlParser\Dom;
 
-function parseBerita($isi){
+function parseBerita($isi)
+{
     $dom = new Dom;
-    $dom->loadStr($isi,[]);
+    $dom->loadStr($isi, []);
     $data = $dom->outerHTML;
     return $data;
 }
+
+function setUrl($uri)
+{
+    $strip = str_replace('-', ' ', $uri);
+    $doubleSpace = preg_replace('!\s+!', ' ', $strip);
+    $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'), '', $doubleSpace);
+    $urlweb = str_replace(' ', '-', $gantiTitik);
+    return $urlweb;
+}
+
 function formatRupiah($angka)
 {
     return "Rp " . number_format($angka, 0, ',', '.');
@@ -21,6 +32,8 @@ function formatDate($tanggal)
 {
     return date("Y-m-d", strtotime($tanggal));
 }
+
+
 
 function formatDateToSurat($tanggal)
 {

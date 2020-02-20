@@ -156,7 +156,7 @@
 
 
 
-    <div id="content">
+    <div id="content" style="">
         @yield('content')
     </div>
 

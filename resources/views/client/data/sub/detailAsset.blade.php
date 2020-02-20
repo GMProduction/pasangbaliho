@@ -131,49 +131,34 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="venue">Venue :</label>
-                                <input type="text" class="form-control" id="media" name="media" value="{{$a->venue}}"
-                                    readonly placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <div class="form-group">
                                 <label for="posisi">Posisi :</label>
                                 <input type="text" class="form-control" id="media" name="media" value="{{$a->posisi}}"
                                     readonly placeholder="">
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="tampil">Tampil Muka :</label>
-                                <input type="text" class="form-control" id="media" name="media"
-                                    value="{{$a->tampilan}} Muka" readonly placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row pb-3">
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" style="" class="img-fluid">
-                        </div>
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" class="img-fluid">
-                        </div>
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" class="img-fluid">
-                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" class="img-fluid">
+
+                        <div class="form-group">
+                            <label for="tampil">Tampil Muka :</label>
+                            <input type="text" class="form-control" id="media" name="media"
+                                value="{{$a->tampilan}} Muka" readonly placeholder="">
                         </div>
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" class="img-fluid">
+
+                    </div>
+                    <div class="form-row pb-3">
+                        @forelse ($foto as $f)
+                        <div class="col-sm-4">
+                            <img alt="" src="{{asset('assets/thumbnails/'.$f->url_foto)}}" width="" style=""
+                                class="img-fluid">
                         </div>
-                        <div class="col">
-                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" class="img-fluid">
+                        @empty
+                        <div class="col-sm-4">
+                            <img alt="" src="{{asset('assets/noimage.jpg')}}" width="" style="" class="img-fluid">
                         </div>
+
+                        @endforelse
+
                     </div>
 
                     {{-- <div class="form-row">

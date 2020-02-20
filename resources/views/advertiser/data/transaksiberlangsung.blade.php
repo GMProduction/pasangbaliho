@@ -45,11 +45,11 @@
                 <th class="text-center">Status</th>
                 <th  class="text-center" colspan="2" style="width: 50px" >Aksi</th>
             </tr>
-        @foreach ($trans as $d)
+        @foreach ($berlangsung as $key => $d)
         <tbody>
             <tr>
                 
-            <td class="text-center" rowspan="2" style=" vertical-align: middle">{{$loop->iteration}}</td>
+            <td class="text-center" rowspan="2" style=" vertical-align: middle">{{$berlangsung->firstItem() + $key}}</td>
                 <td class="text-center" rowspan="2"  ><img src="{{asset('assets/thumbnails/'.$d->url_foto)}}" alt="" height="60"></td>
                 <td class="text-center border-bottom-0" style="padding-bottom: 0" >{{$d->kategori}}</td>
                 <td class="text-center" rowspan="2" style=" vertical-align: middle" >{{formatDateToSurat($d->tanggal_transaksi)}}</td>
@@ -63,6 +63,7 @@
         </tbody>
         @endforeach
     </table>
+    {{$berlangsung->links()}}
     </div>
 
    

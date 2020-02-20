@@ -274,13 +274,13 @@ body #process .process-border {
                 <tr>
 
                     @if ($d->status == 'negomateri')
-                    <td style="vertical-align: middle">Negosiasi Materi <span
+                    <td style="vertical-align: middle">Proses Materi (Silahkan kirim materi melalui email / wa) <span
                             style="font-size: 10pt; font-weight: bold">
                             (Silahan kirim materi melalui WA admin) </span></td>
                     <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
                     <td class="text-center" style="vertical-align: middle">Proses</td>
                     @elseif(($d->status == 'selesai'))
-                    <td style="vertical-align: middle">Negosiasi Materi</td>
+                    <td style="vertical-align: middle">Proses Materi (Silahkan kirim materi melalui email / wa)</td>
                     <td class="text-center" style="vertical-align: middle">Kirim Materi</td>
                     <td class="text-center" style="vertical-align: middle"><i
                             class="fas fa-check-circle col-green   "></i></td>
@@ -300,22 +300,22 @@ body #process .process-border {
 
     <div id="hisPembayaran" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="">
-            <div class="modal-content">
+            <div class="modal-content" style="min-height: 400px">
 
                 <div class="modal-body">
                     <h5>History Pembayaran</h5>
                     <table class="table table-light">
                         <thead>
                             <tr>
-                                <td class="text-center">Tanggal</td>
-                                <td class="text-center">Bank</td>
-                                <td class="text-center">Nominal</td>
-                                <td class="text-center">Status</td>
-                                <td class="text-center">Keterangan</td>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Bank</th>
+                                <th class="text-center">Nominal</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($payment as $p)
+                            @forelse ($payment as $p)
                             <tr>
                                 <td>{{formatDateToSurat($p->created_at)}}</td>
                                 <td class="text-center">{{$p->vendor}}</td>
@@ -323,7 +323,11 @@ body #process .process-border {
                                 <td class="text-center">{{$p->status}}</td>
                                 <td>{{$p->keterangan}}</td>
                             </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">Belum Ada Data Pembayaran</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

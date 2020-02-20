@@ -384,7 +384,7 @@ Tawk_API.onLoad = function(){
                                         </div>
                                         @php
                                         $uri = $k->kategori.' '.$k->alamat.' '.$k->kota.' '.$k->provinsi;
-                                        $gantiTitik = str_replace('.','',$uri);
+                                        $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'),'',$uri);
                                         $urlweb = str_replace(' ', '-', $gantiTitik);
                                         $title =$k->alamat.', '.$k->kota.', '.$k->provinsi
                                         @endphp
@@ -504,7 +504,7 @@ Tawk_API.onLoad = function(){
                                         </div>
                                         @php
                                         $uri = $c->kategori.' '.$c->alamat.' '.$c->kota.' '.$c->provinsi;
-                                        $gantiTitik = str_replace('.','',$uri);
+                                        $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'),'',$uri);
                                         $urlweb = str_replace(' ', '-', $gantiTitik);
                                         $title =$c->alamat.', '.$c->kota.', '.$c->provinsi
                                         @endphp

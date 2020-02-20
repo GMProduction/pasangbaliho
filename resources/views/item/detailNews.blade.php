@@ -24,7 +24,7 @@
                     @foreach ($produk as $p)
                     @php
                     $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                    $gantiTitik = str_replace('.','',$uri);
+                    $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'),'',$uri);
                     $urlweb = str_replace(' ', '-', $gantiTitik);
                     $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                     @endphp
@@ -53,7 +53,7 @@
                     @foreach ($beritaSamping as $b)
                     @php
                     $uri = $b->judul;
-                    $gantiTitik = str_replace('.','',$uri);
+                    $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'),'',$uri);
                     $urlweb = str_replace(' ', '-', $gantiTitik);
                     @endphp
                     <a href="/news/details/{{$urlweb}}/{{$b->id_news}}">

@@ -32,7 +32,7 @@ Route::get('produk/{url}/{id}', 'Member\productController@detailProduct');
 Route::get('corus', 'Member\indexController@showCorus');
 
 
-Route::post('product/addTransaksi', 'Member\transaksiController@addTransaksi');
+Route::post('produk/addTransaksi', 'Member\transaksiController@addTransaksi');
 Route::get('news', 'Member\newsController@showNews');
 Route::get('news/details/{judul}/{id}', 'Member\newsController@showdetailNews');
 
@@ -68,6 +68,9 @@ Route::get('log', function () {
 Route::post('testlogin', 'Auth\LoginController@login');
 Route::GET('testlogout', 'Auth\LoginController@logout');
 
+
+
+
 Route::get('redirect/{driver}', 'Auth\Member\LoginController@redirectToProvider')->name('login.provider');
 Route::get('{driver}/callback', 'Auth\Member\LoginController@handleProviderCallback')->name('login.callback');
 
@@ -84,29 +87,40 @@ Route::group(['middleware' => 'ifNotGuest'], function () {
 
 
 Route::group(['middleware' => 'advertiser'], function () {
-    Route::get('logout', 'Auth\Member\LoginController@logout');
-    Route::get('dashboard', 'Member\advertiserController@showDashboard');
-    Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
-    Route::get('/dashboard/berlangsung/detail/{id}', 'Member\transaksiController@showDetailTransaksi');
-    Route::get('/dashboard/berlangsung/detail/payment/{id}', 'Member\transaksiController@showpayment');
-    Route::post('/dashboard/berlangsung/detail/payment/bayar', 'Member\paymentController@addPayment');
-    Route::get('/dashboard/profile', 'Member\advertiserController@showDetailProfil');
-    Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
-    Route::get('/dashboard/history', 'Member\historyController@dataHistory');
-    Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');
-    // Route::post('/dashboard/profile/editProfil', 'Member\profileController@editProfile');
-    Route::group(['prefix' => 'dashboard/profile'], function () {
-        Route::post('editProfil', 'Member\profileController@editProfile');
+    Route::group(['middleware' => 'verifikasi'], function () {
+        Route::get('dashboard', 'Member\advertiserController@showDashboard');
+        Route::get('dashboard/berlangsung', 'Member\transaksiController@showBerlangsung');
+        Route::get('/dashboard/berlangsung/detail/{id}', 'Member\transaksiController@showDetailTransaksi');
+        Route::get('/dashboard/berlangsung/detail/payment/{id}', 'Member\transaksiController@showpayment');
+        Route::post('/dashboard/berlangsung/detail/payment/bayar', 'Member\paymentController@addPayment');
+        Route::get('/dashboard/profile/{id}', 'Member\advertiserController@showDetailProfil');
+        Route::post('/dashboard/profile/updateImg', 'Member\advertiserController@editFoto');
+        Route::get('/dashboard/notifikasi', 'Member\advertiserController@showNotif');
+        Route::get('/dashboard/history', 'Member\historyController@dataHistory');
+        Route::get('/dashboard/berjalan', 'Member\berjalanController@dataBerjalan');
+        Route::get('/dashboard/berjalan/detail/{id}', 'Member\transaksiController@showDetailTransaksi');
+        // Route::post('/dashboard/profile/editProfil', 'Member\profileController@editProfile');
+        Route::group(['prefix' => 'dashboard/profile'], function () {
+            Route::post('editProfil', 'Member\profileController@editProfile');
+        });
+        // Route::get('/payment', 'Member\testIpay88@posIpay');
+        Route::post('/payment', 'Member\transaksiController@showpayment');
+        
     });
-    // Route::get('/payment', 'Member\testIpay88@posIpay');
-    Route::post('/payment', 'Member\transaksiController@showpayment');
+    Route::get('logout', 'Auth\Member\LoginController@logout');
+    Route::GET('verifikasi', function () {
+        return view('auth.member.verifikasi');
+    });
+    Route::post('verifikasi','Auth\Member\LoginController@verifikasi');
 });
 // Client Dashboar
 Route::group(['middleware' => 'client'], function () {
     Route::get('logoutClient', 'Auth\Member\LoginClientController@logoutClient');
     Route::get('dashboardClient', 'Member\Client\clientController@showDashboard');
     Route::group(['prefix' => 'dashboardClient'], function () {
-        Route::get('profile', 'Member\Client\profileController@getDataProfile');
+        Route::get('profile/{id}', 'Member\Client\profileController@getDataProfile');
+        Route::post('profile/editProfil', 'Member\Client\profileController@editProfile');
+        Route::post('profile/editProfilKhusus', 'Member\Client\profileController@editProfilKhusus');
         Route::get('disewa', 'Member\Client\disewaController@showDisewa');
         Route::get('history', 'Member\Client\historyController@showHistory');
         Route::get('asset', 'Member\Client\assetClientController@showAsset')->name('asset');
