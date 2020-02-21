@@ -126,8 +126,7 @@
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo" style="cursor: pointer">
             <h5 class="mb-0">Metode Pembayaran Cek Otomatis</h5>
-            <p class="mb-0">Jika anda memilih metode pembayaran <b>Cek Otomatis</b> maka transaksi anda akan langsung di
-                sek oleh
+            <p class="mb-0">Jika anda memilih metode pembayaran <b>Cek Otomatis</b> maka transaksi anda akan langsung dicek oleh
                 sistem</p>
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
