@@ -9,21 +9,25 @@
             <div class="col-md-6 col-sm-12 forms-right-icons">
                 <div class="section-heading">
                     <h2 class="warnaGreen">Login <span></span></h2>
-                    <p class="subheading">Ini adalah halaman login untuk anda yang sudah mendaftar sebagai Client / Advertiser. Jika anda belum mempunyai akun, silahkan klik <a href="/registration">Register</a> untuk mendaftar.
+                    <p class="subheading">Ini adalah halaman login untuk anda yang sudah mendaftar sebagai Client /
+                        Advertiser. Jika anda belum mempunyai akun, silahkan klik <a href="/registration">Register</a>
+                        untuk mendaftar.
                     </p>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-user"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Klien</h4>
-                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan yang bergerak di bidang jasa pemasangan iklan.</p>
+                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan yang bergerak di bidang jasa
+                            pemasangan iklan.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-2 icon"><i class="fa fa-user"></i></div>
                     <div class="col-xs-10 datablock">
                         <h4>Advertiser</h4>
-                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan / Orang yang ingin mempromosikan produk anda dengan media iklan yang kami miliki.</p>
+                        <p>Untuk anda yang sudah mempunyai akun sebagai Perusahaan / Orang yang ingin mempromosikan
+                            produk anda dengan media iklan yang kami miliki.</p>
                     </div>
                 </div>
 
@@ -51,23 +55,29 @@
                                 <form role="form" action="/loginAdvertiser" class="login-form" method="POST">
                                     @csrf
                                     <div class="input-group form-group">
-                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                                        <span class="input-group-addon" id="basic-addon1"><i
+                                                class="fa fa-envelope"></i></span>
                                         <input type="text" class="form-control" name="email" placeholder="email"
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group form-group">
-                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i></span>
-                                        <input type="password" class="form-control" name="password" placeholder="Password"
-                                            aria-describedby="basic-addon1">
+                                        <span class="input-group-addon" id="basic-addon1"><i
+                                                class="fa fa-unlock"></i></span>
+                                        <input type="password" class="form-control" name="password"
+                                            placeholder="Password" aria-describedby="basic-addon1">
                                     </div>
-                                    <button type="submit" class="btn btn-link-1 btn-link-1-twitter btn-block"> <i class="fas fa-sign-in-alt"></i> Masuk</button>
-                                    <a class="btn btn-link-1 btn-link-1-google-plus btn-block" href="{{ route('login.provider', 'google') }}">
-                                        <i class="fab fa-google"></i> Google
-                                    </a>
+                                    <div class="social-login-buttons">
+                                        <button type="submit" class="btn btn-link-1 btn-link-1-twitter btn-block"> <i
+                                                class="fas fa-sign-in-alt"></i> Masuk</button>
+                                        <a class="btn btn-link-1 btn-link-1-google-plus btn-block"
+                                            href="{{ route('login.provider', 'google') }}">
+                                            <i class="fab fa-google"></i> Google
+                                        </a>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-        
+
                         {{-- <div class="social-login">
                             <h3>...or login with:</h3>
                             <div class="social-login-buttons">
@@ -98,24 +108,27 @@
                                 <form role="form" action="/loginClient" class="login-form" method="POST">
                                     @csrf
                                     <div class="input-group form-group">
-                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                                        <span class="input-group-addon" id="basic-addon1"><i
+                                                class="fa fa-envelope"></i></span>
                                         <input type="text" class="form-control" name="email" placeholder="email"
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group form-group">
-                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i></span>
-                                        <input type="password" class="form-control" name="password" placeholder="Password"
-                                            aria-describedby="basic-addon1">
+                                        <span class="input-group-addon" id="basic-addon1"><i
+                                                class="fa fa-unlock"></i></span>
+                                        <input type="password" class="form-control" name="password"
+                                            placeholder="Password" aria-describedby="basic-addon1">
                                     </div>
-                                    <button type="submit" class="btn btn-link-1 btn-link-1-twitter btn-block"> <i class="fas fa-sign-in-alt"></i> Masuk</button>
-                                    
+                                    <button type="submit" class="btn btn-link-1 btn-link-1-twitter btn-block"> <i
+                                            class="fas fa-sign-in-alt"></i> Masuk</button>
+
                                 </form>
 
                                 {{-- <h3>Masih Dalam Perbaikan</h3> --}}
                             </div>
-                                
+
                         </div>
-        
+
                         {{-- <div class="social-login">
                             <h3>...or login with:</h3>
                             <div class="social-login-buttons">
@@ -135,7 +148,7 @@
 
                 </div>
 
-               
+
 
             </div>
         </div>

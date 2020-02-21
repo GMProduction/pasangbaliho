@@ -4,6 +4,7 @@ import Icon from '@material-ui/core/Icon';
 import Box from '@material-ui/core/Box';
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import Grid from '@material-ui/core/Grid';
@@ -14,24 +15,12 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
-import {fetchNegosiasiAndSaldoById} from '../../Actions/NegosiasiActions'; 
-import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched} from '../../Actions/pageActions';
-import {redirectPage } from '../../Actions/pageActions';
-import {withStyles} from '@material-ui/core';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import {mainApi} from '../../Controller/APIControll';
-import NumberFormat from 'react-number-format';
-import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+import PageNoData from '../../components/Material-UI/PageInfo/PageNoData';
+import {fetchNegosiasiAndSaldoById, patchNegosiasi} from '../../Actions/NegosiasiActions'; 
+import {prepareMount, pageOnProgress, onMounted, prepareSearch, onSearched, onSubmit, onNotify} from '../../Actions/pageActions';
 
-const useStyles = theme => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-        },
-});
+import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+import {dateFormater, formatAngka} from '../../Controller/Helper';
 
 const breadcumbItems = [
     {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
@@ -44,72 +33,73 @@ export class PageConfirmMateri extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lampiran: null,
-            hargaDeal: 0,
-            submitProses: false,
             redirect: false,
-            error: false,success: false
+            batal: false,
+            notif: true,
+            keterangan: ''
         }
     }
 
-    handleSave = async () =>{
-        const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.api_token;
-        const configJSON = {
-            headers: {
-                'content-type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+token
-            }
-        }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleNotif = (e) => {
+        this.setState({notif: !this.state.notif})
+    }
+
+    handleCancel = () => {
+        this.setState({batal: !this.state.batal})
+    }
+
+    handleSave = async (cancel) =>{
+        this.props.onSubmit(true, 'Sedang Menyimpan Data...')
         let data = new FormData();
         data.append('idTransaksi', this.props.negosiasi.dataNegosiasiById.id_transaksi)
-        data.append('status', 'negomateri')
+        if(cancel){
+            data.append('status', 'batal')
+            data.append('keterangan', this.state.keterangan)
+        }else{
+            data.append('status', 'negomateri')
+        }
         data.append('idAdvertiser', this.props.negosiasi.dataNegosiasiById.idAdvertiser)
         data.append('idClient', this.props.negosiasi.dataNegosiasiById.idClient)
-        this.setState({submitProses: true,})
-        try{
-            let response = await mainApi.post('/negosiasi/patchTransaksi', data, configJSON)
-            if (response.status === 200) {
-                window.open('https://api.whatsapp.com/send?phone='+this.props.negosiasi.dataNegosiasiById.telp+
-                '&text=Terima Kasih '+this.props.negosiasi.dataNegosiasiById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com. Selamat, Proses Negosiasi Materi Anda Telah Selesai, Pemasangan Iklan Anda Akan Segera Kami Proses.', '_blank')
-                
-                this.setState({submitProses: false,})
-                this.setState({error: false,success: true})
-                this.setState({
-                    redirect: true
-                })
+        let response = await this.props.patchNegosiasi(data)
+        if (response.status === 'success'){
+            let text = ''
+            if(cancel){
+                text = 'Mohon Maaf Transaksi Anda Kami Batalkan, di Karenakan '+this.state.keterangan
+            }else{
+                text = 'Transaksi Anda Sudah Selesai. Media Iklan Anda Akan Segera Kami Pasang'
             }
-        }catch(e){
-            alert('Terjadi Kesalahan /n'+e);
-            this.setState({submitProses: false,})
-            this.setState({error: true,success: false})
+
+            if (this.state.notif){
+                window.open('https://api.whatsapp.com/send?phone='+this.props.negosiasi.dataNegosiasiById.telp+
+            '&text='+text+'. Terima Kasih '+this.props.negosiasi.dataNegosiasiById.namaAdvertiser+' Telah Menggunakan Jasa pasangbaliho.com', '_blank')
+            }
+            
+            this.props.onNotify(true, 'success', 'Berhasil Menyimpan Data')
+            this.setState({
+                redirect: true
+            })
+        }else{
+            this.props.onNotify(true, 'error', 'Gagal Menyimpan Data')
         }
+        this.props.onSubmit(false, '')
     }
 
     async componentDidMount () {
         let id = this.props.match.params.id;
-        let filter = this.props.filter;
         await this.props.prepareMount()
+        await this.props.pageOnProgress(30, 'Sedang Melakukan Fetch Data...')
         await this.props.fetchNegosiasiAndSaldoById(id)
         await this.props.onMounted('Materi Iklan')
     }
 
-    handleCloseSnackBar = (param) => {
-        if(param === 'error'){
-            this.setState({
-                error: false
-            })
-        }else{
-            this.setState({
-                success: false
-            })
-        }
-    }
-
     render(){
 
-        const { classes } = this.props;
         const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
         const {dataNegosiasiByIdFound, dataNegosiasiById} = this.props.negosiasi;
     
@@ -125,190 +115,183 @@ export class PageConfirmMateri extends Component {
         if (dataNegosiasiByIdFound !== true) {
             return(
                 <div>
-                    <h1>DATA NOT FOUND</h1>
+                    <PageNoData/>
                 </div>
             )
         }
 
         if (this.state.redirect === true) {
-            let url = '/dashboard/pembayaran/list';
+            let url = '/dashboard/materi';
             return <Redirect to={url} />
         }
 
         return(
             <div>
                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
-                 <MBreadcumb items={breadcumbItems}/>
-                 <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.error} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('error')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('error')} color="error">
-                        Gagal Dalam Menyimpan Data. harap Isi Data Dengan Benar.
-                    </Alert>
-                </Snackbar>
-                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={this.state.success} autoHideDuration={3000} onClose={() => this.handleCloseSnackBar('success')}>
-                    <Alert onClose={() => this.handleCloseSnackBar('success')} color="success">
-                        Berhasil Menyimpan Data.
-                    </Alert>
-                </Snackbar>
-                
+                <MBreadcumb items={breadcumbItems}/>
                 <Fade bottom>
                 <Grid container justify='center' spacing={2}>
-                <Grid item xs={12} sm={12} md={12} lg={8}>
+                <Grid item xs={12} sm={12} md={12} lg={10}>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                        <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Proses Pembayaran</Box>
+                            <Box flexGrow={1} display="flex" alignItems="center">DETAIL PERMOHONAN</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Advertiser</Box>
-                                    <Box>:</Box>
-                                </Box>
+                        <Box style={{marginBottom: '15px'}} fontWeight='Bold' fontSize={26} display='flex' justifyContent='flex-end'>
+                            {`Transaksi #${dataNegosiasiById.id_transaksi}`}
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Box fontWeight='Bold'>Pemohon :</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.namaInstansi}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.namaAdvertiser}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.alamat}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.email}</Box>
+                                <Box fontWeight={300}>{`(+)${dataNegosiasiById.telp}`}</Box>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaAdvertiser}</Box>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Box style={{paddingRight: '20px'}} display='flex' justifyContent='flex-end' alignItems='center'>
+                                <img src={dataNegosiasiById.paymentStatus === 'Lunas' ? `/assets/properties/paid.png` : `/assets/properties/unpaid.png`} height="100"></img>
+                                </Box>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                        <Box style={{ backgroundColor: '#EEEEEE', marginBottom: '15px', padding: '15px', borderStyle: 'solid', borderWidth: '1px', borderRadius: '5px', borderColor: 'grey'}}>
+                            <Box display='flex' justifyContent='center' fontWeight='Bold'>
+                                INFORMASI PEMAKAIAN
+                            </Box>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Tgl. Pengajuan
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dateFormater(dataNegosiasiById.tanggal_transaksi)}`}
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Jenis Media
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dataNegosiasiById.kategori}`}
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={1}>
+                            <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Nama Media
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dataNegosiasiById.namaBaliho}`}
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={1}>
+                            <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Tgl. Pemakaian
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                {`: ${dateFormater(dataNegosiasiById.tanggal_awal)} Sampai Dengan ${dateFormater(dataNegosiasiById.tanggal_akhir)}`}
+                                </Grid>
+                            </Grid>
+                            {
+                                dataNegosiasiById.tampilHarga !== 'tidak terlihat' ?
+                                    <Grid container spacing={1}>
+                                    <Grid item xs={12} sm={3} md={3} lg={3}>
+                                            Kisaran Harga
+                                    </Grid>
+                                    <Grid item xs={12} sm={8} md={8} lg={8}>
+                                        {dataNegosiasiById.tampilHarga !== 'range' ?
+                                            ': Rp. '+formatAngka(dataNegosiasiById.hargaMarket)
+                                            :
+                                            ': Rp. '+formatAngka(dataNegosiasiById.hargaMarket)+ ' - Rp. '+ formatAngka(dataNegosiasiById.hargaMax)
+                                        }
+                                    </Grid>
+                                    </Grid>
+                                : 'Negosiasi Dengan Admin'
+                            }
+                        </Box>
+                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                        {
+                            this.state.batal ? 
+                            <React.Fragment>
+                                <TextField name='keterangan' id="keterangan" label="Keterangan Pembatalan" margin="dense" variant="outlined" fullWidth multiline rows="5"
+                            value={this.state.keterangan} onChange={this.handleChange}/>
+                            <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                            </React.Fragment>
+                            :
+                            ''
+                        }
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Instansi</Box>
+                                    <Box flexGrow={1} display='flex' fontWeight='bold' fontSize={16}>Harga Kesepakatan</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaInstansi}</Box>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
+                                <Box display='flex' fontWeight='bold' fontSize={16}>
+                                    <Box flexGrow={1}>Rp.</Box>
+                                    <Box justifyContent='flex-end'>{`${formatAngka(dataNegosiasiById.harga_deal)}`}</Box>
+                                </Box>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Email</Box>
+                                    <Box flexGrow={1} display='flex' fontWeight='bold' fontSize={16}>Pembayaran</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.email}</Box>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
+                                <Box display='flex' fontWeight='bold' fontSize={16}>
+                                    <Box flexGrow={1}>Rp.</Box>
+                                    <Box justifyContent='flex-end'>{`${formatAngka(dataNegosiasiById.Pembayaran)}`}</Box>
+                                </Box>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
                                 <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>No. Hp</Box>
+                                    <Box flexGrow={1} display='flex' fontWeight='bold' fontSize={16}>Saldo</Box>
                                     <Box>:</Box>
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.telp}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Tgl. Pengajuan Sewa</Box>
-                                    <Box>:</Box>
+                            <Grid item xs={12} sm={12} md={3} lg={3}>
+                                <Box display='flex' fontWeight='bold' fontSize={16}>
+                                    <Box flexGrow={1}>Rp.</Box>
+                                    <Box justifyContent='flex-end'>{`${formatAngka(dataNegosiasiById.saldo)}`}</Box>
                                 </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{`${dataNegosiasiById.tanggal_awal} s/d ${dataNegosiasiById.tanggal_akhir}`}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Jenis Media</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.kategori}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Nama Media</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaBaliho}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Harga Kesepakatan</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.harga_deal}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Pembayaran</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.Pembayaran}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Saldo</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.saldo}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Status</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.paymentStatus}</Box>
+                                
                             </Grid>
                         </Grid>
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
-                            <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleSave}>
-                                Cancel
-                            </Button>
-                            <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={this.handleSave}>
-                                Submit
-                            </Button>
+                            <Box flexGrow={1}>
+                                <Checkbox
+                                    name='notif'
+                                    checked={this.state.notif}
+                                    onChange={this.handleNotif}
+                                    value="secondary"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                />
+                                Kirim Pemberitahuan Ke Whatsapp
+                            </Box>
+                            <Box>
+                                <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleCancel}>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" style={{marginLeft: '10px'}} startIcon={<Icon>check</Icon>} onClick={() => this.handleSave(this.state.batal)}>
+                                    Submit
+                                </Button>
+                            </Box>
                         </Box>
                         </BasicPanelContent>
                     </BasicPanel>
                 </Grid>
                 </Grid>
                 </Fade>
-                <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.submitProses}
-                >
-                    <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Box>
-                            <Box display='flex' justifyContent='center' style={{marginBottom: '10px'}}>
-                                <CircularProgress color="inherit" />
-                            </Box>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
-                            Mohon Tunggu Sebentar. Sedang Menyimpan Data...
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                </Backdrop>
             </div>
         );
     }
@@ -324,19 +307,17 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         fetchNegosiasiAndSaldoById: bindActionCreators(fetchNegosiasiAndSaldoById, dispatch),
+        patchNegosiasi: bindActionCreators(patchNegosiasi, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),
-        redirectPage: bindActionCreators(redirectPage, dispatch),
+        onSubmit: bindActionCreators(onSubmit, dispatch),
+        onNotify: bindActionCreators(onNotify, dispatch),
     }
 }
 
 export default compose(
-    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps) 
     )(PageConfirmMateri);
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }

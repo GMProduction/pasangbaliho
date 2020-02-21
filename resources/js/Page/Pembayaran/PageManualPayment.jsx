@@ -5,9 +5,8 @@ import LoadingBar  from 'react-top-loading-bar';
 
 import Box from '@material-ui/core/Box';
 import {BasicPanel, BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
-import BasicTable from '../../components/Material-UI/Table/BasicTable';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CustomTable from '../../components/Material-UI/Table/CustomTable';
 
 import { NavLink } from 'react-router-dom';
 import { columnsPayment } from './Properties/Properties';
@@ -36,36 +35,17 @@ export class PageManualPayment extends Component {
         await this.props.onSearched()
     }
 
-    onSearch = async (e) => {
-        let key = e.target.value;
-        if (e.keyCode === 13) {
-            this.handleSearch(key);
-        }        
-    }
-
-    handleChange = async (e) => {
-        let v = e.target.value;
-        if (v === '') {
-            this.handleSearch(v);
-        }
-        this.setState({
-            searchKey: e.target.value
-        })
-    }
     
     async componentDidMount(){
         
         const aksi = {
             title: 'Aksi',
-            headerStyle:
-                {
-                    textAlign: 'center', 
-                    width: '15%'
-                },
-            cellStyle:
-                {
-                    textAlign: 'center',
-                },
+            cellStyle: 
+            {
+                textAlign: 'center', 
+                fontSize: 12
+            },
+        headerStyle:{textAlign: 'center', minWidth: '120px'},
             sorting: false,
             render: rowData => 
                         <div>
@@ -108,21 +88,13 @@ export class PageManualPayment extends Component {
                             <Box flexGrow={1}>Daftar Pembayaran Manual Transfer</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar Pembayaran Manual Transfer</Box>
-                                <Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Cari"
-                                        margin="dense"
-                                        variant="outlined"
-                                        value={this.state.searchKey}
-                                        onChange={this.handleChange}
-                                        onKeyUp={this.onSearch}
-                                    />
-                                </Box>
-                            </Box>
-                            <BasicTable columns={columnsPayment} data={dataPayment} loading={dataLoading}/>
+                            <CustomTable 
+                                title='Daftar Pembayaran Masuk Via Transfer Manual' 
+                                onSearch={ (value) => {this.handleSearch(value)}} 
+                                columns={columnsPayment}
+                                data={dataPayment}
+                                loading={dataLoading}
+                                />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>

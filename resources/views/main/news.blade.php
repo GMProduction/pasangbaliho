@@ -12,7 +12,7 @@
                     @foreach ($beritaCorusel as $b)
                     @php
                     $uri = $b->judul;
-                    $gantiTitik = str_replace('.','',$uri);
+                    $gantiTitik = str_replace(str_split('\\/:*?"<>|,.+-'),'',$uri);
                     $urlweb = str_replace(' ', '-', $gantiTitik);
 
                     @endphp
@@ -133,6 +133,10 @@
 
     @endforeach
 </div> --}}
+
+<script>
+   
+</script>
 
 <script src="{{asset('js/slider.js')}}"></script>
 

@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="col-md-11 col-sm-11 col-xs-11">
                                     <label for="terms" style="font-size: 10pt">Dengan masuk atau mendaftar saya menerima
-                                        <a href="/s&k" target="_blank"
+                                        <a href="/syarat-dan-ketentuan" target="_blank"
                                             title="You may read our terms and conditions by clicking on this link"
                                             class="text-primary">Syarat dan
                                             Ketentuan</a>

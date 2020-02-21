@@ -145,7 +145,7 @@
                         <span class="menu-collapsed">Dashboard</span>
                     </div>
                 </a>
-                <a href="/dashboard/profile"
+                <a href="/dashboard/profile/{{auth()->guard('advertiser')->user()->id}}"
                     class="bg-dark list-group-item list-group-item-action navprofile">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-user fa-fw mr-3"></span>

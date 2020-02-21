@@ -27,14 +27,13 @@
                             @else
                             <img alt="" src="{{asset('assets/thumbnails/'.$p->url_foto)}}">
                             @endif
-                            <div class="bottom-left pr-2 pl-2 "
-                                style=";background-color: green; font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
+                            <div class="bottom-left pr-2 pl-2 backgroundGreen "
+                                style=" font-size: 8pt; border-radius: 0.5rem; font-weight: bolder">
                                 {{$p->kategori}}, {{$p->orientasi}}</div>
                         </div>
                         @php
                         $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
-                        $gantiTitik = str_replace('.','',$uri);
-                        $urlweb = str_replace(' ', '-', $gantiTitik);
+                        $urlweb = setUrl($uri);
                         $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
                         @endphp
 

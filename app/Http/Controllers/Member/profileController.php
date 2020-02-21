@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Master\advertiserModel as MasterAdvertiserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\models\AdvertiserModel;
-
+use Image;
 
 class profileController extends Controller
 {
@@ -65,4 +66,38 @@ class profileController extends Controller
             }
         }
     }
+
+    public function editFoto(Request $r){
+        if ($r->hasFile('foto')) {
+            $image = $r->file('foto');
+            $namaFoto = $r->id . '.' . $image->getClientOriginalExtension();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize16 = Image::make($image->getRealPath());
+            $image_resize->resize(200, 200);
+            $image_resize16->resize(20, 20);
+            $image_resize->save(public_path('assets/account/' . $namaFoto));
+            $image_resize16->save(public_path('assets/account/avatar/' . $namaFoto));
+        } else {
+            $namaFoto = '';
+        }
+        try {
+            $id = $r->id;
+            $data = [
+                'avatar' => $namaFoto,
+                
+            ];
+            MasterAdvertiserModel::query()
+                ->where('id', '=', $id)
+                ->update($data);
+                return redirect('/member');
+        } catch (\Throwable $e) {
+            $exData = explode('(', $e->getMessage());
+                Alert::error('Gagal Merubah Data \n' . $exData[0], 'Ooops');
+                // return redirect()->back()->withInput();
+                echo 'asd';
+            //throw $th;
+        }
+  
+    }
+
 }

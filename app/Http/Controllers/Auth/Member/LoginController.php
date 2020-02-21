@@ -48,8 +48,8 @@ class LoginController extends Controller
             'email' => $user->getEmail()
         ], [
             'nama' => $user->getName(),
-            'api_token' => Hash::make($user->getEmail()),
-            'email_verified_at' => Carbon::now()
+            'api_token' => Hash::make($user->getEmail())
+            // 'email_verified_at' => Carbon::now()
             
         ]);
         $data = [
@@ -57,11 +57,49 @@ class LoginController extends Controller
             'text' => 'Anda login sebagai advertiser',
             'icon' => 'success'
         ];
-        Auth::guard('advertiser')->login($create, true);
-        return redirect($this->redirectPath())->with($data);
-        // echo $create;
+        $verif = [
+            'email' => $user->getEmail()
+        ];
+        Auth::guard('advertiser')->login($create, false);
+        if(auth()->guard('advertiser')->user()->telp == null){
+            return redirect('verifikasi')->with($verif);
+        }else{
+            
+            return redirect($this->redirectPath())->with($data);
+        }
+       
+        //  echo auth()->guard('advertiser')->user()->email_verified_at;
     } catch (\Exception $e) {
         return redirect()->route('login');
+    }
+}
+
+public function verifikasi(Request $r){
+    try {
+        //code...
+        $massage = [
+            'status' => 'Berhasil',
+            'text' => 'Terimakasih sudah melakukan verifikasi',
+            'icon' => 'success'
+        ];
+        $data = [
+            'email_verified_at' => Carbon::now(),
+            'nama_instansi' => $r->nama_instansi,
+            'telp' => $r->telp,
+            'alamat' => $r->alamat,
+        ];
+        advertiserModel::query()
+            ->where('id','=',$r->id)
+            ->update($data);
+        return redirect('/')->with($massage);
+    } catch (\Throwable $th) {
+        //throw $th;
+        $massage = [
+            'status' => 'Gagal',
+            'text' => 'Gagal verifikasi data '.$th,
+            'icon' => 'warning'
+        ];
+        return redirect()-back()-with($massage);
     }
 }
 
@@ -82,7 +120,7 @@ class LoginController extends Controller
         } else {
             $data = [
                 'status' => 'Login Gagal',
-                'title' => 'Password / Email tidak cocok',
+                'text' => 'Password / Email tidak cocok',
                 'icon' => 'success'
             ];
             // Alert::error('Periksa username atau password anda', 'Gagal');

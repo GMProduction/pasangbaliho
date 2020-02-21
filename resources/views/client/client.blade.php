@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap4/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/collapse.css')}}">
     <link rel="stylesheet" href="{{asset('css/skin.css')}}">
-
     <link rel="stylesheet" href="{{asset('css/client.css')}}">
+    
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 
     <link rel="stylesheet" href="{{asset('css/padding.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+
 
 
     <style>
@@ -63,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                    <a href="/dashboardClient/profile/" class="nav-link navprofile">
+                <a href="/dashboardClient/profile/{{auth()->guard('client')->user()->id_client}}" class="nav-link navprofile">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-user fa-fw mr-3"></span>
                             <span class="menu-collapsed">Profile</span>
@@ -141,7 +143,7 @@
                     </div>
                 </a>
 
-                <a href="/dashboardClient/profile" class="bg-dark list-group-item list-group-item-action navprofile ">
+                <a href="/dashboardClient/profile/{{auth()->guard('client')->user()->id_client}}" class="bg-dark list-group-item list-group-item-action navprofile ">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-user fa-fw mr-3"></span>
                         <span class="menu-collapsed">Profile</span>
@@ -200,7 +202,6 @@
     </div><!-- body-row END -->
 
     <script src="{{asset('css/bootstrap4/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script src="{{asset('js/collapse.js')}}"></script>
     <script src="{{asset('js/client.js')}}"></script>
 

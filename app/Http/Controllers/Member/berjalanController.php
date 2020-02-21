@@ -20,7 +20,7 @@ class berjalanController extends Controller
 
         $c = Carbon::now();
 
-        $query = transaksiModel::query()
+        $berjalan = transaksiModel::query()
             ->select(
                 'transaksi.*',
                 'balihos.id_baliho as id_baliho',
@@ -52,13 +52,11 @@ class berjalanController extends Controller
             ->where('id_advertiser', '=', $id)
             ->where('transaksi.status','=','selesai')
             ->where('transaksi.tanggal_akhir','>=',$c)
-            ->get();    
+            ->paginate(10); 
 
-        $data = [
-            'trans' => $query
-        ];
+        
 
-        return view('advertiser/data/berjalan')->with($data);
+        return view('advertiser/data/berjalan', compact('berjalan'));
         // echo $data;
     }
 }

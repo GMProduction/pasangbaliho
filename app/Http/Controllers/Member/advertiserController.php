@@ -85,12 +85,9 @@ class advertiserController extends Controller
         return view('advertiser.index')->with($data);
     }
 
-    public function showDetailProfil()
+    public function showDetailProfil($id)
     {
-        if (auth()->guard('advertiser')->check()) {
-            $id = auth()->guard('advertiser')->user()->id;
-        }
-
+    
 
 
         $query = advertiserModel::query()

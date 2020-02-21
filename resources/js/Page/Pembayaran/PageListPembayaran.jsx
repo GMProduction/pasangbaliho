@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import BasicPanel, {BasicPanelHeader, BasicPanelContent} from '../../components/Material-UI/Panel/Basicpanel/BasicPanel';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import CustomTable from '../../components/Material-UI/Table/CustomTable';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import BasicTable from '../../components/Material-UI/Table/BasicTable';
 import Fade from 'react-reveal/Fade';
 import LoadingBar  from 'react-top-loading-bar';
 import compose from 'recompose/compose';
@@ -32,31 +31,13 @@ export class PageListPembayaran extends Component{
     }
 
     handleSearch = async (key) => {
-        let filter = this.props.filter;
         await this.props.prepareSearch()
         await this.props.fetchNegosiasi('pembayaran', key)
         await this.props.onSearched()
     }
 
-    onSearch = async (e) => {
-        let key = e.target.value;
-        if (e.keyCode === 13) {
-            this.handleSearch(key);
-        }        
-    }
-
-    handleChange = async (e) => {
-        let v = e.target.value;
-        if (v === '') {
-            this.handleSearch(v);
-        }
-        this.setState({
-            searchKey: e.target.value
-        })
-    }
 
     async componentDidMount () {
-        let filter = this.props.filter;
         const aksi = {title: 'Aksi',headerStyle:{textAlign: 'center',width: '15%'},cellStyle:{textAlign: 'center',width: '15%'},sorting: false,
                 render: rowData => 
                 <div>
@@ -69,9 +50,10 @@ export class PageListPembayaran extends Component{
                 </div>
             }
         columns.push(aksi)
-        await this.props.prepareMount()
+        await this.props.prepareMount('Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
+        await this.props.pageOnProgress(30, 'Mohon tunggu Sebentar. Sedang Melakukan Fetch Data...')
         await this.props.fetchNegosiasi('pembayaran', '')
-        await this.props.onMounted('Negosiasi')
+        await this.props.onMounted('Pembayaran')
     }
 
     componentWillUnmount () {
@@ -82,7 +64,6 @@ export class PageListPembayaran extends Component{
         const {pageProgress, pageLoadingStatus, pageLoading, dataLoading} = this.props.page;
         const {dataNegosiasi} = this.props.negosiasi;
         const {filter} = this.props;
-
         if (pageLoading === true) {
             return(
                 <div>
@@ -103,21 +84,13 @@ export class PageListPembayaran extends Component{
                             </Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                            <Box display='flex' alignItems='center' style={{paddingLeft: '20px'}}>
-                                <Box display='flex' flexGrow={1} fontSize={18} fontFamily='Roboto'>Daftar Proses Pembayaran</Box>
-                                <Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Cari"
-                                        margin="dense"
-                                        variant="outlined"
-                                        value={this.state.searchKey}
-                                        onChange={this.handleChange}
-                                        onKeyUp={this.onSearch}
-                                    />
-                                </Box>
-                            </Box>
-                            <BasicTable columns={columns} data={dataNegosiasi} loading={dataLoading}/>
+                            <CustomTable 
+                                title='Daftar Proses Pembayaran' 
+                                onSearch={ (value) => {this.handleSearch(value)}} 
+                                columns={columns}
+                                data={dataNegosiasi}
+                                loading={dataLoading}
+                                />
                         </BasicPanelContent>
                     </BasicPanel>
                 </Fade>
@@ -137,6 +110,7 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         onMounted: bindActionCreators(onMounted, dispatch),
         prepareSearch: bindActionCreators(prepareSearch, dispatch),
         onSearched: bindActionCreators(onSearched, dispatch),

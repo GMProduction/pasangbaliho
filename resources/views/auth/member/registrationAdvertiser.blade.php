@@ -109,7 +109,7 @@
                                     <div class="input-group form-group">
                                         <span class="input-group-addon " id="basic-addon1"><i
                                                 class="fa fa-phone"></i></span>
-                                        <span class="input-group-addon " id="basic-addon1" style="border-right: 0;">62</i></span>
+                                        <span class="input-group-addon " id="basic-addon1" style="border-right: 0;">+62</i></span>
                                         <input type="number" name="telp"
                                             class="form-control  @error('telp') is-invalid @enderror"
                                             value="{{old('telp')}}" placeholder="87812345678"
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="col-md-11 col-sm-11 col-xs-11">
                                     <label for="terms" style="font-size: 10pt">Dengan masuk atau mendaftar saya menerima
-                                        <a href="/s&k" target="_blank"
+                                        <a href="/syarat-dan-ketentuan" target="_blank"
                                             title="You may read our terms and conditions by clicking on this link"
                                             class="text-primary">Syarat dan
                                             Ketentuan</a>

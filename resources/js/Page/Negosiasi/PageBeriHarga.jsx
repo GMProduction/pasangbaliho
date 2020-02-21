@@ -16,25 +16,21 @@ import compose from 'recompose/compose';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Preloading from '../../components/Material-UI/Preloading/Preloading';
+import PageNoData from '../../components/Material-UI/PageInfo/PageNoData';
 import {fetchNegosiasiById, patchNegosiasi} from '../../Actions/NegosiasiActions'; 
 import {fetchMediaUsedById} from '../../Actions/MediaIklanActions'; 
 import {prepareMount, pageOnProgress, onMounted, onSubmit, onNotify} from '../../Actions/pageActions';
-import {withStyles} from '@material-ui/core';
 
-import {mainApi} from '../../Controller/APIControll';
+
 import MBreadcumb from '../../components/Material-UI/Breadcumbs/MBreadcumb';
+import {dateFormater, formatAngka} from '../../Controller/Helper'
 
-const useStyles = theme => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-        },
-});
+
 
 const breadcumbItems = [
     {title: 'Dashboard', icon: 'dashboard', link:'/dashboard', active: false},
     {title: 'Negosiasi', icon: 'question_answer', link:'/dashboard/negosiasi', active: false},
-    {title: 'Daftar Negosiasi', icon: 'list',  active: true},
+    {title: 'Daftar Permintaan', icon: 'list',  active: true},
 ];
 
 export class PageBeriHarga extends Component {
@@ -112,27 +108,30 @@ export class PageBeriHarga extends Component {
         let id = this.props.match.params.id;
         let filter = this.props.filter;
         await this.props.prepareMount()
+        await this.props.pageOnProgress(30, 'Sedang Melakukan Fetch Data...')
         await this.props.fetchNegosiasiById(filter, id)
-        await this.props.fetchMediaUsedById(this.props.negosiasi.dataNegosiasiById.idBaliho)
+        if(this.props.negosiasi.dataNegosiasiById !== null){
+            await this.props.fetchMediaUsedById(this.props.negosiasi.dataNegosiasiById.idBaliho)
+        }
         await this.props.onMounted('Negosiasi')
     }
 
 
     render() {
-        const { classes } = this.props;
-        const {pageProgress, pageLoadingStatus, pageLoading, redirect} = this.props.page;
+        const {pageProgress, pageLoadingStatus, pageLoading} = this.props.page;
         const {dataNegosiasiByIdFound, dataNegosiasiById} = this.props.negosiasi;
         const {dataMediaUsage} = this.props.media;
         const filter = this.props.filter;
+
         let btnTitle = '', title = '';
         switch(filter){
             case 'permintaan' :
                 btnTitle = 'Terima';
-                title = 'Permintaan Harga';
+                title = 'PERMINTAAN HARGA';
                 break;
             case 'negoharga' :
-                btnTitle = 'Beri Kesapakatan Harga';
-                title = 'Negosiasi Harga';
+                btnTitle = 'Kirim Harga';
+                title = 'PERMINTAAN HARGA';
                 break;
             case 'negomateri' :
                 btnTitle = 'Submit';
@@ -154,7 +153,7 @@ export class PageBeriHarga extends Component {
         if (dataNegosiasiByIdFound !== true) {
             return(
                 <div>
-                    <h1>DATA NOT FOUND</h1>
+                    <PageNoData/>
                 </div>
             )
         }
@@ -169,132 +168,142 @@ export class PageBeriHarga extends Component {
 
         return (
             <div>
-                 <LoadingBar progress={pageProgress} height={3} color='#f11946' />
-                 <MBreadcumb items={breadcumbItems}/>
+                <LoadingBar progress={pageProgress} height={3} color='#f11946' />
+                <MBreadcumb items={breadcumbItems}/>
                 <Fade bottom>
                 <Grid container justify='center' spacing={2}>
-                <Grid item xs={12} sm={12} md={12} lg={8}>
+                <Grid item xs={12} sm={12} md={12} lg={10}>
                     <BasicPanel>
                         <BasicPanelHeader color='#9129AC'>
-                        <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi {title}</Box>
+                        <Box flexGrow={1} display="flex" alignItems="center">INFORMASI {title}</Box>
                         </BasicPanelHeader>
                         <BasicPanelContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Advertiser</Box>
-                                    <Box>:</Box>
-                                </Box>
+                        <Box fontWeight='Bold' fontSize={26} display='flex' justifyContent='flex-end'>
+                            {`Transaksi #${dataNegosiasiById.id_transaksi}`}
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Box fontWeight='Bold'>Pemohon :</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.namaInstansi}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.namaAdvertiser}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.alamat}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.email}</Box>
+                                <Box fontWeight={300}>{`(+)${dataNegosiasiById.telp}`}</Box>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaAdvertiser}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Instansi</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaInstansi}</Box>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Box fontWeight='Bold'>Mitra Penyedia :</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.namaClient}</Box>
+                                <Box fontWeight={300}>{dataNegosiasiById.emailClient}</Box>
+                                <Box fontWeight={300}>{`(+)${dataNegosiasiById.telpClient}`}</Box>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Email</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.email}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>No. Hp</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.telp}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Tgl. Pengajuan Sewa</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{`${dataNegosiasiById.tanggal_awal} s/d ${dataNegosiasiById.tanggal_akhir}`}</Box>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Jenis Media</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.kategori}</Box>
-                            </Grid>
-                        </Grid>
-                        
-                        
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Nama Media</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={12} lg={8}>
-                                <Box>{dataNegosiasiById.namaBaliho}</Box>
-                            </Grid>
-                        </Grid>
-                        {
-                            this.props.filter === 'negoharga' ?
-                            <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={12} lg={4}>
-                                <Box display='flex'>
-                                    <Box flexGrow={1} display='flex'>Harga Media Iklan</Box>
-                                    <Box>:</Box>
-                                </Box>
-                            </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={8}>
-                                    <Box>{dataNegosiasiById.hargaMarket}</Box>
+                        <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                        <Box style={{ backgroundColor: '#EEEEEE', marginBottom: '15px', padding: '15px', borderStyle: 'solid', borderWidth: '1px', borderRadius: '5px', borderColor: 'grey'}}>
+                            <Box display='flex' justifyContent='center' fontWeight='Bold'>
+                                INFORMASI PERMOHONAN
+                            </Box>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Tgl. Pengajuan
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dateFormater(dataNegosiasiById.tanggal_transaksi)}`}
                                 </Grid>
                             </Grid>
-                            : ''
-                        }
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Jenis Media
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dataNegosiasiById.kategori}`}
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={1}>
+                            <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Nama Media
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                    {`: ${dataNegosiasiById.namaBaliho}`}
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={1}>
+                            <Grid item xs={12} md={3} sm={3} lg={3}>
+                                    Tanggal Penyewaan
+                                </Grid>
+                                <Grid item xs={12} md={8} sm={8} lg={8}>
+                                {`: ${dateFormater(dataNegosiasiById.tanggal_awal)} Sampai Dengan ${dateFormater(dataNegosiasiById.tanggal_akhir)}`}
+                                </Grid>
+                            </Grid>
+                            {
+                                dataNegosiasiById.tampilHarga !== 'tidak terlihat' ?
+                                    <Grid container spacing={1}>
+                                    <Grid item xs={12} sm={3} md={3} lg={3}>
+                                            Kisaran Harga
+                                    </Grid>
+                                    <Grid item xs={12} sm={8} md={8} lg={8}>
+                                        {dataNegosiasiById.tampilHarga !== 'range' ?
+                                            ': Rp. '+formatAngka(dataNegosiasiById.hargaMarket)
+                                            :
+                                            ': Rp. '+formatAngka(dataNegosiasiById.hargaMarket)+ ' - Rp. '+ formatAngka(dataNegosiasiById.hargaMax)
+                                        }
+                                    </Grid>
+                                    </Grid>
+                                : 'Negosiasi Dengan Admin'
+                            }
+                        </Box>
                         <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                        {
-                            filter === 'permintaan' ?
-                            <React.Fragment>
-                                <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                            </React.Fragment>
-                            :
-                            <NumberTextfield InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaClient} onChange={
-                                (values) => {
-                                    const {formattedValue, value} = values;
-                                    this.setState({hargaDeal: formattedValue})
-                                }
-                            }/>
-                        }
-
+                        <Box style={{ backgroundColor: '#EEEEEE', marginBottom: '15px', padding: '15px', borderStyle: 'solid', borderWidth: '1px', borderRadius: '5px', borderColor: 'grey'}}>
+                            <Box display='flex' justifyContent='center' fontWeight='Bold'>
+                                Media Ini Tersewa Pada Tanggal
+                            </Box>
+                            {
+                                dataMediaUsage.length > 0 ?
+                                dataMediaUsage.map((row, id) => {
+                                return (
+                                    <Box key={id} display='flex' justifyContent='center' fontSize={14} fontWeight='bold'>{`${dateFormater(row.tanggal_awal)} s/d ${dateFormater(row.tanggal_akhir)}`}</Box>
+                                )
+                            }) : 
+                                <Box display='flex' fontSize={14} justifyContent='center' fontWeight='bold'>- Tidak Ada Penyewa -</Box>
+                            } 
+                        </Box>
                         {
                             this.state.batal ? 
-                            <TextField name='keterangan' id="keterangan" label="Keterangan Pembatalan" margin="dense" variant="outlined" fullWidth multiline rows="5"
+                            <React.Fragment>
+                                <TextField name='keterangan' id="keterangan" label="Keterangan Pembatalan" margin="dense" variant="outlined" fullWidth multiline rows="5"
                             value={this.state.keterangan} onChange={this.handleChange}/>
+                            <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                            </React.Fragment>
                             :
                             ''
                         }
+                        {
+                            filter === 'permintaan' ?
+                            ''
+                            :
+                            <React.Fragment>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} sm={12} md={8} lg={6}></Grid>
+                                <Grid item xs={12} sm={12} md={4} lg={6}>
+                                <Box display='flex' alignItems='center' justifyContent='flex-end'>
+                                    <Box fontWeight='Bold' fontSize={16} style={{marginRight: '15px'}}>
+                                    Kesepakatan Harga : 
+                                    </Box>
+                                    <Box>
+                                    <NumberTextfield InputProps={{startAdornment: <InputAdornment position="start">Rp.</InputAdornment>}} value={this.state.hargaDeal} onChange={
+                                        (values) => {
+                                            const {formattedValue, value} = values;
+                                            this.setState({hargaDeal: formattedValue})
+                                        }
+                                    }/>
+                                    </Box>
+                                </Box>
+                                </Grid>
+                            </Grid>
+                            <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
+                            </React.Fragment>
+                        }
+
+                        
                         
                         <Box display="flex" justifyContent='flex-end' alignItems="center">
                             <Button variant="outlined" color="secondary" startIcon={<Icon>close</Icon>} onClick={this.handleCancel}>
@@ -307,28 +316,6 @@ export class PageBeriHarga extends Component {
                         </BasicPanelContent>
                     </BasicPanel>
                 </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={4}>
-                        <BasicPanel>
-                            <BasicPanelHeader color='#9129AC'>
-                            <Box flexGrow={1} display="flex" alignItems="center"><Icon fontSize='inherit'>face</Icon>&nbsp; Informasi Ketersediaan Media</Box>
-                            </BasicPanelHeader>
-                            <BasicPanelContent>
-                            
-                            <Box fontSize={18} display='flex' justifyContent='center'>Baliho Ini Tersewa Pada Tanggal</Box>
-                            <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                             {
-                                dataMediaUsage.length > 0 ?
-                                dataMediaUsage.map((row, id) => {
-                                return (
-                                    <Box key={id} fontSize={14} fontWeight='bold'>{`- ${row.tanggal_awal} s/d ${row.tanggal_akhir}`}</Box>
-                                )
-                            }) : 
-                                <Box display='flex' fontSize={14} justifyContent='center' fontWeight='bold'>Tidak Ada Penyewa</Box>
-                            } 
-                             <Divider style={{marginTop: '15px', marginBottom: '15px'}}/>
-                            </BasicPanelContent>
-                        </BasicPanel>
-                    </Grid>
                 </Grid>
                 </Fade>
             </div>
@@ -347,6 +334,7 @@ function mapStateToProps(state) {
 function mapDispatcToProps (dispatch) {
     return {
         prepareMount: bindActionCreators(prepareMount, dispatch),
+        pageOnProgress: bindActionCreators(pageOnProgress, dispatch),
         fetchNegosiasiById: bindActionCreators(fetchNegosiasiById, dispatch),
         patchNegosiasi: bindActionCreators(patchNegosiasi, dispatch),
         fetchMediaUsedById: bindActionCreators(fetchMediaUsedById, dispatch),
@@ -357,10 +345,5 @@ function mapDispatcToProps (dispatch) {
 }
 
 export default compose(
-    withStyles(useStyles),
     connect(mapStateToProps, mapDispatcToProps) 
     )(PageBeriHarga);
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-}

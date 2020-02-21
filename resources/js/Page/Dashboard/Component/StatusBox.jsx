@@ -38,7 +38,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/mediaiklan/all' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/dashboard/mediaiklan/all' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -59,7 +59,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/mitra' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/dashboard/perlengkapan/mitra' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>
@@ -80,7 +80,7 @@ export class StatusBox extends Component {
                                 <Divider/> 
                                 <Typography component="div">
                                     <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                        <NavLink to='/advertiser' style={style.link}>Lihat Detail</NavLink>
+                                        <NavLink to='/dashboard/perlengkapan/advertiser' style={style.link}>Lihat Detail</NavLink>
                                     </Box>
                                 </Typography>
                             </IconPanelContent>

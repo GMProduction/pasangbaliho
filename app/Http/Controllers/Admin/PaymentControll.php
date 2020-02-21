@@ -60,6 +60,7 @@ class PaymentControll extends Controller
                         'balihos.nama_baliho as namaBaliho',
                         'advertisers.telp as telp', 
                         'advertisers.email as email', 
+                        'advertisers.alamat as alamat', 
                         'advertisers.nama_instansi as namaInstansi', 
                         'transaksi.harga_deal as hargaDeal',
                         'type',
@@ -120,6 +121,9 @@ class PaymentControll extends Controller
                 'transaksi.id_baliho as idBaliho',
                 'balihos.nama_baliho as namaBaliho', 
                 'balihos.id_kategori as idKategori', 
+                'balihos.harga_market as hargaMarket', 
+                'balihos.harga_max as hargaMax', 
+                'balihos.tampil_harga as tampilHarga',
                 'kategoris.kategori as kategori', 
                 'transaksi.status',
                 'tanggal_transaksi',
@@ -141,7 +145,8 @@ class PaymentControll extends Controller
     public function patchPayment(Request $r){
         try {
             $data = [
-                'status' => $r->status
+                'status' => $r->status,
+                'keterangan' => $r->keterangan
             ];
             
             PaymentModel::query()

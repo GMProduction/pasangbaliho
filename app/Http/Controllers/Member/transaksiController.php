@@ -24,7 +24,7 @@ class transaksiController extends Controller
         $hariini = $mytime->toDateString();
         $id = auth()->guard('advertiser')->user()->id;
 
-        $query = transaksiModel::query()
+        $berlangsung = transaksiModel::query()
             ->select(
                 'transaksi.*',
                 'balihos.id_baliho as id_baliho',
@@ -58,13 +58,11 @@ class transaksiController extends Controller
             ->where('transaksi.status', '!=', 'selesai')
             ->orwhere('transaksi.tanggal_awal', '>=', $hariini)
             ->orderBy('transaksi.created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
-        $data = [
-            'trans' => $query
-        ];
+        
 
-        return view('advertiser/data/transaksiberlangsung')->with($data);
+        return view('advertiser/data/transaksiberlangsung', compact('berlangsung'));
         // echo $query[0]->awal;
         // echo $hariini;
     }
