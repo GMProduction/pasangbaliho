@@ -37,10 +37,10 @@
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 iconKategori">
-                    <label for="">Text</label>
+                    <label for="">Cari</label>
                     <input type="text" name="txtCari" id="txtCari" class="form-control" placeholder="Masukkan kata kunci" value="{{old('txtCari')}}">
                 </div>
-            
+
             </div>
             <div class=" justify-content-center">
                 <div class="col-lg-6 col-md-6 col-sm-12  pt-3">
@@ -54,7 +54,7 @@
             </div>
             <div class="row justify-content-center p-3">
                 <div>
-                    
+
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row p-4 hide" id="produkIsi">
 
             <div class="">
@@ -98,16 +98,16 @@
                                 </div>
                             </div> --}}
                         <div class="row">
-               
-                                
-                            
+
+
+
                             @forelse ($produk as $p)
                             @php
                             $uri = $p->kategori.' '.$p->alamat.' '.$p->kota.' '.$p->provinsi;
                             $gantiTitik = str_replace('.','',$uri);
                             $urlweb = str_replace(' ', '-', $gantiTitik);
                         $title =$p->alamat.', '.$p->kota.', '.$p->provinsi
-                           
+
                            @endphp
 
                             <input type="hidden" name="id" value="{{$p->id_baliho}}">
@@ -142,20 +142,20 @@
                                                 <br>
                                                 @if ($p->tampil_harga == 'satu harga')
                                                 Rp. {{formatuang($p->harga_market)}} / Bulan</b>
-                                            
+
                                             @elseif($p->tampil_harga == 'range')
                                             Rp. {{formatuang($p->harga_market)}} s/d
                                             <br> Rp. {{formatuang($p->harga_max)}} / Bulan</b>
                                             @elseif($p->tampil_harga == 'tidak terlihat')
-                
+
                                             Hubungi admin</b>
-                                            
+
                                             @endif
-                
+
                                         </p>
                                                 <a href="/produk/{{$urlweb}}/{{$p->id_baliho}}"
                                                     class="btn btn-block btn-primary btn-sm">Detail</a>
-                                            
+
                                     </div>
                                     <!-- End portfolio-content -->
                                 </div>
